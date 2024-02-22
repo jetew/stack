@@ -218,4 +218,4 @@ frontmatter:
   lastmod: [":git", "lastmod", ":defalut"]
 
 enableGitInfo: true
-gitRepo: "https://github.com/jetew/kitin"
+gitRepo: "https://github.com/jetew/stack"
