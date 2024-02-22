@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Waline on Kitin's</title><link>/tags/waline/</link><description>Recent content in Waline on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Thu, 20 Oct 2022 10:50:47 +0800</lastBuildDate><atom:link href="/tags/waline/index.xml" rel="self" type="application/rss+xml"/><item><title>Waline 服务端独立部署方案</title><link>/p/waline_deploy/</link><pubDate>Thu, 20 Oct 2022 10:50:47 +0800</pubDate><guid>/p/waline_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>之前讲了通过 Vercel 来进行 Waline 服务端的部署，这是最简单，也是完全免费的方法；但是对于拥有自己服务器的人来说，可能更想要将 Waline 直接部署到自己的服务器上；毕竟服务器摆在那，不用也是浪费，何不将 Waline 服务端也部署自己的服务器上以方便进行管理呢？其实 Waline 提供了很多的部署方案，可以看 &lt;a class="link" href="https://waline.js.org/advanced/intro.html" target="_blank" rel="noopener"
+>这里
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> ；因为我一直使用的 Caddy 所以我就用 Caddy+MariaDB/MySQL 的方式来搭建，这里记录一下踩坑过程；当然你使用 Nginx/Apache 加上其他数据库的组合也是可以的。&lt;/p>
+&lt;h2 id="部署过程">部署过程&lt;/h2>
+&lt;h3 id="准备工作">准备工作&lt;/h3>
+&lt;p>域名解析这块就不多讲了，提前绑定到你的服务器 IP ；服务器基本配置与优化可以参考 &lt;a class="link" href="/p/setvps" >这里
+&lt;/a> ；至于 Web 服务这块，如果你使用 Nginx/Apache+MariaDB/MySQL 可以看 &lt;a class="link" href="/p/oneinstack" >这里
+&lt;/a> 搭建好 Web 服务与数据库。&lt;/p>
+&lt;p>如果你想和我一样使用 Caddy Server 那么你可以参考 &lt;a class="link" href="/p/caddy" >这里
+&lt;/a> 先搭建 Caddy Server ；然后来安装数据库，我这里以 MariaDB/MySQL 为例：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install mariadb-server -y
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完 MariaDB 后，键入以下命令来进行初始化：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mysql_secure_installation
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后根据下面提示进行操作：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mysql_secure_installation
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Enter current password &lt;span class="k">for&lt;/span> root &lt;span class="o">(&lt;/span>enter &lt;span class="k">for&lt;/span> none&lt;span class="o">)&lt;/span>: &lt;span class="c1"># 输入数据库密码，由于并未设置，所以直接回车&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Set root password? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y &lt;span class="c1"># 是否设置数据库 root 密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">New password:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Re-enter new password: &lt;span class="c1"># 输入两次数据库 root 密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Remove anonymous users? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y &lt;span class="c1"># 是否移除匿名用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow root login remotely? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y &lt;span class="c1"># 是否禁用 root 远程登陆&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Remove &lt;span class="nb">test&lt;/span> database and access to it? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y &lt;span class="c1"># 是否移除测试数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Reload privilege tables now? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y &lt;span class="c1"># 是否初始化数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">All &lt;span class="k">done&lt;/span>! If you&lt;span class="err">&amp;#39;&lt;/span>ve completed all of the above steps, your MariaDB
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">installation should now be secure.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Thanks &lt;span class="k">for&lt;/span> using MariaDB!
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你需要用软件进行远程管理数据库，那么就不要禁用远程登陆，并且需要通过防火墙来开放 &lt;code>3306&lt;/code> 端口&lt;/p>
+&lt;hr>
+&lt;h3 id="安装-nodejs">安装 Nodejs&lt;/h3>
+&lt;p>这里要注意，不要直接使用 &lt;code>apt install&lt;/code> 进行安装，因为软件包版本比较低，与 &lt;strong>npm&lt;/strong> 版本不匹配，从而导致后面报错。所以我们可以通过包管理器，或者二进制文件安装。&lt;/p>
+&lt;h4 id="包管理器安装">包管理器安装&lt;/h4>
+&lt;p>输入以下命令进行安装：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install -y ca-certificates curl gnupg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /etc/apt/keyrings
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key &lt;span class="p">|&lt;/span> gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NODE_MAJOR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">16&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_&lt;/span>&lt;span class="nv">$NODE_MAJOR&lt;/span>&lt;span class="s2">.x nodistro main&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> tee /etc/apt/sources.list.d/nodesource.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install nodejs -y
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中 &lt;code>NODE_MAJOR=16&lt;/code> 可以自行选择版本：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NODE_MAJOR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">16&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NODE_MAJOR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">18&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NODE_MAJOR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">20&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NODE_MAJOR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">21&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完成后可通过 &lt;code>node-v&lt;/code> 、&lt;code>nmp version&lt;/code>、&lt;code>npx -v&lt;/code> 检验安装&lt;/p>
+&lt;p>卸载：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get purge nodejs &lt;span class="o">&amp;amp;&amp;amp;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>rm -r /etc/apt/sources.list.d/nodesource.list &lt;span class="o">&amp;amp;&amp;amp;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>rm -r /etc/apt/keyrings/nodesource.gpg
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="二进制安装">二进制安装&lt;/h4>
+&lt;p>从 &lt;a class="link" href="https://nodejs.org/" target="_blank" rel="noopener"
+>Nodejs官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 下载二进制包，通过创建软链接至系统用户应用程序目录来使用。&lt;/p>
+&lt;p>打开 Nodejs 官网，点击 Downloads 然后右键复制 Linux Binaries (x64) 的下载链接：&lt;/p>
+&lt;p>&lt;img src="/p/waline_deploy/1.png"
+width="1152"
+height="628"
+srcset="/p/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_480x0_resize_box_3.png 480w, /p/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 二进制文件下载"
+class="gallery-image"
+data-flex-grow="183"
+data-flex-basis="440px"
+>&lt;/p>
+&lt;p>然后回到 SSH 软件，使用 &lt;code>wget&lt;/code> 命令，下载到任意位置并进行解压然后删除压缩包；我这里以 &lt;strong>/usr/local/src&lt;/strong> 为例：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src &lt;span class="c1"># 进入目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://nodejs.org/dist/v16.18.0/node-v16.18.0-linux-x64.tar.xz &lt;span class="c1"># 下载二进制包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -Jxvf node-v16.18.0-linux-x64.tar.xz &lt;span class="c1"># 解压&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv node-v16.18.0-linux-x64 node &lt;span class="c1"># 重命名文件夹&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑 &lt;code>~/.profile&lt;/code> 设置环境变量，加入：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">VERSION&lt;/span>&lt;span class="o">=&lt;/span>v16.18.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/src/node/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>完成后可通过 &lt;code>node -v&lt;/code> 、 &lt;code>npm version&lt;/code> 、 &lt;code>npx -v&lt;/code> 进行验证，返回版本号则表示成功。&lt;/p>
+&lt;h4 id="源码编译安装">源码编译安装&lt;/h4>
+&lt;p>首先安装依赖：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get install python3 g++ make python3-pip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>打开 &lt;a class="link" href="https://nodejs.org/" target="_blank" rel="noopener"
+>Nodejs官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> ，复制 &lt;code>Source Code&lt;/code> 源码下载地址，接着进行操作：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://nodejs.org/dist/v20.10.0/node-v20.10.0.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxvf node-v20.10.0.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv node-v20.10.0 node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./configure --prefix&lt;span class="o">=&lt;/span>/usr/local/node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">screen -S node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> make install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完成之后为软件设置环境变量：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/profile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在最后添加：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">VERSION&lt;/span>&lt;span class="o">=&lt;/span>vxx.xx.x
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/node/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>为软件设置软链接：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/node /usr/bin/node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/npm /usr/bin/npm
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/npx /usr/bin/npx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>源码编译安装比较费时，具体时间视机器配置而定，可酌情选择安装方式。&lt;/p>
+&lt;hr>
+&lt;h3 id="安装-waline">安装 Waline&lt;/h3>
+&lt;p>按照官方给出的独立部署中直接运行的方案，进入你想要安装的位置，安装好模块后直接运行模块内的 vanilla.js 文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/node/lib
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install -g @waline/vercel
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>国内服务器请先将 &lt;strong>npm&lt;/strong> 设置为国内镜像！！！&lt;/p>
+&lt;h4 id="更换镜像">更换镜像&lt;/h4>
+&lt;ol>
+&lt;li>临时更换&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm --registry https://registry.npmmirror.com install -g @waline/vercel
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>永久更换&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm config &lt;span class="nb">set&lt;/span> registry https://registry.npmmirror.com
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>还原 npm 镜像&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm config &lt;span class="nb">set&lt;/span> registry https://registry.npmjs.org/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>下载完成后，可以试着运行一下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">node node_modules/@waline/vercel/vanilla.js
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>成功的话可以看到提示：&lt;/p>
+&lt;p>&lt;img src="/p/waline_deploy/2.png"
+width="600"
+height="89"
+srcset="/p/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_480x0_resize_box_3.png 480w, /p/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 运行状态"
+class="gallery-image"
+data-flex-grow="674"
+data-flex-basis="1617px"
+>&lt;/p>
+&lt;p>此时你可以通过 &lt;strong>IP:8360&lt;/strong> 进行访问；不要着急，按捺下你的小激动，按下 &lt;kbd>&lt;kbd>CTRL&lt;/kbd>+&lt;kbd>C&lt;/kbd>&lt;/kbd> 关闭，然后跟着我继续进行配置。&lt;/p>
+&lt;hr>
+&lt;h3 id="配置数据库">配置数据库&lt;/h3>
+&lt;p>到官方文档的 &lt;a class="link" href="https://waline.js.org/guide/server/databases.html" target="_blank" rel="noopener"
+>多数据库服务支持
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 下载我们对应数据库的数据文件，我这里用的 MariaDB(MySQL) 所以下载 &lt;a class="link" href="https://github.com/walinejs/waline/blob/main/assets/waline.sql" target="_blank" rel="noopener"
+>waline.sql
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 然后进行导入数据：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>注意&lt;/strong>：将源代码直接复制然后自己进行编辑上传，不要直接使用 &lt;code>wget&lt;/code> 进行下载。&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mysql -uroot -p &lt;span class="c1"># 登陆数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Enter password: &lt;span class="c1"># 输入密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">CREATE DATABASE waline&lt;span class="p">;&lt;/span> &lt;span class="c1"># 创建 waline 数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">USE waline&lt;span class="p">;&lt;/span> &lt;span class="c1"># 指定数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> /path/waline.sql &lt;span class="c1"># 导入文件，/path改为你的路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">quit &lt;span class="c1"># 退出数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建用户名，密码并赋予 waline 数据库的权限(可选)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mysql -uroot -p
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Enter password:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">CREATE USER &lt;span class="s1">&amp;#39;waline&amp;#39;&lt;/span>@&lt;span class="s1">&amp;#39;%&amp;#39;&lt;/span> IDENTIFIED BY &lt;span class="s1">&amp;#39;密码&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GRANT ALL PRIVILEGES ON waline.* TO &lt;span class="s1">&amp;#39;waline&amp;#39;&lt;/span>@&lt;span class="s1">&amp;#39;%&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">flush privileges&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">quit
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="配置-systemd-服务">配置 systemd 服务&lt;/h3>
+&lt;p>为了方便 Waline 的正常运行与管理，我使用的是 systemd 服务进行管理，创建文件并进行编辑(拿不准的可以在本地新建文件，编辑之后上传)：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /etc/systemd/system/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">touch waline.service
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim waline.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>模板如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-service" data-lang="service">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">Waline&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Service]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">simple&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">[/path/to/node] [path/to/node_modules]/@waline/vercel/vanilla.js&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Restart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">always&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">PATH=/usr/bin:/usr/local/bin&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">NODE_ENV=production&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">MYSQL_DB=数据库名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">MYSQL_USER=用户名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">MYSQL_PASSWORD=密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WorkingDirectory&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">[/path/to/node_modules]/@waline/vercel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Install]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">multi-user.target&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，占位符内容如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">[/path/to/node]：node 可执行文件绝对路径
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[path/to/node_modules]：通过 npm 安装模块位置
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我的配置如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-service" data-lang="service">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">Waline&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Service]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">simple&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/usr/bin/node /usr/local/node/lib/node_modules/@waline/vercel/vanilla.js&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Restart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">always&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">PATH=/usr/bin:/usr/local/bin&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">NODE_ENV=production&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">MYSQL_DB=数据库名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">MYSQL_USER=用户名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">MYSQL_PASSWORD=密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WorkingDirectory&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/usr/local/node/lib/node_modules//@waline/vercel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Install]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">multi-user.target&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你之前按照我的步骤来安装 &lt;strong>Node&lt;/strong> 和 &lt;strong>Waline&lt;/strong> 那么直接将脚本复制然后修改参数即可，如果你的位置和我不一样，那么就需要将 &lt;strong>ExecStart&lt;/strong> 和 &lt;strong>WorkingDirectory&lt;/strong> 项中的路径换成你自己的。不确定可以使用命令查一下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">where is node &lt;span class="c1"># node 位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm root -g &lt;span class="c1"># npm 全局安装位置&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在 &lt;code>[Service]&lt;/code> 项中，你可以通过 &lt;code>Environment&lt;/code> 直接添加 Waline 插件的环境变量&lt;/p>
+&lt;p>保存/上传完毕后，让 systemd 重新载入单元文件，并启动 Waline ：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl daemon-reload
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl start waline
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此时再访问 http://IP:8360 ，你就能看到评论页面了。&lt;/p>
+&lt;p>一些常用的命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl stop waline &lt;span class="c1"># 停止服务&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl restart waline &lt;span class="c1"># 重启服务&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl status waline &lt;span class="c1"># 服务状态&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl &lt;span class="nb">enable&lt;/span> waline &lt;span class="c1"># 添加开机自启动&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="反向代理设置">反向代理设置&lt;/h3>
+&lt;p>如果你不想通过 IP:8360 进行访问，那么就需要设置反向代理来通过域名进行访问了这里提供两个配置：&lt;/p>
+&lt;h4 id="caddy">Caddy&lt;/h4>
+&lt;p>我使用的是 Caddy ， Caddy 反代需要修改 &lt;strong>/etc/caddy/Caddyfile&lt;/strong> 文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/waline&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">encode&lt;/span> &lt;span class="s">gzip&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">reverse_proxy&lt;/span> &lt;span class="n">127.0.0.1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8360&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">tls&lt;/span> &lt;span class="s">user@email.com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="nginx">Nginx&lt;/h4>
+&lt;p>Nginx 反向代理如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">location&lt;/span> &lt;span class="s">/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://127.0.0.1:8360&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Real-IP&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-Proto&lt;/span> &lt;span class="nv">$scheme&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">REMOTE-HOST&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">add_header&lt;/span> &lt;span class="s">X-Cache&lt;/span> &lt;span class="nv">$upstream_cache_status&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># cache
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">add_header&lt;/span> &lt;span class="s">Cache-Control&lt;/span> &lt;span class="s">no-cache&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">expires&lt;/span> &lt;span class="s">12h&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>以上就是我通过 Caddy+MariaDB 独立部署 Waline 的过程，希望能给大家带来帮助。后期如果需要设置邮件通知等功能可以在 waline.service 文件中的 &lt;strong>[Service]&lt;/strong> 项下直接添加 Environment= 然后根据官方给出的环境变量进行设置即可。&lt;/p>
+&lt;p>若 Waline 后台发现有更新提示，可通过 &lt;code>npm&lt;/code> 对 Waline 进行更新：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm update @waline/vercel
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="参考资料">参考资料&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://waline.js.org" target="_blank" rel="noopener"
+>Waline 官方文档
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/nodesource/distributions/blob/master/README.md" target="_blank" rel="noopener"
+>NodeSource - Node.js 官方二进制发行版
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/nodejs/help/wiki/Installation" target="_blank" rel="noopener"
+>通过二进制文件安装 Node.js
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.ruanyifeng.com/blog/2016/03/node-systemd-tutorial.html" target="_blank" rel="noopener"
+>Node 应用的 Systemd 启动
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>为 Hugo 博客开启评论系统</title><link>/p/hugo_comment/</link><pubDate>Sat, 15 Oct 2022 10:50:47 +0800</pubDate><guid>/p/hugo_comment/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>我的博客作为自己记录的地方，没有去做 SEO 也没有去进行优化；可以说完全没有必要去开启评论，但是为什么又添加了评论呢？我觉得万一有人看到了我博客中的一些内容，有什么没有了解的地方，或者说有什么地方需要进行交流，需要进行简单的评论该怎么办？为了这一两句话不可能去到邮箱里跟你进行深度交流，于是最后还是决定开启评论功能，并再此进行一个分享。&lt;/p>
+&lt;h3 id="评论系统选择">评论系统选择&lt;/h3>
+&lt;p>对于评论系统，我的感觉是一定要便捷，填上昵称，邮件等就可以进行评论，不需要进行注册等繁琐操作； Hugo 中也有许多自带的评论系统，但是大多数都是海外的，使用起来很不方便。最终决定使用基于 Valine 的 Waline ；下面就来讲一下我自己配置的过程。&lt;/p>
+&lt;hr>
+&lt;h2 id="通用配置">通用配置&lt;/h2>
+&lt;h3 id="注册-leancloud">注册 LeanCloud&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://leancloud.app" target="_blank" rel="noopener"
+>LeanCloud 国际版
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>推荐使用国际版，国内版的话需要绑定已备案域名，比较麻烦。。。首先 &lt;a class="link" href="https://console.leancloud.app/login" target="_blank" rel="noopener"
+>登陆
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 或 &lt;a class="link" href="https://console.leancloud.app/register" target="_blank" rel="noopener"
+>注册
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> &lt;strong>LeanCloud国际版&lt;/strong> 并进入 &lt;a class="link" href="https://console.leancloud.app/apps" target="_blank" rel="noopener"
+>控制台
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;p>进入控制台后，点击创建应用，输入你喜欢的应用名称，选择开发版，然后点击创建：&lt;/p>
+&lt;p>&lt;img src="/p/hugo_comment/1.png"
+width="1356"
+height="651"
+srcset="/p/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_480x0_resize_box_3.png 480w, /p/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 创建应用"
+class="gallery-image"
+data-flex-grow="208"
+data-flex-basis="499px"
+>&lt;/p>
+&lt;p>进入应用，选择左下角的 &lt;strong>设置 &amp;gt; 应用凭证&lt;/strong> 。你可以看到你的各种凭证，先放在这里，后面会用上：&lt;/p>
+&lt;p>&lt;img src="/p/hugo_comment/2.png"
+width="1107"
+height="766"
+srcset="/p/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_480x0_resize_box_3.png 480w, /p/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 应用凭证"
+class="gallery-image"
+data-flex-grow="144"
+data-flex-basis="346px"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="评论系统配置">评论系统配置&lt;/h2>
+&lt;h3 id="valine-配置">Valine 配置&lt;/h3>
+&lt;p>一般来说 Valine 是 Hugo 主题里自带集成的，去稍微配置下就可以使用了；以我正在使用的 Zzo 主题演示。打开博客根目录，找到 &lt;strong>config/_default&lt;/strong> 打开 &lt;strong>params.toml&lt;/strong> 配置文件，然后按照下面注释进行修改：&lt;/p>
+&lt;p>有的主题就是在根目录的 &lt;strong>config.toml&lt;/strong> ，需要自己去查看；所有修改应该基于博客根目录，不要去动主题中的文件；渲染时会对主题目录的配置进行覆盖，即：将主题中需要修改的文件复制到博客根目录对应位置，再修改博客根目录文件。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># comment&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">enableComment&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="c"># 开启评论&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">disqus_shortname&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">commento&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># Valine.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># You can get your appid and appkey from https://leancloud.cn&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># more info please open https://valine.js.org&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">[&lt;/span>&lt;span class="nx">valine&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">enable&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="c"># 开启 Valine&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">appId&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span> &lt;span class="c"># AppID 为 你在 LeanCloud 应用凭证中的 AppLD&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">appKey&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span> &lt;span class="c"># AppKey 为 你在 LeanCloud 应用凭证中的 AppKey&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">notify&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span> &lt;span class="c"># &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">verify&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span> &lt;span class="c"># &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">avatar&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;mp&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">placeholder&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;说点什么吧...&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">visitor&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>配置项及参数参考： &lt;a class="link" href="https://valine.js.org/configuration.htmlValine" target="_blank" rel="noopener"
+>配置项
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>一般来说，主题的 Valine 评论系统，直接在主题配置文件中设置相应的参数开启即可。如果不是自带的可以往下看 Waline 的操作。&lt;/p>
+&lt;hr>
+&lt;h3 id="waline-配置">Waline 配置&lt;/h3>
+&lt;h4 id="通过-vercel-部署服务端">通过 Vercel 部署服务端&lt;/h4>
+&lt;ul>
+&lt;li>这一部分可以直接看官方给出的教程 &lt;a class="link" href="https://waline.js.org/guide/get-started.html#vercel-%e9%83%a8%e7%bd%b2-%e6%9c%8d%e5%8a%a1%e7%ab%afVercel" target="_blank" rel="noopener"
+>部署 ( 服务端 )
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h4 id="引入-waline-及配置">引入 Waline 及配置&lt;/h4>
+&lt;p>我正在用的 Zzo 主题是不自带 Waline 的，所以我就要进行引入；Zzo 主题关于评论系统的文件夹与文件分别为：&lt;/p>
+&lt;blockquote>
+&lt;ul>
+&lt;li>~/themes/zzo/layouts/partials/comments&lt;/li>
+&lt;li>~/themes/zzo/layouts/partials/comments/comments.html&lt;/li>
+&lt;li>~/config/_default/params.toml&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>和上文一样，修改主题的原则是将主题目录中的文件复制到你博客所在根目录的相同位置进行修改，不要对主题文件夹中的文件进行直接修改；这样做的好处是以后更新主题时，你所做的修改不会被覆盖。&lt;/p>
+&lt;p>首先打开主题文件夹的 &lt;strong>layouts/partials/comments&lt;/strong> 找到 &lt;strong>comments.html&lt;/strong> 和 &lt;strong>valine.html&lt;/strong> 将其复制到博客根目录对应位置，先打开 &lt;strong>comment.html&lt;/strong> 进行编辑，按照相同的格式，加上 Waline：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">{{ if $.Param &amp;#34;enableComment&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ if $.Param &amp;#34;disqus_shortname&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/disqus.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;commento&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/commento.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;valine.enable&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/valine.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;changyan.changyanAppid&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/changyan.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;livere.livereUID&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/livere.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;gitment.owner&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/gitment.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;gitalk.owner&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/gitalk.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;utterances.owner&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/utterances.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;isso.enable&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/isso.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;telegram.enable&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/telegram.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ {{ else if $.Param &amp;#34;waline.enable&amp;#34; }}
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ {{ partial &amp;#34;comments/waline.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span> {{ end }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{{ end }}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后再打开 &lt;strong>waline.html&lt;/strong> ，按照官方给出的 &lt;a class="link" href="https://waline.js.org/migration/valine.html" target="_blank" rel="noopener"
+>从 Valine 迁移
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 进行引入：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">&lt;span class="gd">-&amp;lt;script src=&amp;#39;//unpkg.com/valine/dist/Valine.min.js&amp;#39;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+&amp;lt;script src=&amp;#39;//unpkg.com/@waline/client@v2/dist/waline.js&amp;#39;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+&amp;lt;link href=&amp;#39;//unpkg.com/@waline/client@v2/dist/waline.css&amp;#39; rel=&amp;#39;stylesheet&amp;#39; /&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span> &amp;lt;script&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- new Valine({
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+ Waline.init({
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span> el: &amp;#39;#vcomments&amp;#39;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- appId: &amp;#39;Your appId&amp;#39;,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- appKey: &amp;#39;Your appKey&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+ serverURL: &amp;#39;YOUR SERVER URL&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span> });
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;lt;/script&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>基本的引入完成后，打开 &lt;strong>config/_default/params.toml&lt;/strong> 添加 Waline 并设置：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="line">&lt;span class="cl">&lt;span class="p">[&lt;/span>&lt;span class="nx">waline&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">enable&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ServerURL&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span> &lt;span class="c"># 服务端网址是你给 Vercel 服务端绑定的域名&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你想进行一些个性化的设置，可以参考以下官网。下面是我自己的一个简单的配置：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>~/config/_default/params.tomlparams.toml&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="line">&lt;span class="cl">&lt;span class="p">[&lt;/span>&lt;span class="nx">waline&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">enable&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">ServerURL&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;https://domain.com&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Lang&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;zh-CN&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Meta&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;nick&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;mail&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;link&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">RequiredMeta&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;nick&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Login&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;disable&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">PageSize&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;10&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">HighLighter&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>~/layouts/partials/comments/waline.html&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;vcomments&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#39;//unpkg.com/@waline/client@v2/dist/waline.js&amp;#39;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">link&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#39;//unpkg.com/@waline/client@v2/dist/waline.css&amp;#39;&lt;/span> &lt;span class="na">rel&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#39;stylesheet&amp;#39;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Waline&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">init&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">el&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;#vcomments&amp;#39;&lt;/span> &lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">locale&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">placeholder&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;请注意评论礼仪，发布攻击性、无意义内容将会视为垃圾评论进行删除处理。&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">nick&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;昵称*&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">serverURL&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;{{ .Site.Params.waline.ServerURL }}&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">emoji&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;//unpkg.com/@waline/emojis@1.1.0/alus&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;//unpkg.com/@waline/emojis@1.1.0/tieba&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">lang&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;{{ .Site.Params.waline.Lang }}&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">meta&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{{&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nx">Site&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Params&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">waline&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Meta&lt;/span> &lt;span class="p">}},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">requiredMeta&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{{&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nx">Site&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Params&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">waline&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">RequiredMeta&lt;/span> &lt;span class="p">}},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">login&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;{{ .Site.Params.waline.Login }}&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">pageSize&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;{{ .Site.Params.waline.PageSize }}&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">highlighter&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{{&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nx">Site&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Params&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">waline&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Highlighter&lt;/span> &lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;p>配置完成之后你就可以在运行 &lt;code>hugo server&lt;/code> 在本地进行评论测试了:&lt;/p>
+&lt;p>&lt;img src="/p/hugo_comment/3.png"
+width="1019"
+height="610"
+srcset="/p/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_480x0_resize_box_3.png 480w, /p/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 本地测试"
+class="gallery-image"
+data-flex-grow="167"
+data-flex-basis="400px"
+>&lt;/p>
+&lt;hr>
+&lt;h3 id="评论管理">评论管理&lt;/h3>
+&lt;p>Waline 带有后台，可以实现对评论的管理。部署完成后访问 &lt;code>&amp;lt;serverURL&amp;gt;/ui/register&lt;/code> 进行注册，第一个注册的账户会被设定成管理员。&lt;/p>
+&lt;p>登录成功后就可以看到评论管理的界面了。在这里可以修改、标记或删除评论。在评论的时候，如果选择登陆账户后进行评论，你的评论昵称后面会显示「博主」字样。如果没有登陆后台评论，一样是不会显示的。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>以上就是 Hugo 博客添加评论系统的过程，希望能给大家做一个参考；至于使用什么评论系统也是看自己的喜好和选择了。没有什么是最好的，只有最适合你自己的。到此 Hugo 搭建博客的一个入门流程也算是结束了，以后自己折腾多了，有时间了；也会进行更进一步的发掘和分享。&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://leancloud.app" target="_blank" rel="noopener"
+>LeanCloud 国际版
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://valine.js.org" target="_blank" rel="noopener"
+>Valine 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://vercel.com" target="_blank" rel="noopener"
+>Vrecel 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://waline.js.org" target="_blank" rel="noopener"
+>Waline 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol></description></item></channel></rss>

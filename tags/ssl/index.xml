@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SSL on Kitin's</title><link>/tags/ssl/</link><description>Recent content in SSL on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Fri, 02 Dec 2022 10:17:55 +0800</lastBuildDate><atom:link href="/tags/ssl/index.xml" rel="self" type="application/rss+xml"/><item><title>SSL 证书安装部署</title><link>/p/own_ssl/</link><pubDate>Fri, 02 Dec 2022 10:17:55 +0800</pubDate><guid>/p/own_ssl/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>在之前的文章中讲了在添加网站时通过 Oneinstack（LNMP 一键安装包）的 acme.sh/Caddy 来自动安装部署免费证书，当然你也可以使用自己的证书替代免费证书来进安装部署；现在来看下如何进行操作。&lt;/p>
+&lt;h3 id="场景与前提">场景与前提&lt;/h3>
+&lt;p>由于我使用的是 Oneintack 安装的 Nginx 和 Caddy 服务，所以本文以 Nginx/Caddy 视角进行操作。我的域名是在腾讯云下，并使用他们提供的为期1年免费 Trust Asia 证书，所以我以这些前提为演示；使用其他的也是完全可以的。&lt;/p>
+&lt;h2 id="操作步骤">操作步骤&lt;/h2>
+&lt;h3 id="下载并上传证书">下载并上传证书&lt;/h3>
+&lt;p>首先登陆到域名控制面板，申请好你所需要的证书，然后下载到本地；如我在腾讯云下载的 Nginx 类型证书：&lt;/p>
+&lt;ul>
+&lt;li>文件内容：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">domain.com_nginx.zip
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├ domain.com_nginx
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ ├ domain.com.scr
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ ├ domain.com.key
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ ├ domain.com_bundle.crt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ ├ domain.com_bundle.pem
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将其解压出来，并全部命名为 &lt;code>domian.com.xxx&lt;/code> ；然后将 &lt;code>domain.com.scr&lt;/code> 、&lt;code>domian.com.key&lt;/code> 和 &lt;code>domian.com.crt&lt;/code> 上传至 SSL 存放位置。&lt;/p>
+&lt;p>通过 Oneinistack 安装的位置位于 &lt;code>/usr/local/nginx/conf/ssl&lt;/code>&lt;/p>
+&lt;h3 id="添加网站">添加网站&lt;/h3>
+&lt;p>上传完成后，即可使用 Oneinstack 通过自有证书模式添加网站：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">~/oneinstack/vhost.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输入 &lt;code>2&lt;/code> 选择自有 SSL ，然后完成添加即可。&lt;/p>
+&lt;p>添加完成后可通过 &lt;code>nginx -t&lt;/code> 进行测试，无误后即可通过 &lt;code>nginx -s reload&lt;/code> 重载 Nginx：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nginx -t
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nginx: configuration file /usr/local/nginx/conf/nginx.conf &lt;span class="nb">test&lt;/span> is successful
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nginx -s reload
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用已有网站">使用已有网站&lt;/h3>
+&lt;p>若需要将证书部署至已有网站，则修改对应的配置文件即可，配置文件位于 &lt;code>/usr/local/nginx/conf/vhost/domian.com.conf&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /usr/local/nginx/conf/vhost/domian.com.conf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>按照备注位置修改证书路径：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">80&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="s">[::]:80&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">443&lt;/span> &lt;span class="s">ssl&lt;/span> &lt;span class="s">http2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="s">[::]:443&lt;/span> &lt;span class="s">ssl&lt;/span> &lt;span class="s">http2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate&lt;/span> &lt;span class="s">/usr/local/nginx/conf/ssl/domain.com.crt&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 证书文件的相对路径或绝对路径
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">ssl_certificate_key&lt;/span> &lt;span class="s">/usr/local/nginx/conf/ssl/domain.com.key&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 私钥文件的相对路径或绝对路径
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">ssl_protocols&lt;/span> &lt;span class="s">TLSv1.2&lt;/span> &lt;span class="s">TLSv1.3&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_ecdh_curve&lt;/span> &lt;span class="s">X25519:prime256v1:secp384r1:secp521r1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_ciphers&lt;/span> &lt;span class="s">ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_conf_command&lt;/span> &lt;span class="s">Ciphersuites&lt;/span> &lt;span class="s">TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_conf_command&lt;/span> &lt;span class="s">Options&lt;/span> &lt;span class="s">PrioritizeChaCha&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_prefer_server_ciphers&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_session_timeout&lt;/span> &lt;span class="mi">10m&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_session_cache&lt;/span> &lt;span class="s">shared:SSL:10m&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_buffer_size&lt;/span> &lt;span class="mi">2k&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">add_header&lt;/span> &lt;span class="s">Strict-Transport-Security&lt;/span> &lt;span class="s">max-age=15768000&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_stapling&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_stapling_verify&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改完成后可通过 &lt;code>nginx -t&lt;/code> 进行测试，无误后即可通过 &lt;code>nginx -s reload&lt;/code> 重载 Nginx：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nginx -t
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nginx: configuration file /usr/local/nginx/conf/nginx.conf &lt;span class="nb">test&lt;/span> is successful
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nginx -s reload
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="caddy-操作">Caddy 操作&lt;/h3>
+&lt;p>同样将 &lt;code>domian.com.key&lt;/code> 和 &lt;code>domian.com.crt&lt;/code> 上传至服务器，比如我上传到 &lt;code>/var/caddy/ssl&lt;/code> 目录下，然后对 &lt;code>Caddyfile&lt;/code> 进行修改：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">log&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">output&lt;/span> &lt;span class="s">file&lt;/span> &lt;span class="s">/var/log/caddy/domain.com.log&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">level&lt;/span> &lt;span class="s">error&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/domain.com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">encode&lt;/span> &lt;span class="s">gzip&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">handle_errors&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">rewrite&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/&lt;/span>&lt;span class="se">{err.status_code}&lt;/span>&lt;span class="s">.html&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">php_fastcgi&lt;/span> &lt;span class="s">unix//run/php/php7.4-fpm.sock&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">tls&lt;/span> &lt;span class="nd">/path/to/domain.com.pem&lt;/span> &lt;span class="s">/path/to/domain.com.key&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # 证书和密钥的 PEM 格式的文件绝对路径，注意中间空格
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置完毕后，通过以下命令进行测试：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">caddy adapt --config /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>确认无误后重载配置文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">caddy reload --config /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>若出现 &lt;code>ERR_SSL_PROTOCOL_ERROR&lt;/code>，可重载 Caddy:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart caddy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>以上就是 Nginx/Caddy 服务下安装部署 SSL 证书的详细过程，希望能对大家有所帮助。&lt;/p>
+&lt;h3 id="参考资料">参考资料&lt;/h3>
+&lt;ol>
+&lt;li>&lt;a class="link" href="https://cloud.tencent.com/document/product/400/35244" target="_blank" rel="noopener"
+>Nginx 服务器 SSL 证书安装部署
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>指定签发 SSL CA 机构</title><link>/p/setca/</link><pubDate>Thu, 24 Nov 2022 09:32:18 +0800</pubDate><guid>/p/setca/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>前几天使用 Oneinstack 添加网站进行临时测试，在自动签发 SSL 时发现证书签发失败；找了很久尝试了很多解决方法，但是并没有作用。。。然后想有没有可能是因为在同一 IP 多次申请 SSL 证书然后被限制了；但是我并没有进行多次申请。。。不管怎么样还是更换一下 CA 机构看看能不能解决，没想竟然成功了；虽然没有找到问题的原因，但最终还是解决了。遂在此进行一个记录。&lt;/p>
+&lt;h2 id="指定-ca-机构">指定 CA 机构&lt;/h2>
+&lt;h3 id="服务器环境">服务器环境&lt;/h3>
+&lt;p>我的服务器使用的是 Debian 10/11 ，Web 服务使用的是 Nginx/Caddy ；LNMP 环境由 Oneinstack 自动安装&lt;/p>
+&lt;h3 id="nginx">Nginx&lt;/h3>
+&lt;p>由于 Oneinstack 集成了 acme.sh ，所以直接更换 acme.sh 的默认 CA 即可（我之前的是 Let&amp;rsquo;s Encrypt ，现在换成 ZeroSSL ）：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> ~/.acme.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">acme.sh --set-default-ca --server zerossl
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>CA 机构：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">CA 机构&lt;/th>
+&lt;th style="text-align:center">有效期&lt;/th>
+&lt;th style="text-align:center">ECC&lt;/th>
+&lt;th style="text-align:center">域名数&lt;/th>
+&lt;th style="text-align:center">通配符&lt;/th>
+&lt;th style="text-align:center">IPV4&lt;/th>
+&lt;th style="text-align:center">IPV6&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">Let&amp;rsquo;s Encrypt&lt;/td>
+&lt;td style="text-align:center">90&lt;/td>
+&lt;td style="text-align:center">Yes&lt;/td>
+&lt;td style="text-align:center">100&lt;/td>
+&lt;td style="text-align:center">Yes&lt;/td>
+&lt;td style="text-align:center">No&lt;/td>
+&lt;td style="text-align:center">No&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">ZeroSSL&lt;/td>
+&lt;td style="text-align:center">90&lt;/td>
+&lt;td style="text-align:center">Yes&lt;/td>
+&lt;td style="text-align:center">100&lt;/td>
+&lt;td style="text-align:center">Yes&lt;/td>
+&lt;td style="text-align:center">No&lt;/td>
+&lt;td style="text-align:center">No&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Google&lt;/td>
+&lt;td style="text-align:center">90&lt;/td>
+&lt;td style="text-align:center">Yes&lt;/td>
+&lt;td style="text-align:center">100&lt;/td>
+&lt;td style="text-align:center">Yes&lt;/td>
+&lt;td style="text-align:center">No&lt;/td>
+&lt;td style="text-align:center">No&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Buypass&lt;/td>
+&lt;td style="text-align:center">180&lt;/td>
+&lt;td style="text-align:center">Yes&lt;/td>
+&lt;td style="text-align:center">5&lt;/td>
+&lt;td style="text-align:center">Paid&lt;/td>
+&lt;td style="text-align:center">No&lt;/td>
+&lt;td style="text-align:center">No&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">SSL.com&lt;/td>
+&lt;td style="text-align:center">90&lt;/td>
+&lt;td style="text-align:center">Yes&lt;/td>
+&lt;td style="text-align:center">2&lt;/td>
+&lt;td style="text-align:center">Paid&lt;/td>
+&lt;td style="text-align:center">No&lt;/td>
+&lt;td style="text-align:center">No&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">HiCA&lt;/td>
+&lt;td style="text-align:center">180&lt;/td>
+&lt;td style="text-align:center">Paid&lt;/td>
+&lt;td style="text-align:center">10 (1通配符)&lt;/td>
+&lt;td style="text-align:center">Yes&lt;/td>
+&lt;td style="text-align:center">Yes&lt;/td>
+&lt;td style="text-align:center">Yes&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>LNMP 一键安装包的话，可以使用上述方式指定默认 CA ，也可以在添加网站时手动选择 CA&lt;/p>
+&lt;h3 id="caddy">Caddy&lt;/h3>
+&lt;p>Caddy 比较简单，由于它是自动开启 HTTPS 的。在编辑 &lt;strong>Caddyfile&lt;/strong> 添加网站时，只需要填上域名，它就会自动签发证书：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者你也可以设置 &lt;code>tls&lt;/code> 邮箱，Caddy 会在签发证书遇到问题时自动更换 CA：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">tls&lt;/span> &lt;span class="s">your@email.com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你需要指定 CA 机构为 ZeroSSL，你可以进行全局设置：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">acme_ca&lt;/span> &lt;span class="s">https://acme.zerossl.com/v2/DV90&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">email&lt;/span> &lt;span class="s">your@email.com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者单独对某个网站进行设置：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">tls&lt;/span> &lt;span class="s">your@email.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">ca&lt;/span> &lt;span class="s">https://acme.zerossl.com/v2/DV90&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果要指定 CA 为 Let’s Encrypt，只需要将 &lt;code>https://acme.zerossl.com/v2/DV90&lt;/code> 更换为 &lt;code>https://acme-v02.api.letsencrypt.org/directory&lt;/code> 即可&lt;/p></description></item></channel></rss>

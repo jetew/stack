@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VPS on Kitin's</title><link>/tags/vps/</link><description>Recent content in VPS on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Thu, 01 Dec 2022 10:53:36 +0800</lastBuildDate><atom:link href="/tags/vps/index.xml" rel="self" type="application/rss+xml"/><item><title>一键 DD 自动重装脚本</title><link>/p/dd_sh/</link><pubDate>Thu, 01 Dec 2022 10:53:36 +0800</pubDate><guid>/p/dd_sh/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>VPS 主机一键自动重装系统脚本优化版，基于萌咖脚本优化、开发；DD 过程简单，傻瓜式安装。 脚本支持原版自定义密码安装，可选 Linux 和 Windows 系统，而且脚本支持 Oracle 甲骨文免费云主机使用支持 UEFI 的镜像包安装。&lt;/p>
+&lt;p>一键 DD 脚本，支持性好，更智能更全面，支持国内外各种 VPS 重装，特别是对国内各种访问国外资源慢的 VPS 安装有奇效。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/fcurrk/reinstall" target="_blank" rel="noopener"
+>Github 项目地址
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="安装过程">安装过程&lt;/h2>
+&lt;h3 id="准备工作">准备工作&lt;/h3>
+&lt;p>为防止异常，先执行以下命令：&lt;/p>
+&lt;ul>
+&lt;li>Debian/Ubuntu:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt update -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt dist-upgrade -y
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>RedHat/CentOS:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">yum makecache &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> yum update -y
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装重装系统的前提组件:&lt;/p>
+&lt;ul>
+&lt;li>Debian/Ubuntu:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get install -y xz-utils openssl gawk file wget screen &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> screen -S os
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>RedHat/CentOS:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">yum install -y xz openssl gawk file glibc-common wget screen &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> screen -S os
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="一键-dd">一键 DD&lt;/h3>
+&lt;p>执行命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget --no-check-certificate -O NewReinstall.sh https://git.io/newbetags &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> chmod a+x NewReinstall.sh &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> bash NewReinstall.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如为CN主机(部分主机商已不能使用)，可能出现报错或不能下载脚本的问题，可执行以下命令开始安装：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget --no-check-certificate -O NewReinstall.sh https://cdn.jsdelivr.net/gh/fcurrk/reinstall@master/NewReinstall.sh &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> chmod a+x NewReinstall.sh &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> bash NewReinstall.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行后，会获取公网 IP、网关和子网掩码，确认一致后，按下 &lt;code>Y&lt;/code> 回车下一步：&lt;/p>
+&lt;blockquote>
+&lt;p>公网 IP 、网关及子网掩码可在 VPS 控制面板进行查看，若不一致，可输入 &lt;code>N&lt;/code> 进行自定义&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="/p/dd_sh/1.png"
+width="700"
+height="400"
+srcset="/p/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_480x0_resize_box_3.png 480w, /p/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 网络确认"
+class="gallery-image"
+data-flex-grow="175"
+data-flex-basis="420px"
+>&lt;/p>
+&lt;p>然后进行系统选择，41合1的系统一键 DD 选择界面，输入 &lt;code>99&lt;/code> 则使用自定义镜像：&lt;/p>
+&lt;p>&lt;img src="/p/dd_sh/2.png"
+width="700"
+height="720"
+srcset="/p/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_480x0_resize_box_3.png 480w, /p/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 系统选择"
+class="gallery-image"
+data-flex-grow="97"
+data-flex-basis="233px"
+>&lt;/p>
+&lt;p>若输入 &lt;code>9-16&lt;/code> 安装原版系统，可自定义密码，密码要求8-16位，以英文字母或数字开头，可以是大小写英文字母、数字及7个特殊字符.!$@#&amp;amp;%的任意组合，然后设置端口确认信息后，即可进行安装：&lt;/p>
+&lt;p>&lt;img src="/p/dd_sh/3.png"
+width="700"
+height="360"
+srcset="/p/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_480x0_resize_box_3.png 480w, /p/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 自定义设置"
+class="gallery-image"
+data-flex-grow="194"
+data-flex-basis="466px"
+>&lt;/p>
+&lt;p>&lt;strong>注意&lt;/strong>&lt;/p>
+&lt;blockquote>
+&lt;p>谷歌云原版系统基础上 DD 会出现自动获取的子网掩码为255.255.255.255，如出现这种情况需要手工输入改正为正确的如255.255.255.0，否则会安装完成主机可能会离线。&lt;/p>
+&lt;p>阿里云因使用了特殊的驱动，DD 安装 Windows 系统选择阿里云专用版。&lt;/p>
+&lt;p>Oracle Cloud（甲骨文云）可选择支持 UEFI 的镜像，注意基础系统最好选择 Ubuntu，如原系统是 CentOS 可能无法成功，注意如是 ARM 机器注意选择同时支持 ARM64 和 UEFI 的镜像。&lt;/p>
+&lt;/blockquote>
+&lt;p>41合一系统密码：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">1、CentOS 7.7 (已关闭防火墙及 SELinux，默认密码 Pwd@CentOS)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2、CentOS 7 (默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3、CentOS 7 (支持 ARM64、UEFI，默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">4、CentOS 8 (默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">5、Rocky 8 (默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">6、Rocky 8 (支持 UEFI，默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">7、Rocky 8 (支持 ARM64、UEFI，默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">8、CentOS 9 (默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">9、CentOS 6 (官方源原版，默认密码 Minijer.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">10、Debian 11 (官方源原版，默认密码 Minijer.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">11、Debian 10 (官方源原版，默认密码 Minijer.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">12、Debian 9 (官方源原版，默认密码 Minijer.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">13、Debian 8 (官方源原版，默认密码 Minijer.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">14、Ubuntu 20.04 (官方源原版，默认密码 Minijer.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">15、Ubuntu 18.04 (官方源原版，默认密码 Minijer.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">16、Ubuntu 16.04 (官方源原版，默认密码 Minijer.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">17、Windows Server 2022 (默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">18、Windows Server 2022 (支持 UEFI，默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">19、Windows Server 2019 (默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">20、Windows Server 2016 (默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">21、Windows Server 2012 (默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">22、Windows Server 2008 (默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">23、Windows Server 2003 (默认密码 cxthhhhh.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">24、Windows 10 LTSC (默认密码 Teddysun.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">25、Windows 10 LTSC (支持 UEFI，默认密码 Teddysun.com)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">26、Windows 7 x86 Lite (默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">27、Windows 7 x86 Lite (阿里云专用，默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">28、Windows 7 x64 Lite (默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">29、Windows 7 x64 Lite (支持 UEFI，默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">30、Windows 10 LTSC Lite (默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">31、Windows 10 LTSC Lite (阿里云专用，默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">32、Windows 10 LTSC Lite (支持 UEFI，默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">33、Windows Server 2003 Lite (C 盘默认10G，默认密码 WinSrv2003x86-Chinese)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">34、Windows Server 2008 Lite (默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">35、Windows Server 2008 Lite (支持 UEFI，默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">36、Windows Server 2012 Lite (默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">37、Windows Server 2012 Lite (支持 UEFI，默认密码nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">38、Windows Server 2016 Lite (默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">39、Windows Server 2016 Lite (支持 UEFI，默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">40、Windows Server 2022 Lite (默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">41、Windows Server 2022 Lite (支持 UEFI，默认密码 nat.ee)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">99、自定义镜像
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="注意事项">注意事项&lt;/h2>
+&lt;p>系统名称后带 Lite 的均为精简版，没有的是完整版&lt;/p>
+&lt;p>[X64-Legacy-cxthhhhh] 代表系统为 AMD64 位，支持传统 BIOS 启动，cxthhhhh 定制的系统镜像&lt;/p>
+&lt;p>ARM64 代表系统支持 ARM64 位&lt;/p>
+&lt;p>UEFI 代表系统支持最新的 UEFI 启动，如甲骨文全部都是这种&lt;/p>
+&lt;p>aliyun 代表阿里云专用系统镜像&lt;/p>
+&lt;p>cxthhhhh、teddysun、nat.ee 均为三位制作系统镜像的大佬代称&lt;/p>
+&lt;p>系统密码会在选择相应序号后提示，请注意记录&lt;/p>
+&lt;p>系统安装过程会自动断开 SSH 连接，属于正常现象；等待安装完成后即可进行重连&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/fcurrk/reinstall" target="_blank" rel="noopener"
+>一键 DD 脚本 Github 项目地址
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://git.beta.gs/" target="_blank" rel="noopener"
+>一键 DD 脚本网址
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>Linux 服务器设置 Swap 分区</title><link>/p/setswap/</link><pubDate>Fri, 11 Nov 2022 19:15:56 +0800</pubDate><guid>/p/setswap/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>这两天闲着没事，将手头上闲置的一台 512M 小内存服务器拿出来折腾，编译安装 MariaDB 的时候由于内存不足导致编译失败。由于我是个小白，且一直是使用的 2/4G 服务器，以前从来没有注意过这个；直到现在遇到这样的问题。。。&lt;/p>
+&lt;h3 id="swap-分区">Swap 分区&lt;/h3>
+&lt;p>别名：交换分区。 Swap 分区在系统的物理内存不够用的时候，把硬盘内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间被临时保存到 Swap 分区中，等到那些程序要运行时，再从 Swap 分区中恢复保存的数据到内存中。&lt;/p>
+&lt;hr>
+&lt;h2 id="设置步骤">设置步骤&lt;/h2>
+&lt;p>一般来说，很多服务器开通的时候就自带了 Swap 分区，在日常使用下并不需要对其进行额外的操作；但是有时候还是要视情况对 Swap 分区进行适当的增减；下面来看看 Swap 分区的设置 (这里我以我 4G 内存服务器作为演示，请根据实际情况修改数据) ：&lt;/p>
+&lt;h3 id="查看分区">查看分区&lt;/h3>
+&lt;ol>
+&lt;li>通过 &lt;code>free -h&lt;/code> 命令查看&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">free -h
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> total used free shared buff/cache available
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Mem: 3.6Gi 123Mi 3.3Gi 1.0Mi 182Mi 3.3Gi
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Swap: 0B 0B 0B
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过以上命令可以看到当前内存及 Swap 分区使用状态，如果 Swap 分区和我这里一样显示 0B 0B 0B 则代表并没有开启 Swap 分区。&lt;/p>
+&lt;ol start="2">
+&lt;li>通过 &lt;code>swapon --show&lt;/code> 命令查看&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">swapon --show
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>若开启了 Swap 分区，则会显示 Swap 分区状态；若没有开启 Swap 分区，则不会返回数据。&lt;/p>
+&lt;h3 id="创建分区">创建分区&lt;/h3>
+&lt;h4 id="交换分区的大小分配">交换分区的大小分配&lt;/h4>
+&lt;p>查找了一下资料，发现众说纷纭。。。最后决定采用如下方案：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">&lt;strong>物理内存&lt;/strong>&lt;/th>
+&lt;th style="text-align:center">&lt;strong>建议 Swap 分区大小&lt;/strong>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&amp;lt; 4GB&lt;/td>
+&lt;td style="text-align:center">2倍内存，不超过4G&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">4-8G&lt;/td>
+&lt;td style="text-align:center">等于内存大小&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">8-64G&lt;/td>
+&lt;td style="text-align:center">8G&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">64-256G&lt;/td>
+&lt;td style="text-align:center">16G&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="创建交换分区">创建交换分区&lt;/h4>
+&lt;ol>
+&lt;li>使用 &lt;code>fallocate&lt;/code> 命令创建用于交换的文件&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">fallocate -l 4G /swapfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果报错可以使用 &lt;code>dd&lt;/code> 命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">dd &lt;span class="k">if&lt;/span>&lt;span class="o">=&lt;/span>/dev/zero &lt;span class="nv">of&lt;/span>&lt;span class="o">=&lt;/span>/swapfile &lt;span class="nv">bs&lt;/span>&lt;span class="o">=&lt;/span>1M &lt;span class="nv">count&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">4096&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>设置权限&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">600&lt;/span> /swapfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>设置交换分区&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkswap /swapfile
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Setting up swapspace version 1, &lt;span class="nv">size&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">4&lt;/span> GiB &lt;span class="o">(&lt;/span>&lt;span class="m">4294963200&lt;/span> bytes&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">no label, &lt;span class="nv">UUID&lt;/span>&lt;span class="o">=&lt;/span>e3edf2fd-7259-4d00-98be-5afc604c1271
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>成功则返回如上信息。&lt;/p>
+&lt;ol start="4">
+&lt;li>启用分区&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">swapon /swapfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="5">
+&lt;li>验证分区&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">swapon --show
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">NAME TYPE SIZE USED PRIO
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/swapfile file 4G 0B -2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>开启成功则返回 Swap 分区状态&lt;/p>
+&lt;hr>
+&lt;h3 id="开机启动及分配控制">开机启动及分配控制&lt;/h3>
+&lt;h4 id="设置开机启动">设置开机启动&lt;/h4>
+&lt;ol>
+&lt;li>编辑 &lt;strong>/etc/fstab&lt;/strong> 文件添加这一行：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/fstab
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 添加如下:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/swapfile swap swap defaults &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>或执行如下命令直接写入：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;/swapfile swap swap defaults 0 0&amp;#34;&lt;/span> &amp;gt;&amp;gt;/etc/fstab
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="swap-分区分配控制">Swap 分区分配控制&lt;/h4>
+&lt;ul>
+&lt;li>Swappiness&lt;/li>
+&lt;/ul>
+&lt;p>Swappiness 是一个 Linux 内核属性，用于定义系统使用交换空间的频率。 Swappiness 可以具有0到100之间的值。较低的值将使内核尽可能避免交换，而较高的值将使内核更积极地使用交换空间；默认的 swappiness 值为60.可以通过键入以下命令来检查当前的 swappiness 值：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat /proc/sys/vm/swappiness
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">60&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>对于桌面端，可以使用60的 swappiness 值；但对于生产服务器，可能需要设置较低的值，比如我设置为10：&lt;/p>
+&lt;ol>
+&lt;li>临时设置：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sysctl vm.swappiness&lt;span class="o">=&lt;/span>&lt;span class="m">10&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>要使之重启后保持不变，可以附加到 &lt;strong>/etc/sysctl.conf&lt;/strong> 文件：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/sysctl.conf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 在最后添加如下&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vm.swappiness&lt;span class="o">=&lt;/span>&lt;span class="m">10&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;vm.swappiness=10&amp;#34;&lt;/span> &amp;gt;&amp;gt;/etc/sysctl.conf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="删除及调整大小">删除及调整大小&lt;/h3>
+&lt;p>如果需要对交换分区进行删除，可以按照下列步骤：&lt;/p>
+&lt;ol>
+&lt;li>停用交换分区&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">swapoff /swapfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>在 &lt;strong>/etc/fstab&lt;/strong> 文件中删除交换文件条目：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/fstab
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 删除或注释下面一行：&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/swapfile swap swap defaults &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>删除 swapfile 文件&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rm /swapfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>若需要修改分区大小，可先停用交换分区，然后直接删除 swapfile 文件并重新创建。&lt;/p>
+&lt;hr>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>以上就是本篇的全部内容，希望对大家有所帮助。&lt;/p>
+&lt;p>对于 Linux，无论是多大内存，还是要设立 Swap 交换分区，这样有利于在内存耗尽时及时启用 Swap 空间。另外，可以视情况对 Swap 分区大小进行临时调整，比如我前文所说用 512M 内存服务器编译安装高版本 MariaDB ，那么我可以先将 Swap 分区临时设置为 2G ，编译安装完成后再调整。&lt;/p></description></item><item><title>VPS 的一些基本配置及优化</title><link>/p/setvps/</link><pubDate>Fri, 18 Feb 2022 17:14:41 +0800</pubDate><guid>/p/setvps/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>由于最近在使用 VPS 时，发现 SSH 一直在被人暴力扫描，虽然说没有被破解，但是老是被人盯着总感觉不太舒服。其实要保证安全登录，最简单的方法就是修改默认的 22 端口；最彻底的方法，是禁用密码登录，改用密钥登录，只要保证密钥安全，服务器也没有人能进入了。而且现在手中的 VPS 越来越多，每次都要进行一些基本配置。所以对这些配置进行一下记录，方便以后查看。&lt;/p>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;h3 id="修改登录密码">修改登录密码&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">passwd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>输入密码是不会显示的，按照提示输入新密码回车两次即可&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h3 id="更新安装基本软件">更新、安装基本软件&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt update &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt full-upgrade -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt autoremove -y &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt autoclean
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install -y wget curl vim screen
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="修改ssh端口">修改SSH端口&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/ssh/sshd_config
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>这里我使用 vim 编辑，拿不准可以直接下载到本地编辑&lt;/p>
+&lt;/blockquote>
+&lt;p>找到默认 22 端口，将光标移动到该位置，输入 &lt;code>i &lt;/code> 进行编辑；去掉前面的注释，并且添加一个端口：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Port &lt;span class="m">22&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Port &lt;span class="m">1234&lt;/span> &lt;span class="c1"># 以 1234 端口为例&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑完成后按下 &lt;code>ESC&lt;/code> 然后输入 &lt;code>:wq!&lt;/code> 保存退出，并重启 &lt;code>sshd&lt;/code> 服务进程：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart sshd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置完毕后需要开放新端口，并开启防火墙；如果 VPS 管理面板自带防火墙可以通过管理面板开放端口；没有的话，我一般用 &lt;code>ufw&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt install -y ufw
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ufw allow &lt;span class="m">1234&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ufw &lt;span class="nb">enable&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>开启防火墙后记得通过 &lt;code>ufw allow xx&lt;/code> 开放常用端口&lt;/p>
+&lt;/blockquote>
+&lt;p>设置完成后，通过新端口进行 SSH 登录，测试是否成功，并且将默认的端口关闭：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/ssh/sshd_config
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将默认端口一行注释掉：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#Port 22&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Port &lt;span class="m">1234&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="设置秘钥登录">设置秘钥登录&lt;/h3>
+&lt;p>修改端口虽然可以提升安全性，但是还是会被扫出端口，所以我们可以设置秘钥登录，并关闭密码登录。&lt;/p>
+&lt;ul>
+&lt;li>通过命令行生成公钥与私钥&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh-keygen -t rsa
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>提示如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Generating public/private rsa key pair.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Enter file in which to save the key &lt;span class="o">(&lt;/span>/root/.ssh/id_rsa&lt;span class="o">)&lt;/span>: &lt;span class="c1"># 输入存储位置，建议回车使用默认位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Enter passphrase &lt;span class="o">(&lt;/span>empty &lt;span class="k">for&lt;/span> no passphrase&lt;span class="o">)&lt;/span>: &lt;span class="c1"># 输入密码(留空则直接回车)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Enter same passphrase again: &lt;span class="c1"># 重复输入密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Your identification has been saved in /root/.ssh/id_rsa.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Your public key has been saved in /root/.ssh/id_rsa.pub. &lt;span class="c1"># 公钥与私钥存储位置&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>生成的秘钥文件位于 &lt;code>root/.ssh&lt;/code> 目录下&lt;/p>
+&lt;/blockquote>
+&lt;p>也可以通过 &lt;code>XShell&lt;/code> 或者 &lt;code>PuTTy Gen&lt;/code> 软件进行生成秘钥文件，但是要注意它们生成的私钥并不通用，需要通过 &lt;code>PuTTy Gen&lt;/code> 进行转换。&lt;/p>
+&lt;ul>
+&lt;li>上传/配置公钥文件&lt;/li>
+&lt;/ul>
+&lt;p>如果是使用命令行在 VPS 生成的秘钥文件，则将私钥文件下载并导入 SSH 软件即可。若是软件生成，则将 &lt;code>id_rsa.pub&lt;/code> 文件上传至 &lt;code>root/.ssh&lt;/code> 目录下，完成上述操作后执行如下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mv id_rsa.pub authorized_keys
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">600&lt;/span> ./authorized_keys
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后修改 &lt;code>sshd_config&lt;/code> 找到并修改成下面个配置 ：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">PubkeyAuthentication yes
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>保存退出，并重启服务进程：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart sshd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用 SSH 软件测试是否可以通过秘钥文件进行登录。&lt;/p>
+&lt;ul>
+&lt;li>禁止密码登录&lt;/li>
+&lt;/ul>
+&lt;p>确认可以通过秘钥文件进行登录后，就可以禁止密码登录了，修改 &lt;code>etc/ssh/sshd_config&lt;/code> 文件，找到并修改成如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">PasswordAuthentication no
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启 &lt;code>sshd&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart sshd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="开启加速服务">开启加速服务&lt;/h3>
+&lt;p>复制下面命令，粘贴回车：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget -N --no-check-certificate &lt;span class="s2">&amp;#34;https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x tcp.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./tcp.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>面板如下：&lt;/p>
+&lt;p>&lt;img src="/p/setvps/1.png"
+width="700"
+height="350"
+srcset="/p/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_480x0_resize_box_3.png 480w, /p/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 操作面板"
+class="gallery-image"
+data-flex-grow="200"
+data-flex-basis="480px"
+>&lt;/p>
+&lt;p>操作方法：先安装内核，重启 VPS 让内核生效，再启动对应的加速即可。数字 1 的 BBR/BBR 魔改内核对应数字 4、5、6 的 BBR 加速、BBR 魔改加速和暴力 BBR 魔改版加速。数字 2 的 BBRplus 内核对应数字 7 的 BBRplus 加速。数字 3 的锐速加速内核对应数字 8 的锐速加速。&lt;/p>
+&lt;p>先安装内核，等待提示重启后输入 &lt;code>y&lt;/code> 进行重启：&lt;/p>
+&lt;p>&lt;img src="/p/setvps/2.png"
+width="700"
+height="500"
+srcset="/p/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_480x0_resize_box_3.png 480w, /p/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 重启提示"
+class="gallery-image"
+data-flex-grow="140"
+data-flex-basis="336px"
+>&lt;/p>
+&lt;p>如果安装内核过程中，出现以下情况，选择否即可：&lt;/p>
+&lt;p>&lt;img src="/p/setvps/3.png"
+width="905"
+height="360"
+srcset="/p/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_480x0_resize_box_3.png 480w, /p/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 特殊情况"
+class="gallery-image"
+data-flex-grow="251"
+data-flex-basis="603px"
+>&lt;/p>
+&lt;p>重启完成后，输入 &lt;code>./tcp.sh&lt;/code> 进入加速面板，选择对应内核的加速并输入对应数字开启加速。看到提示加速成功后，再次输入 &lt;code>./tcp.sh&lt;/code> 检查是否成功开启&lt;/p>
+&lt;p>如果想换一个加速，输入 &lt;code>./tcp.sh&lt;/code> 进入面板，并输入数字9进行卸载加速，然后进行同样的操作，安装内核再安装对应内核的加速即可。&lt;/p>
+&lt;hr>
+&lt;p>至此 VPS 的一些基本配置与优化结束&lt;/p></description></item></channel></rss>

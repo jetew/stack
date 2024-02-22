@@ -1,0 +1,1447 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hugo on Kitin's</title><link>/tags/hugo/</link><description>Recent content in Hugo on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Tue, 01 Nov 2022 13:18:02 +0800</lastBuildDate><atom:link href="/tags/hugo/index.xml" rel="self" type="application/rss+xml"/><item><title>我写博客的方式</title><link>/p/how_to_write/</link><pubDate>Tue, 01 Nov 2022 13:18:02 +0800</pubDate><guid>/p/how_to_write/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>一般来说，大家会有一些想法或者突如其来的灵感需要进行记录；那么我们会选择将它们记录在手机便签、文本编辑器或者直接用笔写下来；等最后再梳理成文。正常情况下我们都是在电脑前进行写作，但是有时候用不了，或者不方便在电脑前进行写作；那应该怎么办？今天就来看下我的日常写作方式。&lt;/p>
+&lt;p>看过前面文章的应该知道，我自己是将 Hugo 博客源码通过 Git 推送到 Github 远程仓库然后由 Github Actions 自动部署到服务器上面，所以我写文章的流程就是通过 Git 同步远程仓库，写作完成后再推送到远程仓库通过 Github Actions 自动部署就可以了。那么现在就一起来看下这个过程的实现。&lt;/p>
+&lt;p>我的话，平常使用的客户端为：家里电脑 (WindowsX2) 、公司电脑 (Windows) 、笔记本 (Linux)、手机 (Android)；简化一点就是 Windows、Linux、Android。一般情况下，我们就是 Win 和 Android 了。要实现在安卓使用 Git 的话，我们就需要安装一款神级软件 &lt;strong>Termux&lt;/strong>&lt;/p>
+&lt;hr>
+&lt;h2 id="介绍及安装">介绍及安装&lt;/h2>
+&lt;h3 id="termux">Termux&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://termux.dev/" target="_blank" rel="noopener"
+>Termux 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/termux" target="_blank" rel="noopener"
+>Github 项目地址
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Termux 是一款 Android 终端模拟器和 Linux 环境应用程序，无需 root 或设置即可直接运行。 自动安装最小的基本系统 - 可以使用 APT 或其他包管理器。&lt;/p>
+&lt;/blockquote>
+&lt;p>你可以通过 &lt;a class="link" href="https://f-droid.org/en/packages/com.termux/" target="_blank" rel="noopener"
+>F-Droid
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 或者 &lt;a class="link" href="https://github.com/termux/termux-app/releases" target="_blank" rel="noopener"
+>Github
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 进行下载，下载完成之后进行更换清华源，安装 Git ，创建目录软链接，安装 Hugo 即可。&lt;/p>
+&lt;blockquote>
+&lt;p>无法下载或者下载慢可以找国内下载地址，或者通过 “应用” 进行下载。&lt;/p>
+&lt;p>Termux 安装使用基于国光大佬的 &lt;a class="link" href="https://www.sqlsec.com/2018/05/termux.html" target="_blank" rel="noopener"
+>Termux 高级终端安装使用配置教程
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> ；写的非常全，强烈推荐观看！！！&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="更换清华源">更换清华源&lt;/h4>
+&lt;p>打开 &lt;strong>Termux&lt;/strong> 输入如下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sed -i &lt;span class="s1">&amp;#39;s@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/termux-packages-24 stable main@&amp;#39;&lt;/span> &lt;span class="nv">$PREFIX&lt;/span>/etc/apt/sources.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -i &lt;span class="s1">&amp;#39;s@^\(deb.*games stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/game-packages-24 games stable@&amp;#39;&lt;/span> &lt;span class="nv">$PREFIX&lt;/span>/etc/apt/sources.list.d/game.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -i &lt;span class="s1">&amp;#39;s@^\(deb.*science stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/science-packages-24 science stable@&amp;#39;&lt;/span> &lt;span class="nv">$PREFIX&lt;/span>/etc/apt/sources.list.d/science.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg update
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装基础工具：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg install -y curl wget
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="安装-git">安装 Git&lt;/h4>
+&lt;p>更换完清华源后，进行 Git 安装：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg install -y git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="创建目录软链接">创建目录软链接&lt;/h4>
+&lt;p>为了方便管理，我们使用文件管理器在手机存储根目录下创建 &lt;strong>termux&lt;/strong> 文件夹，然后进行软链接：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">termux-setup-storage
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行以上命令，会弹出授权窗口，确认授权后 Termux 就可以访问 SD 卡文件，然后为创建的 termux 目录创建软链接：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ln -s /data/data/com.termux/files/home/storage/shared/termux termux
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行完上述命令后，就会在 &lt;strong>~&lt;/strong> 目录下创建 termux 快捷方式，此目录是链接到我们刚才创建的 &lt;strong>termux&lt;/strong> 目录，方便进行管理。&lt;/p>
+&lt;h4 id="安装-hugo">安装 Hugo&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg install -y hugo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>上述操作都完成后，就可以在 Android 端使用 Hugo 了。&lt;/p>
+&lt;hr>
+&lt;h2 id="git-配置">Git 配置&lt;/h2>
+&lt;h3 id="全局账户配置">全局账户配置&lt;/h3>
+&lt;p>在使用 Git 之前需要进行账户配置，让 Github 知道你是谁：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git config --global user.name username &lt;span class="c1"># username为你的 Github 用户名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global user.email xx@email.com &lt;span class="c1"># XX@email.com为你注册 Github 的邮箱&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>注意，这里是全局设置，也就是说你所有的本地仓库推送时都是使用这个用户和邮箱&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="添加密钥对">添加密钥对&lt;/h3>
+&lt;p>键入如下命令创建密钥对：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh-keygen -t ed25519 -C &lt;span class="s2">&amp;#34;email&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来一路回车即可。&lt;/p>
+&lt;h3 id="公钥添加至-github">公钥添加至 Github&lt;/h3>
+&lt;p>输入 &lt;code>cat ~/.ssh/id_ed25519.pub&lt;/code> 查看公钥内容，然后复制；打开 Github 点击： &lt;strong>右上角头像 - Settings - SSH and GPG keys - New SSH Key&lt;/strong> 把刚才复制的公钥粘贴到 &lt;strong>Key&lt;/strong> 中，命名随意，然后保存。&lt;/p>
+&lt;blockquote>
+&lt;p>详细图文过程可以参考 &lt;a class="link" href="/p/hugo/#%e6%b7%bb%e5%8a%a0%e5%af%86%e9%92%a5" >这里
+&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="本地仓库配置">本地仓库配置&lt;/h3>
+&lt;p>因为我们创建了一个 Termux 软链接，为了方便管理，我将 Hugo 博客仓库放在此目录中，打开 &lt;strong>Termux&lt;/strong> 进入到 &lt;strong>termux&lt;/strong> 目录，创建博客目录，并设置为 Git 项目仓库：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> termux
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p hugo/blog&lt;span class="o">(&lt;/span>项目名，我以 blog 为例&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> blog
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git init
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这时候打开文件管理器，进入 termux 目录，可以看到里面已经创建了 hugo/blog 目录，这就是我们的 Hugo 博客仓库了。&lt;/p>
+&lt;p>由于 Github 现在默认的分支是 main 所以我也设置本地分支为 main：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git branch -m main
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个时候可能会提示添加到安全仓库：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Initialized empty Git repository in /storage/emulated/0/termux/hugo/blog/.git/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">➜ blog git branch -m main
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">fatal: detected dubious ownership in repository at &lt;span class="s1">&amp;#39;/storage/emulated/0/termux/hugo/blog/&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">To add an exception &lt;span class="k">for&lt;/span> this directory, call:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> git config --global --add safe.directory /storage/emulated/0/termux/hugo/blog
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>按照提示输入命令添加到安全仓库即可：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git config --global --add safe.directory /storage/emulated/0/termux/hugo/blog
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加完成后再更换分支名：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git branch -m main
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="添加远程仓库">添加远程仓库&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git remote add origin git@github.com:username/repositories.git &lt;span class="c1"># username换成你的github用户名，repositories更换为你的仓库名&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="拉取远程仓库">拉取远程仓库&lt;/h3>
+&lt;p>输入下面命令将远程仓库的代码拉取到本地：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git pull origin main
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>拉取完成之后，还需要将我们添加的主题 clone 下来，因为之前时通过 &lt;code>git submodule&lt;/code> 进行链接的；比如我在用的 &lt;strong>zzo&lt;/strong> 主题：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone https://github.com/zzossig/hugo-theme-zzo.git themes/zzo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>完成之后，我们就可以通过 Android 端进行写作了。&lt;/p>
+&lt;hr>
+&lt;h2 id="本地预览及推送">本地预览及推送&lt;/h2>
+&lt;h3 id="本地预览">本地预览&lt;/h3>
+&lt;p>在 Android 端写作完成后，我们也可以通过 &lt;code>hugo server&lt;/code> 命令进行本地预览，但是在 termux 下不太一样，直接运行 &lt;code>hugo server&lt;/code> 会报错，所以要加上一个 &lt;code>noBuildLock&lt;/code> 参数：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo --noBuildLock
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过上述命令，即可在 Android 端通过 &lt;strong>localhost:1313&lt;/strong> 进行本地预览，同理，如果你要生成静态文件，也是需要添加 &lt;code>noBuildLock&lt;/code> 参数。&lt;/p>
+&lt;h3 id="推送">推送&lt;/h3>
+&lt;p>在写作完成及预览无误后，就可以进行推送到远程仓库了。与桌面端一样，通过 &lt;code>push&lt;/code> 进行推送：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git add .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;xxxx&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push origin main
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>推送完成后，等待 Github Actions 自动部署完成后，即可进行访问。&lt;/p>
+&lt;hr>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>以上就是我在不同客户端通过 Git 进行同步数据、写作的过程了，希望能给大家提供一个参考。需要注意的是：一定要记得，在不同的客户端下，第一件事是通过 &lt;code>git pull&lt;/code> 将远程仓库拉取同步到本地仓库，然后再进行写作&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.sqlsec.com/2018/05/termux.html" target="_blank" rel="noopener"
+>Termux 高级终端安装使用配置教程
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://docs.github.com/cn/authentication/connecting-to-github-with-ssh" target="_blank" rel="noopener"
+>通过 SSH 连接到 GitHub
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>Waline 服务端独立部署方案</title><link>/p/waline_deploy/</link><pubDate>Thu, 20 Oct 2022 10:50:47 +0800</pubDate><guid>/p/waline_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>之前讲了通过 Vercel 来进行 Waline 服务端的部署，这是最简单，也是完全免费的方法；但是对于拥有自己服务器的人来说，可能更想要将 Waline 直接部署到自己的服务器上；毕竟服务器摆在那，不用也是浪费，何不将 Waline 服务端也部署自己的服务器上以方便进行管理呢？其实 Waline 提供了很多的部署方案，可以看 &lt;a class="link" href="https://waline.js.org/advanced/intro.html" target="_blank" rel="noopener"
+>这里
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> ；因为我一直使用的 Caddy 所以我就用 Caddy+MariaDB/MySQL 的方式来搭建，这里记录一下踩坑过程；当然你使用 Nginx/Apache 加上其他数据库的组合也是可以的。&lt;/p>
+&lt;h2 id="部署过程">部署过程&lt;/h2>
+&lt;h3 id="准备工作">准备工作&lt;/h3>
+&lt;p>域名解析这块就不多讲了，提前绑定到你的服务器 IP ；服务器基本配置与优化可以参考 &lt;a class="link" href="/p/setvps" >这里
+&lt;/a> ；至于 Web 服务这块，如果你使用 Nginx/Apache+MariaDB/MySQL 可以看 &lt;a class="link" href="/p/oneinstack" >这里
+&lt;/a> 搭建好 Web 服务与数据库。&lt;/p>
+&lt;p>如果你想和我一样使用 Caddy Server 那么你可以参考 &lt;a class="link" href="/p/caddy" >这里
+&lt;/a> 先搭建 Caddy Server ；然后来安装数据库，我这里以 MariaDB/MySQL 为例：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install mariadb-server -y
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完 MariaDB 后，键入以下命令来进行初始化：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mysql_secure_installation
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后根据下面提示进行操作：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mysql_secure_installation
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Enter current password &lt;span class="k">for&lt;/span> root &lt;span class="o">(&lt;/span>enter &lt;span class="k">for&lt;/span> none&lt;span class="o">)&lt;/span>: &lt;span class="c1"># 输入数据库密码，由于并未设置，所以直接回车&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Set root password? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y &lt;span class="c1"># 是否设置数据库 root 密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">New password:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Re-enter new password: &lt;span class="c1"># 输入两次数据库 root 密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Remove anonymous users? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y &lt;span class="c1"># 是否移除匿名用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow root login remotely? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y &lt;span class="c1"># 是否禁用 root 远程登陆&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Remove &lt;span class="nb">test&lt;/span> database and access to it? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y &lt;span class="c1"># 是否移除测试数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Reload privilege tables now? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y &lt;span class="c1"># 是否初始化数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">All &lt;span class="k">done&lt;/span>! If you&lt;span class="err">&amp;#39;&lt;/span>ve completed all of the above steps, your MariaDB
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">installation should now be secure.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Thanks &lt;span class="k">for&lt;/span> using MariaDB!
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你需要用软件进行远程管理数据库，那么就不要禁用远程登陆，并且需要通过防火墙来开放 &lt;code>3306&lt;/code> 端口&lt;/p>
+&lt;hr>
+&lt;h3 id="安装-nodejs">安装 Nodejs&lt;/h3>
+&lt;p>这里要注意，不要直接使用 &lt;code>apt install&lt;/code> 进行安装，因为软件包版本比较低，与 &lt;strong>npm&lt;/strong> 版本不匹配，从而导致后面报错。所以我们可以通过包管理器，或者二进制文件安装。&lt;/p>
+&lt;h4 id="包管理器安装">包管理器安装&lt;/h4>
+&lt;p>输入以下命令进行安装：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install -y ca-certificates curl gnupg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /etc/apt/keyrings
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key &lt;span class="p">|&lt;/span> gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NODE_MAJOR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">16&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_&lt;/span>&lt;span class="nv">$NODE_MAJOR&lt;/span>&lt;span class="s2">.x nodistro main&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> tee /etc/apt/sources.list.d/nodesource.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install nodejs -y
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中 &lt;code>NODE_MAJOR=16&lt;/code> 可以自行选择版本：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NODE_MAJOR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">16&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NODE_MAJOR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">18&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NODE_MAJOR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">20&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">NODE_MAJOR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">21&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完成后可通过 &lt;code>node-v&lt;/code> 、&lt;code>nmp version&lt;/code>、&lt;code>npx -v&lt;/code> 检验安装&lt;/p>
+&lt;p>卸载：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get purge nodejs &lt;span class="o">&amp;amp;&amp;amp;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>rm -r /etc/apt/sources.list.d/nodesource.list &lt;span class="o">&amp;amp;&amp;amp;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>rm -r /etc/apt/keyrings/nodesource.gpg
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="二进制安装">二进制安装&lt;/h4>
+&lt;p>从 &lt;a class="link" href="https://nodejs.org/" target="_blank" rel="noopener"
+>Nodejs官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 下载二进制包，通过创建软链接至系统用户应用程序目录来使用。&lt;/p>
+&lt;p>打开 Nodejs 官网，点击 Downloads 然后右键复制 Linux Binaries (x64) 的下载链接：&lt;/p>
+&lt;p>&lt;img src="/p/waline_deploy/1.png"
+width="1152"
+height="628"
+srcset="/p/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_480x0_resize_box_3.png 480w, /p/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 二进制文件下载"
+class="gallery-image"
+data-flex-grow="183"
+data-flex-basis="440px"
+>&lt;/p>
+&lt;p>然后回到 SSH 软件，使用 &lt;code>wget&lt;/code> 命令，下载到任意位置并进行解压然后删除压缩包；我这里以 &lt;strong>/usr/local/src&lt;/strong> 为例：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src &lt;span class="c1"># 进入目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://nodejs.org/dist/v16.18.0/node-v16.18.0-linux-x64.tar.xz &lt;span class="c1"># 下载二进制包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -Jxvf node-v16.18.0-linux-x64.tar.xz &lt;span class="c1"># 解压&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv node-v16.18.0-linux-x64 node &lt;span class="c1"># 重命名文件夹&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑 &lt;code>~/.profile&lt;/code> 设置环境变量，加入：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">VERSION&lt;/span>&lt;span class="o">=&lt;/span>v16.18.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/src/node/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>完成后可通过 &lt;code>node -v&lt;/code> 、 &lt;code>npm version&lt;/code> 、 &lt;code>npx -v&lt;/code> 进行验证，返回版本号则表示成功。&lt;/p>
+&lt;h4 id="源码编译安装">源码编译安装&lt;/h4>
+&lt;p>首先安装依赖：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get install python3 g++ make python3-pip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>打开 &lt;a class="link" href="https://nodejs.org/" target="_blank" rel="noopener"
+>Nodejs官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> ，复制 &lt;code>Source Code&lt;/code> 源码下载地址，接着进行操作：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://nodejs.org/dist/v20.10.0/node-v20.10.0.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxvf node-v20.10.0.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv node-v20.10.0 node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./configure --prefix&lt;span class="o">=&lt;/span>/usr/local/node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">screen -S node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> make install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完成之后为软件设置环境变量：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/profile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在最后添加：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">VERSION&lt;/span>&lt;span class="o">=&lt;/span>vxx.xx.x
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/node/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>为软件设置软链接：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/node /usr/bin/node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/npm /usr/bin/npm
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/npx /usr/bin/npx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>源码编译安装比较费时，具体时间视机器配置而定，可酌情选择安装方式。&lt;/p>
+&lt;hr>
+&lt;h3 id="安装-waline">安装 Waline&lt;/h3>
+&lt;p>按照官方给出的独立部署中直接运行的方案，进入你想要安装的位置，安装好模块后直接运行模块内的 vanilla.js 文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/node/lib
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install -g @waline/vercel
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>国内服务器请先将 &lt;strong>npm&lt;/strong> 设置为国内镜像！！！&lt;/p>
+&lt;h4 id="更换镜像">更换镜像&lt;/h4>
+&lt;ol>
+&lt;li>临时更换&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm --registry https://registry.npmmirror.com install -g @waline/vercel
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>永久更换&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm config &lt;span class="nb">set&lt;/span> registry https://registry.npmmirror.com
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>还原 npm 镜像&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm config &lt;span class="nb">set&lt;/span> registry https://registry.npmjs.org/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>下载完成后，可以试着运行一下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">node node_modules/@waline/vercel/vanilla.js
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>成功的话可以看到提示：&lt;/p>
+&lt;p>&lt;img src="/p/waline_deploy/2.png"
+width="600"
+height="89"
+srcset="/p/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_480x0_resize_box_3.png 480w, /p/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 运行状态"
+class="gallery-image"
+data-flex-grow="674"
+data-flex-basis="1617px"
+>&lt;/p>
+&lt;p>此时你可以通过 &lt;strong>IP:8360&lt;/strong> 进行访问；不要着急，按捺下你的小激动，按下 &lt;kbd>&lt;kbd>CTRL&lt;/kbd>+&lt;kbd>C&lt;/kbd>&lt;/kbd> 关闭，然后跟着我继续进行配置。&lt;/p>
+&lt;hr>
+&lt;h3 id="配置数据库">配置数据库&lt;/h3>
+&lt;p>到官方文档的 &lt;a class="link" href="https://waline.js.org/guide/server/databases.html" target="_blank" rel="noopener"
+>多数据库服务支持
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 下载我们对应数据库的数据文件，我这里用的 MariaDB(MySQL) 所以下载 &lt;a class="link" href="https://github.com/walinejs/waline/blob/main/assets/waline.sql" target="_blank" rel="noopener"
+>waline.sql
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 然后进行导入数据：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>注意&lt;/strong>：将源代码直接复制然后自己进行编辑上传，不要直接使用 &lt;code>wget&lt;/code> 进行下载。&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mysql -uroot -p &lt;span class="c1"># 登陆数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Enter password: &lt;span class="c1"># 输入密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">CREATE DATABASE waline&lt;span class="p">;&lt;/span> &lt;span class="c1"># 创建 waline 数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">USE waline&lt;span class="p">;&lt;/span> &lt;span class="c1"># 指定数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> /path/waline.sql &lt;span class="c1"># 导入文件，/path改为你的路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">quit &lt;span class="c1"># 退出数据库&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建用户名，密码并赋予 waline 数据库的权限(可选)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mysql -uroot -p
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Enter password:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">CREATE USER &lt;span class="s1">&amp;#39;waline&amp;#39;&lt;/span>@&lt;span class="s1">&amp;#39;%&amp;#39;&lt;/span> IDENTIFIED BY &lt;span class="s1">&amp;#39;密码&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GRANT ALL PRIVILEGES ON waline.* TO &lt;span class="s1">&amp;#39;waline&amp;#39;&lt;/span>@&lt;span class="s1">&amp;#39;%&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">flush privileges&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">quit
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="配置-systemd-服务">配置 systemd 服务&lt;/h3>
+&lt;p>为了方便 Waline 的正常运行与管理，我使用的是 systemd 服务进行管理，创建文件并进行编辑(拿不准的可以在本地新建文件，编辑之后上传)：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /etc/systemd/system/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">touch waline.service
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim waline.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>模板如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-service" data-lang="service">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">Waline&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Service]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">simple&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">[/path/to/node] [path/to/node_modules]/@waline/vercel/vanilla.js&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Restart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">always&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">PATH=/usr/bin:/usr/local/bin&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">NODE_ENV=production&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">MYSQL_DB=数据库名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">MYSQL_USER=用户名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">MYSQL_PASSWORD=密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WorkingDirectory&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">[/path/to/node_modules]/@waline/vercel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Install]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">multi-user.target&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，占位符内容如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">[/path/to/node]：node 可执行文件绝对路径
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[path/to/node_modules]：通过 npm 安装模块位置
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我的配置如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-service" data-lang="service">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">Waline&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Service]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">simple&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/usr/bin/node /usr/local/node/lib/node_modules/@waline/vercel/vanilla.js&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Restart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">always&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">PATH=/usr/bin:/usr/local/bin&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">NODE_ENV=production&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">MYSQL_DB=数据库名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">MYSQL_USER=用户名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">MYSQL_PASSWORD=密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WorkingDirectory&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/usr/local/node/lib/node_modules//@waline/vercel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Install]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">multi-user.target&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你之前按照我的步骤来安装 &lt;strong>Node&lt;/strong> 和 &lt;strong>Waline&lt;/strong> 那么直接将脚本复制然后修改参数即可，如果你的位置和我不一样，那么就需要将 &lt;strong>ExecStart&lt;/strong> 和 &lt;strong>WorkingDirectory&lt;/strong> 项中的路径换成你自己的。不确定可以使用命令查一下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">where is node &lt;span class="c1"># node 位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm root -g &lt;span class="c1"># npm 全局安装位置&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在 &lt;code>[Service]&lt;/code> 项中，你可以通过 &lt;code>Environment&lt;/code> 直接添加 Waline 插件的环境变量&lt;/p>
+&lt;p>保存/上传完毕后，让 systemd 重新载入单元文件，并启动 Waline ：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl daemon-reload
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl start waline
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此时再访问 http://IP:8360 ，你就能看到评论页面了。&lt;/p>
+&lt;p>一些常用的命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl stop waline &lt;span class="c1"># 停止服务&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl restart waline &lt;span class="c1"># 重启服务&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl status waline &lt;span class="c1"># 服务状态&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl &lt;span class="nb">enable&lt;/span> waline &lt;span class="c1"># 添加开机自启动&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="反向代理设置">反向代理设置&lt;/h3>
+&lt;p>如果你不想通过 IP:8360 进行访问，那么就需要设置反向代理来通过域名进行访问了这里提供两个配置：&lt;/p>
+&lt;h4 id="caddy">Caddy&lt;/h4>
+&lt;p>我使用的是 Caddy ， Caddy 反代需要修改 &lt;strong>/etc/caddy/Caddyfile&lt;/strong> 文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/waline&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">encode&lt;/span> &lt;span class="s">gzip&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">reverse_proxy&lt;/span> &lt;span class="n">127.0.0.1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8360&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">tls&lt;/span> &lt;span class="s">user@email.com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="nginx">Nginx&lt;/h4>
+&lt;p>Nginx 反向代理如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">location&lt;/span> &lt;span class="s">/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://127.0.0.1:8360&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Real-IP&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-Proto&lt;/span> &lt;span class="nv">$scheme&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">REMOTE-HOST&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">add_header&lt;/span> &lt;span class="s">X-Cache&lt;/span> &lt;span class="nv">$upstream_cache_status&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># cache
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">add_header&lt;/span> &lt;span class="s">Cache-Control&lt;/span> &lt;span class="s">no-cache&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">expires&lt;/span> &lt;span class="s">12h&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>以上就是我通过 Caddy+MariaDB 独立部署 Waline 的过程，希望能给大家带来帮助。后期如果需要设置邮件通知等功能可以在 waline.service 文件中的 &lt;strong>[Service]&lt;/strong> 项下直接添加 Environment= 然后根据官方给出的环境变量进行设置即可。&lt;/p>
+&lt;p>若 Waline 后台发现有更新提示，可通过 &lt;code>npm&lt;/code> 对 Waline 进行更新：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm update @waline/vercel
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="参考资料">参考资料&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://waline.js.org" target="_blank" rel="noopener"
+>Waline 官方文档
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/nodesource/distributions/blob/master/README.md" target="_blank" rel="noopener"
+>NodeSource - Node.js 官方二进制发行版
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/nodejs/help/wiki/Installation" target="_blank" rel="noopener"
+>通过二进制文件安装 Node.js
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.ruanyifeng.com/blog/2016/03/node-systemd-tutorial.html" target="_blank" rel="noopener"
+>Node 应用的 Systemd 启动
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>为 Hugo 博客开启评论系统</title><link>/p/hugo_comment/</link><pubDate>Sat, 15 Oct 2022 10:50:47 +0800</pubDate><guid>/p/hugo_comment/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>我的博客作为自己记录的地方，没有去做 SEO 也没有去进行优化；可以说完全没有必要去开启评论，但是为什么又添加了评论呢？我觉得万一有人看到了我博客中的一些内容，有什么没有了解的地方，或者说有什么地方需要进行交流，需要进行简单的评论该怎么办？为了这一两句话不可能去到邮箱里跟你进行深度交流，于是最后还是决定开启评论功能，并再此进行一个分享。&lt;/p>
+&lt;h3 id="评论系统选择">评论系统选择&lt;/h3>
+&lt;p>对于评论系统，我的感觉是一定要便捷，填上昵称，邮件等就可以进行评论，不需要进行注册等繁琐操作； Hugo 中也有许多自带的评论系统，但是大多数都是海外的，使用起来很不方便。最终决定使用基于 Valine 的 Waline ；下面就来讲一下我自己配置的过程。&lt;/p>
+&lt;hr>
+&lt;h2 id="通用配置">通用配置&lt;/h2>
+&lt;h3 id="注册-leancloud">注册 LeanCloud&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://leancloud.app" target="_blank" rel="noopener"
+>LeanCloud 国际版
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>推荐使用国际版，国内版的话需要绑定已备案域名，比较麻烦。。。首先 &lt;a class="link" href="https://console.leancloud.app/login" target="_blank" rel="noopener"
+>登陆
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 或 &lt;a class="link" href="https://console.leancloud.app/register" target="_blank" rel="noopener"
+>注册
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> &lt;strong>LeanCloud国际版&lt;/strong> 并进入 &lt;a class="link" href="https://console.leancloud.app/apps" target="_blank" rel="noopener"
+>控制台
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;p>进入控制台后，点击创建应用，输入你喜欢的应用名称，选择开发版，然后点击创建：&lt;/p>
+&lt;p>&lt;img src="/p/hugo_comment/1.png"
+width="1356"
+height="651"
+srcset="/p/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_480x0_resize_box_3.png 480w, /p/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 创建应用"
+class="gallery-image"
+data-flex-grow="208"
+data-flex-basis="499px"
+>&lt;/p>
+&lt;p>进入应用，选择左下角的 &lt;strong>设置 &amp;gt; 应用凭证&lt;/strong> 。你可以看到你的各种凭证，先放在这里，后面会用上：&lt;/p>
+&lt;p>&lt;img src="/p/hugo_comment/2.png"
+width="1107"
+height="766"
+srcset="/p/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_480x0_resize_box_3.png 480w, /p/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 应用凭证"
+class="gallery-image"
+data-flex-grow="144"
+data-flex-basis="346px"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="评论系统配置">评论系统配置&lt;/h2>
+&lt;h3 id="valine-配置">Valine 配置&lt;/h3>
+&lt;p>一般来说 Valine 是 Hugo 主题里自带集成的，去稍微配置下就可以使用了；以我正在使用的 Zzo 主题演示。打开博客根目录，找到 &lt;strong>config/_default&lt;/strong> 打开 &lt;strong>params.toml&lt;/strong> 配置文件，然后按照下面注释进行修改：&lt;/p>
+&lt;p>有的主题就是在根目录的 &lt;strong>config.toml&lt;/strong> ，需要自己去查看；所有修改应该基于博客根目录，不要去动主题中的文件；渲染时会对主题目录的配置进行覆盖，即：将主题中需要修改的文件复制到博客根目录对应位置，再修改博客根目录文件。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># comment&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">enableComment&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="c"># 开启评论&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">disqus_shortname&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">commento&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># Valine.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># You can get your appid and appkey from https://leancloud.cn&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># more info please open https://valine.js.org&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">[&lt;/span>&lt;span class="nx">valine&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">enable&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="c"># 开启 Valine&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">appId&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span> &lt;span class="c"># AppID 为 你在 LeanCloud 应用凭证中的 AppLD&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">appKey&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span> &lt;span class="c"># AppKey 为 你在 LeanCloud 应用凭证中的 AppKey&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">notify&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span> &lt;span class="c"># &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">verify&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span> &lt;span class="c"># &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">avatar&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;mp&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">placeholder&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;说点什么吧...&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">visitor&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>配置项及参数参考： &lt;a class="link" href="https://valine.js.org/configuration.htmlValine" target="_blank" rel="noopener"
+>配置项
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>一般来说，主题的 Valine 评论系统，直接在主题配置文件中设置相应的参数开启即可。如果不是自带的可以往下看 Waline 的操作。&lt;/p>
+&lt;hr>
+&lt;h3 id="waline-配置">Waline 配置&lt;/h3>
+&lt;h4 id="通过-vercel-部署服务端">通过 Vercel 部署服务端&lt;/h4>
+&lt;ul>
+&lt;li>这一部分可以直接看官方给出的教程 &lt;a class="link" href="https://waline.js.org/guide/get-started.html#vercel-%e9%83%a8%e7%bd%b2-%e6%9c%8d%e5%8a%a1%e7%ab%afVercel" target="_blank" rel="noopener"
+>部署 ( 服务端 )
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h4 id="引入-waline-及配置">引入 Waline 及配置&lt;/h4>
+&lt;p>我正在用的 Zzo 主题是不自带 Waline 的，所以我就要进行引入；Zzo 主题关于评论系统的文件夹与文件分别为：&lt;/p>
+&lt;blockquote>
+&lt;ul>
+&lt;li>~/themes/zzo/layouts/partials/comments&lt;/li>
+&lt;li>~/themes/zzo/layouts/partials/comments/comments.html&lt;/li>
+&lt;li>~/config/_default/params.toml&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>和上文一样，修改主题的原则是将主题目录中的文件复制到你博客所在根目录的相同位置进行修改，不要对主题文件夹中的文件进行直接修改；这样做的好处是以后更新主题时，你所做的修改不会被覆盖。&lt;/p>
+&lt;p>首先打开主题文件夹的 &lt;strong>layouts/partials/comments&lt;/strong> 找到 &lt;strong>comments.html&lt;/strong> 和 &lt;strong>valine.html&lt;/strong> 将其复制到博客根目录对应位置，先打开 &lt;strong>comment.html&lt;/strong> 进行编辑，按照相同的格式，加上 Waline：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">{{ if $.Param &amp;#34;enableComment&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ if $.Param &amp;#34;disqus_shortname&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/disqus.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;commento&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/commento.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;valine.enable&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/valine.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;changyan.changyanAppid&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/changyan.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;livere.livereUID&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/livere.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;gitment.owner&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/gitment.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;gitalk.owner&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/gitalk.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;utterances.owner&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/utterances.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;isso.enable&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/isso.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ else if $.Param &amp;#34;telegram.enable&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {{ partial &amp;#34;comments/telegram.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ {{ else if $.Param &amp;#34;waline.enable&amp;#34; }}
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ {{ partial &amp;#34;comments/waline.html&amp;#34; . }}
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span> {{ end }}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{{ end }}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后再打开 &lt;strong>waline.html&lt;/strong> ，按照官方给出的 &lt;a class="link" href="https://waline.js.org/migration/valine.html" target="_blank" rel="noopener"
+>从 Valine 迁移
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 进行引入：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">&lt;span class="gd">-&amp;lt;script src=&amp;#39;//unpkg.com/valine/dist/Valine.min.js&amp;#39;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+&amp;lt;script src=&amp;#39;//unpkg.com/@waline/client@v2/dist/waline.js&amp;#39;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+&amp;lt;link href=&amp;#39;//unpkg.com/@waline/client@v2/dist/waline.css&amp;#39; rel=&amp;#39;stylesheet&amp;#39; /&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span> &amp;lt;script&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- new Valine({
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+ Waline.init({
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span> el: &amp;#39;#vcomments&amp;#39;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- appId: &amp;#39;Your appId&amp;#39;,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">- appKey: &amp;#39;Your appKey&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gd">&lt;/span>&lt;span class="gi">+ serverURL: &amp;#39;YOUR SERVER URL&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span> });
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;lt;/script&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>基本的引入完成后，打开 &lt;strong>config/_default/params.toml&lt;/strong> 添加 Waline 并设置：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="line">&lt;span class="cl">&lt;span class="p">[&lt;/span>&lt;span class="nx">waline&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">enable&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ServerURL&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span> &lt;span class="c"># 服务端网址是你给 Vercel 服务端绑定的域名&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你想进行一些个性化的设置，可以参考以下官网。下面是我自己的一个简单的配置：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>~/config/_default/params.tomlparams.toml&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="line">&lt;span class="cl">&lt;span class="p">[&lt;/span>&lt;span class="nx">waline&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">enable&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">ServerURL&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;https://domain.com&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Lang&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;zh-CN&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Meta&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;nick&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;mail&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;link&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">RequiredMeta&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;nick&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Login&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;disable&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">PageSize&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s1">&amp;#39;10&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">HighLighter&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>~/layouts/partials/comments/waline.html&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;vcomments&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#39;//unpkg.com/@waline/client@v2/dist/waline.js&amp;#39;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">link&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#39;//unpkg.com/@waline/client@v2/dist/waline.css&amp;#39;&lt;/span> &lt;span class="na">rel&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#39;stylesheet&amp;#39;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Waline&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">init&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">el&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;#vcomments&amp;#39;&lt;/span> &lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">locale&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">placeholder&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;请注意评论礼仪，发布攻击性、无意义内容将会视为垃圾评论进行删除处理。&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">nick&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;昵称*&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">serverURL&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;{{ .Site.Params.waline.ServerURL }}&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">emoji&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;//unpkg.com/@waline/emojis@1.1.0/alus&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;//unpkg.com/@waline/emojis@1.1.0/tieba&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">lang&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;{{ .Site.Params.waline.Lang }}&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">meta&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{{&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nx">Site&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Params&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">waline&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Meta&lt;/span> &lt;span class="p">}},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">requiredMeta&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{{&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nx">Site&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Params&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">waline&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">RequiredMeta&lt;/span> &lt;span class="p">}},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">login&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;{{ .Site.Params.waline.Login }}&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">pageSize&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;{{ .Site.Params.waline.PageSize }}&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">highlighter&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{{&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nx">Site&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Params&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">waline&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Highlighter&lt;/span> &lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;p>配置完成之后你就可以在运行 &lt;code>hugo server&lt;/code> 在本地进行评论测试了:&lt;/p>
+&lt;p>&lt;img src="/p/hugo_comment/3.png"
+width="1019"
+height="610"
+srcset="/p/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_480x0_resize_box_3.png 480w, /p/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 本地测试"
+class="gallery-image"
+data-flex-grow="167"
+data-flex-basis="400px"
+>&lt;/p>
+&lt;hr>
+&lt;h3 id="评论管理">评论管理&lt;/h3>
+&lt;p>Waline 带有后台，可以实现对评论的管理。部署完成后访问 &lt;code>&amp;lt;serverURL&amp;gt;/ui/register&lt;/code> 进行注册，第一个注册的账户会被设定成管理员。&lt;/p>
+&lt;p>登录成功后就可以看到评论管理的界面了。在这里可以修改、标记或删除评论。在评论的时候，如果选择登陆账户后进行评论，你的评论昵称后面会显示「博主」字样。如果没有登陆后台评论，一样是不会显示的。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>以上就是 Hugo 博客添加评论系统的过程，希望能给大家做一个参考；至于使用什么评论系统也是看自己的喜好和选择了。没有什么是最好的，只有最适合你自己的。到此 Hugo 搭建博客的一个入门流程也算是结束了，以后自己折腾多了，有时间了；也会进行更进一步的发掘和分享。&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://leancloud.app" target="_blank" rel="noopener"
+>LeanCloud 国际版
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://valine.js.org" target="_blank" rel="noopener"
+>Valine 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://vercel.com" target="_blank" rel="noopener"
+>Vrecel 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://waline.js.org" target="_blank" rel="noopener"
+>Waline 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>Hugo 博客部署至托管服务提升访问体验</title><link>/p/hugo_deploy/</link><pubDate>Sun, 18 Sep 2022 14:02:55 +0800</pubDate><guid>/p/hugo_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>之前在 &lt;a class="link" href="/p/hugo-actions/" >《使用 Github Actions 自动化部署 Hugo 博客》
+&lt;/a> 一文中我讲了通过 Github Actions 自动部署 Hugo 博客到 Github Pages ； Github Pages 免费而且无需考虑成本及维护；但是 Github 毕竟是在海外，访问有问题，还时常抽风；访问体验算不上差强人意吧，也只能说是大失所望了。那怎样简单又低成本解决这个问题呢？ (毕竟白嫖才是硬道理) 现在就来看一下今天的主角：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://vercel.com" target="_blank" rel="noopener"
+>Vercel 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Vercel 提供创新者在灵感瞬间创造所需的速度和可靠性 - 来自官方主页。&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://netlify.com" target="_blank" rel="noopener"
+>Netlify 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>用你喜欢的工具，轻松地在全球范围内自动化构建你的网站 - 来自官方主页。&lt;/p>
+&lt;/blockquote>
+&lt;p>Vercel 和 Netlify 都属于页面托管服务，不需要进行复杂的配置；可以一键部署与构建你的网站。Vercel 和 Netlify 主要面向的是 Web 端的开发者，用于帮助他们快速搭建自己的 Web 端业务，可以完全实现前端业务的独立运维。它们都拥有以下优点：&lt;/p>
+&lt;ul>
+&lt;li>免运维：不需要管理服务器主机或者服务器进程。&lt;/li>
+&lt;li>弹性伸缩：根据负载进行自动规模伸缩与自动配置。&lt;/li>
+&lt;li>按需付费：根据使用情况决定实际成本。&lt;/li>
+&lt;li>高可用：具备隐含的高可用性。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="使用与部属">使用与部属&lt;/h2>
+&lt;p>这里我以 Vercel 为例，因为他们两家操作都差不多，首先打开 Vercel 官网，点击右上角 &lt;strong>Sign Up - Continue with GitHub&lt;/strong> 使用 Github 进行登陆：&lt;/p>
+&lt;p>&lt;img src="/p/hugo_deploy/1.png"
+width="1162"
+height="800"
+srcset="/p/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_480x0_resize_box_3.png 480w, /p/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 登陆"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="348px"
+>&lt;/p>
+&lt;p>之后让你进行授权，点击确认授权即可：&lt;/p>
+&lt;p>&lt;img src="/p/hugo_deploy/2.png"
+width="716"
+height="743"
+srcset="/p/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_480x0_resize_box_3.png 480w, /p/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 授权"
+class="gallery-image"
+data-flex-grow="96"
+data-flex-basis="231px"
+>&lt;/p>
+&lt;p>进入管理面板后，点击 &lt;strong>Create a New Project&lt;/strong> 来创建新项目，然后选择 &lt;strong>Countinue with GitHub&lt;/strong> 导入 Github 的仓库：&lt;/p>
+&lt;p>&lt;img src="/p/hugo_deploy/3.png"
+width="1304"
+height="757"
+srcset="/p/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_480x0_resize_box_3.png 480w, /p/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 导入 Github"
+class="gallery-image"
+data-flex-grow="172"
+data-flex-basis="413px"
+>&lt;/p>
+&lt;p>到这会让你选择仓库，你可以选择读取所有仓库，或者指定读取某一个仓库 (这里我就选择读取我 Hugo 博客的仓库) ，然后 Install：&lt;/p>
+&lt;p>&lt;img src="/p/hugo_deploy/4.png"
+width="821"
+height="779"
+srcset="/p/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_480x0_resize_box_3.png 480w, /p/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 选择仓库"
+class="gallery-image"
+data-flex-grow="105"
+data-flex-basis="252px"
+>&lt;/p>
+&lt;p>之后会回到管理面板，点击 &lt;strong>Improt&lt;/strong> 导入你刚才选择的仓库；然后就会进入部署配置页面，一般来讲是会自动识别你仓库的程序，然后自动选择好部署配置。如果没有的话可以自己设置；记得在环境变量添加一个 &lt;strong>HUGO_VERSION&lt;/strong> 记录值为 Hugo 最新版本号，以防有的主题对版本有要求从而导致部署失败；设置完后就可以直接点击 &lt;strong>Deploy&lt;/strong> 进行部署了：&lt;/p>
+&lt;p>&lt;img src="/p/hugo_deploy/5.png"
+width="1125"
+height="890"
+srcset="/p/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_480x0_resize_box_3.png 480w, /p/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 部署参数"
+class="gallery-image"
+data-flex-grow="126"
+data-flex-basis="303px"
+>&lt;/p>
+&lt;p>等待部署，看到完结撒花就代表已经部署完成了：&lt;/p>
+&lt;p>&lt;img src="/p/hugo_deploy/6.png"
+width="1367"
+height="839"
+srcset="/p/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_480x0_resize_box_3.png 480w, /p/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 部署完毕"
+class="gallery-image"
+data-flex-grow="162"
+data-flex-basis="391px"
+>&lt;/p>
+&lt;p>然后点击 &lt;strong>Continue to Dashboard&lt;/strong> 进入管理面板，再点击 &lt;strong>Settings - Domains&lt;/strong> 为你的网站添加一个域名；输入你自己的域名后点击 &lt;strong>Add&lt;/strong> 即可添加：&lt;/p>
+&lt;blockquote>
+&lt;p>因为 Vercel 分配的二级域名是被 DNS 污染了的，所以通过二级 Vercel 分配的域名是访问不了的&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="/p/hugo_deploy/7.png"
+width="1383"
+height="712"
+srcset="/p/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_480x0_resize_box_3.png 480w, /p/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 绑定域名"
+class="gallery-image"
+data-flex-grow="194"
+data-flex-basis="466px"
+>&lt;/p>
+&lt;p>在添加域名之后会提示你设置 &lt;strong>CNAME&lt;/strong> 解析至 &lt;strong>cname.vercel-dns.com&lt;/strong> ，这时候到你域名的管理商或者 DNS 提供商处添加 &lt;strong>CNAME&lt;/strong> 解析即可：&lt;/p>
+&lt;p>&lt;img src="/p/hugo_deploy/8.png"
+width="1053"
+height="344"
+srcset="/p/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_480x0_resize_box_3.png 480w, /p/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 域名解析"
+class="gallery-image"
+data-flex-grow="306"
+data-flex-basis="734px"
+>&lt;/p>
+&lt;p>设置完成后等待域名解析， Vercel 会自动添加 SSL 证书，并且设置 HTTPS 访问。&lt;/p>
+&lt;p>至于托管到 Netlify 的部署过程和 Vercel 是大同小异的，看你怎么选择，区别就只在于 Vercel 的二级域名不能进行访问，需要添加自己的域名而已。&lt;/p>
+&lt;hr>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>至此 Hugo 博客托管到 Vercel/Netlify 进行自动部署完成；通过测试，可以看到访问速度对比 Github Pages 还是拥有不小的提升的 (左边为 Vercel 右边为 Github Pages)：&lt;/p>
+&lt;p>&lt;img src="/p/hugo_deploy/9.png"
+width="1196"
+height="550"
+srcset="/p/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_480x0_resize_box_3.png 480w, /p/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 速度对比"
+class="gallery-image"
+data-flex-grow="217"
+data-flex-basis="521px"
+>&lt;/p>
+&lt;p>在 Github 仓库导入到 Vercel/Netlify 之后，你每一次提交代码到 Hugo 博客仓库，这边都会自动进行部署及发布，相当于 Github Actions 自动部署并发布到 Github Pages 是一样的，不需要进行额外操作，非常方便。&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://vercel.com" target="_blank" rel="noopener"
+>Vercel 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://netlify.com" target="_blank" rel="noopener"
+>Netlify 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://gohugo.io/hosting-and-deployment/hosting-on-netlify" target="_blank" rel="noopener"
+>Hugo 官方文档 - Host On Netlify
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>使用 Github Actions 自动化部署 Hugo 博客</title><link>/p/hugo_actions/</link><pubDate>Sat, 16 Jul 2022 13:25:48 +0800</pubDate><guid>/p/hugo_actions/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>之前在 &lt;a class="link" href="/p/hugo/" >《使用 Hugo 搭建个人博客及部署》
+&lt;/a> 一文中, 我讲了通过 Hugo 来搭建个人博客, 并部署到 Github Pages 来实现一个在线访问.但是这样手动部署一开始还觉得比较新奇有趣, 时间一长的话难免会觉得有些麻烦, 一有什么改动就要全部重新部署, 那么本文就将讲一下通过 &lt;code>Github Actions&lt;/code> 来实现将我们的 Hugo 博客自动部署到 Github Pages 或者我们自己的云服务器上, 现在就一起来看一下.&lt;/p>
+&lt;p>&lt;strong>注意&lt;/strong>: 本文所有操作的前提条件是在 &lt;a class="link" href="/p/hugo/" >《使用 Hugo 搭建个人博客及部署》
+&lt;/a> 一文的基础上, 可以先行查阅.&lt;/p>
+&lt;hr>
+&lt;h2 id="介绍与准备">介绍与准备&lt;/h2>
+&lt;h3 id="github-actions-是什么">Github Actions 是什么&lt;/h3>
+&lt;p>GitHub Actions 是一种持续集成和持续交付 (CI/CD) 平台, 可用于自动执行生成、测试和部署管道.你可以创建工作流来构建和测试存储库的每个拉取请求, 或将合并的拉取请求部署到生产环境.
+GitHub 提供 Linux、Windows 和 macOS 虚拟机来运行你的工作流程, 或者你可以在自己的数据中心或云基础架构中托管自己的自托管运行器.&lt;/p>
+&lt;h3 id="准备工作">准备工作&lt;/h3>
+&lt;p>以本文描述所说, 通过 Github 提供的 Actions 服务将 Hugo 博客自动部署到Github Pages 和云服务器, 那就需要以下准备:&lt;/p>
+&lt;ol>
+&lt;li>存放 Hugo 博客项目的仓库, 该仓库拥有用于生成博客的 Markdown 文件, 生成静态博客的配置文件、主题等等; 也就是相当于我们本地博客的根目录, 该仓库可以设为私有.&lt;/li>
+&lt;li>存放 Hugo 博客生成的静态文件仓库, 用于 Github Pages 进行访问; 仓库名为 &lt;code>username.github.io&lt;/code> , 该仓库为开源.&lt;/li>
+&lt;li>服务器或者虚拟主机, 是你自己购买的, 同样用于存放 Hugo 博客生成的静态文件.&lt;/li>
+&lt;/ol>
+&lt;p>下面一步步来进行操作.&lt;/p>
+&lt;hr>
+&lt;h2 id="配置-github-actions">配置 Github Actions&lt;/h2>
+&lt;h3 id="创建配置文件">创建配置文件&lt;/h3>
+&lt;p>首先, 在本地博客仓库根目录下, 创建 &lt;code>.github/workflows/depoly.yaml&lt;/code> 文件名 depoly 随意, 这个就是 Github Actions 配置文件, 然后打开 VS Code 进行编辑; 复制下面的内容, 粘贴进去, 然后根据注释进行修改; 操作完成后删除注释并保存:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">push&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">branches&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">main&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 触发条件, 在 push 到 main 分支后&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">workflow_dispatch&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 触发条件, 在 Github 仓库 Action 工具手动调用&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 任务&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">build-and-deploy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">runs-on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ubuntu-latest&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 指定虚拟机环境为 Ubuntu 新版&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Checkout&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 拉取代码&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/checkout@v2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 使用其他用户配置&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">submodules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 包含子模块,也就是链接的主题&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">fetch-depth&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Setup Hugo&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 安装 Hugo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">peaceiris/actions-hugo@v2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 使用其他用户配置&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">hugo-version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">latest&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Hugo 版本选择&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">extended&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Build Hugo&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 生成博客静态文件&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">hugo --minify&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy GhPages&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 部署到 Github Pages&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">peaceiris/actions-gh-pages@v3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 使用其他用户配置&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">personal_token&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.PERSONAL_TOKEN }}&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Personal Token&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">external_repository&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">username/username.github.io&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Github Pages 仓库名, username 换成你的&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">publish_branch&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">main&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">publish_dir&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./public&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">commit_message&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ github.event.head_commit.message }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy To VPS&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 部署到个人服务器&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cross-the-world/scp-pipeline@master&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">host&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.DC_HOST }}&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Actions Secrets Token&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">user&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.DC_USER }}&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Actions Secrets Token&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">pass&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.DC_PASS }}&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Actions Secrets Token&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.DC_PORT }}&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Actions Secrets Token&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">connect_timeout&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">10s&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">local&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;./public/*&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">remote&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/var/www/html/&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 网站根目录&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>如果你不需要部署到个人服务器，可以将最后一个 &lt;code>Action&lt;/code> (部署到个人服务器) 删除&lt;/p>
+&lt;/blockquote>
+&lt;p>人看麻了? 没关系, 我们只要明白少数几个地方即可, 我来慢慢梳理:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>on&lt;/code> 字段指定触发工作流的条件, 通常是某些事件, 如：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">push&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 指定 push 事件可以触发&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;code>jobs&lt;/code>字段表示需要执行的任务&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>steps&lt;/code> 字段表示任务流程, 我们这个配置流程为:&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Setup Hugo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Build Hugo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Depoly GhPages&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Depoly TO VPS&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;code>steps&lt;/code> 字段下的 &lt;code>name&lt;/code> , &lt;code>use&lt;/code> , &lt;code>with&lt;/code> 加起来就是一个 Action&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>name&lt;/code> 表示一个 Action 的名称&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>use&lt;/code> 表示使用某个别人写好的插件&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>with&lt;/code> 表示传递给插件的参数&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="创建-token">创建 Token&lt;/h3>
+&lt;p>重点来了, 现在配置文件已经编辑好了, 我们需要创建相对应的 Token 来给 Actions 使用&lt;/p>
+&lt;h4 id="personal-token">Personal Token&lt;/h4>
+&lt;p>打开 Github 点击 &lt;code>右上角头像 - Settings - Developer setting - Personal access tokens - Generate new token&lt;/code> 创建一个 Token, 记得要勾选 &lt;code>repo&lt;/code> 和 &lt;code>workflow&lt;/code> 权限:&lt;/p>
+&lt;p>&lt;img src="/p/hugo_actions/1.png"
+width="922"
+height="747"
+srcset="/p/hugo_actions/1_hu3522c9be6b2dad825089e416752b4a96_59902_480x0_resize_box_3.png 480w, /p/hugo_actions/1_hu3522c9be6b2dad825089e416752b4a96_59902_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 创建Token"
+class="gallery-image"
+data-flex-grow="123"
+data-flex-basis="296px"
+>&lt;/p>
+&lt;p>生成后复制 Token &lt;strong>注意: Token 只会出现一次&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="/p/hugo_actions/2.png"
+width="867"
+height="317"
+srcset="/p/hugo_actions/2_hu8fd7383f66fad8c9a9876d2a4e51ea72_20800_480x0_resize_box_3.png 480w, /p/hugo_actions/2_hu8fd7383f66fad8c9a9876d2a4e51ea72_20800_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ Token展示"
+class="gallery-image"
+data-flex-grow="273"
+data-flex-basis="656px"
+>&lt;/p>
+&lt;p>复制后打开存放 Hugo 博客的仓库, 点击 &lt;code>Settings - Secrets - Actions - New repository secret&lt;/code> 输入刚才复制的 &lt;code>Token&lt;/code> , 名字为 &lt;code>PERSONAL_TOKEN&lt;/code>&lt;/p>
+&lt;p>&lt;img src="/p/hugo_actions/3.png"
+width="1007"
+height="555"
+srcset="/p/hugo_actions/3_huc13b2c964835fd1c93006ef2ced365b3_16813_480x0_resize_box_3.png 480w, /p/hugo_actions/3_huc13b2c964835fd1c93006ef2ced365b3_16813_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 创建 Secret"
+class="gallery-image"
+data-flex-grow="181"
+data-flex-basis="435px"
+>&lt;/p>
+&lt;p>如果你不需要将博客静态文件部署到个人服务器, 那么到这里就结束了. 下面来讲下部署到个人服务器的设置&lt;/p>
+&lt;h4 id="actions-secrets-token">Actions Secrets Token&lt;/h4>
+&lt;p>在 Actions 配置文件中, 最后一个流程是部署到个人服务器, 那么这里有几个选项也是需要创建 Token 的, 分别为：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>host&lt;/code> 你的服务器 IP&lt;/li>
+&lt;li>&lt;code>user&lt;/code> 登陆用户名&lt;/li>
+&lt;li>&lt;code>pass&lt;/code> 登陆密码&lt;/li>
+&lt;li>&lt;code>port&lt;/code> SSH 端口，默认为 22, 如果修改了端口，或者供应商有指定端口，填入指定端口即可&lt;/li>
+&lt;/ul>
+&lt;p>以 &lt;code>host&lt;/code> 为例, 在存放 Hugo 博客的仓库, 点击 &lt;code>Settings - Secrets - Actions - New repository secret&lt;/code> 输入 Token Name 为 &lt;code>DC_HOST&lt;/code> , Secret 为你的服务器 IP 地址, 对应配置文件中的 &lt;code>${{ secrets.DC_HOST }}&lt;/code> 项&lt;/p>
+&lt;p>&lt;img src="/p/hugo_actions/4.png"
+width="996"
+height="579"
+srcset="/p/hugo_actions/4_huf4571d29c961448e5cb85460feb31d56_20417_480x0_resize_box_3.png 480w, /p/hugo_actions/4_huf4571d29c961448e5cb85460feb31d56_20417_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 创建 Secret"
+class="gallery-image"
+data-flex-grow="172"
+data-flex-basis="412px"
+>&lt;/p>
+&lt;p>之后分别创建相对应的 Token ,然后修改最后一行 &lt;code>remote&lt;/code> 网站根目录即可。&lt;/p>
+&lt;hr>
+&lt;h2 id="推送及更新">推送及更新&lt;/h2>
+&lt;p>全部配置完成之后, 我们就可以将配置文件进行推送了, 将我们的本地博客仓库推送到创建好的私密仓库中:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git init &lt;span class="c1"># 初始化仓库&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git branch -M main &lt;span class="c1"># 设置分支为main&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git add . &lt;span class="c1"># 添加全部文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;Hugo 博客仓库第一次提交&amp;#34;&lt;/span> &lt;span class="c1"># 添加提交信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git remote add origin git@github.com:username/name.git &lt;span class="c1"># 添加远程仓库, 格式为: 用户名/仓库名 .git&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push origin main &lt;span class="c1"># 推送&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>推送完成后，等待一会然后打开 Hugo 仓库的 Actions 我们就可以看到工作流已经完成:&lt;/p>
+&lt;p>&lt;img src="/p/hugo_actions/5.png"
+width="1161"
+height="682"
+srcset="/p/hugo_actions/5_huc21d97b91565e9272aafaedea766acc8_54304_480x0_resize_box_3.png 480w, /p/hugo_actions/5_huc21d97b91565e9272aafaedea766acc8_54304_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 工作流状态"
+class="gallery-image"
+data-flex-grow="170"
+data-flex-basis="408px"
+>&lt;/p>
+&lt;p>再打开存放静态文件的仓库, 可以看到静态文件已经自动部署完毕并且生成 Github Pages 了:&lt;/p>
+&lt;p>&lt;img src="/p/hugo_actions/6.png"
+width="1288"
+height="830"
+srcset="/p/hugo_actions/6_hue00c9a32992b36571c003f698c72598d_123373_480x0_resize_box_3.png 480w, /p/hugo_actions/6_hue00c9a32992b36571c003f698c72598d_123373_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 部署完成"
+class="gallery-image"
+data-flex-grow="155"
+data-flex-basis="372px"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://docs.github.com/cn/actions/GithubGithub" target="_blank" rel="noopener"
+>Actions 官方文档
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.htmlGithub" target="_blank" rel="noopener"
+>Actions 入门教程
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/marketplace?type=actionsGithub" target="_blank" rel="noopener"
+>Actions 插件市场
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>以上就是通过 Github Actions 实现的 Hugo 博客自动部署系统, 以后只需要在本地写好文章, 然后 Push 到 Github 的 Hugo 博客仓库中就可以自动进行静态文件生成和部署啦,可以说是方便又好用. 最重要它还是免费的, 这样写博客的方式是否够优雅呢?&lt;/p></description></item><item><title>使用 Hugo 搭建个人博客及部署</title><link>/p/hugo/</link><pubDate>Tue, 03 May 2022 10:50:47 +0800</pubDate><guid>/p/hugo/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>很早开始就接触到个人博客这块了，一开始是到处泛滥的 YH 、 BY 分销；各种免费主机，再到后来自己买虚拟主机、VPS 进行个人博客的使用；由于我懒得备案，于是一直用的是海外的服务器；但是海外服务器也有问题，就是访问体验相较于国内还是比较差的。 WordPress 的话，对我个人而言感觉比较臃肿，所以后面又用了 Typecho ；到最后工作、生活等诸多琐事导致没有太多的时间去进行打理，而且服务器的长期维护也是一笔不小的开支。&lt;/p>
+&lt;p>到后面我发现了 Hugo + GitHub Pages 这一方案，既可以进行托管，节省了许多维护心力，又能随时进行写作；虽然在部署与搭建上需要进行一些配置，但是后续更新和维护还是比较方便的。因此，在这里将博客系统搭建及部署进行记录，希望对大家有所帮助。&lt;/p>
+&lt;h3 id="博客程序选择">博客程序选择&lt;/h3>
+&lt;p>目前已经有很多比较成熟的博客平台，如前文所提到的 WordPress，虽然功能强大，但对于个人博客站点来说有些太臃肿了，我认为个人博客就是自己在上面写一些东西，进行一个分享与记录；轻巧一点会比较好。而 Typecho 等轻量级博客程序就挺符合我的口味，但是如前文所说，我并没有太多的时间去进行打理和维护；经过一段时间的寻找与调研，我最终选择了 Hugo 这个高效的静态网站生成器。&lt;/p>
+&lt;h3 id="关于-hugo">关于 Hugo&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://gohugo.io" target="_blank" rel="noopener"
+>Hugo 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Hugo - 世界上最快的网站构建框架，Hugo 是最流行的开源静态站点生成器之一。 凭借其惊人的速度和灵活性，Hugo 让构建网站再次变得有趣。（来自官网介绍）&lt;/p>
+&lt;p>Hugo 是用 Golang 编写的网站构建程序，采用 Markdown 进行文章编辑，自动生成静态站点文件，支持丰富的主题配置，也可以通过 js 嵌入像是评论系统等插件，高度定制化。除了 Hugo 外， 还有 Jekyll、Hexo、VuePress、Gitbook、Docsify 等选择，实现和使用都差不多，可以根据自己的偏好进行选择。&lt;/p>
+&lt;hr>
+&lt;h2 id="安装与部属">安装与部属&lt;/h2>
+&lt;h3 id="安装-hugo-及相关程序">安装 Hugo 及相关程序&lt;/h3>
+&lt;h4 id="安装-hugo">安装 Hugo&lt;/h4>
+&lt;p>Windows 用户使用 Chocolatey 安装&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">choco install hugo -confirm
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>不想使用 Chocolatey 管理包的话也可以直接到官网下载程序到本地目录，然后添加环境变量&lt;/p>
+&lt;p>MacOS 用户使用 Homebrew 安装&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">brew install hugo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完成后通过 &lt;code>hugo version&lt;/code> 进行验证安装&lt;/p>
+&lt;h4 id="安装-git">安装 Git&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://git-scm.com" target="_blank" rel="noopener"
+>Git 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>下载完成后按照默认配置，一路下一步即可完成安装。&lt;/p>
+&lt;h4 id="安装-vs-code">安装 VS Code&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://code.visualstudio.com" target="_blank" rel="noopener"
+>VS Code 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>下载适合自己系统的版本，然后一路默认配置安装即可。&lt;/p>
+&lt;p>VS Code 插件推荐：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>Markdown All in One&lt;/code> Markdown 写作利器&lt;/p>
+&lt;p>&lt;code>Chinese Language Pack for Visual Studio Code&lt;/code> VS Code 汉化插件&lt;/p>
+&lt;p>&lt;code>Auto Rename Tag&lt;/code> 涉及修改代码时很好用&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h3 id="创建-hugo-网站及配置">创建 Hugo 网站及配置&lt;/h3>
+&lt;h4 id="创建网站">创建网站&lt;/h4>
+&lt;p>我这里的操作均在 Windows 系统下，其他系统步骤都一样。&lt;/p>
+&lt;p>打开 Git Bash 进入到需要放置网站的目录，即可通过 &lt;code>hugo new site&lt;/code> 命令进行创建网站了：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /e &lt;span class="c1"># 进入E盘&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir hugo &lt;span class="c1"># 创建 hugo 文件夹&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> hugo &lt;span class="c1"># 进入hugo文件夹&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hugo new site name &lt;span class="c1"># 创建新网站，name可以自行设置&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo1.png"
+width="499"
+height="217"
+srcset="/p/hugo/hugo1_hu1593209fc24c3f241eae20b192d7df07_80052_480x0_resize_box_3.png 480w, /p/hugo/hugo1_hu1593209fc24c3f241eae20b192d7df07_80052_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 创建站点"
+class="gallery-image"
+data-flex-grow="229"
+data-flex-basis="551px"
+>&lt;/p>
+&lt;h4 id="配置主题">配置主题&lt;/h4>
+&lt;p>当通过上文命令创建我们的站点后，需要进行主题配置，Hugo 拥有丰富的主题，可以通过官网 &lt;code>Themes&lt;/code> 菜单选择自己喜欢的风格，查看预览效果，选择后可以进入主题项目仓库，一般都会有很详细的安装及配置说明。下面我就以 &lt;code>m10c&lt;/code> 这个主题为例，演示一下配置流程。&lt;/p>
+&lt;h5 id="关联主题仓库">关联主题仓库&lt;/h5>
+&lt;p>我们可以将主题仓库直接 &lt;code>git clone&lt;/code> 下来进行使用，但这种方式有一些弊端，当之后自己对主题进行修改后，可能会与原主题产生一些冲突，不方便版本管理与后续更新。我采用的是 &lt;code>git submodule&lt;/code> 方式进行仓库链接，这样后续可以对主题的修改进行单独维护。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> name
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git init
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git submodule add https://github.com/vaga/hugo-theme-m10c.git themes/m10c
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo2.png"
+width="743"
+height="293"
+srcset="/p/hugo/hugo2_hu8b1c95630b8d6c2d2b4d5013a4a28dcc_147285_480x0_resize_box_3.png 480w, /p/hugo/hugo2_hu8b1c95630b8d6c2d2b4d5013a4a28dcc_147285_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 添加主题"
+class="gallery-image"
+data-flex-grow="253"
+data-flex-basis="608px"
+>&lt;/p>
+&lt;h5 id="更新主题">更新主题&lt;/h5>
+&lt;p>如果需要同步主题仓库的最新修改，运行以下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git submodule update --remote
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="初始化主题配置">初始化主题配置&lt;/h5>
+&lt;p>每个主题一般都会提供一些实例配置与初始页面，开始使用主题时可以将其 &lt;code>exampleSite/&lt;/code> 演示站点目录下的文件复制到站点目录下，在此基础上进行调整配置。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cp -rf themes/m10c/exampleSite/* ./
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>初始化主题基础配置后，我们可以在 &lt;code>config.toml&lt;/code> 文件中进行站点细节配置，将博客站点配置文件中的 &lt;code>baseURL&lt;/code> 改为自己的域名，或者直接设置为 &lt;code>/&lt;/code> ；其余具体配置项参考各主题说明文档，或者作者主题仓库中的详细说明。&lt;/p>
+&lt;h5 id="调试主题">调试主题&lt;/h5>
+&lt;p>完成一些基本的站点配置后，我们就可以通过 &lt;code>hugo server&lt;/code> 命令进行本地实时预览：&lt;/p>
+&lt;p>&lt;img src="/p/hugo/hugo3.png"
+width="848"
+height="413"
+srcset="/p/hugo/hugo3_hu195d9af53c49c1daaf661459675c35ad_151057_480x0_resize_box_3.png 480w, /p/hugo/hugo3_hu195d9af53c49c1daaf661459675c35ad_151057_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 预览命令"
+class="gallery-image"
+data-flex-grow="205"
+data-flex-basis="492px"
+>&lt;/p>
+&lt;p>运行服务后，我们可以通过浏览器 http://localhost:1313 地址访问我们的本地预览网页：&lt;/p>
+&lt;p>&lt;img src="/p/hugo/hugo4.png"
+width="859"
+height="597"
+srcset="/p/hugo/hugo4_hu91f764b6575d40954d329e961623aeb3_50888_480x0_resize_box_3.png 480w, /p/hugo/hugo4_hu91f764b6575d40954d329e961623aeb3_50888_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 本地预览"
+class="gallery-image"
+data-flex-grow="143"
+data-flex-basis="345px"
+>&lt;/p>
+&lt;h4 id="发布新文章">发布新文章&lt;/h4>
+&lt;p>上述操作都完成后，就可以进行新文章的发布了，通过 &lt;code>hugo new&lt;/code> 命令即可进行发布新文章&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo new posts/start.md
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>发布新文章后，我们就可以通过 VS Code 进行编辑了。&lt;/p>
+&lt;hr>
+&lt;h3 id="部署网站">部署网站&lt;/h3>
+&lt;h4 id="git-pages-设置">Git Pages 设置&lt;/h4>
+&lt;h5 id="开通-github-pages-仓库">开通 Github Pages 仓库&lt;/h5>
+&lt;p>Github Pages 项目仓库需要符合 &lt;code>username.github.io&lt;/code> 的特殊命名格式，这样博客站点才能正常访问 GitHub Pages 生成的网站服务。&lt;/p>
+&lt;p>&lt;img src="/p/hugo/hugo5.png"
+width="880"
+height="890"
+srcset="/p/hugo/hugo5_hua8df7804fcb6582fb128f2d3cde579e3_68194_480x0_resize_box_3.png 480w, /p/hugo/hugo5_hua8df7804fcb6582fb128f2d3cde579e3_68194_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 新建仓库"
+class="gallery-image"
+data-flex-grow="98"
+data-flex-basis="237px"
+>&lt;/p>
+&lt;h5 id="生成静态文件">生成静态文件&lt;/h5>
+&lt;p>配置完主题，并发布新文章之后，就可以通过 &lt;code>hugo&lt;/code> 命令来生成静态网页文件&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo6.png"
+width="846"
+height="263"
+srcset="/p/hugo/hugo6_hua556ab7ea8094a1bb562d04c6605473b_80122_480x0_resize_box_3.png 480w, /p/hugo/hugo6_hua556ab7ea8094a1bb562d04c6605473b_80122_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 生成静态文件"
+class="gallery-image"
+data-flex-grow="321"
+data-flex-basis="772px"
+>&lt;/p>
+&lt;h5 id="发布站点">发布站点&lt;/h5>
+&lt;p>Hugo 默认会将生成的静态网页文件存放在 public 目录下，我们可以通过将 public 目录初始化为本地仓库，并关联我们的 Github 远程仓库来推送我们的网页静态文件。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> public
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git init
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git add .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git branch -M main &lt;span class="c1"># 好像现在官方默认是main分支&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;博客第一次提交&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo7.png"
+width="730"
+height="544"
+srcset="/p/hugo/hugo7_hue6bbc362e6251bab546bb4b96f164b3e_233735_480x0_resize_box_3.png 480w, /p/hugo/hugo7_hue6bbc362e6251bab546bb4b96f164b3e_233735_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 提交至本地仓库"
+class="gallery-image"
+data-flex-grow="134"
+data-flex-basis="322px"
+>&lt;/p>
+&lt;p>提交到本地仓库后，就可以开始推送到 Github 远程仓库了；在此之前要先进行一些设置：&lt;/p>
+&lt;h6 id="添加密钥">添加密钥&lt;/h6>
+&lt;p>这个密钥是用来安全连接 Github 远程仓库的，使用 Https 方式连接可能会出现各种问题，输入下面命令生成密钥，然后按下几次回车即可：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh-keygen -t ed25519 -C &lt;span class="s2">&amp;#34;你的Github邮箱&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo8.png"
+width="543"
+height="345"
+srcset="/p/hugo/hugo8_hue8529ca85d5514b15728b2b3eecf7f9f_17168_480x0_resize_box_3.png 480w, /p/hugo/hugo8_hue8529ca85d5514b15728b2b3eecf7f9f_17168_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 生成密钥"
+class="gallery-image"
+data-flex-grow="157"
+data-flex-basis="377px"
+>&lt;/p>
+&lt;p>生成完毕后输入 &lt;code>cat ~/.ssh/id_ed25519.pub&lt;/code> 查看公钥内容：&lt;/p>
+&lt;p>&lt;img src="/p/hugo/hugo9.png"
+width="741"
+height="44"
+srcset="/p/hugo/hugo9_hu244e421d83d6064b29d90c59875d06c8_19752_480x0_resize_box_3.png 480w, /p/hugo/hugo9_hu244e421d83d6064b29d90c59875d06c8_19752_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 查看公钥"
+class="gallery-image"
+data-flex-grow="1684"
+data-flex-basis="4041px"
+>&lt;/p>
+&lt;p>复制展示出来的公钥，然后打开 Github 点击 &lt;code>右上角头像 - Settings - SSH and GPG keys - New SSH Key&lt;/code> 把刚才复制的公钥粘贴到 &lt;code>Key&lt;/code> 中，命名随意，然后保存：&lt;/p>
+&lt;p>&lt;img src="/p/hugo/hugo10.png"
+width="1164"
+height="628"
+srcset="/p/hugo/hugo10_hu92918c3a83d40ad27e27b2d8bf7e9e88_45493_480x0_resize_box_3.png 480w, /p/hugo/hugo10_hu92918c3a83d40ad27e27b2d8bf7e9e88_45493_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 上传公钥"
+class="gallery-image"
+data-flex-grow="185"
+data-flex-basis="444px"
+>&lt;/p>
+&lt;p>然后回到 &lt;code>Git Bash&lt;/code> 添加远程仓库&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git remote add origin git@github.com:username/username.github.io.git &lt;span class="c1"># username换成你的github用户名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push origin main
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后会提示你是否将 &lt;code>github.com&lt;/code> 添加到主机列表，输入 yes 回车即可&lt;/p>
+&lt;p>&lt;img src="/p/hugo/hugo11.png"
+width="580"
+height="101"
+srcset="/p/hugo/hugo11_huc499c9330fd25cbc89511e4f67450492_24572_480x0_resize_box_3.png 480w, /p/hugo/hugo11_huc499c9330fd25cbc89511e4f67450492_24572_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 推送至远程仓库"
+class="gallery-image"
+data-flex-grow="574"
+data-flex-basis="1378px"
+>&lt;/p>
+&lt;p>推送完成后，稍等几分钟即可通过 Github Pages 域名 &lt;code>username.github.io&lt;/code> 来访问我们的博客站点了。&lt;/p>
+&lt;hr>
+&lt;h2 id="绑定域名">绑定域名&lt;/h2>
+&lt;p>推送完毕后就可以绑定自己的域名了，绑定域名前，先到你的域名服务商或者 DNS 提供商处添加 &lt;code>CNAME&lt;/code> 记录解析到 &lt;code>username.github.io&lt;/code> 也就是你的 Github Pages 仓库名 (我这里是 CloudFlare ) ：&lt;/p>
+&lt;p>&lt;img src="/p/hugo/hugo12.png"
+width="1157"
+height="534"
+srcset="/p/hugo/hugo12_hu5943c29bd7368fd339cc60f8beabdb7c_35882_480x0_resize_box_3.png 480w, /p/hugo/hugo12_hu5943c29bd7368fd339cc60f8beabdb7c_35882_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 绑定域名"
+class="gallery-image"
+data-flex-grow="216"
+data-flex-basis="520px"
+>&lt;/p>
+&lt;p>进入 Github Pages 仓库，点击 &lt;code>Settings - Pages&lt;/code> 找到 Custom domain 输入你自己的域名，等待验证 DNS 后开启 HTTPS ：&lt;/p>
+&lt;p>&lt;img src="/p/hugo/hugo13.png"
+width="1169"
+height="851"
+srcset="/p/hugo/hugo13_hu52f39e40f75c2ee40fc82424e6fd1dfc_97307_480x0_resize_box_3.png 480w, /p/hugo/hugo13_hu52f39e40f75c2ee40fc82424e6fd1dfc_97307_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 开启HTTPS"
+class="gallery-image"
+data-flex-grow="137"
+data-flex-basis="329px"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>以上就是使用 Hugo 与 Github Pages 搭建个人博客的一个简单过程；后续还会进行更加详细的解读与说明，希望能够对大家有所帮助。&lt;/p></description></item></channel></rss>

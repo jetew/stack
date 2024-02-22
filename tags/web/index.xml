@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Web on Kitin's</title><link>/tags/web/</link><description>Recent content in Web on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sat, 05 Mar 2022 17:14:41 +0800</lastBuildDate><atom:link href="/tags/web/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Caddy+MySQL+PHP 架设 LCMP</title><link>/p/lcmp/</link><pubDate>Sat, 05 Mar 2022 17:14:41 +0800</pubDate><guid>/p/lcmp/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>以前一直使用的是 Hugo+Github+Netlify；即上传本地网站项目到 Github 然后通过 Netlify 进行自动部署以及发布网站。一开始还好，但是到后面就感觉比较麻烦了；每次更新文章或者后期文章有修改的话就需要重新上传部署；所以后面就改成了 LNMP+Typecho 。而最近又开始折腾起了 Caddy，虽然说 Caddy 配置简单，开箱即用，但现在一般都是 CaddyV2 ；而网上的教程与配置大多都是 CaddyV1 所以在这里进行一个记录，避免以后踩坑。&lt;/p>
+&lt;hr>
+&lt;h2 id="安装及配置">安装及配置&lt;/h2>
+&lt;h3 id="安装caddy">安装Caddy&lt;/h3>
+&lt;p>我使用的是 Debian 10 系统&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt install -y debian-keyring debian-archive-keyring apt-transport-https
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -1sLf &lt;span class="s1">&amp;#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -1sLf &lt;span class="s1">&amp;#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> tee /etc/apt/sources.list.d/caddy-stable.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install caddy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="安装-phpmysql">安装 PHP+MySQL&lt;/h3>
+&lt;p>这里我使用的是 Oneinstack 自动安装，参考：&lt;a class="link" href="/p/oneinstack" >一键安装 LNMP 及开设站点
+&lt;/a>&lt;/p>
+&lt;blockquote>
+&lt;p>安装方式不限，以自己为准，我只是习惯用 Oneinstack 自动安装&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;code>apt&lt;/code> 软件包安装：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install -y php php-fpm mysql&lt;span class="o">(&lt;/span>mariadb-server&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>&lt;strong>MySQL&lt;/strong> 或者 &lt;strong>MariaDB&lt;/strong> 都行，看个人选择进行安装，两个差别不大 (2022-10-27更新 &lt;code>apt&lt;/code> 软件包安装)&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h3 id="caddy-配置">Caddy 配置&lt;/h3>
+&lt;p>修改 Caddyfile 配置，拿不准的可以下载下来进行编辑，然后再上传，文件路径为 &lt;strong>/etc/caddy/Caddyfile&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我的配置如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">example.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/xx&lt;/span>&lt;span class="c1"> # 网站根目录
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nd">@key1&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">not&lt;/span> &lt;span class="k">file&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">path_regexp&lt;/span> &lt;span class="s">key1&lt;/span> &lt;span class="s">&amp;#39;(.*)&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">rewrite&lt;/span> &lt;span class="nd">@key1&lt;/span> &lt;span class="s">/index.php&lt;/span>&lt;span class="se">{re.key1.1}&lt;/span>&lt;span class="c1"> # Typecho 伪静态，建议安装完程序后写入
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">encode&lt;/span> &lt;span class="s">gzip&lt;/span>&lt;span class="c1"> # 开启 gzip
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">handle_errors&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">rewrite&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/&lt;/span>&lt;span class="se">{err.status_code}&lt;/span>&lt;span class="s">.html&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="c1"> # 错误页面
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">php_fastcgi&lt;/span> &lt;span class="s">unix//dev/shm/php-cgi.sock&lt;/span>&lt;span class="c1"> # 使用 unix socket 通信
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">file_server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">tls&lt;/span> &lt;span class="s">mail@example.com&lt;/span>&lt;span class="c1"> # 设置 TLS
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>这里的 unix socket 路径为 Oneinstack 自动安装方式的路径，若使用 &lt;code>apt&lt;/code> 安装方式的话位于 &lt;code>/run/phpx.x/php-fpm.sock&lt;/code>
+伪静态可以在网上查找对应程序的伪静态规则，然后通过 &lt;a href="https://www.toolnb.com/tools/rewriteTools.html" target="_blank">伪静态转换工具&lt;/a> 进行转换，伪静态规则建议等上传并安装完程序后再写入到配置中&lt;/p>
+&lt;/blockquote>
+&lt;p>配置完成后使用 &lt;code>caddy adapt&lt;/code> 命令进行检查：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">caddy adapt --config /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>确认无报错后，重载 Caddyfile ：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">caddy reload --config /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启 Caddy 并添加自启动&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart caddy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl &lt;span class="nb">enable&lt;/span> caddy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="写在最后">写在最后&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>Caddy 作为 Golang 编写的程序，简单易用，但是性能方面是稍落后于 Nginx 的，但是对于小站来说，这一点点的差距是可以忽略不计的。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>PHP 和 MySQL 可以根据自己的喜好来安装，或者选择 Mariadb、SQLite 等等都是可以的。&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>LNMP 一键安装包开设网站</title><link>/p/lnmporg/</link><pubDate>Fri, 25 Feb 2022 17:14:41 +0800</pubDate><guid>/p/lnmporg/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;ul>
+&lt;li>LNMP一键安装包是什么&lt;/li>
+&lt;/ul>
+&lt;p>LNMP一键安装包是一个用 Linux Shell 编写的可以为 Linux VPS 或独立主机安装 LNMP(Nginx/MySQL/PHP)、LNMPA(Nginx/MySQL/PHP/Apache)、LAMP(Apache/MySQL/PHP) 生产环境的 Shell 程序。&lt;/p>
+&lt;ul>
+&lt;li>我们为什么需要它?&lt;/li>
+&lt;/ul>
+&lt;p>编译安装需要输入大量的命令，如果是配置生产环境需要耗费大量的时间。
+不会 Linux 的站长或 Linux 新手想使用 Linux 作为生产环境……&lt;/p>
+&lt;ul>
+&lt;li>它有什么优势和功能?&lt;/li>
+&lt;/ul>
+&lt;p>无需一个一个的输入命令，无需值守，编译安装优化编译参数，提高性能，解决不必要的软件间依赖，特别针对配置自动优化。&lt;/p>
+&lt;hr>
+&lt;h2 id="安装教程">安装教程&lt;/h2>
+&lt;h3 id="说明">说明&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://lnmp.org" target="_blank" rel="noopener"
+>LNMP 一键安装包官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>注意事项&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>需要 5GB 以上可用空间，MySQL 5.7,MariaDB 10 至少 9GB 剩余空间, MySQL8.0 最新版至少 25GB 以上.&lt;/p>
+&lt;p>需要 128MB 以上内存( 128MB 小内存 VPS , Xen 需有 SWAP,OpenVZ 至少要有 128MB 以上的 vSWAP 或突发内存)，注意小内存请勿使用 64 位系统！&lt;/p>
+&lt;p>&lt;strong>安装 MySQL 5.6 或 5.7 及 MariaDB 10 必须 1G 以上内存，更高版本至少要 2G 内存!。&lt;/strong>
+&lt;strong>安装 PHP 7 及以上版本必须 1G 以上内存!。&lt;/strong>&lt;/p>
+&lt;p>不要在非常新的 Linux 发行版上安装旧的 PHP/MySQL 版本，同理不要在旧的 Linux 发行版上安装非常新的PHP/MySQL 版本。&lt;/p>
+&lt;p>CentOS 6、8 请用 lnmp 1.9+ 版本进行安装！&lt;/p>
+&lt;p>Ubuntu 18+,Debian 9+,Mint 19+,Deepin 15.7+ 及所有新的 Linux 发行版只能使用 1.7+ 进行安装！&lt;/p>
+&lt;p>PHP 7.1.* 以下版本不支持 Ubuntu 19+、Debian 10+ 等等非常新的 Linux 发行版！&lt;/p>
+&lt;p>阿里云 Ubuntu 14.04 系统模版有问题不要用！！！&lt;/p>
+&lt;p>PHP 7.4 升级或安装必须 CentOS 7+,Debian 8+,Ubuntu 16.04+ 且必须使用 1.7+ ！！！&lt;/p>
+&lt;p>MySQL 8.0.23 以下版本升级或安装必须 CentOS 8+,Debian 9+,Ubuntu 16.04+ 且必须使用 1.7+ ！！！&lt;/p>
+&lt;p>MySQL 8.0.24 以上版本升级或安装必须 Debian 11+,Ubuntu 20.04+,Fedora 33+ 且必须使用 1.8+ ！！！&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h3 id="安装步骤">安装步骤&lt;/h3>
+&lt;ol>
+&lt;li>使用 SSH 工具登录 VPS 或服务器&lt;/li>
+&lt;/ol>
+&lt;p>为防止本地网络变化等不确定因素导致安装终止，先键入命令创建一个作业窗口：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">screen -S lnmp
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果提示 &lt;code>screen: command not found&lt;/code> 命令不存在可以执行： &lt;code>yum install screen&lt;/code> 或 &lt;code>apt-get install screen&lt;/code> 安装&lt;/p>
+&lt;hr>
+&lt;ol start="2">
+&lt;li>下载并安装 LNMP 一键安装包&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget http://soft.vpser.net/lnmp/lnmp1.9.tar.gz -cO lnmp1.9.tar.gz &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> tar zxf lnmp1.9.tar.gz &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> lnmp1.9 &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ./install.sh lnmp
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>如需要安装 LNMPA 或 LAMP ，将 &lt;code>./install.sh&lt;/code> 后面的参数 &lt;code>lnmp&lt;/code> 替换为 &lt;code>lnmpa&lt;/code> 或 &lt;code>lamp&lt;/code> 即可。同时也支持单独安装 Nginx 或数据库，命令为 &lt;code> ./install.sh nginx&lt;/code> 或 &lt;code>./install.sh db&lt;/code>
+如需更改网站和数据库目录、自定义 Nginx 参数、 PHP 参数模块是否安装、开启 lua 等需在运行 &lt;code> ./install.sh&lt;/code> 命令前修改安装包目录下的 lnmp.conf 文件，详细可以查看 lnmp.conf 文件参数说明。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;ol start="3">
+&lt;li>安装步骤&lt;/li>
+&lt;/ol>
+&lt;p>运行上述命令后即可开始安装，目前提供了较多的 MySQL、MariaDB 版本和不安装数据库的选项，&lt;strong>需要注意的是 MySQL 5.6,5.7 及 MariaDB 10 必须在 1G 以上内存的更高配置上才能选择！&lt;/strong>&lt;/p>
+&lt;p>输入对应 MySQL 或 MariaDB 版本前面的序号，回车进入下一步：&lt;/p>
+&lt;p>&lt;img src="/p/lnmporg/1.png"
+width="681"
+height="442"
+srcset="/p/lnmporg/1_hu53c5b26ac56c1988f48e53cd584b8bad_47139_480x0_resize_box_3.png 480w, /p/lnmporg/1_hu53c5b26ac56c1988f48e53cd584b8bad_47139_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 数据库版本选择"
+class="gallery-image"
+data-flex-grow="154"
+data-flex-basis="369px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>如果选择 MySQL 5.7、8.0 且是 x86 或 x86_64 架构会提示： &lt;code>Using Generic Binaries [y/n]&lt;/code> 这一步是提示是否使用二进制安装，输入 y 为使用二进制安装，输入 n 为使用源码编译安装。&lt;/p>
+&lt;/blockquote>
+&lt;p>设置 MySQL 的 root 密码（直接回车将会设置为 lnmp.org#随机数字）如果输入有错误需要删除时，可以按住 Ctrl 再按 Backspace 键进行删除(个别情况下是只需按 Backspace 键)。输入后回车进入下一步，如图：&lt;/p>
+&lt;p>&lt;img src="/p/lnmporg/2.png"
+width="547"
+height="146"
+srcset="/p/lnmporg/2_hu74c055bd132385d9deaf85d27d86d554_13291_480x0_resize_box_3.png 480w, /p/lnmporg/2_hu74c055bd132385d9deaf85d27d86d554_13291_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 设置数据库密码"
+class="gallery-image"
+data-flex-grow="374"
+data-flex-basis="899px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>询问是否需要启用 MySQL InnoDB，InnoDB 引擎默认为开启，一般建议开启，直接回车或输入 y ，如果确定确实不需要该引擎可以输入 n&lt;/p>
+&lt;/blockquote>
+&lt;p>输入要选择的 PHP 版本的序号，回车进入下一步，&lt;strong>注意：选择 PHP 7+ 版本时需要自行确认 PHP 版本是否与自己的程序兼容&lt;/strong>：&lt;/p>
+&lt;p>&lt;img src="/p/lnmporg/3.png"
+width="576"
+height="430"
+srcset="/p/lnmporg/3_hue4971f2403331b1e7613c097c65437da_39755_480x0_resize_box_3.png 480w, /p/lnmporg/3_hue4971f2403331b1e7613c097c65437da_39755_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 选择 PHP 版本"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="321px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>选择是否安装内存优化：可以选择不安装、 Jemalloc 或 TCmalloc ，输入对应序号回车，直接回车为默认为不安装。&lt;/p>
+&lt;/blockquote>
+&lt;p>进行完上述操作后，会提示 &lt;code>Press any key to install...or Press Ctrl+c to cancel&lt;/code> ，按回车键确认开始安装；LNMP 脚本就会自动安装编译 Nginx、MySQL、PHP、phpMyAdmin 等软件及相关的组件。&lt;/p>
+&lt;p>安装时间可能会几十分钟到几个小时不等，主要是机器的配置网速等原因会造成影响。&lt;/p>
+&lt;ul>
+&lt;li>LNMP 一键安装包编译过程需要大量的时间，所以需要耐心等待。如果网络掉线，可以重新连接 SSH，再执行 &lt;code>screen -r lnmp&lt;/code> 就会看到你的 lnmp 安装进程；如果没恢复窗口，可以输入 &lt;code>screen -ls&lt;/code> 列出窗口进程，然后输入 &lt;code>screen -D -r XX(进程编号)&lt;/code> 进行恢复：&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="/p/lnmporg/4.png"
+width="546"
+height="98"
+srcset="/p/lnmporg/4_hub14abd7083affe68c41e65d640365434_9873_480x0_resize_box_3.png 480w, /p/lnmporg/4_hub14abd7083affe68c41e65d640365434_9873_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 窗口恢复"
+class="gallery-image"
+data-flex-grow="557"
+data-flex-basis="1337px"
+>&lt;/p>
+&lt;hr>
+&lt;ol>
+&lt;li>完成安装&lt;/li>
+&lt;/ol>
+&lt;p>完成安装后，会显示如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">==============================&lt;/span> Check &lt;span class="nv">install&lt;/span> &lt;span class="o">==============================&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Checking ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nginx: OK
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">MySQL: OK
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PHP: OK
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PHP-FPM: OK
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Clean Web Server src directory...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/lnmporg/5.png"
+width="935"
+height="925"
+srcset="/p/lnmporg/5_hu551a874f02a57c843724fad6a73d62df_101114_480x0_resize_box_3.png 480w, /p/lnmporg/5_hu551a874f02a57c843724fad6a73d62df_101114_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 安装完成"
+class="gallery-image"
+data-flex-grow="101"
+data-flex-basis="242px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Nginx、MySQL、PHP 都是 running，80和3306端口都存在，并提示安装使用的时间及 Install lnmp V1.9 completed! enjoy it. 的话，说明已经安装成功。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;ol>
+&lt;li>安装 PHP 组件&lt;/li>
+&lt;/ol>
+&lt;p>安装完 LNMP 后可以按自己的需求安装 eAccelerator、xcache、memcached、imageMagick、ionCube、redis、opcache。这几个 PHP 缓存、加速类的扩展不一定对每个人都能用，自己按需要安装，不用装多个同类的扩展，可能会导致出错。&lt;/p>
+&lt;p>这些扩展和组件均采用 &lt;code>./addons.sh&lt;/code> 进行安装；基本用法说明：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">./addons.sh &lt;span class="o">{&lt;/span>install&lt;span class="p">|&lt;/span>uninstall&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>eaccelerator&lt;span class="p">|&lt;/span>xcache&lt;span class="p">|&lt;/span>memcached&lt;span class="p">|&lt;/span>opcache&lt;span class="p">|&lt;/span>redis&lt;span class="p">|&lt;/span>imagemagick&lt;span class="p">|&lt;/span>ioncube&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>例如安装常用的 Memcached、Redis、imageMagick 命令如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">./addons.sh install memcached &lt;span class="c1"># 安装 Memcached&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./addons.sh install redis &lt;span class="c1"># 安装 Redis&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./addons.sh install imagemagick &lt;span class="c1"># 安装 imageMagick&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>以安装 Memcached 为例，演示如下：&lt;/p>
+&lt;p>&lt;img src="/p/lnmporg/6.png"
+width="604"
+height="277"
+srcset="/p/lnmporg/6_hu2f0ad3f599b0276e3a330b318a342112_22154_480x0_resize_box_3.png 480w, /p/lnmporg/6_hu2f0ad3f599b0276e3a330b318a342112_22154_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 组件安装"
+class="gallery-image"
+data-flex-grow="218"
+data-flex-basis="523px"
+>&lt;/p>
+&lt;p>安装完成提示：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Starting Memcached...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Starting memcached: &lt;span class="k">done&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">======&lt;/span> Memcached install &lt;span class="nv">completed&lt;/span> &lt;span class="o">======&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Memcached installed successfully, enjoy it!
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="网站管理">网站管理&lt;/h2>
+&lt;h3 id="添加删除网站虚拟主机">添加/删除网站(虚拟主机)&lt;/h3>
+&lt;p>虚拟主机管理基本命令介绍：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">lnmp vhost add &lt;span class="c1"># 添加网站&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lnmp vhost list &lt;span class="c1"># 网站列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lnmp vhost del &lt;span class="c1"># 删除网站&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行：&lt;code>lnmp vhost add&lt;/code> 并按照下面操作添加网站（点击放大）：&lt;/p>
+&lt;p>&lt;img src="/p/lnmporg/7.png"
+width="973"
+height="738"
+srcset="/p/lnmporg/7_hu66e42baf4437361e061814b69d78de49_157767_480x0_resize_box_3.png 480w, /p/lnmporg/7_hu66e42baf4437361e061814b69d78de49_157767_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 添加网站"
+class="gallery-image"
+data-flex-grow="131"
+data-flex-basis="316px"
+>&lt;/p>
+&lt;p>最后按下任意键，即可开始添加网站了，添加完成后提示如下：&lt;/p>
+&lt;p>&lt;img src="/p/lnmporg/8.png"
+width="637"
+height="331"
+srcset="/p/lnmporg/8_hub60c3d595f8e17131ac4747ae5d188c5_47635_480x0_resize_box_3.png 480w, /p/lnmporg/8_hub60c3d595f8e17131ac4747ae5d188c5_47635_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 完成提示"
+class="gallery-image"
+data-flex-grow="192"
+data-flex-basis="461px"
+>&lt;/p>
+&lt;p>网站架设完成&lt;/p>
+&lt;hr>
+&lt;h3 id="上传程序">上传程序&lt;/h3>
+&lt;p>直接使用 SFTP 软件登陆 root 账户进行上传，上传完成后设置相关权限即可。&lt;/p>
+&lt;blockquote>
+&lt;p>上传网站后建议执行：&lt;code>chown www:www -R /path/to/dir&lt;/code> 对网站目录进行权限设置，&lt;code>/path/to/dir&lt;/code> 替换为你网站目录。&lt;/p>
+&lt;/blockquote>
+&lt;p>如果需要单独的 FTP 账户进行上传，那么就安装 FTP 服务器，并创建 FTP 用户进行上传&lt;/p>
+&lt;h4 id="安装-pureftpd">安装 pureftpd&lt;/h4>
+&lt;p>进入 LNMP 解压缩后的文件夹，输入 &lt;code>./pureftpd.sh&lt;/code> 会提示按任意键安装：&lt;/p>
+&lt;p>&lt;img src="/p/lnmporg/9.png"
+width="505"
+height="208"
+srcset="/p/lnmporg/9_hu15bb82c3688b4cf18e15bc88837efd64_12663_480x0_resize_box_3.png 480w, /p/lnmporg/9_hu15bb82c3688b4cf18e15bc88837efd64_12663_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 安装 FTP"
+class="gallery-image"
+data-flex-grow="242"
+data-flex-basis="582px"
+>&lt;/p>
+&lt;p>按下任意键，等待安装完成，出现如下提示：&lt;/p>
+&lt;p>&lt;img src="/p/lnmporg/10.png"
+width="593"
+height="143"
+srcset="/p/lnmporg/10_hu0fae7493f4875ba5df3815f8a1d0aa10_11824_480x0_resize_box_3.png 480w, /p/lnmporg/10_hu0fae7493f4875ba5df3815f8a1d0aa10_11824_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 完成提示"
+class="gallery-image"
+data-flex-grow="414"
+data-flex-basis="995px"
+>&lt;/p>
+&lt;ul>
+&lt;li>FTP命令&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">lnmp ftp add &lt;span class="c1"># 添加FTP用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lnmp ftp del &lt;span class="c1"># 删除FTP用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lnmp ftp edit &lt;span class="c1"># 编辑FTP用户&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>LNMP 一键安装包和 Oneinstack之间大差不差，只是一些细节之间的不同；可以按照自己的喜好进行选择，但它们都更适合有一定 Linux 使用基础的人，新手的话还是更建议使用可视化面板。&lt;/p>
+&lt;p>最后贴上 LNMP 一键安装包详细的使用说明：&lt;a class="link" href="https://lnmp.org/category/faq/" target="_blank" rel="noopener"
+>LNMP 一键安装包常见问题
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p></description></item><item><title>Oneinstack 一键安装 LNMP 及开设站点</title><link>/p/oneinstack/</link><pubDate>Wed, 23 Feb 2022 17:14:41 +0800</pubDate><guid>/p/oneinstack/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;h3 id="什么是-lnmp">什么是 LNMP&lt;/h3>
+&lt;p>LNMP代表的就是：Linux 系统下 Nginx+MySQL+PHP 这种网站服务器架构。
+Linux 是一类 Unix 计算机操作系统的统称，是目前最流行的免费操作系统。代表版本有：debian、centos、ubuntu、fedora、gentoo 等。
+Nginx 是一个高性能的 HTTP 和反向代理服务器，也是一个 IMAP/POP3/SMTP 代理服务器。
+Mysql 是一个小型关系型数据库管理系统。
+PHP 是一种在服务器端执行的嵌入 HTML 文档的脚本语言。
+这四种软件均为免费开源软件，组合到一起，成为一个免费、高效、扩展性强的网站服务系统。&lt;/p>
+&lt;hr>
+&lt;h2 id="安装">安装&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://oneinstack.com" target="_blank" rel="noopener"
+>Oneinstack 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>OneinStack包含以下组合：&lt;/p>
+&lt;blockquote>
+&lt;ul>
+&lt;li>lnmp（Linux + Nginx+ MySQL/MongoDB+ PHP）&lt;/li>
+&lt;li>lamp（Linux + Apache+ MySQL/MongoDB+ PHP）&lt;/li>
+&lt;li>lnmpa（Linux + Nginx+ MySQL/MongoDB+ PHP+ Apache）：Nginx 处理静态，Apache 处理动态 PHP&lt;/li>
+&lt;li>lnmt（Linux + Nginx+ MySQL/MongoDB+ Tomcat）：Nginx 处理静态，Tomcat（JDK）处理 JAVA&lt;/li>
+&lt;li>lnpp（Linux + Nginx+ PostgreSQL+ PHP）&lt;/li>
+&lt;li>lapp（Linux + Apache+ PostgreSQL+ PHP）&lt;/li>
+&lt;li>lnmh（Linux + Nginx+ MySQL+ HHVM）&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>安装说明&lt;/li>
+&lt;/ul>
+&lt;p>点击链接进入 OneinStack 官网，点击自动安装；然后选择自己所需要的组合，并视情况选择组件，然后就会生成相应的一键安装命令：&lt;/p>
+&lt;p>&lt;img src="/p/oneinstack/instack1.jpg"
+width="1256"
+height="862"
+srcset="/p/oneinstack/instack1_hu035da576ecc982c8349711e160f8805b_140951_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack1_hu035da576ecc982c8349711e160f8805b_140951_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+alt="◎ 选择stack"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="349px"
+>&lt;/p>
+&lt;p>为防止本地网络变化等不确定因素导致安装终止，先键入命令创建一个作业窗口：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">screen -S lnmp
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>若报错先安装 &lt;code>screen&lt;/code> ：&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get install -y screen
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后复制 OneinStack 一键安装命令粘贴至终端，接下来就是耐心等待，安装时间视你所选组件的多少以及服务器配置而定。&lt;/p>
+&lt;p>安装完成后提示安装时长和组件路径：&lt;/p>
+&lt;p>&lt;img src="/p/oneinstack/instack2.jpg"
+width="467"
+height="361"
+srcset="/p/oneinstack/instack2_hue16e9cd24bcc9ecbb5a7cc89073af203_198249_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack2_hue16e9cd24bcc9ecbb5a7cc89073af203_198249_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+alt="◎ 完成提示"
+class="gallery-image"
+data-flex-grow="129"
+data-flex-basis="310px"
+>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">####################Congratulations########################&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Total OneinStack Install Time: &lt;span class="m">28&lt;/span> minutes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nginx install dir: /usr/local/nginx
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Database install dir: /usr/local/mysql
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Database data dir: /data/mysql
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Database user: root
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Database password: oneinstack
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PHP install dir: /usr/local/php
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Opcache Control Panel URL: http://192.168.0.160/ocp.php
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Pure-FTPd install dir: /usr/local/pureftpd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Create FTP virtual script: ./pureftpd_vhost.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">phpMyAdmin dir: /data/wwwroot/default/phpMyAdmin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">phpMyAdmin Control Panel URL: http://192.168.0.160/phpMyAdmin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">redis install dir: /usr/local/redis
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">memcached install dir: /usr/local/memcached
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Index URL: http://192.168.0.160/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此时键入 &lt;code>reboot&lt;/code> 命令，重启 VPS。&lt;/p>
+&lt;p>至此 LNMP 环境安装完成。&lt;/p>
+&lt;hr>
+&lt;h2 id="开设站点">开设站点&lt;/h2>
+&lt;h3 id="安装检查">安装检查&lt;/h3>
+&lt;p>首先打开浏览器，进入 Oneinstack 的默认首页，即服务器 &lt;code>IP&lt;/code> 地址，就可以看到默认页面：&lt;/p>
+&lt;p>&lt;img src="/p/oneinstack/instack3.jpg"
+width="854"
+height="588"
+srcset="/p/oneinstack/instack3_huad7be3b27b9d88991502e22e6533f71c_79881_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack3_huad7be3b27b9d88991502e22e6533f71c_79881_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+alt="◎ 默认页面"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="348px"
+>&lt;/p>
+&lt;p>到这说明已经成功搭建 Lnmp&lt;/p>
+&lt;hr>
+&lt;h3 id="创建虚拟主机">创建虚拟主机&lt;/h3>
+&lt;p>键入下面命令，添加虚拟主机并绑定域名。&lt;/p>
+&lt;blockquote>
+&lt;p>注意域名应该提前解析至你的主机IP&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /root/oneinstack/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./vhost.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>流程如下：&lt;/p>
+&lt;p>&lt;img src="/p/oneinstack/instack4.png"
+width="1608"
+height="2844"
+srcset="/p/oneinstack/instack4_hu6dce73c6561079d23c31967f0c5803d2_388325_480x0_resize_box_3.png 480w, /p/oneinstack/instack4_hu6dce73c6561079d23c31967f0c5803d2_388325_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 添加网站"
+class="gallery-image"
+data-flex-grow="56"
+data-flex-basis="135px"
+>&lt;/p>
+&lt;hr>
+&lt;h3 id="创建mysql数据库">创建MySQL数据库&lt;/h3>
+&lt;p>Oneinstack 提供 phpMyAdmin 在线管理 Mysql；打开浏览器，输入 &lt;code>ip/phpMyAdmin&lt;/code> 登录到 phpMyAdmin：&lt;/p>
+&lt;p>&lt;img src="/p/oneinstack/instack5.jpg"
+width="776"
+height="462"
+srcset="/p/oneinstack/instack5_hu9b9c6984803e3756aac3b523d6219af1_55110_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack5_hu9b9c6984803e3756aac3b523d6219af1_55110_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+alt="◎ phpMyAdmin"
+class="gallery-image"
+data-flex-grow="167"
+data-flex-basis="403px"
+>&lt;/p>
+&lt;p>然后点击账户 &amp;gt; 新建用户账户，新增数据库与用户，并确认执行：&lt;/p>
+&lt;p>&lt;img src="/p/oneinstack/instack6.jpg"
+width="676"
+height="592"
+srcset="/p/oneinstack/instack6_hud8ca3252d9bb6917c3e1fbcb0c2feb2a_73628_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack6_hud8ca3252d9bb6917c3e1fbcb0c2feb2a_73628_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+alt="◎ 创建用户与数据库"
+class="gallery-image"
+data-flex-grow="114"
+data-flex-basis="274px"
+>&lt;/p>
+&lt;p>创建完虚拟主机以及数据库后就可以上传程序并进行安装了&lt;/p>
+&lt;hr>
+&lt;h2 id="扩展配置">扩展配置&lt;/h2>
+&lt;h3 id="添加附加组件">添加附加组件&lt;/h3>
+&lt;p>如果之前没有安装组件，后续补充安装，统一入口为 &lt;code>./install.sh&lt;/code> ，详细如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#######################################################################&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># OneinStack for CentOS/RedHat 7+ Debian 9+ and Ubuntu 16+ #&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For more information please visit https://oneinstack.com #&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#######################################################################&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">version: 2.6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">updated date: 2022-09-03
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Usage: ./install.sh &lt;span class="nb">command&lt;/span> ...&lt;span class="o">[&lt;/span>parameters&lt;span class="o">]&lt;/span>....
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --help, -h Show this &lt;span class="nb">help&lt;/span> message, More: https://oneinstack.com/auto
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --version, -v Show version info
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --nginx_option &lt;span class="o">[&lt;/span>1-3&lt;span class="o">]&lt;/span> Install Nginx server version
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --apache Install Apache
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --apache_mode_option &lt;span class="o">[&lt;/span>1-2&lt;span class="o">]&lt;/span> Apache2.4 mode, 1&lt;span class="o">(&lt;/span>default&lt;span class="o">)&lt;/span>: php-fpm, 2: mod_php
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --apache_mpm_option &lt;span class="o">[&lt;/span>1-3&lt;span class="o">]&lt;/span> Apache2.4 MPM, 1&lt;span class="o">(&lt;/span>default&lt;span class="o">)&lt;/span>: event, 2: prefork, 3: worker
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --php_option &lt;span class="o">[&lt;/span>1-11&lt;span class="o">]&lt;/span> Install PHP version
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --mphp_ver &lt;span class="o">[&lt;/span>53~81&lt;span class="o">]&lt;/span> Install another PHP version &lt;span class="o">(&lt;/span>PATH: /usr/local/php&lt;span class="si">${&lt;/span>&lt;span class="nv">mphp_ver&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --mphp_addons Only install another PHP addons
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --phpcache_option &lt;span class="o">[&lt;/span>1-4&lt;span class="o">]&lt;/span> Install PHP opcode cache, default: &lt;span class="m">1&lt;/span> opcache
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --php_extensions &lt;span class="o">[&lt;/span>ext name&lt;span class="o">]&lt;/span> Install PHP extensions, include zendguardloader,ioncube,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sourceguardian,imagick,gmagick,fileinfo,imap,ldap,calendar,phalcon,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> yaf,yar,redis,memcached,memcache,mongodb,swoole,xdebug
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --nodejs Install Nodejs
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --tomcat_option &lt;span class="o">[&lt;/span>1-4&lt;span class="o">]&lt;/span> Install Tomcat version
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --jdk_option &lt;span class="o">[&lt;/span>1-2&lt;span class="o">]&lt;/span> Install JDK version
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --db_option &lt;span class="o">[&lt;/span>1-14&lt;span class="o">]&lt;/span> Install DB version
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --dbinstallmethod &lt;span class="o">[&lt;/span>1-2&lt;span class="o">]&lt;/span> DB install method, default: &lt;span class="m">1&lt;/span> binary install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --dbrootpwd &lt;span class="o">[&lt;/span>password&lt;span class="o">]&lt;/span> DB super password
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --pureftpd Install Pure-Ftpd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --redis Install Redis
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --memcached Install Memcached
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --phpmyadmin Install phpMyAdmin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --python Install Python &lt;span class="o">(&lt;/span>PATH: /usr/local/python&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --ssh_port &lt;span class="o">[&lt;/span>No.&lt;span class="o">]&lt;/span> SSH port
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --iptables Enable iptables
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --reboot Restart the server after installation
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>如之前没有安装 &lt;code>php redis&lt;/code> 以及 &lt;code>imagick&lt;/code> 扩展，补充安装命令： &lt;code>./install.sh --php_extensions redis,imagick&lt;/code>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h3 id="删除虚拟主机">删除虚拟主机&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /root/oneinstack
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./vhost.sh --del
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/oneinstack/instack7.png"
+width="1608"
+height="1345"
+srcset="/p/oneinstack/instack7_hu62aa251923d55e408fa479b2b147caf2_180032_480x0_resize_box_3.png 480w, /p/oneinstack/instack7_hu62aa251923d55e408fa479b2b147caf2_180032_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 删除网站"
+class="gallery-image"
+data-flex-grow="119"
+data-flex-basis="286px"
+>&lt;/p>
+&lt;hr>
+&lt;h3 id="管理-ftp-账号">管理 FTP 账号&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /root/oneinstack
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./pureftpd_vhost.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/oneinstack/instack8.png"
+width="1560"
+height="2325"
+srcset="/p/oneinstack/instack8_hud678b1f709aa631f8f69f32817cdee12_134303_480x0_resize_box_3.png 480w, /p/oneinstack/instack8_hud678b1f709aa631f8f69f32817cdee12_134303_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ FTP 管理"
+class="gallery-image"
+data-flex-grow="67"
+data-flex-basis="161px"
+>&lt;/p>
+&lt;hr>
+&lt;h3 id="备份管理">备份管理&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /root/oneinstack
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./backup_setup.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/oneinstack/instack9.png"
+width="1934"
+height="1586"
+srcset="/p/oneinstack/instack9_hu5eed4b3f76dde9b5faf7ee7451870f38_121215_480x0_resize_box_3.png 480w, /p/oneinstack/instack9_hu5eed4b3f76dde9b5faf7ee7451870f38_121215_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="◎ 备份管理"
+class="gallery-image"
+data-flex-grow="121"
+data-flex-basis="292px"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>Oneinstack 是国内优秀的 LNMP 和 LAMP 生产环境的 Shell 程序，Oneinstack 最大的问题就是需要懂得一点Linux 知识，Oneinstack 自带了很多常用的静态规则，但碰到一些需要自定义的规则时就麻烦了。&lt;/p>
+&lt;p>最后贴上一些基本使用手册： &lt;a class="link" href="https://oneinstack.com/install/" target="_blank" rel="noopener"
+>Oneinstack基本使用手册
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p></description></item><item><title>用 Caddy2 搭建静态页面站点</title><link>/p/caddy/</link><pubDate>Sun, 20 Feb 2022 16:30:17 +0800</pubDate><guid>/p/caddy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>Caddy服务器（或称 Caddy Web）是一个开源的，使用 Golang 编写，支持 HTTP/2 的 Web 服务端，它使用 Golang 标准库提供 HTTP 功能。Caddy 一个显著的特性是默认启用 HTTPS，它是第一个无需额外配置即可提供 HTTPS 特性的 Web 服务器。Caddy 可以提供各种网站技术，它也可以作为反向代理和负载均衡器。Caddy 的大部分功能都以中间件的形式实现，并通过 Caddyfile 中的指令（用于配置 Caddy 的文本文件）进行控制。&lt;/p>
+&lt;blockquote>
+&lt;p>简单来说就是开箱即用&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://caddyserver.com" target="_blank" rel="noopener"
+>Caddy 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="安装">安装&lt;/h2>
+&lt;p>打开 &lt;strong>Caddy&lt;/strong> 官网，点击下载源文件，或者按照官方教程中的安装方式进行安装，我服务器是 &lt;strong>Debian&lt;/strong>，就使用命令行进行安装：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt install -y debian-keyring debian-archive-keyring apt-transport-https
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -1sLf &lt;span class="s1">&amp;#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -1sLf &lt;span class="s1">&amp;#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> tee /etc/apt/sources.list.d/caddy-stable.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install caddy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完成后可输入 &lt;code>caddy version&lt;/code> 或者 &lt;code>which caddy&lt;/code> 看是否安装成功。&lt;/p>
+&lt;p>&lt;strong>注意&lt;/strong>：这里默认安装的是 Caddy2&lt;/p>
+&lt;hr>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>安装完成后在浏览器输入服务器 IP 就可以看到 Caddy 已经开始运行了，并且生成了一个默认页面：&lt;/p>
+&lt;p>&lt;img src="/p/caddy/1.png"
+width="700"
+height="500"
+srcset="/p/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_480x0_resize_box_3.png 480w, /p/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="默认页面"
+class="gallery-image"
+data-flex-grow="140"
+data-flex-basis="336px"
+>&lt;/p>
+&lt;p>这个时候我们创建好网站目录：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p /var/www/xx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后我们可以对 Caddy 进行配置了，用 &lt;code>vim&lt;/code> 命令对配置文件进行编辑，拿不准的可以下载下来编辑文件路径为 &lt;strong>/etc/caddy/Caddyfile&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Caddy 的配置比较简单，第一行输入绑定好的域名，这样就会自动开启80和443端口：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">xx.com&lt;/span>&lt;span class="p">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后是网站根目录设置：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">xx.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/xx&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样一个简单的站点就已经配置完成了，然后添加一些自己需要的功能，并且开启静态文件浏览：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">xx.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/xx&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">encode&lt;/span> &lt;span class="s">gzip&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">tls&lt;/span> &lt;span class="s">XX@email.com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果要开设多个站点，那么直接另起一行，进行其他站点的配置就行了：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">xx.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/xx&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">encode&lt;/span> &lt;span class="s">gzip&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">tls&lt;/span> &lt;span class="s">XX@email.com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gh">www.xx.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/yy&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">tls&lt;/span> &lt;span class="s">xx@email.com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者将子域名重定向到主域名：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">xx.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/xx&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">encode&lt;/span> &lt;span class="s">gzip&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">tls&lt;/span> &lt;span class="s">XX@email.com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gh">www.xx.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">redir&lt;/span> &lt;span class="s">https://xx.com&lt;/span>&lt;span class="se">{uri}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我的设置参考：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 域名
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # 设置日志文件位置，等级为 error
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">log&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">output&lt;/span> &lt;span class="s">file&lt;/span> &lt;span class="s">/var/log/caddy/xx.log&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">level&lt;/span> &lt;span class="s">error&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # 网站根目录
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/xx&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # 开启 gzip
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">encode&lt;/span> &lt;span class="s">gzip&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # 错误页面
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">handle_errors&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">rewrite&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/&lt;/span>&lt;span class="se">{err.status_code}&lt;/span>&lt;span class="s">.html&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # PHP
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">php_fastcgi&lt;/span> &lt;span class="s">unix//run/php/php7-fpm.sock&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # 静态文件服务
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">file_server&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # TLS设置
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">tls&lt;/span> &lt;span class="s">xx@email.com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>配置完成后输入以下命令检查配置：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">caddy adapt --config /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如未报错，则表示配置无误。&lt;/p>
+&lt;p>重载 Caddy 配置：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">caddy reload --config /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启 Caddy 并添加自启动&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart caddy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl &lt;span class="nb">enable&lt;/span> caddy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>一些基本的 Caddy 配置就是这么多了，详细内容可以到官方文档进行查阅：&lt;a class="link" href="https://caddyserver.com/docs/" target="_blank" rel="noopener"
+>Caddy 官方文档
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="上传文件">上传文件&lt;/h2>
+&lt;p>最后我们将自己的静态文件页面上传至 &lt;strong>/var/www/xxx&lt;/strong> 也就是你的网站根目录下即可进行访问啦！&lt;/p></description></item></channel></rss>

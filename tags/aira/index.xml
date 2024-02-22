@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Aira on Kitin's</title><link>/tags/aira/</link><description>Recent content in Aira on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sat, 24 Dec 2022 10:58:22 +0800</lastBuildDate><atom:link href="/tags/aira/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Aria2 + AriaNG 搭建离线下载站</title><link>/p/aria/</link><pubDate>Sat, 24 Dec 2022 10:58:22 +0800</pubDate><guid>/p/aria/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;h3 id="介绍">介绍&lt;/h3>
+&lt;p>Aria2 是目前最强大的全能型下载工具，它支持 BT、磁力、HTTP、FTP 等下载协议，常用做离线下载的服务端。&lt;/p>
+&lt;p>AriaNg 是一个让 Aria2 更容易使用的现代 Web 前端。 AriaNg 使用纯 html &amp;amp; javascript 开发，所以其不需要任何编译器或运行环境.。您只要将 AriaNg 放在您的 Web 服务器里并在浏览器中打开即可使用；AriaNg 使用响应式布局，支持各种计算机或移动设备。&lt;/p>
+&lt;h3 id="特性">特性&lt;/h3>
+&lt;h4 id="aria2">Aria2&lt;/h4>
+&lt;ol>
+&lt;li>
+&lt;p>BT 下载率高、速度快&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>重启后不丢失任务进度、不重复下载&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>删除正在下载的任务自动删除未完成的文件&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>下载错误自动删除未完成的文件&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>下载完成自动删除控制文件(.aria2后缀名文件)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>下载完成自动删除种子文件(.torrent后缀名文件)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>下载完成自动删除空目录&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>BT 下载完成自动清除垃圾文件(文件类型过滤功能)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>BT 下载完成自动清除小文件(文件大小过滤功能)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>有一定的防版权投诉、防迅雷吸血效果&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>更好的 PT 下载支持&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h4 id="ariang">AriaNG&lt;/h4>
+&lt;ol>
+&lt;li>
+&lt;p>纯 Html &amp;amp; Javascript 实现, 不依赖任何运行时&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>响应式布局设计, 兼容计算机与移动设备&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>友好的界面交互&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>任务排序 (按文件名, 文件大小, 进度, 剩余时间, 下载速度等.), 文件排序, Bittorrent 连接节点排序&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>任务搜索&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>任务重试&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>拖拽调整任务顺序&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>更详细的任务信息 (健康度, 连接节点客户端信息等.)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>根据特定文件类型或文件扩展名筛选文件 (视频, 音频, 图片, 文档, 应用程序, 存档文件等.)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>多目录任务支持树形结构显示&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Aria2 及单个任务的下载/上传速度图表&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>完整支持 Aria2 设置选项&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>深色主题&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>支持网页地址命令行 API&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>下载完成消息通知&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>多语言支持&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>支持配置多个 aria2 RPC&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>支持导出和导入设置&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>节省带宽, 仅请求增量数据&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="安装配置">安装配置&lt;/h2>
+&lt;h3 id="aria2-安装配置">Aria2 安装配置&lt;/h3>
+&lt;p>这里使用的一键安装管理脚本增强版；&lt;a class="link" href="https://github.com/P3TERX/aria2.sh" target="_blank" rel="noopener"
+>Github 项目地址
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;p>输入命令进行下载、运行脚本：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget -N git.io/aria2.sh &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> chmod +x aria2.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./aria2.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行脚本后，会进入管理面板：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl"> Aria2 一键安装管理脚本 增强版 &lt;span class="o">[&lt;/span>v2.7.4&lt;span class="o">]&lt;/span> by P3TERX.COM
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1. 升级脚本
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ———————————————————————
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1. 安装 Aria2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 2. 更新 Aria2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 3. 卸载 Aria2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ———————————————————————
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1. 启动 Aria2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 2. 停止 Aria2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 3. 重启 Aria2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ———————————————————————
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1. 修改 配置
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 2. 查看 配置
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 3. 查看 日志
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1. 清空 日志
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ———————————————————————
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1. 手动更新 BT-Tracker
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 2. 自动更新 BT-Tracker
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ———————————————————————
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Aria2 状态: 已安装 &lt;span class="p">|&lt;/span> 已启动
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 自动更新 BT-Tracker: 已开启
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 请输入数字 &lt;span class="o">[&lt;/span>0-12&lt;span class="o">]&lt;/span>:
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输入 &lt;code>1&lt;/code> 进行安装，安装完成之后会跳出配置信息：&lt;/p>
+&lt;p>&lt;img src="/p/aria/1.png"
+width="820"
+height="160"
+srcset="/p/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_480x0_resize_box_3.png 480w, /p/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="配置信息"
+class="gallery-image"
+data-flex-grow="512"
+data-flex-basis="1230px"
+>&lt;/p>
+&lt;p>你可以通过执行 &lt;code>./aria2.sh&lt;/code> 然后输入 &lt;code>7&lt;/code> 回车修改配置；记录下配置信息，然后继续进行下一步。&lt;/p>
+&lt;hr>
+&lt;h3 id="ariang-安装配置">AriaNG 安装配置&lt;/h3>
+&lt;ul>
+&lt;li>项目地址：&lt;a class="link" href="https://github.com/mayswind/AriaNg" target="_blank" rel="noopener"
+>Github 项目地址
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>首先创建一个网站，可以参考 &lt;a class="link" href="/p/oneinstack/#%e5%88%9b%e5%bb%ba%e8%99%9a%e6%8b%9f%e4%b8%bb%e6%9c%ba" >Oneinstack 创建虚拟主机
+&lt;/a> 或 &lt;a class="link" href="/p/caddy/" >Caddy 创建站点
+&lt;/a>&lt;/p>
+&lt;p>然后打开 &lt;a class="link" href="https://github.com/mayswind/AriaNg/releases/" target="_blank" rel="noopener"
+>下载版本
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 页面，将 AriaNG-x.x.x.zip 文件下载上传至网站根目录，并解压。&lt;/p>
+&lt;p>访问该网站域名，首次访问会跳出认证错误提示，关闭掉然后进行设置：&lt;/p>
+&lt;p>&lt;img src="/p/aria/2.png"
+width="1900"
+height="600"
+srcset="/p/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_480x0_resize_box_3.png 480w, /p/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="配置过程"
+class="gallery-image"
+data-flex-grow="316"
+data-flex-basis="760px"
+>&lt;/p>
+&lt;p>点击 &lt;code>AriaNG设置&lt;/code> - &lt;code>RPC&lt;/code> 然后将之前记录好的 Aria 配置信息中的 &lt;code>IPV4 地址、端口&lt;/code> 填入 &lt;code>Aria2 RPC 地址&lt;/code> 然后填入 &lt;code>Aria2 RPC 密钥&lt;/code>；并点击 &lt;code>重新加载 AriaNG&lt;/code>&lt;/p>
+&lt;p>配置完成重载后即可进行离线下载。&lt;/p>
+&lt;hr>
+&lt;h3 id="扩展设置">扩展设置&lt;/h3>
+&lt;p>如果你不想通过 http://127.0.0.1:6800 进行连接 Aria2，那么可以进行反代，通过域名连接：&lt;/p>
+&lt;p>修改 AriaNG 网站配置，添加下面的配置：&lt;/p>
+&lt;ul>
+&lt;li>Nginx&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">location&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">/jsonrpc&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://127.0.0.1:6800&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$http_host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Real-IP&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-NginX-Proxy&lt;/span> &lt;span class="s">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_http_version&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="s">.1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Caddy&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">reverse_proxy&lt;/span> &lt;span class="nd">/jsonrpc&lt;/span> &lt;span class="n">127.0.0.1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">6800&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后在 AriaNG 中修改 Aria2 RPC 地址为：&lt;code>https://domian.com:443/jsonrpc&lt;/code>&lt;/p></description></item></channel></rss>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on Kitin's</title><link>/tags/git/</link><description>Recent content in Git on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sun, 06 Nov 2022 11:56:29 +0800</lastBuildDate><atom:link href="/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git 多用户及仓库配置</title><link>/p/git_config/</link><pubDate>Sun, 06 Nov 2022 11:56:29 +0800</pubDate><guid>/p/git_config/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>在之前的 Hugo 博客系列文章有提到过一些基本的 Git 配置和操作，一般来说我们写 Hugo 博客只需要配置全局账号以及单个仓库即可。但凡事皆有例外，如果你需要多个 Git 用户，或者说需要配置多个不同的仓库，那么应该怎么设置呢？现在我们就来看看。&lt;/p>
+&lt;hr>
+&lt;h2 id="配置设置">配置设置&lt;/h2>
+&lt;h3 id="多仓库设置">多仓库设置&lt;/h3>
+&lt;p>如果只使用单个 Github/Gitee 账户来管理多个仓库的话，只需要针对每个本地仓库设置远程仓库 Remote 即可。例如，我在 Github 上面有两个项目，一个名为 demo ，另一个名为 example ：&lt;/p>
+&lt;ul>
+&lt;li>demo 仓库：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir /path/to/demo &lt;span class="c1"># 创建仓库文件夹&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /path/to/demo &lt;span class="c1"># 进入该仓库目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git init &lt;span class="c1"># 指定 git 仓库并初始化&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git remote add origin git@github.com:user/demo.git &lt;span class="c1"># 添加远程仓库地址&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>example 仓库：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir /path/to/example &lt;span class="c1"># 创建仓库文件夹&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /path/to/example &lt;span class="c1"># 进入该仓库目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git init &lt;span class="c1"># 指定 git 仓库并初始化&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git remote add origin git@github.com:user/example.git &lt;span class="c1"># 添加远程仓库地址&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>像这样单账户，多仓库的，只需要为每个仓库设置远程仓库 Remote 即可。&lt;/p>
+&lt;h3 id="多账户设置">多账户设置&lt;/h3>
+&lt;p>如果你需要管理多个 Git 用户，应该怎么操作？继续看：&lt;/p>
+&lt;h4 id="创建密钥对">创建密钥对&lt;/h4>
+&lt;p>譬如，我有一个 Github 账号，一个 Gitee 账号，它们需要分开操作；首先打开 Git bash 进入 ~/.ssh 目录为它们分别创建密钥对：&lt;/p>
+&lt;p>首先创建 Github 密钥对：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> ~/.ssh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ssh-keygen -t rsa -C &lt;span class="s2">&amp;#34;email&amp;#34;&lt;/span> -f &lt;span class="s2">&amp;#34;github&amp;#34;&lt;/span> &lt;span class="c1"># email 更换为你的 Github 邮箱，-f 参数为文件名，可自行设置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat github.pub &lt;span class="c1"># 查看公钥内容&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>复制公钥内容，然后打开 Gituhb 添加刚才生成的公钥到 SSH Key&lt;/p>
+&lt;p>接着是 Gitee：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh-keygen -t rsa -C &lt;span class="s2">&amp;#34;email&amp;#34;&lt;/span> -f &lt;span class="s2">&amp;#34;gitee&amp;#34;&lt;/span> &lt;span class="c1"># email 更换为你的 Gitee 邮箱，-f 参数为文件名，可自行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat gitee.pub &lt;span class="c1"># 查看公钥内容&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>同样，复制公钥内容，添加到 Gitee 的 SSH 公钥&lt;/p>
+&lt;p>然后添加私钥并进行测试&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh-add ~/.ssh/github
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ssh-add ~/.ssh/gitee
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ssh -T git@github
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ssh -T git@gitee
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>成功则会返回欢迎你的用户名信息。&lt;/p>
+&lt;h4 id="创建配置文件">创建配置文件&lt;/h4>
+&lt;p>创建完密钥对后，需要创建一个配置文件来分配私钥以及主机&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">touch config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim config &lt;span class="c1"># 或者直接用 VS Code 编辑&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>config 配置文件内容如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Github&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host github.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> HostName github.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> User username &lt;span class="c1"># username改成你的 Github 用户名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> IdentityFile ~/.ssh/github &lt;span class="c1"># 私钥位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Gitee&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host gitee.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> HostName gitee.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> User username &lt;span class="c1"># username改成你的 Gitee 用户名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> IdentityFile ~/.ssh/gitee &lt;span class="c1"># 私钥位置&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="用户及-remote-配置">用户及 Remote 配置&lt;/h4>
+&lt;p>由于拥有多个 Git 用户，就不能使用全局配置了；而是应该对仓库进行单独的用户配置，所以要先取消全局用户设置：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git config --global &lt;span class="nb">unset&lt;/span> user.name username
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global &lt;span class="nb">unset&lt;/span> user.email email
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接着对本地仓库分别进行单独配置，假定我 Github 项目的本地仓库文件夹为 github ：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /path/to/github &lt;span class="c1"># 进入仓库目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --local user.name username &lt;span class="c1"># 为该仓库设置用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --local user.email email &lt;span class="c1"># 为该仓库设置邮箱&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git remote remove origin &lt;span class="c1"># 移除之前的远程仓库地址&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git remote add origin git@github.com:username/repositories.git &lt;span class="c1"># 添加远程仓库地址&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里注意下新的 remote 格式，因为之前设置了 config 文件，所以相对的地址为：git@(config 中的 Host):用户名/仓库名.git 即：&lt;code>git@github.com:uesrname/repositories.git&lt;/code>&lt;/p>
+&lt;p>然后按照同样的方法为 Gitee 设置即可。&lt;/p>
+&lt;h3 id="扩展配置">扩展配置&lt;/h3>
+&lt;p>除了为 Git 分配主机和私钥外，也可以为自己的服务器进行设置，首先为服务器设置密钥登陆，可以参考 &lt;a class="link" href="/p/setvps/#%e8%ae%be%e7%bd%ae%e7%a7%98%e9%92%a5%e7%99%bb%e5%bd%95" >这里
+&lt;/a> ；然后将密钥对下载到本地 ~/.ssh 目录下，然后重命名并编辑 config 文件，如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Github&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host github.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> HostName github.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> User username &lt;span class="c1"># username改成你的 Github 用户名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> IdentityFile ~/.ssh/github &lt;span class="c1"># 私钥位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Gitee&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host gitee.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> HostName gitee.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> User username &lt;span class="c1"># username改成你的 Github 用户名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> IdentityFile ~/.ssh/gitee &lt;span class="c1"># 私钥位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Tencent Cloud&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host tencent
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> HostName xx.xx.xx.xx &lt;span class="c1"># 服务器 IP&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> User root
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Port &lt;span class="m">22&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> IdentityFile ~/.ssh/tencent &lt;span class="c1"># 私钥位置&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后就可以通过 &lt;code>ssh tencent&lt;/code> 进行远程服务器的登陆了。&lt;/p>
+&lt;hr>
+&lt;h2 id="代理设置">代理设置&lt;/h2>
+&lt;p>由于 Github 服务器在海外，以及某些不可控因素，导致在推送及拉取代码时老是失败；我们可以为在 config 配置文件中为 Github 添加代理访问。打开 config 文件进行编辑：&lt;/p>
+&lt;blockquote>
+&lt;p>使用前请确保你拥有 “应用”&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Github&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host github.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> HostName github.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ProxyCommand connect -S 127.0.0.1:10808 %h %p
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> User username
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> IdentityFile ~/.ssh/github
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>需要注意 &lt;code>ProxyCommand connect -S 127.0.0.1:10808 %h %p&lt;/code> 这行：&lt;/p>
+&lt;blockquote>
+&lt;p>-S 代表 Socks，-H 代表 HTTP&lt;/p>
+&lt;p>如果你按照我之前的文章架设的 “应用” ，则 127.0.0.1:10808 是 Socks 的端口，HTTP 的端口为 10809&lt;/p>
+&lt;/blockquote>
+&lt;p>这样就可以通过代理来进行 Github 的推送/拉取操作，再也不用担心连接超时和连接失败啦。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>以上就是 Git 多用户、仓库配置及使用代理的全部过程啦，希望能给大家带来一定的帮助。有个问题就是我在创建 config 配置文件后无法通过 PS (Power Shell) 进行 SSH 连接；连接就报错 &lt;code>Bad owner or permissions&lt;/code> ；网上也找了解决方案，但是都没有用。现在一直是使用 Terminal 打开 Git bash 进行 SSH 连接，以后有了好的解决方案会和大家进行分享；也希望能有懂的大佬给出一点建设性的意见，十分感谢🙏&lt;/p></description></item><item><title>我写博客的方式</title><link>/p/how_to_write/</link><pubDate>Tue, 01 Nov 2022 13:18:02 +0800</pubDate><guid>/p/how_to_write/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>一般来说，大家会有一些想法或者突如其来的灵感需要进行记录；那么我们会选择将它们记录在手机便签、文本编辑器或者直接用笔写下来；等最后再梳理成文。正常情况下我们都是在电脑前进行写作，但是有时候用不了，或者不方便在电脑前进行写作；那应该怎么办？今天就来看下我的日常写作方式。&lt;/p>
+&lt;p>看过前面文章的应该知道，我自己是将 Hugo 博客源码通过 Git 推送到 Github 远程仓库然后由 Github Actions 自动部署到服务器上面，所以我写文章的流程就是通过 Git 同步远程仓库，写作完成后再推送到远程仓库通过 Github Actions 自动部署就可以了。那么现在就一起来看下这个过程的实现。&lt;/p>
+&lt;p>我的话，平常使用的客户端为：家里电脑 (WindowsX2) 、公司电脑 (Windows) 、笔记本 (Linux)、手机 (Android)；简化一点就是 Windows、Linux、Android。一般情况下，我们就是 Win 和 Android 了。要实现在安卓使用 Git 的话，我们就需要安装一款神级软件 &lt;strong>Termux&lt;/strong>&lt;/p>
+&lt;hr>
+&lt;h2 id="介绍及安装">介绍及安装&lt;/h2>
+&lt;h3 id="termux">Termux&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://termux.dev/" target="_blank" rel="noopener"
+>Termux 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/termux" target="_blank" rel="noopener"
+>Github 项目地址
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Termux 是一款 Android 终端模拟器和 Linux 环境应用程序，无需 root 或设置即可直接运行。 自动安装最小的基本系统 - 可以使用 APT 或其他包管理器。&lt;/p>
+&lt;/blockquote>
+&lt;p>你可以通过 &lt;a class="link" href="https://f-droid.org/en/packages/com.termux/" target="_blank" rel="noopener"
+>F-Droid
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 或者 &lt;a class="link" href="https://github.com/termux/termux-app/releases" target="_blank" rel="noopener"
+>Github
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 进行下载，下载完成之后进行更换清华源，安装 Git ，创建目录软链接，安装 Hugo 即可。&lt;/p>
+&lt;blockquote>
+&lt;p>无法下载或者下载慢可以找国内下载地址，或者通过 “应用” 进行下载。&lt;/p>
+&lt;p>Termux 安装使用基于国光大佬的 &lt;a class="link" href="https://www.sqlsec.com/2018/05/termux.html" target="_blank" rel="noopener"
+>Termux 高级终端安装使用配置教程
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> ；写的非常全，强烈推荐观看！！！&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="更换清华源">更换清华源&lt;/h4>
+&lt;p>打开 &lt;strong>Termux&lt;/strong> 输入如下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sed -i &lt;span class="s1">&amp;#39;s@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/termux-packages-24 stable main@&amp;#39;&lt;/span> &lt;span class="nv">$PREFIX&lt;/span>/etc/apt/sources.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -i &lt;span class="s1">&amp;#39;s@^\(deb.*games stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/game-packages-24 games stable@&amp;#39;&lt;/span> &lt;span class="nv">$PREFIX&lt;/span>/etc/apt/sources.list.d/game.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -i &lt;span class="s1">&amp;#39;s@^\(deb.*science stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/science-packages-24 science stable@&amp;#39;&lt;/span> &lt;span class="nv">$PREFIX&lt;/span>/etc/apt/sources.list.d/science.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg update
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装基础工具：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg install -y curl wget
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="安装-git">安装 Git&lt;/h4>
+&lt;p>更换完清华源后，进行 Git 安装：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg install -y git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="创建目录软链接">创建目录软链接&lt;/h4>
+&lt;p>为了方便管理，我们使用文件管理器在手机存储根目录下创建 &lt;strong>termux&lt;/strong> 文件夹，然后进行软链接：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">termux-setup-storage
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行以上命令，会弹出授权窗口，确认授权后 Termux 就可以访问 SD 卡文件，然后为创建的 termux 目录创建软链接：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ln -s /data/data/com.termux/files/home/storage/shared/termux termux
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行完上述命令后，就会在 &lt;strong>~&lt;/strong> 目录下创建 termux 快捷方式，此目录是链接到我们刚才创建的 &lt;strong>termux&lt;/strong> 目录，方便进行管理。&lt;/p>
+&lt;h4 id="安装-hugo">安装 Hugo&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg install -y hugo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>上述操作都完成后，就可以在 Android 端使用 Hugo 了。&lt;/p>
+&lt;hr>
+&lt;h2 id="git-配置">Git 配置&lt;/h2>
+&lt;h3 id="全局账户配置">全局账户配置&lt;/h3>
+&lt;p>在使用 Git 之前需要进行账户配置，让 Github 知道你是谁：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git config --global user.name username &lt;span class="c1"># username为你的 Github 用户名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global user.email xx@email.com &lt;span class="c1"># XX@email.com为你注册 Github 的邮箱&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>注意，这里是全局设置，也就是说你所有的本地仓库推送时都是使用这个用户和邮箱&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="添加密钥对">添加密钥对&lt;/h3>
+&lt;p>键入如下命令创建密钥对：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh-keygen -t ed25519 -C &lt;span class="s2">&amp;#34;email&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来一路回车即可。&lt;/p>
+&lt;h3 id="公钥添加至-github">公钥添加至 Github&lt;/h3>
+&lt;p>输入 &lt;code>cat ~/.ssh/id_ed25519.pub&lt;/code> 查看公钥内容，然后复制；打开 Github 点击： &lt;strong>右上角头像 - Settings - SSH and GPG keys - New SSH Key&lt;/strong> 把刚才复制的公钥粘贴到 &lt;strong>Key&lt;/strong> 中，命名随意，然后保存。&lt;/p>
+&lt;blockquote>
+&lt;p>详细图文过程可以参考 &lt;a class="link" href="/p/hugo/#%e6%b7%bb%e5%8a%a0%e5%af%86%e9%92%a5" >这里
+&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="本地仓库配置">本地仓库配置&lt;/h3>
+&lt;p>因为我们创建了一个 Termux 软链接，为了方便管理，我将 Hugo 博客仓库放在此目录中，打开 &lt;strong>Termux&lt;/strong> 进入到 &lt;strong>termux&lt;/strong> 目录，创建博客目录，并设置为 Git 项目仓库：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> termux
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p hugo/blog&lt;span class="o">(&lt;/span>项目名，我以 blog 为例&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> blog
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git init
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这时候打开文件管理器，进入 termux 目录，可以看到里面已经创建了 hugo/blog 目录，这就是我们的 Hugo 博客仓库了。&lt;/p>
+&lt;p>由于 Github 现在默认的分支是 main 所以我也设置本地分支为 main：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git branch -m main
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个时候可能会提示添加到安全仓库：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Initialized empty Git repository in /storage/emulated/0/termux/hugo/blog/.git/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">➜ blog git branch -m main
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">fatal: detected dubious ownership in repository at &lt;span class="s1">&amp;#39;/storage/emulated/0/termux/hugo/blog/&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">To add an exception &lt;span class="k">for&lt;/span> this directory, call:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> git config --global --add safe.directory /storage/emulated/0/termux/hugo/blog
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>按照提示输入命令添加到安全仓库即可：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git config --global --add safe.directory /storage/emulated/0/termux/hugo/blog
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加完成后再更换分支名：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git branch -m main
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="添加远程仓库">添加远程仓库&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git remote add origin git@github.com:username/repositories.git &lt;span class="c1"># username换成你的github用户名，repositories更换为你的仓库名&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="拉取远程仓库">拉取远程仓库&lt;/h3>
+&lt;p>输入下面命令将远程仓库的代码拉取到本地：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git pull origin main
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>拉取完成之后，还需要将我们添加的主题 clone 下来，因为之前时通过 &lt;code>git submodule&lt;/code> 进行链接的；比如我在用的 &lt;strong>zzo&lt;/strong> 主题：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone https://github.com/zzossig/hugo-theme-zzo.git themes/zzo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>完成之后，我们就可以通过 Android 端进行写作了。&lt;/p>
+&lt;hr>
+&lt;h2 id="本地预览及推送">本地预览及推送&lt;/h2>
+&lt;h3 id="本地预览">本地预览&lt;/h3>
+&lt;p>在 Android 端写作完成后，我们也可以通过 &lt;code>hugo server&lt;/code> 命令进行本地预览，但是在 termux 下不太一样，直接运行 &lt;code>hugo server&lt;/code> 会报错，所以要加上一个 &lt;code>noBuildLock&lt;/code> 参数：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo --noBuildLock
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过上述命令，即可在 Android 端通过 &lt;strong>localhost:1313&lt;/strong> 进行本地预览，同理，如果你要生成静态文件，也是需要添加 &lt;code>noBuildLock&lt;/code> 参数。&lt;/p>
+&lt;h3 id="推送">推送&lt;/h3>
+&lt;p>在写作完成及预览无误后，就可以进行推送到远程仓库了。与桌面端一样，通过 &lt;code>push&lt;/code> 进行推送：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git add .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;xxxx&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push origin main
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>推送完成后，等待 Github Actions 自动部署完成后，即可进行访问。&lt;/p>
+&lt;hr>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>以上就是我在不同客户端通过 Git 进行同步数据、写作的过程了，希望能给大家提供一个参考。需要注意的是：一定要记得，在不同的客户端下，第一件事是通过 &lt;code>git pull&lt;/code> 将远程仓库拉取同步到本地仓库，然后再进行写作&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.sqlsec.com/2018/05/termux.html" target="_blank" rel="noopener"
+>Termux 高级终端安装使用配置教程
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://docs.github.com/cn/authentication/connecting-to-github-with-ssh" target="_blank" rel="noopener"
+>通过 SSH 连接到 GitHub
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol></description></item></channel></rss>
