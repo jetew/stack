@@ -1,0 +1,129 @@
+{{ if (.Context.Scratch.Get "TOCEnabled") }}
+<!-- 如果 .Context.Scratch 中包含名为 "TOCEnabled" 的值，则执行以下代码 -->
+<button id="toggle-toc">Toc</button>
+<!-- 创建一个按钮，用于展开和收起目录 -->
+<section class="widget archives" id="toc-container">
+    <!-- 创建一个带有 "archives" 类的区块，并添加一个唯一的 ID 用于操作 -->
+    <h2 class="widget-title section-title">{{ T "article.tableOfContents" }}</h2>
+    <!-- 创建一个带有 "widget-title" 和 "section-title" 类的标题区块，并显示 "article.tableOfContents" 的本地化内容 -->
+
+    <div class="widget--toc">
+        <!-- 创建一个带有 "widget--toc" 类的目录区块 -->
+        {{ .Context.TableOfContents }}
+        <!-- 显示文章的目录内容 -->
+    </div>
+</section>
+{{ end }}
+
+<style>
+    #mulu {
+        z-index: 9999;
+    }
+    
+    #toc-container {
+        display: none;
+        /* 初始时隐藏目录 */
+        position: fixed;
+        /* 使用固定定位，使其固定在视口中 */
+        bottom: 21%;
+        /* 距离视口顶部的距离，可以根据需要进行调整 */
+        right: 60px;
+        /* 距离视口右侧的距离，可以根据需要进行调整 */
+        background-color: var(--card-background);
+        /* 可选：设置背景颜色 */
+        padding: 10px;
+        /* 可选：添加一些内边距 */
+        border: 1px solid #96979a50;
+        border-radius: var(--card-border-radius);
+        box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+        /* 可选：添加边框样式 */
+        z-index: 9998 !important;
+        /* 可选：设置 z-index 以确保它显示在其他元素之上 */
+        max-height: 80vh;
+        /* 设置最大高度为视口高度的 80% */
+        overflow-y: auto;
+        /* 添加垂直滚动条，以便在内容溢出时滚动 */
+        width: auto;
+        /* 让容器的宽度自适应内容 */
+        max-width: 290px;
+    }
+    
+    #toggle-toc {
+        position: fixed;
+        bottom: 22%;
+        right: 20px;
+        padding: 10px 10px;
+        z-index: 9998 !important;
+        border: 0px solid #96979a50;
+        border-radius: 7px;
+        box-shadow: var(--shadow-l1);
+        background-color: #00640010;
+        color: #34495e;
+        /* 确保按钮在其他元素之上 */
+        /* 其他样式保持不变 */
+        display: block;
+        /* 显示按钮 */
+        margin-bottom: 10px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        /* 可选：改变鼠标光标以指示按钮是可点击的 */
+    }
+    
+    .widget--toc #TableOfContents {
+        overflow-x: auto;
+        max-height: 66vh;
+        width: auto;
+    }
+    
+    @media screen and (max-width: 768px) {
+        #toggle-toc {
+            bottom: 100px;
+        }
+    }
+</style>
+
+<script>
+    // 获取按钮和目录的元素
+    var toggleButton = document.getElementById('toggle-toc');
+    var tocContainer = document.getElementById('toc-container');
+    var scrollThreshold = 200; // 设置滚动显示的阈值
+
+    // 监听页面滚动事件
+    window.addEventListener('scroll', function() {
+        // 获取当前滚动位置
+        var scrollY = window.scrollY || window.pageYOffset;
+
+        // 检查滚动位置是否超过阈值
+        if (scrollY >= scrollThreshold) {
+            // 显示按钮
+            toggleButton.style.display = 'block';
+        } else {
+            // 隐藏按钮
+            toggleButton.style.display = 'none';
+        }
+    });
+
+    // 添加点击事件处理程序
+    toggleButton.addEventListener('click', function() {
+        // 切换目录的显示状态
+        if (tocContainer.style.display === 'none' || tocContainer.style.display === '') {
+            tocContainer.style.display = 'block';
+        } else {
+            tocContainer.style.display = 'none';
+        }
+    });
+    // 当鼠标悬浮在按钮上时显示目录
+    toggleButton.addEventListener('mouseover', function() {
+        tocContainer.style.display = 'block';
+    });
+
+
+    // 添加点击页面空白处的事件处理程序
+    document.addEventListener('click', function(event) {
+        // 检查点击事件是否发生在目录容器之外，并且不是按钮本身
+        if (!tocContainer.contains(event.target) && event.target !== toggleButton) {
+            // 点击发生在目录容器之外，隐藏目录容器
+            tocContainer.style.display = 'none';
+        }
+    });
+</script>
