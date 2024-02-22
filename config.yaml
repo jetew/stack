@@ -6,7 +6,7 @@ title: Kitin's
 copyright: Kitin
 
 # Change it to your Disqus shortname before using
-disqusShortname: hugo-theme-stack
+disqusShortname: 
 
 # GA Tracking ID
 googleAnalytics:
@@ -207,7 +207,4 @@ markup:
         tabWidth: 4
 
 frontmatter:
-  lastmod: [":git", "lastmod", ":defalut"]
-
-enableGitInfo: true
-gitRepo: "https://github.com/jetew/stack"
+  lastmod: ["lastmod", ":defalut"]
