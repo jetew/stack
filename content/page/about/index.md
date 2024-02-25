@@ -6,7 +6,6 @@ menu:
         params:
             icon: user
 
-comments: true
 license: false
 ---
 
