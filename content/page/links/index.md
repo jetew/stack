@@ -15,7 +15,6 @@ menu:
         params:
             icon: link
 
-comments: false
 license: false
 lastmod: 2023-01-02
 ---
