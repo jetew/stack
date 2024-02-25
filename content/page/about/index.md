@@ -5,6 +5,9 @@ menu:
         weight: -90
         params:
             icon: user
+
+comments: true
+license: false
 ---
 
 ## 🙋‍♂️ 关于我与博客
