@@ -20,7 +20,7 @@ DefaultContentLanguage: zh-cn
 hasCJKLanguage: true
 
 permalinks:
-    post: /p/:slug/
+    post: /archives/:slug/
     page: /:slug/
 
 enableEmoji: true
