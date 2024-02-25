@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Caddy on Kitin's</title><link>/tags/caddy/</link><description>Recent content in Caddy on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Fri, 02 Dec 2022 10:17:55 +0800</lastBuildDate><atom:link href="/tags/caddy/index.xml" rel="self" type="application/rss+xml"/><item><title>SSL 证书安装部署</title><link>/p/own_ssl/</link><pubDate>Fri, 02 Dec 2022 10:17:55 +0800</pubDate><guid>/p/own_ssl/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Caddy on Kitin's</title><link>/tags/caddy/</link><description>Recent content in Caddy on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Fri, 02 Dec 2022 10:17:55 +0800</lastBuildDate><atom:link href="/tags/caddy/index.xml" rel="self" type="application/rss+xml"/><item><title>SSL 证书安装部署</title><link>/archives/own_ssl/</link><pubDate>Fri, 02 Dec 2022 10:17:55 +0800</pubDate><guid>/archives/own_ssl/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>在之前的文章中讲了在添加网站时通过 Oneinstack（LNMP 一键安装包）的 acme.sh/Caddy 来自动安装部署免费证书，当然你也可以使用自己的证书替代免费证书来进安装部署；现在来看下如何进行操作。&lt;/p>
 &lt;h3 id="场景与前提">场景与前提&lt;/h3>
 &lt;p>由于我使用的是 Oneintack 安装的 Nginx 和 Caddy 服务，所以本文以 Nginx/Caddy 视角进行操作。我的域名是在腾讯云下，并使用他们提供的为期1年免费 Trust Asia 证书，所以我以这些前提为演示；使用其他的也是完全可以的。&lt;/p>
@@ -95,7 +95,7 @@ height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
 fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/li>
-&lt;/ol></description></item><item><title>指定签发 SSL CA 机构</title><link>/p/setca/</link><pubDate>Thu, 24 Nov 2022 09:32:18 +0800</pubDate><guid>/p/setca/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>指定签发 SSL CA 机构</title><link>/archives/setca/</link><pubDate>Thu, 24 Nov 2022 09:32:18 +0800</pubDate><guid>/archives/setca/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>前几天使用 Oneinstack 添加网站进行临时测试，在自动签发 SSL 时发现证书签发失败；找了很久尝试了很多解决方法，但是并没有作用。。。然后想有没有可能是因为在同一 IP 多次申请 SSL 证书然后被限制了；但是我并没有进行多次申请。。。不管怎么样还是更换一下 CA 机构看看能不能解决，没想竟然成功了；虽然没有找到问题的原因，但最终还是解决了。遂在此进行一个记录。&lt;/p>
 &lt;h2 id="指定-ca-机构">指定 CA 机构&lt;/h2>
 &lt;h3 id="服务器环境">服务器环境&lt;/h3>
@@ -199,7 +199,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">ca&lt;/span> &lt;span class="s">https://acme.zerossl.com/v2/DV90&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果要指定 CA 为 Let’s Encrypt，只需要将 &lt;code>https://acme.zerossl.com/v2/DV90&lt;/code> 更换为 &lt;code>https://acme-v02.api.letsencrypt.org/directory&lt;/code> 即可&lt;/p></description></item><item><title>Waline 服务端独立部署方案</title><link>/p/waline_deploy/</link><pubDate>Thu, 20 Oct 2022 10:50:47 +0800</pubDate><guid>/p/waline_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果要指定 CA 为 Let’s Encrypt，只需要将 &lt;code>https://acme.zerossl.com/v2/DV90&lt;/code> 更换为 &lt;code>https://acme-v02.api.letsencrypt.org/directory&lt;/code> 即可&lt;/p></description></item><item><title>Waline 服务端独立部署方案</title><link>/archives/waline_deploy/</link><pubDate>Thu, 20 Oct 2022 10:50:47 +0800</pubDate><guid>/archives/waline_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>之前讲了通过 Vercel 来进行 Waline 服务端的部署，这是最简单，也是完全免费的方法；但是对于拥有自己服务器的人来说，可能更想要将 Waline 直接部署到自己的服务器上；毕竟服务器摆在那，不用也是浪费，何不将 Waline 服务端也部署自己的服务器上以方便进行管理呢？其实 Waline 提供了很多的部署方案，可以看 &lt;a class="link" href="https://waline.js.org/advanced/intro.html" target="_blank" rel="noopener"
 >这里
 &lt;span style="white-space: nowrap;">&lt;svg width=".7em"
@@ -276,10 +276,10 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a> 下载二进制包，通过创建软链接至系统用户应用程序目录来使用。&lt;/p>
 &lt;p>打开 Nodejs 官网，点击 Downloads 然后右键复制 Linux Binaries (x64) 的下载链接：&lt;/p>
-&lt;p>&lt;img src="/p/waline_deploy/1.png"
+&lt;p>&lt;img src="/archives/waline_deploy/1.png"
 width="1152"
 height="628"
-srcset="/p/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_480x0_resize_box_3.png 480w, /p/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_1024x0_resize_box_3.png 1024w"
+srcset="/archives/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_480x0_resize_box_3.png 480w, /archives/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 二进制文件下载"
 class="gallery-image"
@@ -351,10 +351,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>下载完成后，可以试着运行一下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">node node_modules/@waline/vercel/vanilla.js
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>成功的话可以看到提示：&lt;/p>
-&lt;p>&lt;img src="/p/waline_deploy/2.png"
+&lt;p>&lt;img src="/archives/waline_deploy/2.png"
 width="600"
 height="89"
-srcset="/p/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_480x0_resize_box_3.png 480w, /p/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_1024x0_resize_box_3.png 1024w"
+srcset="/archives/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_480x0_resize_box_3.png 480w, /archives/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 运行状态"
 class="gallery-image"
@@ -530,7 +530,7 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>使用 Caddy+MySQL+PHP 架设 LCMP</title><link>/p/lcmp/</link><pubDate>Sat, 05 Mar 2022 17:14:41 +0800</pubDate><guid>/p/lcmp/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>使用 Caddy+MySQL+PHP 架设 LCMP</title><link>/archives/lcmp/</link><pubDate>Sat, 05 Mar 2022 17:14:41 +0800</pubDate><guid>/archives/lcmp/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>以前一直使用的是 Hugo+Github+Netlify；即上传本地网站项目到 Github 然后通过 Netlify 进行自动部署以及发布网站。一开始还好，但是到后面就感觉比较麻烦了；每次更新文章或者后期文章有修改的话就需要重新上传部署；所以后面就改成了 LNMP+Typecho 。而最近又开始折腾起了 Caddy，虽然说 Caddy 配置简单，开箱即用，但现在一般都是 CaddyV2 ；而网上的教程与配置大多都是 CaddyV1 所以在这里进行一个记录，避免以后踩坑。&lt;/p>
 &lt;hr>
 &lt;h2 id="安装及配置">安装及配置&lt;/h2>
@@ -595,7 +595,7 @@ fill="currentColor">
 &lt;li>
 &lt;p>PHP 和 MySQL 可以根据自己的喜好来安装，或者选择 Mariadb、SQLite 等等都是可以的。&lt;/p>
 &lt;/li>
-&lt;/ul></description></item><item><title>用 Caddy2 搭建静态页面站点</title><link>/p/caddy/</link><pubDate>Sun, 20 Feb 2022 16:30:17 +0800</pubDate><guid>/p/caddy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ul></description></item><item><title>用 Caddy2 搭建静态页面站点</title><link>/archives/caddy/</link><pubDate>Sun, 20 Feb 2022 16:30:17 +0800</pubDate><guid>/archives/caddy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>Caddy服务器（或称 Caddy Web）是一个开源的，使用 Golang 编写，支持 HTTP/2 的 Web 服务端，它使用 Golang 标准库提供 HTTP 功能。Caddy 一个显著的特性是默认启用 HTTPS，它是第一个无需额外配置即可提供 HTTPS 特性的 Web 服务器。Caddy 可以提供各种网站技术，它也可以作为反向代理和负载均衡器。Caddy 的大部分功能都以中间件的形式实现，并通过 Caddyfile 中的指令（用于配置 Caddy 的文本文件）进行控制。&lt;/p>
 &lt;blockquote>
 &lt;p>简单来说就是开箱即用&lt;/p>
@@ -624,10 +624,10 @@ fill="currentColor">
 &lt;hr>
 &lt;h2 id="配置">配置&lt;/h2>
 &lt;p>安装完成后在浏览器输入服务器 IP 就可以看到 Caddy 已经开始运行了，并且生成了一个默认页面：&lt;/p>
-&lt;p>&lt;img src="/p/caddy/1.png"
+&lt;p>&lt;img src="/archives/caddy/1.png"
 width="700"
 height="500"
-srcset="/p/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_480x0_resize_box_3.png 480w, /p/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_1024x0_resize_box_3.png 1024w"
+srcset="/archives/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_480x0_resize_box_3.png 480w, /archives/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="默认页面"
 class="gallery-image"

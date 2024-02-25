@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on Kitin's</title><link>/tags/blog/</link><description>Recent content in Blog on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Tue, 01 Nov 2022 13:18:02 +0800</lastBuildDate><atom:link href="/tags/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>我写博客的方式</title><link>/p/how_to_write/</link><pubDate>Tue, 01 Nov 2022 13:18:02 +0800</pubDate><guid>/p/how_to_write/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on Kitin's</title><link>/tags/blog/</link><description>Recent content in Blog on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Tue, 01 Nov 2022 13:18:02 +0800</lastBuildDate><atom:link href="/tags/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>我写博客的方式</title><link>/archives/how_to_write/</link><pubDate>Tue, 01 Nov 2022 13:18:02 +0800</pubDate><guid>/archives/how_to_write/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>一般来说，大家会有一些想法或者突如其来的灵感需要进行记录；那么我们会选择将它们记录在手机便签、文本编辑器或者直接用笔写下来；等最后再梳理成文。正常情况下我们都是在电脑前进行写作，但是有时候用不了，或者不方便在电脑前进行写作；那应该怎么办？今天就来看下我的日常写作方式。&lt;/p>
 &lt;p>看过前面文章的应该知道，我自己是将 Hugo 博客源码通过 Git 推送到 Github 远程仓库然后由 Github Actions 自动部署到服务器上面，所以我写文章的流程就是通过 Git 同步远程仓库，写作完成后再推送到远程仓库通过 Github Actions 自动部署就可以了。那么现在就一起来看下这个过程的实现。&lt;/p>
 &lt;p>我的话，平常使用的客户端为：家里电脑 (WindowsX2) 、公司电脑 (Windows) 、笔记本 (Linux)、手机 (Android)；简化一点就是 Windows、Linux、Android。一般情况下，我们就是 Win 和 Android 了。要实现在安卓使用 Git 的话，我们就需要安装一款神级软件 &lt;strong>Termux&lt;/strong>&lt;/p>
@@ -170,7 +170,7 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>Waline 服务端独立部署方案</title><link>/p/waline_deploy/</link><pubDate>Thu, 20 Oct 2022 10:50:47 +0800</pubDate><guid>/p/waline_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>Waline 服务端独立部署方案</title><link>/archives/waline_deploy/</link><pubDate>Thu, 20 Oct 2022 10:50:47 +0800</pubDate><guid>/archives/waline_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>之前讲了通过 Vercel 来进行 Waline 服务端的部署，这是最简单，也是完全免费的方法；但是对于拥有自己服务器的人来说，可能更想要将 Waline 直接部署到自己的服务器上；毕竟服务器摆在那，不用也是浪费，何不将 Waline 服务端也部署自己的服务器上以方便进行管理呢？其实 Waline 提供了很多的部署方案，可以看 &lt;a class="link" href="https://waline.js.org/advanced/intro.html" target="_blank" rel="noopener"
 >这里
 &lt;span style="white-space: nowrap;">&lt;svg width=".7em"
@@ -247,10 +247,10 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a> 下载二进制包，通过创建软链接至系统用户应用程序目录来使用。&lt;/p>
 &lt;p>打开 Nodejs 官网，点击 Downloads 然后右键复制 Linux Binaries (x64) 的下载链接：&lt;/p>
-&lt;p>&lt;img src="/p/waline_deploy/1.png"
+&lt;p>&lt;img src="/archives/waline_deploy/1.png"
 width="1152"
 height="628"
-srcset="/p/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_480x0_resize_box_3.png 480w, /p/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_1024x0_resize_box_3.png 1024w"
+srcset="/archives/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_480x0_resize_box_3.png 480w, /archives/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 二进制文件下载"
 class="gallery-image"
@@ -322,10 +322,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>下载完成后，可以试着运行一下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">node node_modules/@waline/vercel/vanilla.js
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>成功的话可以看到提示：&lt;/p>
-&lt;p>&lt;img src="/p/waline_deploy/2.png"
+&lt;p>&lt;img src="/archives/waline_deploy/2.png"
 width="600"
 height="89"
-srcset="/p/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_480x0_resize_box_3.png 480w, /p/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_1024x0_resize_box_3.png 1024w"
+srcset="/archives/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_480x0_resize_box_3.png 480w, /archives/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 运行状态"
 class="gallery-image"
@@ -501,7 +501,7 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>为 Hugo 博客开启评论系统</title><link>/p/hugo_comment/</link><pubDate>Sat, 15 Oct 2022 10:50:47 +0800</pubDate><guid>/p/hugo_comment/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>为 Hugo 博客开启评论系统</title><link>/archives/hugo_comment/</link><pubDate>Sat, 15 Oct 2022 10:50:47 +0800</pubDate><guid>/archives/hugo_comment/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>我的博客作为自己记录的地方，没有去做 SEO 也没有去进行优化；可以说完全没有必要去开启评论，但是为什么又添加了评论呢？我觉得万一有人看到了我博客中的一些内容，有什么没有了解的地方，或者说有什么地方需要进行交流，需要进行简单的评论该怎么办？为了这一两句话不可能去到邮箱里跟你进行深度交流，于是最后还是决定开启评论功能，并再此进行一个分享。&lt;/p>
 &lt;h3 id="评论系统选择">评论系统选择&lt;/h3>
 &lt;p>对于评论系统，我的感觉是一定要便捷，填上昵称，邮件等就可以进行评论，不需要进行注册等繁琐操作； Hugo 中也有许多自带的评论系统，但是大多数都是海外的，使用起来很不方便。最终决定使用基于 Valine 的 Waline ；下面就来讲一下我自己配置的过程。&lt;/p>
@@ -545,10 +545,10 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;p>进入控制台后，点击创建应用，输入你喜欢的应用名称，选择开发版，然后点击创建：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_comment/1.png"
+&lt;p>&lt;img src="/archives/hugo_comment/1.png"
 width="1356"
 height="651"
-srcset="/p/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_480x0_resize_box_3.png 480w, /p/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_480x0_resize_box_3.png 480w, /archives/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 创建应用"
 class="gallery-image"
@@ -556,10 +556,10 @@ data-flex-grow="208"
 data-flex-basis="499px"
 >&lt;/p>
 &lt;p>进入应用，选择左下角的 &lt;strong>设置 &amp;gt; 应用凭证&lt;/strong> 。你可以看到你的各种凭证，先放在这里，后面会用上：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_comment/2.png"
+&lt;p>&lt;img src="/archives/hugo_comment/2.png"
 width="1107"
 height="766"
-srcset="/p/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_480x0_resize_box_3.png 480w, /p/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_480x0_resize_box_3.png 480w, /archives/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 应用凭证"
 class="gallery-image"
@@ -717,10 +717,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
 &lt;p>配置完成之后你就可以在运行 &lt;code>hugo server&lt;/code> 在本地进行评论测试了:&lt;/p>
-&lt;p>&lt;img src="/p/hugo_comment/3.png"
+&lt;p>&lt;img src="/archives/hugo_comment/3.png"
 width="1019"
 height="610"
-srcset="/p/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_480x0_resize_box_3.png 480w, /p/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_480x0_resize_box_3.png 480w, /archives/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 本地测试"
 class="gallery-image"
@@ -779,7 +779,7 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>Hugo 博客部署至托管服务提升访问体验</title><link>/p/hugo_deploy/</link><pubDate>Sun, 18 Sep 2022 14:02:55 +0800</pubDate><guid>/p/hugo_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>Hugo 博客部署至托管服务提升访问体验</title><link>/archives/hugo_deploy/</link><pubDate>Sun, 18 Sep 2022 14:02:55 +0800</pubDate><guid>/archives/hugo_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>之前在 &lt;a class="link" href="/p/hugo-actions/" >《使用 Github Actions 自动化部署 Hugo 博客》
 &lt;/a> 一文中我讲了通过 Github Actions 自动部署 Hugo 博客到 Github Pages ； Github Pages 免费而且无需考虑成本及维护；但是 Github 毕竟是在海外，访问有问题，还时常抽风；访问体验算不上差强人意吧，也只能说是大失所望了。那怎样简单又低成本解决这个问题呢？ (毕竟白嫖才是硬道理) 现在就来看一下今天的主角：&lt;/p>
 &lt;ul>
@@ -820,10 +820,10 @@ fill="currentColor">
 &lt;hr>
 &lt;h2 id="使用与部属">使用与部属&lt;/h2>
 &lt;p>这里我以 Vercel 为例，因为他们两家操作都差不多，首先打开 Vercel 官网，点击右上角 &lt;strong>Sign Up - Continue with GitHub&lt;/strong> 使用 Github 进行登陆：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/1.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/1.png"
 width="1162"
 height="800"
-srcset="/p/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_480x0_resize_box_3.png 480w, /p/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_480x0_resize_box_3.png 480w, /archives/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 登陆"
 class="gallery-image"
@@ -831,10 +831,10 @@ data-flex-grow="145"
 data-flex-basis="348px"
 >&lt;/p>
 &lt;p>之后让你进行授权，点击确认授权即可：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/2.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/2.png"
 width="716"
 height="743"
-srcset="/p/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_480x0_resize_box_3.png 480w, /p/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_480x0_resize_box_3.png 480w, /archives/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 授权"
 class="gallery-image"
@@ -842,10 +842,10 @@ data-flex-grow="96"
 data-flex-basis="231px"
 >&lt;/p>
 &lt;p>进入管理面板后，点击 &lt;strong>Create a New Project&lt;/strong> 来创建新项目，然后选择 &lt;strong>Countinue with GitHub&lt;/strong> 导入 Github 的仓库：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/3.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/3.png"
 width="1304"
 height="757"
-srcset="/p/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_480x0_resize_box_3.png 480w, /p/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_480x0_resize_box_3.png 480w, /archives/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 导入 Github"
 class="gallery-image"
@@ -853,10 +853,10 @@ data-flex-grow="172"
 data-flex-basis="413px"
 >&lt;/p>
 &lt;p>到这会让你选择仓库，你可以选择读取所有仓库，或者指定读取某一个仓库 (这里我就选择读取我 Hugo 博客的仓库) ，然后 Install：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/4.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/4.png"
 width="821"
 height="779"
-srcset="/p/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_480x0_resize_box_3.png 480w, /p/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_480x0_resize_box_3.png 480w, /archives/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 选择仓库"
 class="gallery-image"
@@ -864,10 +864,10 @@ data-flex-grow="105"
 data-flex-basis="252px"
 >&lt;/p>
 &lt;p>之后会回到管理面板，点击 &lt;strong>Improt&lt;/strong> 导入你刚才选择的仓库；然后就会进入部署配置页面，一般来讲是会自动识别你仓库的程序，然后自动选择好部署配置。如果没有的话可以自己设置；记得在环境变量添加一个 &lt;strong>HUGO_VERSION&lt;/strong> 记录值为 Hugo 最新版本号，以防有的主题对版本有要求从而导致部署失败；设置完后就可以直接点击 &lt;strong>Deploy&lt;/strong> 进行部署了：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/5.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/5.png"
 width="1125"
 height="890"
-srcset="/p/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_480x0_resize_box_3.png 480w, /p/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_480x0_resize_box_3.png 480w, /archives/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 部署参数"
 class="gallery-image"
@@ -875,10 +875,10 @@ data-flex-grow="126"
 data-flex-basis="303px"
 >&lt;/p>
 &lt;p>等待部署，看到完结撒花就代表已经部署完成了：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/6.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/6.png"
 width="1367"
 height="839"
-srcset="/p/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_480x0_resize_box_3.png 480w, /p/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_480x0_resize_box_3.png 480w, /archives/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 部署完毕"
 class="gallery-image"
@@ -889,10 +889,10 @@ data-flex-basis="391px"
 &lt;blockquote>
 &lt;p>因为 Vercel 分配的二级域名是被 DNS 污染了的，所以通过二级 Vercel 分配的域名是访问不了的&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="/p/hugo_deploy/7.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/7.png"
 width="1383"
 height="712"
-srcset="/p/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_480x0_resize_box_3.png 480w, /p/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_480x0_resize_box_3.png 480w, /archives/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 绑定域名"
 class="gallery-image"
@@ -900,10 +900,10 @@ data-flex-grow="194"
 data-flex-basis="466px"
 >&lt;/p>
 &lt;p>在添加域名之后会提示你设置 &lt;strong>CNAME&lt;/strong> 解析至 &lt;strong>cname.vercel-dns.com&lt;/strong> ，这时候到你域名的管理商或者 DNS 提供商处添加 &lt;strong>CNAME&lt;/strong> 解析即可：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/8.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/8.png"
 width="1053"
 height="344"
-srcset="/p/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_480x0_resize_box_3.png 480w, /p/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_480x0_resize_box_3.png 480w, /archives/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 域名解析"
 class="gallery-image"
@@ -915,10 +915,10 @@ data-flex-basis="734px"
 &lt;hr>
 &lt;h2 id="总结">总结&lt;/h2>
 &lt;p>至此 Hugo 博客托管到 Vercel/Netlify 进行自动部署完成；通过测试，可以看到访问速度对比 Github Pages 还是拥有不小的提升的 (左边为 Vercel 右边为 Github Pages)：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/9.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/9.png"
 width="1196"
 height="550"
-srcset="/p/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_480x0_resize_box_3.png 480w, /p/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_480x0_resize_box_3.png 480w, /archives/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 速度对比"
 class="gallery-image"
@@ -961,7 +961,7 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>使用 Github Actions 自动化部署 Hugo 博客</title><link>/p/hugo_actions/</link><pubDate>Sat, 16 Jul 2022 13:25:48 +0800</pubDate><guid>/p/hugo_actions/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>使用 Github Actions 自动化部署 Hugo 博客</title><link>/archives/hugo_actions/</link><pubDate>Sat, 16 Jul 2022 13:25:48 +0800</pubDate><guid>/archives/hugo_actions/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>之前在 &lt;a class="link" href="/p/hugo/" >《使用 Hugo 搭建个人博客及部署》
 &lt;/a> 一文中, 我讲了通过 Hugo 来搭建个人博客, 并部署到 Github Pages 来实现一个在线访问.但是这样手动部署一开始还觉得比较新奇有趣, 时间一长的话难免会觉得有些麻烦, 一有什么改动就要全部重新部署, 那么本文就将讲一下通过 &lt;code>Github Actions&lt;/code> 来实现将我们的 Hugo 博客自动部署到 Github Pages 或者我们自己的云服务器上, 现在就一起来看一下.&lt;/p>
 &lt;p>&lt;strong>注意&lt;/strong>: 本文所有操作的前提条件是在 &lt;a class="link" href="/p/hugo/" >《使用 Hugo 搭建个人博客及部署》
@@ -1069,10 +1069,10 @@ GitHub 提供 Linux、Windows 和 macOS 虚拟机来运行你的工作流程, �
 &lt;p>重点来了, 现在配置文件已经编辑好了, 我们需要创建相对应的 Token 来给 Actions 使用&lt;/p>
 &lt;h4 id="personal-token">Personal Token&lt;/h4>
 &lt;p>打开 Github 点击 &lt;code>右上角头像 - Settings - Developer setting - Personal access tokens - Generate new token&lt;/code> 创建一个 Token, 记得要勾选 &lt;code>repo&lt;/code> 和 &lt;code>workflow&lt;/code> 权限:&lt;/p>
-&lt;p>&lt;img src="/p/hugo_actions/1.png"
+&lt;p>&lt;img src="/archives/hugo_actions/1.png"
 width="922"
 height="747"
-srcset="/p/hugo_actions/1_hu3522c9be6b2dad825089e416752b4a96_59902_480x0_resize_box_3.png 480w, /p/hugo_actions/1_hu3522c9be6b2dad825089e416752b4a96_59902_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_actions/1_hu3522c9be6b2dad825089e416752b4a96_59902_480x0_resize_box_3.png 480w, /archives/hugo_actions/1_hu3522c9be6b2dad825089e416752b4a96_59902_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 创建Token"
 class="gallery-image"
@@ -1080,10 +1080,10 @@ data-flex-grow="123"
 data-flex-basis="296px"
 >&lt;/p>
 &lt;p>生成后复制 Token &lt;strong>注意: Token 只会出现一次&lt;/strong>&lt;/p>
-&lt;p>&lt;img src="/p/hugo_actions/2.png"
+&lt;p>&lt;img src="/archives/hugo_actions/2.png"
 width="867"
 height="317"
-srcset="/p/hugo_actions/2_hu8fd7383f66fad8c9a9876d2a4e51ea72_20800_480x0_resize_box_3.png 480w, /p/hugo_actions/2_hu8fd7383f66fad8c9a9876d2a4e51ea72_20800_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_actions/2_hu8fd7383f66fad8c9a9876d2a4e51ea72_20800_480x0_resize_box_3.png 480w, /archives/hugo_actions/2_hu8fd7383f66fad8c9a9876d2a4e51ea72_20800_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ Token展示"
 class="gallery-image"
@@ -1091,10 +1091,10 @@ data-flex-grow="273"
 data-flex-basis="656px"
 >&lt;/p>
 &lt;p>复制后打开存放 Hugo 博客的仓库, 点击 &lt;code>Settings - Secrets - Actions - New repository secret&lt;/code> 输入刚才复制的 &lt;code>Token&lt;/code> , 名字为 &lt;code>PERSONAL_TOKEN&lt;/code>&lt;/p>
-&lt;p>&lt;img src="/p/hugo_actions/3.png"
+&lt;p>&lt;img src="/archives/hugo_actions/3.png"
 width="1007"
 height="555"
-srcset="/p/hugo_actions/3_huc13b2c964835fd1c93006ef2ced365b3_16813_480x0_resize_box_3.png 480w, /p/hugo_actions/3_huc13b2c964835fd1c93006ef2ced365b3_16813_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_actions/3_huc13b2c964835fd1c93006ef2ced365b3_16813_480x0_resize_box_3.png 480w, /archives/hugo_actions/3_huc13b2c964835fd1c93006ef2ced365b3_16813_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 创建 Secret"
 class="gallery-image"
@@ -1111,10 +1111,10 @@ data-flex-basis="435px"
 &lt;li>&lt;code>port&lt;/code> SSH 端口，默认为 22, 如果修改了端口，或者供应商有指定端口，填入指定端口即可&lt;/li>
 &lt;/ul>
 &lt;p>以 &lt;code>host&lt;/code> 为例, 在存放 Hugo 博客的仓库, 点击 &lt;code>Settings - Secrets - Actions - New repository secret&lt;/code> 输入 Token Name 为 &lt;code>DC_HOST&lt;/code> , Secret 为你的服务器 IP 地址, 对应配置文件中的 &lt;code>${{ secrets.DC_HOST }}&lt;/code> 项&lt;/p>
-&lt;p>&lt;img src="/p/hugo_actions/4.png"
+&lt;p>&lt;img src="/archives/hugo_actions/4.png"
 width="996"
 height="579"
-srcset="/p/hugo_actions/4_huf4571d29c961448e5cb85460feb31d56_20417_480x0_resize_box_3.png 480w, /p/hugo_actions/4_huf4571d29c961448e5cb85460feb31d56_20417_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_actions/4_huf4571d29c961448e5cb85460feb31d56_20417_480x0_resize_box_3.png 480w, /archives/hugo_actions/4_huf4571d29c961448e5cb85460feb31d56_20417_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 创建 Secret"
 class="gallery-image"
@@ -1132,10 +1132,10 @@ data-flex-basis="412px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git remote add origin git@github.com:username/name.git &lt;span class="c1"># 添加远程仓库, 格式为: 用户名/仓库名 .git&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push origin main &lt;span class="c1"># 推送&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>推送完成后，等待一会然后打开 Hugo 仓库的 Actions 我们就可以看到工作流已经完成:&lt;/p>
-&lt;p>&lt;img src="/p/hugo_actions/5.png"
+&lt;p>&lt;img src="/archives/hugo_actions/5.png"
 width="1161"
 height="682"
-srcset="/p/hugo_actions/5_huc21d97b91565e9272aafaedea766acc8_54304_480x0_resize_box_3.png 480w, /p/hugo_actions/5_huc21d97b91565e9272aafaedea766acc8_54304_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_actions/5_huc21d97b91565e9272aafaedea766acc8_54304_480x0_resize_box_3.png 480w, /archives/hugo_actions/5_huc21d97b91565e9272aafaedea766acc8_54304_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 工作流状态"
 class="gallery-image"
@@ -1143,10 +1143,10 @@ data-flex-grow="170"
 data-flex-basis="408px"
 >&lt;/p>
 &lt;p>再打开存放静态文件的仓库, 可以看到静态文件已经自动部署完毕并且生成 Github Pages 了:&lt;/p>
-&lt;p>&lt;img src="/p/hugo_actions/6.png"
+&lt;p>&lt;img src="/archives/hugo_actions/6.png"
 width="1288"
 height="830"
-srcset="/p/hugo_actions/6_hue00c9a32992b36571c003f698c72598d_123373_480x0_resize_box_3.png 480w, /p/hugo_actions/6_hue00c9a32992b36571c003f698c72598d_123373_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_actions/6_hue00c9a32992b36571c003f698c72598d_123373_480x0_resize_box_3.png 480w, /archives/hugo_actions/6_hue00c9a32992b36571c003f698c72598d_123373_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 部署完成"
 class="gallery-image"
@@ -1191,7 +1191,7 @@ fill="currentColor">
 &lt;/li>
 &lt;/ol>
 &lt;h2 id="总结">总结&lt;/h2>
-&lt;p>以上就是通过 Github Actions 实现的 Hugo 博客自动部署系统, 以后只需要在本地写好文章, 然后 Push 到 Github 的 Hugo 博客仓库中就可以自动进行静态文件生成和部署啦,可以说是方便又好用. 最重要它还是免费的, 这样写博客的方式是否够优雅呢?&lt;/p></description></item><item><title>使用 Hugo 搭建个人博客及部署</title><link>/p/hugo/</link><pubDate>Tue, 03 May 2022 10:50:47 +0800</pubDate><guid>/p/hugo/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>以上就是通过 Github Actions 实现的 Hugo 博客自动部署系统, 以后只需要在本地写好文章, 然后 Push 到 Github 的 Hugo 博客仓库中就可以自动进行静态文件生成和部署啦,可以说是方便又好用. 最重要它还是免费的, 这样写博客的方式是否够优雅呢?&lt;/p></description></item><item><title>使用 Hugo 搭建个人博客及部署</title><link>/archives/hugo/</link><pubDate>Tue, 03 May 2022 10:50:47 +0800</pubDate><guid>/archives/hugo/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>很早开始就接触到个人博客这块了，一开始是到处泛滥的 YH 、 BY 分销；各种免费主机，再到后来自己买虚拟主机、VPS 进行个人博客的使用；由于我懒得备案，于是一直用的是海外的服务器；但是海外服务器也有问题，就是访问体验相较于国内还是比较差的。 WordPress 的话，对我个人而言感觉比较臃肿，所以后面又用了 Typecho ；到最后工作、生活等诸多琐事导致没有太多的时间去进行打理，而且服务器的长期维护也是一笔不小的开支。&lt;/p>
 &lt;p>到后面我发现了 Hugo + GitHub Pages 这一方案，既可以进行托管，节省了许多维护心力，又能随时进行写作；虽然在部署与搭建上需要进行一些配置，但是后续更新和维护还是比较方便的。因此，在这里将博客系统搭建及部署进行记录，希望对大家有所帮助。&lt;/p>
 &lt;h3 id="博客程序选择">博客程序选择&lt;/h3>
@@ -1261,10 +1261,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir hugo &lt;span class="c1"># 创建 hugo 文件夹&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> hugo &lt;span class="c1"># 进入hugo文件夹&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hugo new site name &lt;span class="c1"># 创建新网站，name可以自行设置&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo1.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/hugo/hugo1.png"
 width="499"
 height="217"
-srcset="/p/hugo/hugo1_hu1593209fc24c3f241eae20b192d7df07_80052_480x0_resize_box_3.png 480w, /p/hugo/hugo1_hu1593209fc24c3f241eae20b192d7df07_80052_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo1_hu1593209fc24c3f241eae20b192d7df07_80052_480x0_resize_box_3.png 480w, /archives/hugo/hugo1_hu1593209fc24c3f241eae20b192d7df07_80052_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 创建站点"
 class="gallery-image"
@@ -1278,10 +1278,10 @@ data-flex-basis="551px"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> name
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git init
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git submodule add https://github.com/vaga/hugo-theme-m10c.git themes/m10c
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo2.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/hugo/hugo2.png"
 width="743"
 height="293"
-srcset="/p/hugo/hugo2_hu8b1c95630b8d6c2d2b4d5013a4a28dcc_147285_480x0_resize_box_3.png 480w, /p/hugo/hugo2_hu8b1c95630b8d6c2d2b4d5013a4a28dcc_147285_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo2_hu8b1c95630b8d6c2d2b4d5013a4a28dcc_147285_480x0_resize_box_3.png 480w, /archives/hugo/hugo2_hu8b1c95630b8d6c2d2b4d5013a4a28dcc_147285_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 添加主题"
 class="gallery-image"
@@ -1297,10 +1297,10 @@ data-flex-basis="608px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>初始化主题基础配置后，我们可以在 &lt;code>config.toml&lt;/code> 文件中进行站点细节配置，将博客站点配置文件中的 &lt;code>baseURL&lt;/code> 改为自己的域名，或者直接设置为 &lt;code>/&lt;/code> ；其余具体配置项参考各主题说明文档，或者作者主题仓库中的详细说明。&lt;/p>
 &lt;h5 id="调试主题">调试主题&lt;/h5>
 &lt;p>完成一些基本的站点配置后，我们就可以通过 &lt;code>hugo server&lt;/code> 命令进行本地实时预览：&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo3.png"
+&lt;p>&lt;img src="/archives/hugo/hugo3.png"
 width="848"
 height="413"
-srcset="/p/hugo/hugo3_hu195d9af53c49c1daaf661459675c35ad_151057_480x0_resize_box_3.png 480w, /p/hugo/hugo3_hu195d9af53c49c1daaf661459675c35ad_151057_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo3_hu195d9af53c49c1daaf661459675c35ad_151057_480x0_resize_box_3.png 480w, /archives/hugo/hugo3_hu195d9af53c49c1daaf661459675c35ad_151057_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 预览命令"
 class="gallery-image"
@@ -1308,10 +1308,10 @@ data-flex-grow="205"
 data-flex-basis="492px"
 >&lt;/p>
 &lt;p>运行服务后，我们可以通过浏览器 http://localhost:1313 地址访问我们的本地预览网页：&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo4.png"
+&lt;p>&lt;img src="/archives/hugo/hugo4.png"
 width="859"
 height="597"
-srcset="/p/hugo/hugo4_hu91f764b6575d40954d329e961623aeb3_50888_480x0_resize_box_3.png 480w, /p/hugo/hugo4_hu91f764b6575d40954d329e961623aeb3_50888_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo4_hu91f764b6575d40954d329e961623aeb3_50888_480x0_resize_box_3.png 480w, /archives/hugo/hugo4_hu91f764b6575d40954d329e961623aeb3_50888_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 本地预览"
 class="gallery-image"
@@ -1327,10 +1327,10 @@ data-flex-basis="345px"
 &lt;h4 id="git-pages-设置">Git Pages 设置&lt;/h4>
 &lt;h5 id="开通-github-pages-仓库">开通 Github Pages 仓库&lt;/h5>
 &lt;p>Github Pages 项目仓库需要符合 &lt;code>username.github.io&lt;/code> 的特殊命名格式，这样博客站点才能正常访问 GitHub Pages 生成的网站服务。&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo5.png"
+&lt;p>&lt;img src="/archives/hugo/hugo5.png"
 width="880"
 height="890"
-srcset="/p/hugo/hugo5_hua8df7804fcb6582fb128f2d3cde579e3_68194_480x0_resize_box_3.png 480w, /p/hugo/hugo5_hua8df7804fcb6582fb128f2d3cde579e3_68194_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo5_hua8df7804fcb6582fb128f2d3cde579e3_68194_480x0_resize_box_3.png 480w, /archives/hugo/hugo5_hua8df7804fcb6582fb128f2d3cde579e3_68194_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 新建仓库"
 class="gallery-image"
@@ -1340,10 +1340,10 @@ data-flex-basis="237px"
 &lt;h5 id="生成静态文件">生成静态文件&lt;/h5>
 &lt;p>配置完主题，并发布新文章之后，就可以通过 &lt;code>hugo&lt;/code> 命令来生成静态网页文件&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo6.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/hugo/hugo6.png"
 width="846"
 height="263"
-srcset="/p/hugo/hugo6_hua556ab7ea8094a1bb562d04c6605473b_80122_480x0_resize_box_3.png 480w, /p/hugo/hugo6_hua556ab7ea8094a1bb562d04c6605473b_80122_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo6_hua556ab7ea8094a1bb562d04c6605473b_80122_480x0_resize_box_3.png 480w, /archives/hugo/hugo6_hua556ab7ea8094a1bb562d04c6605473b_80122_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 生成静态文件"
 class="gallery-image"
@@ -1357,10 +1357,10 @@ data-flex-basis="772px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git add .
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git branch -M main &lt;span class="c1"># 好像现在官方默认是main分支&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;博客第一次提交&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo7.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/hugo/hugo7.png"
 width="730"
 height="544"
-srcset="/p/hugo/hugo7_hue6bbc362e6251bab546bb4b96f164b3e_233735_480x0_resize_box_3.png 480w, /p/hugo/hugo7_hue6bbc362e6251bab546bb4b96f164b3e_233735_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo7_hue6bbc362e6251bab546bb4b96f164b3e_233735_480x0_resize_box_3.png 480w, /archives/hugo/hugo7_hue6bbc362e6251bab546bb4b96f164b3e_233735_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 提交至本地仓库"
 class="gallery-image"
@@ -1371,10 +1371,10 @@ data-flex-basis="322px"
 &lt;h6 id="添加密钥">添加密钥&lt;/h6>
 &lt;p>这个密钥是用来安全连接 Github 远程仓库的，使用 Https 方式连接可能会出现各种问题，输入下面命令生成密钥，然后按下几次回车即可：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh-keygen -t ed25519 -C &lt;span class="s2">&amp;#34;你的Github邮箱&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo8.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/hugo/hugo8.png"
 width="543"
 height="345"
-srcset="/p/hugo/hugo8_hue8529ca85d5514b15728b2b3eecf7f9f_17168_480x0_resize_box_3.png 480w, /p/hugo/hugo8_hue8529ca85d5514b15728b2b3eecf7f9f_17168_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo8_hue8529ca85d5514b15728b2b3eecf7f9f_17168_480x0_resize_box_3.png 480w, /archives/hugo/hugo8_hue8529ca85d5514b15728b2b3eecf7f9f_17168_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 生成密钥"
 class="gallery-image"
@@ -1382,10 +1382,10 @@ data-flex-grow="157"
 data-flex-basis="377px"
 >&lt;/p>
 &lt;p>生成完毕后输入 &lt;code>cat ~/.ssh/id_ed25519.pub&lt;/code> 查看公钥内容：&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo9.png"
+&lt;p>&lt;img src="/archives/hugo/hugo9.png"
 width="741"
 height="44"
-srcset="/p/hugo/hugo9_hu244e421d83d6064b29d90c59875d06c8_19752_480x0_resize_box_3.png 480w, /p/hugo/hugo9_hu244e421d83d6064b29d90c59875d06c8_19752_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo9_hu244e421d83d6064b29d90c59875d06c8_19752_480x0_resize_box_3.png 480w, /archives/hugo/hugo9_hu244e421d83d6064b29d90c59875d06c8_19752_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 查看公钥"
 class="gallery-image"
@@ -1393,10 +1393,10 @@ data-flex-grow="1684"
 data-flex-basis="4041px"
 >&lt;/p>
 &lt;p>复制展示出来的公钥，然后打开 Github 点击 &lt;code>右上角头像 - Settings - SSH and GPG keys - New SSH Key&lt;/code> 把刚才复制的公钥粘贴到 &lt;code>Key&lt;/code> 中，命名随意，然后保存：&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo10.png"
+&lt;p>&lt;img src="/archives/hugo/hugo10.png"
 width="1164"
 height="628"
-srcset="/p/hugo/hugo10_hu92918c3a83d40ad27e27b2d8bf7e9e88_45493_480x0_resize_box_3.png 480w, /p/hugo/hugo10_hu92918c3a83d40ad27e27b2d8bf7e9e88_45493_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo10_hu92918c3a83d40ad27e27b2d8bf7e9e88_45493_480x0_resize_box_3.png 480w, /archives/hugo/hugo10_hu92918c3a83d40ad27e27b2d8bf7e9e88_45493_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 上传公钥"
 class="gallery-image"
@@ -1407,10 +1407,10 @@ data-flex-basis="444px"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git remote add origin git@github.com:username/username.github.io.git &lt;span class="c1"># username换成你的github用户名&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push origin main
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后会提示你是否将 &lt;code>github.com&lt;/code> 添加到主机列表，输入 yes 回车即可&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo11.png"
+&lt;p>&lt;img src="/archives/hugo/hugo11.png"
 width="580"
 height="101"
-srcset="/p/hugo/hugo11_huc499c9330fd25cbc89511e4f67450492_24572_480x0_resize_box_3.png 480w, /p/hugo/hugo11_huc499c9330fd25cbc89511e4f67450492_24572_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo11_huc499c9330fd25cbc89511e4f67450492_24572_480x0_resize_box_3.png 480w, /archives/hugo/hugo11_huc499c9330fd25cbc89511e4f67450492_24572_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 推送至远程仓库"
 class="gallery-image"
@@ -1421,10 +1421,10 @@ data-flex-basis="1378px"
 &lt;hr>
 &lt;h2 id="绑定域名">绑定域名&lt;/h2>
 &lt;p>推送完毕后就可以绑定自己的域名了，绑定域名前，先到你的域名服务商或者 DNS 提供商处添加 &lt;code>CNAME&lt;/code> 记录解析到 &lt;code>username.github.io&lt;/code> 也就是你的 Github Pages 仓库名 (我这里是 CloudFlare ) ：&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo12.png"
+&lt;p>&lt;img src="/archives/hugo/hugo12.png"
 width="1157"
 height="534"
-srcset="/p/hugo/hugo12_hu5943c29bd7368fd339cc60f8beabdb7c_35882_480x0_resize_box_3.png 480w, /p/hugo/hugo12_hu5943c29bd7368fd339cc60f8beabdb7c_35882_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo12_hu5943c29bd7368fd339cc60f8beabdb7c_35882_480x0_resize_box_3.png 480w, /archives/hugo/hugo12_hu5943c29bd7368fd339cc60f8beabdb7c_35882_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 绑定域名"
 class="gallery-image"
@@ -1432,10 +1432,10 @@ data-flex-grow="216"
 data-flex-basis="520px"
 >&lt;/p>
 &lt;p>进入 Github Pages 仓库，点击 &lt;code>Settings - Pages&lt;/code> 找到 Custom domain 输入你自己的域名，等待验证 DNS 后开启 HTTPS ：&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo13.png"
+&lt;p>&lt;img src="/archives/hugo/hugo13.png"
 width="1169"
 height="851"
-srcset="/p/hugo/hugo13_hu52f39e40f75c2ee40fc82424e6fd1dfc_97307_480x0_resize_box_3.png 480w, /p/hugo/hugo13_hu52f39e40f75c2ee40fc82424e6fd1dfc_97307_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo13_hu52f39e40f75c2ee40fc82424e6fd1dfc_97307_480x0_resize_box_3.png 480w, /archives/hugo/hugo13_hu52f39e40f75c2ee40fc82424e6fd1dfc_97307_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 开启HTTPS"
 class="gallery-image"

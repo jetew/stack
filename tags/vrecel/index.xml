@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vrecel on Kitin's</title><link>/tags/vrecel/</link><description>Recent content in Vrecel on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sun, 18 Sep 2022 14:02:55 +0800</lastBuildDate><atom:link href="/tags/vrecel/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo 博客部署至托管服务提升访问体验</title><link>/p/hugo_deploy/</link><pubDate>Sun, 18 Sep 2022 14:02:55 +0800</pubDate><guid>/p/hugo_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vrecel on Kitin's</title><link>/tags/vrecel/</link><description>Recent content in Vrecel on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sun, 18 Sep 2022 14:02:55 +0800</lastBuildDate><atom:link href="/tags/vrecel/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo 博客部署至托管服务提升访问体验</title><link>/archives/hugo_deploy/</link><pubDate>Sun, 18 Sep 2022 14:02:55 +0800</pubDate><guid>/archives/hugo_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>之前在 &lt;a class="link" href="/p/hugo-actions/" >《使用 Github Actions 自动化部署 Hugo 博客》
 &lt;/a> 一文中我讲了通过 Github Actions 自动部署 Hugo 博客到 Github Pages ； Github Pages 免费而且无需考虑成本及维护；但是 Github 毕竟是在海外，访问有问题，还时常抽风；访问体验算不上差强人意吧，也只能说是大失所望了。那怎样简单又低成本解决这个问题呢？ (毕竟白嫖才是硬道理) 现在就来看一下今天的主角：&lt;/p>
 &lt;ul>
@@ -39,10 +39,10 @@ fill="currentColor">
 &lt;hr>
 &lt;h2 id="使用与部属">使用与部属&lt;/h2>
 &lt;p>这里我以 Vercel 为例，因为他们两家操作都差不多，首先打开 Vercel 官网，点击右上角 &lt;strong>Sign Up - Continue with GitHub&lt;/strong> 使用 Github 进行登陆：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/1.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/1.png"
 width="1162"
 height="800"
-srcset="/p/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_480x0_resize_box_3.png 480w, /p/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_480x0_resize_box_3.png 480w, /archives/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 登陆"
 class="gallery-image"
@@ -50,10 +50,10 @@ data-flex-grow="145"
 data-flex-basis="348px"
 >&lt;/p>
 &lt;p>之后让你进行授权，点击确认授权即可：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/2.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/2.png"
 width="716"
 height="743"
-srcset="/p/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_480x0_resize_box_3.png 480w, /p/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_480x0_resize_box_3.png 480w, /archives/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 授权"
 class="gallery-image"
@@ -61,10 +61,10 @@ data-flex-grow="96"
 data-flex-basis="231px"
 >&lt;/p>
 &lt;p>进入管理面板后，点击 &lt;strong>Create a New Project&lt;/strong> 来创建新项目，然后选择 &lt;strong>Countinue with GitHub&lt;/strong> 导入 Github 的仓库：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/3.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/3.png"
 width="1304"
 height="757"
-srcset="/p/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_480x0_resize_box_3.png 480w, /p/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_480x0_resize_box_3.png 480w, /archives/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 导入 Github"
 class="gallery-image"
@@ -72,10 +72,10 @@ data-flex-grow="172"
 data-flex-basis="413px"
 >&lt;/p>
 &lt;p>到这会让你选择仓库，你可以选择读取所有仓库，或者指定读取某一个仓库 (这里我就选择读取我 Hugo 博客的仓库) ，然后 Install：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/4.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/4.png"
 width="821"
 height="779"
-srcset="/p/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_480x0_resize_box_3.png 480w, /p/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_480x0_resize_box_3.png 480w, /archives/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 选择仓库"
 class="gallery-image"
@@ -83,10 +83,10 @@ data-flex-grow="105"
 data-flex-basis="252px"
 >&lt;/p>
 &lt;p>之后会回到管理面板，点击 &lt;strong>Improt&lt;/strong> 导入你刚才选择的仓库；然后就会进入部署配置页面，一般来讲是会自动识别你仓库的程序，然后自动选择好部署配置。如果没有的话可以自己设置；记得在环境变量添加一个 &lt;strong>HUGO_VERSION&lt;/strong> 记录值为 Hugo 最新版本号，以防有的主题对版本有要求从而导致部署失败；设置完后就可以直接点击 &lt;strong>Deploy&lt;/strong> 进行部署了：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/5.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/5.png"
 width="1125"
 height="890"
-srcset="/p/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_480x0_resize_box_3.png 480w, /p/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_480x0_resize_box_3.png 480w, /archives/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 部署参数"
 class="gallery-image"
@@ -94,10 +94,10 @@ data-flex-grow="126"
 data-flex-basis="303px"
 >&lt;/p>
 &lt;p>等待部署，看到完结撒花就代表已经部署完成了：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/6.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/6.png"
 width="1367"
 height="839"
-srcset="/p/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_480x0_resize_box_3.png 480w, /p/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_480x0_resize_box_3.png 480w, /archives/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 部署完毕"
 class="gallery-image"
@@ -108,10 +108,10 @@ data-flex-basis="391px"
 &lt;blockquote>
 &lt;p>因为 Vercel 分配的二级域名是被 DNS 污染了的，所以通过二级 Vercel 分配的域名是访问不了的&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="/p/hugo_deploy/7.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/7.png"
 width="1383"
 height="712"
-srcset="/p/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_480x0_resize_box_3.png 480w, /p/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_480x0_resize_box_3.png 480w, /archives/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 绑定域名"
 class="gallery-image"
@@ -119,10 +119,10 @@ data-flex-grow="194"
 data-flex-basis="466px"
 >&lt;/p>
 &lt;p>在添加域名之后会提示你设置 &lt;strong>CNAME&lt;/strong> 解析至 &lt;strong>cname.vercel-dns.com&lt;/strong> ，这时候到你域名的管理商或者 DNS 提供商处添加 &lt;strong>CNAME&lt;/strong> 解析即可：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/8.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/8.png"
 width="1053"
 height="344"
-srcset="/p/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_480x0_resize_box_3.png 480w, /p/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_480x0_resize_box_3.png 480w, /archives/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 域名解析"
 class="gallery-image"
@@ -134,10 +134,10 @@ data-flex-basis="734px"
 &lt;hr>
 &lt;h2 id="总结">总结&lt;/h2>
 &lt;p>至此 Hugo 博客托管到 Vercel/Netlify 进行自动部署完成；通过测试，可以看到访问速度对比 Github Pages 还是拥有不小的提升的 (左边为 Vercel 右边为 Github Pages)：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/9.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/9.png"
 width="1196"
 height="550"
-srcset="/p/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_480x0_resize_box_3.png 480w, /p/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_480x0_resize_box_3.png 480w, /archives/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 速度对比"
 class="gallery-image"

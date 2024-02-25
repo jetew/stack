@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Aira on Kitin's</title><link>/tags/aira/</link><description>Recent content in Aira on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sat, 24 Dec 2022 10:58:22 +0800</lastBuildDate><atom:link href="/tags/aira/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Aria2 + AriaNG 搭建离线下载站</title><link>/p/aria/</link><pubDate>Sat, 24 Dec 2022 10:58:22 +0800</pubDate><guid>/p/aria/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Aira on Kitin's</title><link>/tags/aira/</link><description>Recent content in Aira on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sat, 24 Dec 2022 10:58:22 +0800</lastBuildDate><atom:link href="/tags/aira/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Aria2 + AriaNG 搭建离线下载站</title><link>/archives/aria/</link><pubDate>Sat, 24 Dec 2022 10:58:22 +0800</pubDate><guid>/archives/aria/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;h3 id="介绍">介绍&lt;/h3>
 &lt;p>Aria2 是目前最强大的全能型下载工具，它支持 BT、磁力、HTTP、FTP 等下载协议，常用做离线下载的服务端。&lt;/p>
 &lt;p>AriaNg 是一个让 Aria2 更容易使用的现代 Web 前端。 AriaNg 使用纯 html &amp;amp; javascript 开发，所以其不需要任何编译器或运行环境.。您只要将 AriaNg 放在您的 Web 服务器里并在浏览器中打开即可使用；AriaNg 使用响应式布局，支持各种计算机或移动设备。&lt;/p>
@@ -144,10 +144,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 请输入数字 &lt;span class="o">[&lt;/span>0-12&lt;span class="o">]&lt;/span>:
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输入 &lt;code>1&lt;/code> 进行安装，安装完成之后会跳出配置信息：&lt;/p>
-&lt;p>&lt;img src="/p/aria/1.png"
+&lt;p>&lt;img src="/archives/aria/1.png"
 width="820"
 height="160"
-srcset="/p/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_480x0_resize_box_3.png 480w, /p/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_1024x0_resize_box_3.png 1024w"
+srcset="/archives/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_480x0_resize_box_3.png 480w, /archives/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="配置信息"
 class="gallery-image"
@@ -181,10 +181,10 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a> 页面，将 AriaNG-x.x.x.zip 文件下载上传至网站根目录，并解压。&lt;/p>
 &lt;p>访问该网站域名，首次访问会跳出认证错误提示，关闭掉然后进行设置：&lt;/p>
-&lt;p>&lt;img src="/p/aria/2.png"
+&lt;p>&lt;img src="/archives/aria/2.png"
 width="1900"
 height="600"
-srcset="/p/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_480x0_resize_box_3.png 480w, /p/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_1024x0_resize_box_3.png 1024w"
+srcset="/archives/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_480x0_resize_box_3.png 480w, /archives/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="配置过程"
 class="gallery-image"

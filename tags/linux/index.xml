@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Kitin's</title><link>/tags/linux/</link><description>Recent content in Linux on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Mon, 02 Jan 2023 13:21:30 +0800</lastBuildDate><atom:link href="/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Cloudreve 搭建文件管理</title><link>/p/cloudreve/</link><pubDate>Mon, 02 Jan 2023 13:21:30 +0800</pubDate><guid>/p/cloudreve/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Kitin's</title><link>/tags/linux/</link><description>Recent content in Linux on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Mon, 02 Jan 2023 13:21:30 +0800</lastBuildDate><atom:link href="/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Cloudreve 搭建文件管理</title><link>/archives/cloudreve/</link><pubDate>Mon, 02 Jan 2023 13:21:30 +0800</pubDate><guid>/archives/cloudreve/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>Cloudreve 可以让您快速搭建起公私兼备的网盘系统。Cloudreve 在底层支持不同的云存储平台，用户在实际使用时无须关心物理存储方式。你可以使用 Cloudreve 搭建个人用网盘、文件分享系统，亦或是针对大小团体的公有云系统。&lt;/p>
 &lt;h2 id="安装配置">安装配置&lt;/h2>
 &lt;h3 id="获取-cloudreve">获取 Cloudreve&lt;/h3>
@@ -176,7 +176,7 @@ fill="currentColor">
 &lt;p>然后更新配置并启动服务：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl daemon-reload
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl start cloudreve
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>使用 Aria2 + AriaNG 搭建离线下载站</title><link>/p/aria/</link><pubDate>Sat, 24 Dec 2022 10:58:22 +0800</pubDate><guid>/p/aria/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>使用 Aria2 + AriaNG 搭建离线下载站</title><link>/archives/aria/</link><pubDate>Sat, 24 Dec 2022 10:58:22 +0800</pubDate><guid>/archives/aria/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;h3 id="介绍">介绍&lt;/h3>
 &lt;p>Aria2 是目前最强大的全能型下载工具，它支持 BT、磁力、HTTP、FTP 等下载协议，常用做离线下载的服务端。&lt;/p>
 &lt;p>AriaNg 是一个让 Aria2 更容易使用的现代 Web 前端。 AriaNg 使用纯 html &amp;amp; javascript 开发，所以其不需要任何编译器或运行环境.。您只要将 AriaNg 放在您的 Web 服务器里并在浏览器中打开即可使用；AriaNg 使用响应式布局，支持各种计算机或移动设备。&lt;/p>
@@ -322,10 +322,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 请输入数字 &lt;span class="o">[&lt;/span>0-12&lt;span class="o">]&lt;/span>:
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输入 &lt;code>1&lt;/code> 进行安装，安装完成之后会跳出配置信息：&lt;/p>
-&lt;p>&lt;img src="/p/aria/1.png"
+&lt;p>&lt;img src="/archives/aria/1.png"
 width="820"
 height="160"
-srcset="/p/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_480x0_resize_box_3.png 480w, /p/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_1024x0_resize_box_3.png 1024w"
+srcset="/archives/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_480x0_resize_box_3.png 480w, /archives/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="配置信息"
 class="gallery-image"
@@ -359,10 +359,10 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a> 页面，将 AriaNG-x.x.x.zip 文件下载上传至网站根目录，并解压。&lt;/p>
 &lt;p>访问该网站域名，首次访问会跳出认证错误提示，关闭掉然后进行设置：&lt;/p>
-&lt;p>&lt;img src="/p/aria/2.png"
+&lt;p>&lt;img src="/archives/aria/2.png"
 width="1900"
 height="600"
-srcset="/p/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_480x0_resize_box_3.png 480w, /p/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_1024x0_resize_box_3.png 1024w"
+srcset="/archives/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_480x0_resize_box_3.png 480w, /archives/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="配置过程"
 class="gallery-image"
@@ -392,7 +392,7 @@ data-flex-basis="760px"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">reverse_proxy&lt;/span> &lt;span class="nd">/jsonrpc&lt;/span> &lt;span class="n">127.0.0.1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">6800&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后在 AriaNG 中修改 Aria2 RPC 地址为：&lt;code>https://domian.com:443/jsonrpc&lt;/code>&lt;/p></description></item><item><title>File Browser 在线文件管理</title><link>/p/filebrowser/</link><pubDate>Fri, 16 Dec 2022 20:09:22 +0800</pubDate><guid>/p/filebrowser/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后在 AriaNG 中修改 Aria2 RPC 地址为：&lt;code>https://domian.com:443/jsonrpc&lt;/code>&lt;/p></description></item><item><title>File Browser 在线文件管理</title><link>/archives/filebrowser/</link><pubDate>Fri, 16 Dec 2022 20:09:22 +0800</pubDate><guid>/archives/filebrowser/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>File Browser 是一款使用 Golang 开发的文件管理器，跨平台，免费开源，功能强大。它是一个能独立运行的可执行二进制文件，可以与 Docker 或 Caddy 一起使用。这篇文章分享 Debian 11 下安装 File Browser 的过程。&lt;/p>
 &lt;h2 id="安装配置">安装配置&lt;/h2>
 &lt;h3 id="安装-file-browser">安装 File Browser&lt;/h3>
@@ -526,7 +526,7 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">reverse_proxy&lt;/span> &lt;span class="nd">/pan/*&lt;/span> &lt;span class="n">127.0.0.1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8080&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>CentOS 7 编译安装 gcc</title><link>/p/make_gcc/</link><pubDate>Sat, 10 Dec 2022 15:43:06 +0800</pubDate><guid>/p/make_gcc/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>CentOS 7 编译安装 gcc</title><link>/archives/make_gcc/</link><pubDate>Sat, 10 Dec 2022 15:43:06 +0800</pubDate><guid>/archives/make_gcc/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>前两天折腾手上的 CentOS7 服务器，在编译安装软件时发现编译失败；查看了下日志和文档发现是因为 gcc 和 g++ 版本过低了。而通过 yum 查找发现只有 4.8 版本，于是决定通过编译安装新版本，历经了重重困难后终于是安装完毕，并在此进行记录。&lt;/p>
 &lt;hr>
 &lt;h2 id="安装步骤">安装步骤&lt;/h2>
@@ -632,7 +632,7 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/yum.conf
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在末尾添加上：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">exclude&lt;/span>&lt;span class="o">=&lt;/span>gcc*
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>另外需要注意运行自动化脚本前查看一下是否会对配置文件进行编辑，若存在则需要修改脚本。&lt;/p></description></item><item><title>一键 DD 自动重装脚本</title><link>/p/dd_sh/</link><pubDate>Thu, 01 Dec 2022 10:53:36 +0800</pubDate><guid>/p/dd_sh/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>另外需要注意运行自动化脚本前查看一下是否会对配置文件进行编辑，若存在则需要修改脚本。&lt;/p></description></item><item><title>一键 DD 自动重装脚本</title><link>/archives/dd_sh/</link><pubDate>Thu, 01 Dec 2022 10:53:36 +0800</pubDate><guid>/archives/dd_sh/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>VPS 主机一键自动重装系统脚本优化版，基于萌咖脚本优化、开发；DD 过程简单，傻瓜式安装。 脚本支持原版自定义密码安装，可选 Linux 和 Windows 系统，而且脚本支持 Oracle 甲骨文免费云主机使用支持 UEFI 的镜像包安装。&lt;/p>
 &lt;p>一键 DD 脚本，支持性好，更智能更全面，支持国内外各种 VPS 重装，特别是对国内各种访问国外资源慢的 VPS 安装有奇效。&lt;/p>
 &lt;ul>
@@ -676,10 +676,10 @@ fill="currentColor">
 &lt;blockquote>
 &lt;p>公网 IP 、网关及子网掩码可在 VPS 控制面板进行查看，若不一致，可输入 &lt;code>N&lt;/code> 进行自定义&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="/p/dd_sh/1.png"
+&lt;p>&lt;img src="/archives/dd_sh/1.png"
 width="700"
 height="400"
-srcset="/p/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_480x0_resize_box_3.png 480w, /p/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_1024x0_resize_box_3.png 1024w"
+srcset="/archives/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_480x0_resize_box_3.png 480w, /archives/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 网络确认"
 class="gallery-image"
@@ -687,10 +687,10 @@ data-flex-grow="175"
 data-flex-basis="420px"
 >&lt;/p>
 &lt;p>然后进行系统选择，41合1的系统一键 DD 选择界面，输入 &lt;code>99&lt;/code> 则使用自定义镜像：&lt;/p>
-&lt;p>&lt;img src="/p/dd_sh/2.png"
+&lt;p>&lt;img src="/archives/dd_sh/2.png"
 width="700"
 height="720"
-srcset="/p/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_480x0_resize_box_3.png 480w, /p/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_1024x0_resize_box_3.png 1024w"
+srcset="/archives/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_480x0_resize_box_3.png 480w, /archives/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 系统选择"
 class="gallery-image"
@@ -698,10 +698,10 @@ data-flex-grow="97"
 data-flex-basis="233px"
 >&lt;/p>
 &lt;p>若输入 &lt;code>9-16&lt;/code> 安装原版系统，可自定义密码，密码要求8-16位，以英文字母或数字开头，可以是大小写英文字母、数字及7个特殊字符.!$@#&amp;amp;%的任意组合，然后设置端口确认信息后，即可进行安装：&lt;/p>
-&lt;p>&lt;img src="/p/dd_sh/3.png"
+&lt;p>&lt;img src="/archives/dd_sh/3.png"
 width="700"
 height="360"
-srcset="/p/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_480x0_resize_box_3.png 480w, /p/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_1024x0_resize_box_3.png 1024w"
+srcset="/archives/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_480x0_resize_box_3.png 480w, /archives/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 自定义设置"
 class="gallery-image"
@@ -791,7 +791,7 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>Linux 服务器设置 Swap 分区</title><link>/p/setswap/</link><pubDate>Fri, 11 Nov 2022 19:15:56 +0800</pubDate><guid>/p/setswap/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>Linux 服务器设置 Swap 分区</title><link>/archives/setswap/</link><pubDate>Fri, 11 Nov 2022 19:15:56 +0800</pubDate><guid>/archives/setswap/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>这两天闲着没事，将手头上闲置的一台 512M 小内存服务器拿出来折腾，编译安装 MariaDB 的时候由于内存不足导致编译失败。由于我是个小白，且一直是使用的 2/4G 服务器，以前从来没有注意过这个；直到现在遇到这样的问题。。。&lt;/p>
 &lt;h3 id="swap-分区">Swap 分区&lt;/h3>
 &lt;p>别名：交换分区。 Swap 分区在系统的物理内存不够用的时候，把硬盘内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间被临时保存到 Swap 分区中，等到那些程序要运行时，再从 Swap 分区中恢复保存的数据到内存中。&lt;/p>
@@ -928,16 +928,16 @@ fill="currentColor">
 &lt;hr>
 &lt;h2 id="总结">总结&lt;/h2>
 &lt;p>以上就是本篇的全部内容，希望对大家有所帮助。&lt;/p>
-&lt;p>对于 Linux，无论是多大内存，还是要设立 Swap 交换分区，这样有利于在内存耗尽时及时启用 Swap 空间。另外，可以视情况对 Swap 分区大小进行临时调整，比如我前文所说用 512M 内存服务器编译安装高版本 MariaDB ，那么我可以先将 Swap 分区临时设置为 2G ，编译安装完成后再调整。&lt;/p></description></item><item><title>CentOS7 下 MariaDB 安装失败解决方法</title><link>/p/centos_sql_error/</link><pubDate>Sat, 05 Nov 2022 17:18:10 +0800</pubDate><guid>/p/centos_sql_error/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>对于 Linux，无论是多大内存，还是要设立 Swap 交换分区，这样有利于在内存耗尽时及时启用 Swap 空间。另外，可以视情况对 Swap 分区大小进行临时调整，比如我前文所说用 512M 内存服务器编译安装高版本 MariaDB ，那么我可以先将 Swap 分区临时设置为 2G ，编译安装完成后再调整。&lt;/p></description></item><item><title>CentOS7 下 MariaDB 安装失败解决方法</title><link>/archives/centos_sql_error/</link><pubDate>Sat, 05 Nov 2022 17:18:10 +0800</pubDate><guid>/archives/centos_sql_error/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>由于最近腾讯云双11优惠活动，自己购买了一台腾讯云的轻量应用服务器 (老实说还是挺实惠的-。-) 加上自己按捺不住折腾的心，这次一改以前一直使用的 Debian 而选择了 CentOS ；这次的服务器系统我选择的是 CentOS7 ，LNMP 安装方式则是 Oneinstack 和 LNMP 一键安装包都进行了尝试。Debian 下，它们都是完美安装。但是 Centos7 下，在安装过程中 Oneinstack 和 LNMP 一键安装包都碰到了 MariaDB/MySQL 无法安装的情况，由于我是一个 Linux 小白，平常只靠从网上学习，知识量不足；所以在此记录下这次解决过程，以便日后进行查阅。&lt;/p>
 &lt;hr>
 &lt;h2 id="解决过程">解决过程&lt;/h2>
 &lt;h3 id="报错">报错&lt;/h3>
 &lt;p>和往常一样，服务器开通后，我通过 &lt;code>yum&lt;/code> 进行了一些基本的 &lt;code>update&lt;/code> 、&lt;code>autoremove&lt;/code> 、&lt;code>clean&lt;/code> 等操作，然后创建 Screen 窗口，输入 LNMP 一键包命令就开始安装了，到最后却发现 &lt;strong>MariaDB&lt;/strong> 安装失败；一开始也不知道啥情况，以为是我选的源码编译方式有问题，后面试了二进制安装依然如此：&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/1.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/1.png"
 width="865"
 height="341"
-srcset="/p/centos_sql_error/1_hudbdfc3d5c8c8e6002944dd56df4d9048_207022_480x0_resize_box_3.png 480w, /p/centos_sql_error/1_hudbdfc3d5c8c8e6002944dd56df4d9048_207022_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/1_hudbdfc3d5c8c8e6002944dd56df4d9048_207022_480x0_resize_box_3.png 480w, /archives/centos_sql_error/1_hudbdfc3d5c8c8e6002944dd56df4d9048_207022_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 安装失败"
 class="gallery-image"
@@ -956,10 +956,10 @@ data-flex-basis="608px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接着满怀期待的又进行安装，最后还是报错-。-&lt;/p>
 &lt;h3 id="错误日志">错误日志&lt;/h3>
 &lt;p>还是硬着头皮来看错误日志吧，我将 &lt;strong>/root/lnmp-install.log&lt;/strong> 安装日志下载下来进行查看。虽然说很长，咱也看不太懂。。。最后还是找到了一些破绽。。。发现应该是 &lt;strong>Cmake&lt;/strong> 版本低了：&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/2.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/2.png"
 width="685"
 height="459"
-srcset="/p/centos_sql_error/2_hu75d6d2a294a68bd65fd381e6476a6315_30039_480x0_resize_box_3.png 480w, /p/centos_sql_error/2_hu75d6d2a294a68bd65fd381e6476a6315_30039_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/2_hu75d6d2a294a68bd65fd381e6476a6315_30039_480x0_resize_box_3.png 480w, /archives/centos_sql_error/2_hu75d6d2a294a68bd65fd381e6476a6315_30039_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 错误日志"
 class="gallery-image"
@@ -1003,10 +1003,10 @@ fill="currentColor">
 &lt;p>一通操作下来，Cmake 已经是最新版本了，然后进入到 &lt;strong>~/lnmp1.9&lt;/strong> 也就是 LNMP 一键包解压目录下进行操作：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">./install.sh db
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后选择需要安装的数据库及版本，接下来等待安装完成：&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/3.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/3.png"
 width="928"
 height="391"
-srcset="/p/centos_sql_error/3_huda4be20eb036038aadd088c6e226da8b_162830_480x0_resize_box_3.png 480w, /p/centos_sql_error/3_huda4be20eb036038aadd088c6e226da8b_162830_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/3_huda4be20eb036038aadd088c6e226da8b_162830_480x0_resize_box_3.png 480w, /archives/centos_sql_error/3_huda4be20eb036038aadd088c6e226da8b_162830_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 安装完成"
 class="gallery-image"
@@ -1014,10 +1014,10 @@ data-flex-grow="237"
 data-flex-basis="569px"
 >&lt;/p>
 &lt;p>OK 打开浏览器输入 IP 地址进行访问，还是熟悉的默认页面：&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/4.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/4.png"
 width="1549"
 height="435"
-srcset="/p/centos_sql_error/4_hua19581040bc1ab46bde67107b44071b3_62918_480x0_resize_box_3.png 480w, /p/centos_sql_error/4_hua19581040bc1ab46bde67107b44071b3_62918_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/4_hua19581040bc1ab46bde67107b44071b3_62918_480x0_resize_box_3.png 480w, /archives/centos_sql_error/4_hua19581040bc1ab46bde67107b44071b3_62918_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 登录页面"
 class="gallery-image"
@@ -1025,10 +1025,10 @@ data-flex-grow="356"
 data-flex-basis="854px"
 >&lt;/p>
 &lt;p>然后点击 phpMyAdmin 登陆进去，OK 完美！&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/5.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/5.png"
 width="1217"
 height="589"
-srcset="/p/centos_sql_error/5_hu690cf7f1faeba90e99f62d8fe55f0533_123368_480x0_resize_box_3.png 480w, /p/centos_sql_error/5_hu690cf7f1faeba90e99f62d8fe55f0533_123368_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/5_hu690cf7f1faeba90e99f62d8fe55f0533_123368_480x0_resize_box_3.png 480w, /archives/centos_sql_error/5_hu690cf7f1faeba90e99f62d8fe55f0533_123368_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 软件界面"
 class="gallery-image"
@@ -1043,7 +1043,7 @@ data-flex-basis="495px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>另外需要注意运行自动化脚本前查看一下是否会对配置文件进行编辑，若存在则需要修改脚本。&lt;/p>
 &lt;hr>
 &lt;h2 id="总结">总结&lt;/h2>
-&lt;p>以上就是我在使用 CentOS 安装 LNMP 环境时 MariaDB/MySQL 安装失败的情况，咱也不知道是个例还是就我这个小白这样。。。在此进行一个记录。希望能对大家有所帮助。最后顺带提一下，我咋就想到去折腾 CentOS 了；一直在用的Debian 它不香嘛。。。&lt;/p></description></item><item><title>VPS 的一些基本配置及优化</title><link>/p/setvps/</link><pubDate>Fri, 18 Feb 2022 17:14:41 +0800</pubDate><guid>/p/setvps/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>以上就是我在使用 CentOS 安装 LNMP 环境时 MariaDB/MySQL 安装失败的情况，咱也不知道是个例还是就我这个小白这样。。。在此进行一个记录。希望能对大家有所帮助。最后顺带提一下，我咋就想到去折腾 CentOS 了；一直在用的Debian 它不香嘛。。。&lt;/p></description></item><item><title>VPS 的一些基本配置及优化</title><link>/archives/setvps/</link><pubDate>Fri, 18 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/setvps/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>由于最近在使用 VPS 时，发现 SSH 一直在被人暴力扫描，虽然说没有被破解，但是老是被人盯着总感觉不太舒服。其实要保证安全登录，最简单的方法就是修改默认的 22 端口；最彻底的方法，是禁用密码登录，改用密钥登录，只要保证密钥安全，服务器也没有人能进入了。而且现在手中的 VPS 越来越多，每次都要进行一些基本配置。所以对这些配置进行一下记录，方便以后查看。&lt;/p>
 &lt;h2 id="配置">配置&lt;/h2>
 &lt;h3 id="修改登录密码">修改登录密码&lt;/h3>
@@ -1121,10 +1121,10 @@ data-flex-basis="495px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x tcp.sh
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./tcp.sh
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>面板如下：&lt;/p>
-&lt;p>&lt;img src="/p/setvps/1.png"
+&lt;p>&lt;img src="/archives/setvps/1.png"
 width="700"
 height="350"
-srcset="/p/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_480x0_resize_box_3.png 480w, /p/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_1024x0_resize_box_3.png 1024w"
+srcset="/archives/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_480x0_resize_box_3.png 480w, /archives/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 操作面板"
 class="gallery-image"
@@ -1133,10 +1133,10 @@ data-flex-basis="480px"
 >&lt;/p>
 &lt;p>操作方法：先安装内核，重启 VPS 让内核生效，再启动对应的加速即可。数字 1 的 BBR/BBR 魔改内核对应数字 4、5、6 的 BBR 加速、BBR 魔改加速和暴力 BBR 魔改版加速。数字 2 的 BBRplus 内核对应数字 7 的 BBRplus 加速。数字 3 的锐速加速内核对应数字 8 的锐速加速。&lt;/p>
 &lt;p>先安装内核，等待提示重启后输入 &lt;code>y&lt;/code> 进行重启：&lt;/p>
-&lt;p>&lt;img src="/p/setvps/2.png"
+&lt;p>&lt;img src="/archives/setvps/2.png"
 width="700"
 height="500"
-srcset="/p/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_480x0_resize_box_3.png 480w, /p/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_1024x0_resize_box_3.png 1024w"
+srcset="/archives/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_480x0_resize_box_3.png 480w, /archives/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 重启提示"
 class="gallery-image"
@@ -1144,10 +1144,10 @@ data-flex-grow="140"
 data-flex-basis="336px"
 >&lt;/p>
 &lt;p>如果安装内核过程中，出现以下情况，选择否即可：&lt;/p>
-&lt;p>&lt;img src="/p/setvps/3.png"
+&lt;p>&lt;img src="/archives/setvps/3.png"
 width="905"
 height="360"
-srcset="/p/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_480x0_resize_box_3.png 480w, /p/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_1024x0_resize_box_3.png 1024w"
+srcset="/archives/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_480x0_resize_box_3.png 480w, /archives/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 特殊情况"
 class="gallery-image"

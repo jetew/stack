@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VPS on Kitin's</title><link>/tags/vps/</link><description>Recent content in VPS on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Thu, 01 Dec 2022 10:53:36 +0800</lastBuildDate><atom:link href="/tags/vps/index.xml" rel="self" type="application/rss+xml"/><item><title>一键 DD 自动重装脚本</title><link>/p/dd_sh/</link><pubDate>Thu, 01 Dec 2022 10:53:36 +0800</pubDate><guid>/p/dd_sh/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VPS on Kitin's</title><link>/tags/vps/</link><description>Recent content in VPS on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Thu, 01 Dec 2022 10:53:36 +0800</lastBuildDate><atom:link href="/tags/vps/index.xml" rel="self" type="application/rss+xml"/><item><title>一键 DD 自动重装脚本</title><link>/archives/dd_sh/</link><pubDate>Thu, 01 Dec 2022 10:53:36 +0800</pubDate><guid>/archives/dd_sh/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>VPS 主机一键自动重装系统脚本优化版，基于萌咖脚本优化、开发；DD 过程简单，傻瓜式安装。 脚本支持原版自定义密码安装，可选 Linux 和 Windows 系统，而且脚本支持 Oracle 甲骨文免费云主机使用支持 UEFI 的镜像包安装。&lt;/p>
 &lt;p>一键 DD 脚本，支持性好，更智能更全面，支持国内外各种 VPS 重装，特别是对国内各种访问国外资源慢的 VPS 安装有奇效。&lt;/p>
 &lt;ul>
@@ -42,10 +42,10 @@ fill="currentColor">
 &lt;blockquote>
 &lt;p>公网 IP 、网关及子网掩码可在 VPS 控制面板进行查看，若不一致，可输入 &lt;code>N&lt;/code> 进行自定义&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="/p/dd_sh/1.png"
+&lt;p>&lt;img src="/archives/dd_sh/1.png"
 width="700"
 height="400"
-srcset="/p/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_480x0_resize_box_3.png 480w, /p/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_1024x0_resize_box_3.png 1024w"
+srcset="/archives/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_480x0_resize_box_3.png 480w, /archives/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 网络确认"
 class="gallery-image"
@@ -53,10 +53,10 @@ data-flex-grow="175"
 data-flex-basis="420px"
 >&lt;/p>
 &lt;p>然后进行系统选择，41合1的系统一键 DD 选择界面，输入 &lt;code>99&lt;/code> 则使用自定义镜像：&lt;/p>
-&lt;p>&lt;img src="/p/dd_sh/2.png"
+&lt;p>&lt;img src="/archives/dd_sh/2.png"
 width="700"
 height="720"
-srcset="/p/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_480x0_resize_box_3.png 480w, /p/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_1024x0_resize_box_3.png 1024w"
+srcset="/archives/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_480x0_resize_box_3.png 480w, /archives/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 系统选择"
 class="gallery-image"
@@ -64,10 +64,10 @@ data-flex-grow="97"
 data-flex-basis="233px"
 >&lt;/p>
 &lt;p>若输入 &lt;code>9-16&lt;/code> 安装原版系统，可自定义密码，密码要求8-16位，以英文字母或数字开头，可以是大小写英文字母、数字及7个特殊字符.!$@#&amp;amp;%的任意组合，然后设置端口确认信息后，即可进行安装：&lt;/p>
-&lt;p>&lt;img src="/p/dd_sh/3.png"
+&lt;p>&lt;img src="/archives/dd_sh/3.png"
 width="700"
 height="360"
-srcset="/p/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_480x0_resize_box_3.png 480w, /p/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_1024x0_resize_box_3.png 1024w"
+srcset="/archives/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_480x0_resize_box_3.png 480w, /archives/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 自定义设置"
 class="gallery-image"
@@ -157,7 +157,7 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>Linux 服务器设置 Swap 分区</title><link>/p/setswap/</link><pubDate>Fri, 11 Nov 2022 19:15:56 +0800</pubDate><guid>/p/setswap/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>Linux 服务器设置 Swap 分区</title><link>/archives/setswap/</link><pubDate>Fri, 11 Nov 2022 19:15:56 +0800</pubDate><guid>/archives/setswap/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>这两天闲着没事，将手头上闲置的一台 512M 小内存服务器拿出来折腾，编译安装 MariaDB 的时候由于内存不足导致编译失败。由于我是个小白，且一直是使用的 2/4G 服务器，以前从来没有注意过这个；直到现在遇到这样的问题。。。&lt;/p>
 &lt;h3 id="swap-分区">Swap 分区&lt;/h3>
 &lt;p>别名：交换分区。 Swap 分区在系统的物理内存不够用的时候，把硬盘内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间被临时保存到 Swap 分区中，等到那些程序要运行时，再从 Swap 分区中恢复保存的数据到内存中。&lt;/p>
@@ -294,7 +294,7 @@ fill="currentColor">
 &lt;hr>
 &lt;h2 id="总结">总结&lt;/h2>
 &lt;p>以上就是本篇的全部内容，希望对大家有所帮助。&lt;/p>
-&lt;p>对于 Linux，无论是多大内存，还是要设立 Swap 交换分区，这样有利于在内存耗尽时及时启用 Swap 空间。另外，可以视情况对 Swap 分区大小进行临时调整，比如我前文所说用 512M 内存服务器编译安装高版本 MariaDB ，那么我可以先将 Swap 分区临时设置为 2G ，编译安装完成后再调整。&lt;/p></description></item><item><title>VPS 的一些基本配置及优化</title><link>/p/setvps/</link><pubDate>Fri, 18 Feb 2022 17:14:41 +0800</pubDate><guid>/p/setvps/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>对于 Linux，无论是多大内存，还是要设立 Swap 交换分区，这样有利于在内存耗尽时及时启用 Swap 空间。另外，可以视情况对 Swap 分区大小进行临时调整，比如我前文所说用 512M 内存服务器编译安装高版本 MariaDB ，那么我可以先将 Swap 分区临时设置为 2G ，编译安装完成后再调整。&lt;/p></description></item><item><title>VPS 的一些基本配置及优化</title><link>/archives/setvps/</link><pubDate>Fri, 18 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/setvps/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>由于最近在使用 VPS 时，发现 SSH 一直在被人暴力扫描，虽然说没有被破解，但是老是被人盯着总感觉不太舒服。其实要保证安全登录，最简单的方法就是修改默认的 22 端口；最彻底的方法，是禁用密码登录，改用密钥登录，只要保证密钥安全，服务器也没有人能进入了。而且现在手中的 VPS 越来越多，每次都要进行一些基本配置。所以对这些配置进行一下记录，方便以后查看。&lt;/p>
 &lt;h2 id="配置">配置&lt;/h2>
 &lt;h3 id="修改登录密码">修改登录密码&lt;/h3>
@@ -372,10 +372,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x tcp.sh
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./tcp.sh
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>面板如下：&lt;/p>
-&lt;p>&lt;img src="/p/setvps/1.png"
+&lt;p>&lt;img src="/archives/setvps/1.png"
 width="700"
 height="350"
-srcset="/p/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_480x0_resize_box_3.png 480w, /p/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_1024x0_resize_box_3.png 1024w"
+srcset="/archives/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_480x0_resize_box_3.png 480w, /archives/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 操作面板"
 class="gallery-image"
@@ -384,10 +384,10 @@ data-flex-basis="480px"
 >&lt;/p>
 &lt;p>操作方法：先安装内核，重启 VPS 让内核生效，再启动对应的加速即可。数字 1 的 BBR/BBR 魔改内核对应数字 4、5、6 的 BBR 加速、BBR 魔改加速和暴力 BBR 魔改版加速。数字 2 的 BBRplus 内核对应数字 7 的 BBRplus 加速。数字 3 的锐速加速内核对应数字 8 的锐速加速。&lt;/p>
 &lt;p>先安装内核，等待提示重启后输入 &lt;code>y&lt;/code> 进行重启：&lt;/p>
-&lt;p>&lt;img src="/p/setvps/2.png"
+&lt;p>&lt;img src="/archives/setvps/2.png"
 width="700"
 height="500"
-srcset="/p/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_480x0_resize_box_3.png 480w, /p/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_1024x0_resize_box_3.png 1024w"
+srcset="/archives/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_480x0_resize_box_3.png 480w, /archives/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 重启提示"
 class="gallery-image"
@@ -395,10 +395,10 @@ data-flex-grow="140"
 data-flex-basis="336px"
 >&lt;/p>
 &lt;p>如果安装内核过程中，出现以下情况，选择否即可：&lt;/p>
-&lt;p>&lt;img src="/p/setvps/3.png"
+&lt;p>&lt;img src="/archives/setvps/3.png"
 width="905"
 height="360"
-srcset="/p/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_480x0_resize_box_3.png 480w, /p/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_1024x0_resize_box_3.png 1024w"
+srcset="/archives/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_480x0_resize_box_3.png 480w, /archives/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 特殊情况"
 class="gallery-image"

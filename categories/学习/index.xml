@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>学习 on Kitin's</title><link>/categories/%E5%AD%A6%E4%B9%A0/</link><description>Recent content in 学习 on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Mon, 02 Jan 2023 13:21:30 +0800</lastBuildDate><atom:link href="/categories/%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Cloudreve 搭建文件管理</title><link>/p/cloudreve/</link><pubDate>Mon, 02 Jan 2023 13:21:30 +0800</pubDate><guid>/p/cloudreve/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>学习 on Kitin's</title><link>/categories/%E5%AD%A6%E4%B9%A0/</link><description>Recent content in 学习 on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Mon, 02 Jan 2023 13:21:30 +0800</lastBuildDate><atom:link href="/categories/%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Cloudreve 搭建文件管理</title><link>/archives/cloudreve/</link><pubDate>Mon, 02 Jan 2023 13:21:30 +0800</pubDate><guid>/archives/cloudreve/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>Cloudreve 可以让您快速搭建起公私兼备的网盘系统。Cloudreve 在底层支持不同的云存储平台，用户在实际使用时无须关心物理存储方式。你可以使用 Cloudreve 搭建个人用网盘、文件分享系统，亦或是针对大小团体的公有云系统。&lt;/p>
 &lt;h2 id="安装配置">安装配置&lt;/h2>
 &lt;h3 id="获取-cloudreve">获取 Cloudreve&lt;/h3>
@@ -176,7 +176,7 @@ fill="currentColor">
 &lt;p>然后更新配置并启动服务：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl daemon-reload
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl start cloudreve
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>使用 Aria2 + AriaNG 搭建离线下载站</title><link>/p/aria/</link><pubDate>Sat, 24 Dec 2022 10:58:22 +0800</pubDate><guid>/p/aria/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>使用 Aria2 + AriaNG 搭建离线下载站</title><link>/archives/aria/</link><pubDate>Sat, 24 Dec 2022 10:58:22 +0800</pubDate><guid>/archives/aria/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;h3 id="介绍">介绍&lt;/h3>
 &lt;p>Aria2 是目前最强大的全能型下载工具，它支持 BT、磁力、HTTP、FTP 等下载协议，常用做离线下载的服务端。&lt;/p>
 &lt;p>AriaNg 是一个让 Aria2 更容易使用的现代 Web 前端。 AriaNg 使用纯 html &amp;amp; javascript 开发，所以其不需要任何编译器或运行环境.。您只要将 AriaNg 放在您的 Web 服务器里并在浏览器中打开即可使用；AriaNg 使用响应式布局，支持各种计算机或移动设备。&lt;/p>
@@ -322,10 +322,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 请输入数字 &lt;span class="o">[&lt;/span>0-12&lt;span class="o">]&lt;/span>:
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输入 &lt;code>1&lt;/code> 进行安装，安装完成之后会跳出配置信息：&lt;/p>
-&lt;p>&lt;img src="/p/aria/1.png"
+&lt;p>&lt;img src="/archives/aria/1.png"
 width="820"
 height="160"
-srcset="/p/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_480x0_resize_box_3.png 480w, /p/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_1024x0_resize_box_3.png 1024w"
+srcset="/archives/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_480x0_resize_box_3.png 480w, /archives/aria/1_hud81c9af1d88a3fdc1287431bc8338f83_11431_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="配置信息"
 class="gallery-image"
@@ -359,10 +359,10 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a> 页面，将 AriaNG-x.x.x.zip 文件下载上传至网站根目录，并解压。&lt;/p>
 &lt;p>访问该网站域名，首次访问会跳出认证错误提示，关闭掉然后进行设置：&lt;/p>
-&lt;p>&lt;img src="/p/aria/2.png"
+&lt;p>&lt;img src="/archives/aria/2.png"
 width="1900"
 height="600"
-srcset="/p/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_480x0_resize_box_3.png 480w, /p/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_1024x0_resize_box_3.png 1024w"
+srcset="/archives/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_480x0_resize_box_3.png 480w, /archives/aria/2_hu5142c564a6758a06f3b7b47434899b92_66193_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="配置过程"
 class="gallery-image"
@@ -392,7 +392,7 @@ data-flex-basis="760px"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">reverse_proxy&lt;/span> &lt;span class="nd">/jsonrpc&lt;/span> &lt;span class="n">127.0.0.1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">6800&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后在 AriaNG 中修改 Aria2 RPC 地址为：&lt;code>https://domian.com:443/jsonrpc&lt;/code>&lt;/p></description></item><item><title>File Browser 在线文件管理</title><link>/p/filebrowser/</link><pubDate>Fri, 16 Dec 2022 20:09:22 +0800</pubDate><guid>/p/filebrowser/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后在 AriaNG 中修改 Aria2 RPC 地址为：&lt;code>https://domian.com:443/jsonrpc&lt;/code>&lt;/p></description></item><item><title>File Browser 在线文件管理</title><link>/archives/filebrowser/</link><pubDate>Fri, 16 Dec 2022 20:09:22 +0800</pubDate><guid>/archives/filebrowser/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>File Browser 是一款使用 Golang 开发的文件管理器，跨平台，免费开源，功能强大。它是一个能独立运行的可执行二进制文件，可以与 Docker 或 Caddy 一起使用。这篇文章分享 Debian 11 下安装 File Browser 的过程。&lt;/p>
 &lt;h2 id="安装配置">安装配置&lt;/h2>
 &lt;h3 id="安装-file-browser">安装 File Browser&lt;/h3>
@@ -526,7 +526,7 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">reverse_proxy&lt;/span> &lt;span class="nd">/pan/*&lt;/span> &lt;span class="n">127.0.0.1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8080&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>CentOS 7 编译安装 gcc</title><link>/p/make_gcc/</link><pubDate>Sat, 10 Dec 2022 15:43:06 +0800</pubDate><guid>/p/make_gcc/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>CentOS 7 编译安装 gcc</title><link>/archives/make_gcc/</link><pubDate>Sat, 10 Dec 2022 15:43:06 +0800</pubDate><guid>/archives/make_gcc/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>前两天折腾手上的 CentOS7 服务器，在编译安装软件时发现编译失败；查看了下日志和文档发现是因为 gcc 和 g++ 版本过低了。而通过 yum 查找发现只有 4.8 版本，于是决定通过编译安装新版本，历经了重重困难后终于是安装完毕，并在此进行记录。&lt;/p>
 &lt;hr>
 &lt;h2 id="安装步骤">安装步骤&lt;/h2>
@@ -632,7 +632,7 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/yum.conf
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在末尾添加上：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">exclude&lt;/span>&lt;span class="o">=&lt;/span>gcc*
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>另外需要注意运行自动化脚本前查看一下是否会对配置文件进行编辑，若存在则需要修改脚本。&lt;/p></description></item><item><title>SSL 证书安装部署</title><link>/p/own_ssl/</link><pubDate>Fri, 02 Dec 2022 10:17:55 +0800</pubDate><guid>/p/own_ssl/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>另外需要注意运行自动化脚本前查看一下是否会对配置文件进行编辑，若存在则需要修改脚本。&lt;/p></description></item><item><title>SSL 证书安装部署</title><link>/archives/own_ssl/</link><pubDate>Fri, 02 Dec 2022 10:17:55 +0800</pubDate><guid>/archives/own_ssl/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>在之前的文章中讲了在添加网站时通过 Oneinstack（LNMP 一键安装包）的 acme.sh/Caddy 来自动安装部署免费证书，当然你也可以使用自己的证书替代免费证书来进安装部署；现在来看下如何进行操作。&lt;/p>
 &lt;h3 id="场景与前提">场景与前提&lt;/h3>
 &lt;p>由于我使用的是 Oneintack 安装的 Nginx 和 Caddy 服务，所以本文以 Nginx/Caddy 视角进行操作。我的域名是在腾讯云下，并使用他们提供的为期1年免费 Trust Asia 证书，所以我以这些前提为演示；使用其他的也是完全可以的。&lt;/p>
@@ -729,7 +729,7 @@ height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
 fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/li>
-&lt;/ol></description></item><item><title>一键 DD 自动重装脚本</title><link>/p/dd_sh/</link><pubDate>Thu, 01 Dec 2022 10:53:36 +0800</pubDate><guid>/p/dd_sh/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>一键 DD 自动重装脚本</title><link>/archives/dd_sh/</link><pubDate>Thu, 01 Dec 2022 10:53:36 +0800</pubDate><guid>/archives/dd_sh/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>VPS 主机一键自动重装系统脚本优化版，基于萌咖脚本优化、开发；DD 过程简单，傻瓜式安装。 脚本支持原版自定义密码安装，可选 Linux 和 Windows 系统，而且脚本支持 Oracle 甲骨文免费云主机使用支持 UEFI 的镜像包安装。&lt;/p>
 &lt;p>一键 DD 脚本，支持性好，更智能更全面，支持国内外各种 VPS 重装，特别是对国内各种访问国外资源慢的 VPS 安装有奇效。&lt;/p>
 &lt;ul>
@@ -773,10 +773,10 @@ fill="currentColor">
 &lt;blockquote>
 &lt;p>公网 IP 、网关及子网掩码可在 VPS 控制面板进行查看，若不一致，可输入 &lt;code>N&lt;/code> 进行自定义&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="/p/dd_sh/1.png"
+&lt;p>&lt;img src="/archives/dd_sh/1.png"
 width="700"
 height="400"
-srcset="/p/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_480x0_resize_box_3.png 480w, /p/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_1024x0_resize_box_3.png 1024w"
+srcset="/archives/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_480x0_resize_box_3.png 480w, /archives/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 网络确认"
 class="gallery-image"
@@ -784,10 +784,10 @@ data-flex-grow="175"
 data-flex-basis="420px"
 >&lt;/p>
 &lt;p>然后进行系统选择，41合1的系统一键 DD 选择界面，输入 &lt;code>99&lt;/code> 则使用自定义镜像：&lt;/p>
-&lt;p>&lt;img src="/p/dd_sh/2.png"
+&lt;p>&lt;img src="/archives/dd_sh/2.png"
 width="700"
 height="720"
-srcset="/p/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_480x0_resize_box_3.png 480w, /p/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_1024x0_resize_box_3.png 1024w"
+srcset="/archives/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_480x0_resize_box_3.png 480w, /archives/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 系统选择"
 class="gallery-image"
@@ -795,10 +795,10 @@ data-flex-grow="97"
 data-flex-basis="233px"
 >&lt;/p>
 &lt;p>若输入 &lt;code>9-16&lt;/code> 安装原版系统，可自定义密码，密码要求8-16位，以英文字母或数字开头，可以是大小写英文字母、数字及7个特殊字符.!$@#&amp;amp;%的任意组合，然后设置端口确认信息后，即可进行安装：&lt;/p>
-&lt;p>&lt;img src="/p/dd_sh/3.png"
+&lt;p>&lt;img src="/archives/dd_sh/3.png"
 width="700"
 height="360"
-srcset="/p/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_480x0_resize_box_3.png 480w, /p/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_1024x0_resize_box_3.png 1024w"
+srcset="/archives/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_480x0_resize_box_3.png 480w, /archives/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 自定义设置"
 class="gallery-image"
@@ -888,7 +888,7 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>指定签发 SSL CA 机构</title><link>/p/setca/</link><pubDate>Thu, 24 Nov 2022 09:32:18 +0800</pubDate><guid>/p/setca/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>指定签发 SSL CA 机构</title><link>/archives/setca/</link><pubDate>Thu, 24 Nov 2022 09:32:18 +0800</pubDate><guid>/archives/setca/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>前几天使用 Oneinstack 添加网站进行临时测试，在自动签发 SSL 时发现证书签发失败；找了很久尝试了很多解决方法，但是并没有作用。。。然后想有没有可能是因为在同一 IP 多次申请 SSL 证书然后被限制了；但是我并没有进行多次申请。。。不管怎么样还是更换一下 CA 机构看看能不能解决，没想竟然成功了；虽然没有找到问题的原因，但最终还是解决了。遂在此进行一个记录。&lt;/p>
 &lt;h2 id="指定-ca-机构">指定 CA 机构&lt;/h2>
 &lt;h3 id="服务器环境">服务器环境&lt;/h3>
@@ -992,7 +992,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">ca&lt;/span> &lt;span class="s">https://acme.zerossl.com/v2/DV90&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果要指定 CA 为 Let’s Encrypt，只需要将 &lt;code>https://acme.zerossl.com/v2/DV90&lt;/code> 更换为 &lt;code>https://acme-v02.api.letsencrypt.org/directory&lt;/code> 即可&lt;/p></description></item><item><title>Linux 服务器设置 Swap 分区</title><link>/p/setswap/</link><pubDate>Fri, 11 Nov 2022 19:15:56 +0800</pubDate><guid>/p/setswap/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果要指定 CA 为 Let’s Encrypt，只需要将 &lt;code>https://acme.zerossl.com/v2/DV90&lt;/code> 更换为 &lt;code>https://acme-v02.api.letsencrypt.org/directory&lt;/code> 即可&lt;/p></description></item><item><title>Linux 服务器设置 Swap 分区</title><link>/archives/setswap/</link><pubDate>Fri, 11 Nov 2022 19:15:56 +0800</pubDate><guid>/archives/setswap/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>这两天闲着没事，将手头上闲置的一台 512M 小内存服务器拿出来折腾，编译安装 MariaDB 的时候由于内存不足导致编译失败。由于我是个小白，且一直是使用的 2/4G 服务器，以前从来没有注意过这个；直到现在遇到这样的问题。。。&lt;/p>
 &lt;h3 id="swap-分区">Swap 分区&lt;/h3>
 &lt;p>别名：交换分区。 Swap 分区在系统的物理内存不够用的时候，把硬盘内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间被临时保存到 Swap 分区中，等到那些程序要运行时，再从 Swap 分区中恢复保存的数据到内存中。&lt;/p>
@@ -1129,7 +1129,7 @@ fill="currentColor">
 &lt;hr>
 &lt;h2 id="总结">总结&lt;/h2>
 &lt;p>以上就是本篇的全部内容，希望对大家有所帮助。&lt;/p>
-&lt;p>对于 Linux，无论是多大内存，还是要设立 Swap 交换分区，这样有利于在内存耗尽时及时启用 Swap 空间。另外，可以视情况对 Swap 分区大小进行临时调整，比如我前文所说用 512M 内存服务器编译安装高版本 MariaDB ，那么我可以先将 Swap 分区临时设置为 2G ，编译安装完成后再调整。&lt;/p></description></item><item><title>Git 多用户及仓库配置</title><link>/p/git_config/</link><pubDate>Sun, 06 Nov 2022 11:56:29 +0800</pubDate><guid>/p/git_config/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>对于 Linux，无论是多大内存，还是要设立 Swap 交换分区，这样有利于在内存耗尽时及时启用 Swap 空间。另外，可以视情况对 Swap 分区大小进行临时调整，比如我前文所说用 512M 内存服务器编译安装高版本 MariaDB ，那么我可以先将 Swap 分区临时设置为 2G ，编译安装完成后再调整。&lt;/p></description></item><item><title>Git 多用户及仓库配置</title><link>/archives/git_config/</link><pubDate>Sun, 06 Nov 2022 11:56:29 +0800</pubDate><guid>/archives/git_config/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>在之前的 Hugo 博客系列文章有提到过一些基本的 Git 配置和操作，一般来说我们写 Hugo 博客只需要配置全局账号以及单个仓库即可。但凡事皆有例外，如果你需要多个 Git 用户，或者说需要配置多个不同的仓库，那么应该怎么设置呢？现在我们就来看看。&lt;/p>
 &lt;hr>
 &lt;h2 id="配置设置">配置设置&lt;/h2>
@@ -1238,16 +1238,16 @@ fill="currentColor">
 &lt;/blockquote>
 &lt;p>这样就可以通过代理来进行 Github 的推送/拉取操作，再也不用担心连接超时和连接失败啦。&lt;/p>
 &lt;h2 id="总结">总结&lt;/h2>
-&lt;p>以上就是 Git 多用户、仓库配置及使用代理的全部过程啦，希望能给大家带来一定的帮助。有个问题就是我在创建 config 配置文件后无法通过 PS (Power Shell) 进行 SSH 连接；连接就报错 &lt;code>Bad owner or permissions&lt;/code> ；网上也找了解决方案，但是都没有用。现在一直是使用 Terminal 打开 Git bash 进行 SSH 连接，以后有了好的解决方案会和大家进行分享；也希望能有懂的大佬给出一点建设性的意见，十分感谢🙏&lt;/p></description></item><item><title>CentOS7 下 MariaDB 安装失败解决方法</title><link>/p/centos_sql_error/</link><pubDate>Sat, 05 Nov 2022 17:18:10 +0800</pubDate><guid>/p/centos_sql_error/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>以上就是 Git 多用户、仓库配置及使用代理的全部过程啦，希望能给大家带来一定的帮助。有个问题就是我在创建 config 配置文件后无法通过 PS (Power Shell) 进行 SSH 连接；连接就报错 &lt;code>Bad owner or permissions&lt;/code> ；网上也找了解决方案，但是都没有用。现在一直是使用 Terminal 打开 Git bash 进行 SSH 连接，以后有了好的解决方案会和大家进行分享；也希望能有懂的大佬给出一点建设性的意见，十分感谢🙏&lt;/p></description></item><item><title>CentOS7 下 MariaDB 安装失败解决方法</title><link>/archives/centos_sql_error/</link><pubDate>Sat, 05 Nov 2022 17:18:10 +0800</pubDate><guid>/archives/centos_sql_error/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>由于最近腾讯云双11优惠活动，自己购买了一台腾讯云的轻量应用服务器 (老实说还是挺实惠的-。-) 加上自己按捺不住折腾的心，这次一改以前一直使用的 Debian 而选择了 CentOS ；这次的服务器系统我选择的是 CentOS7 ，LNMP 安装方式则是 Oneinstack 和 LNMP 一键安装包都进行了尝试。Debian 下，它们都是完美安装。但是 Centos7 下，在安装过程中 Oneinstack 和 LNMP 一键安装包都碰到了 MariaDB/MySQL 无法安装的情况，由于我是一个 Linux 小白，平常只靠从网上学习，知识量不足；所以在此记录下这次解决过程，以便日后进行查阅。&lt;/p>
 &lt;hr>
 &lt;h2 id="解决过程">解决过程&lt;/h2>
 &lt;h3 id="报错">报错&lt;/h3>
 &lt;p>和往常一样，服务器开通后，我通过 &lt;code>yum&lt;/code> 进行了一些基本的 &lt;code>update&lt;/code> 、&lt;code>autoremove&lt;/code> 、&lt;code>clean&lt;/code> 等操作，然后创建 Screen 窗口，输入 LNMP 一键包命令就开始安装了，到最后却发现 &lt;strong>MariaDB&lt;/strong> 安装失败；一开始也不知道啥情况，以为是我选的源码编译方式有问题，后面试了二进制安装依然如此：&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/1.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/1.png"
 width="865"
 height="341"
-srcset="/p/centos_sql_error/1_hudbdfc3d5c8c8e6002944dd56df4d9048_207022_480x0_resize_box_3.png 480w, /p/centos_sql_error/1_hudbdfc3d5c8c8e6002944dd56df4d9048_207022_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/1_hudbdfc3d5c8c8e6002944dd56df4d9048_207022_480x0_resize_box_3.png 480w, /archives/centos_sql_error/1_hudbdfc3d5c8c8e6002944dd56df4d9048_207022_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 安装失败"
 class="gallery-image"
@@ -1266,10 +1266,10 @@ data-flex-basis="608px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接着满怀期待的又进行安装，最后还是报错-。-&lt;/p>
 &lt;h3 id="错误日志">错误日志&lt;/h3>
 &lt;p>还是硬着头皮来看错误日志吧，我将 &lt;strong>/root/lnmp-install.log&lt;/strong> 安装日志下载下来进行查看。虽然说很长，咱也看不太懂。。。最后还是找到了一些破绽。。。发现应该是 &lt;strong>Cmake&lt;/strong> 版本低了：&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/2.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/2.png"
 width="685"
 height="459"
-srcset="/p/centos_sql_error/2_hu75d6d2a294a68bd65fd381e6476a6315_30039_480x0_resize_box_3.png 480w, /p/centos_sql_error/2_hu75d6d2a294a68bd65fd381e6476a6315_30039_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/2_hu75d6d2a294a68bd65fd381e6476a6315_30039_480x0_resize_box_3.png 480w, /archives/centos_sql_error/2_hu75d6d2a294a68bd65fd381e6476a6315_30039_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 错误日志"
 class="gallery-image"
@@ -1313,10 +1313,10 @@ fill="currentColor">
 &lt;p>一通操作下来，Cmake 已经是最新版本了，然后进入到 &lt;strong>~/lnmp1.9&lt;/strong> 也就是 LNMP 一键包解压目录下进行操作：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">./install.sh db
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后选择需要安装的数据库及版本，接下来等待安装完成：&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/3.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/3.png"
 width="928"
 height="391"
-srcset="/p/centos_sql_error/3_huda4be20eb036038aadd088c6e226da8b_162830_480x0_resize_box_3.png 480w, /p/centos_sql_error/3_huda4be20eb036038aadd088c6e226da8b_162830_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/3_huda4be20eb036038aadd088c6e226da8b_162830_480x0_resize_box_3.png 480w, /archives/centos_sql_error/3_huda4be20eb036038aadd088c6e226da8b_162830_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 安装完成"
 class="gallery-image"
@@ -1324,10 +1324,10 @@ data-flex-grow="237"
 data-flex-basis="569px"
 >&lt;/p>
 &lt;p>OK 打开浏览器输入 IP 地址进行访问，还是熟悉的默认页面：&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/4.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/4.png"
 width="1549"
 height="435"
-srcset="/p/centos_sql_error/4_hua19581040bc1ab46bde67107b44071b3_62918_480x0_resize_box_3.png 480w, /p/centos_sql_error/4_hua19581040bc1ab46bde67107b44071b3_62918_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/4_hua19581040bc1ab46bde67107b44071b3_62918_480x0_resize_box_3.png 480w, /archives/centos_sql_error/4_hua19581040bc1ab46bde67107b44071b3_62918_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 登录页面"
 class="gallery-image"
@@ -1335,10 +1335,10 @@ data-flex-grow="356"
 data-flex-basis="854px"
 >&lt;/p>
 &lt;p>然后点击 phpMyAdmin 登陆进去，OK 完美！&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/5.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/5.png"
 width="1217"
 height="589"
-srcset="/p/centos_sql_error/5_hu690cf7f1faeba90e99f62d8fe55f0533_123368_480x0_resize_box_3.png 480w, /p/centos_sql_error/5_hu690cf7f1faeba90e99f62d8fe55f0533_123368_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/5_hu690cf7f1faeba90e99f62d8fe55f0533_123368_480x0_resize_box_3.png 480w, /archives/centos_sql_error/5_hu690cf7f1faeba90e99f62d8fe55f0533_123368_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 软件界面"
 class="gallery-image"
@@ -1353,7 +1353,7 @@ data-flex-basis="495px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>另外需要注意运行自动化脚本前查看一下是否会对配置文件进行编辑，若存在则需要修改脚本。&lt;/p>
 &lt;hr>
 &lt;h2 id="总结">总结&lt;/h2>
-&lt;p>以上就是我在使用 CentOS 安装 LNMP 环境时 MariaDB/MySQL 安装失败的情况，咱也不知道是个例还是就我这个小白这样。。。在此进行一个记录。希望能对大家有所帮助。最后顺带提一下，我咋就想到去折腾 CentOS 了；一直在用的Debian 它不香嘛。。。&lt;/p></description></item><item><title>我写博客的方式</title><link>/p/how_to_write/</link><pubDate>Tue, 01 Nov 2022 13:18:02 +0800</pubDate><guid>/p/how_to_write/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>以上就是我在使用 CentOS 安装 LNMP 环境时 MariaDB/MySQL 安装失败的情况，咱也不知道是个例还是就我这个小白这样。。。在此进行一个记录。希望能对大家有所帮助。最后顺带提一下，我咋就想到去折腾 CentOS 了；一直在用的Debian 它不香嘛。。。&lt;/p></description></item><item><title>我写博客的方式</title><link>/archives/how_to_write/</link><pubDate>Tue, 01 Nov 2022 13:18:02 +0800</pubDate><guid>/archives/how_to_write/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>一般来说，大家会有一些想法或者突如其来的灵感需要进行记录；那么我们会选择将它们记录在手机便签、文本编辑器或者直接用笔写下来；等最后再梳理成文。正常情况下我们都是在电脑前进行写作，但是有时候用不了，或者不方便在电脑前进行写作；那应该怎么办？今天就来看下我的日常写作方式。&lt;/p>
 &lt;p>看过前面文章的应该知道，我自己是将 Hugo 博客源码通过 Git 推送到 Github 远程仓库然后由 Github Actions 自动部署到服务器上面，所以我写文章的流程就是通过 Git 同步远程仓库，写作完成后再推送到远程仓库通过 Github Actions 自动部署就可以了。那么现在就一起来看下这个过程的实现。&lt;/p>
 &lt;p>我的话，平常使用的客户端为：家里电脑 (WindowsX2) 、公司电脑 (Windows) 、笔记本 (Linux)、手机 (Android)；简化一点就是 Windows、Linux、Android。一般情况下，我们就是 Win 和 Android 了。要实现在安卓使用 Git 的话，我们就需要安装一款神级软件 &lt;strong>Termux&lt;/strong>&lt;/p>
@@ -1525,7 +1525,7 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>Waline 服务端独立部署方案</title><link>/p/waline_deploy/</link><pubDate>Thu, 20 Oct 2022 10:50:47 +0800</pubDate><guid>/p/waline_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>Waline 服务端独立部署方案</title><link>/archives/waline_deploy/</link><pubDate>Thu, 20 Oct 2022 10:50:47 +0800</pubDate><guid>/archives/waline_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>之前讲了通过 Vercel 来进行 Waline 服务端的部署，这是最简单，也是完全免费的方法；但是对于拥有自己服务器的人来说，可能更想要将 Waline 直接部署到自己的服务器上；毕竟服务器摆在那，不用也是浪费，何不将 Waline 服务端也部署自己的服务器上以方便进行管理呢？其实 Waline 提供了很多的部署方案，可以看 &lt;a class="link" href="https://waline.js.org/advanced/intro.html" target="_blank" rel="noopener"
 >这里
 &lt;span style="white-space: nowrap;">&lt;svg width=".7em"
@@ -1602,10 +1602,10 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a> 下载二进制包，通过创建软链接至系统用户应用程序目录来使用。&lt;/p>
 &lt;p>打开 Nodejs 官网，点击 Downloads 然后右键复制 Linux Binaries (x64) 的下载链接：&lt;/p>
-&lt;p>&lt;img src="/p/waline_deploy/1.png"
+&lt;p>&lt;img src="/archives/waline_deploy/1.png"
 width="1152"
 height="628"
-srcset="/p/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_480x0_resize_box_3.png 480w, /p/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_1024x0_resize_box_3.png 1024w"
+srcset="/archives/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_480x0_resize_box_3.png 480w, /archives/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 二进制文件下载"
 class="gallery-image"
@@ -1677,10 +1677,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>下载完成后，可以试着运行一下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">node node_modules/@waline/vercel/vanilla.js
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>成功的话可以看到提示：&lt;/p>
-&lt;p>&lt;img src="/p/waline_deploy/2.png"
+&lt;p>&lt;img src="/archives/waline_deploy/2.png"
 width="600"
 height="89"
-srcset="/p/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_480x0_resize_box_3.png 480w, /p/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_1024x0_resize_box_3.png 1024w"
+srcset="/archives/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_480x0_resize_box_3.png 480w, /archives/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 运行状态"
 class="gallery-image"
@@ -1856,7 +1856,7 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>为 Hugo 博客开启评论系统</title><link>/p/hugo_comment/</link><pubDate>Sat, 15 Oct 2022 10:50:47 +0800</pubDate><guid>/p/hugo_comment/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>为 Hugo 博客开启评论系统</title><link>/archives/hugo_comment/</link><pubDate>Sat, 15 Oct 2022 10:50:47 +0800</pubDate><guid>/archives/hugo_comment/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>我的博客作为自己记录的地方，没有去做 SEO 也没有去进行优化；可以说完全没有必要去开启评论，但是为什么又添加了评论呢？我觉得万一有人看到了我博客中的一些内容，有什么没有了解的地方，或者说有什么地方需要进行交流，需要进行简单的评论该怎么办？为了这一两句话不可能去到邮箱里跟你进行深度交流，于是最后还是决定开启评论功能，并再此进行一个分享。&lt;/p>
 &lt;h3 id="评论系统选择">评论系统选择&lt;/h3>
 &lt;p>对于评论系统，我的感觉是一定要便捷，填上昵称，邮件等就可以进行评论，不需要进行注册等繁琐操作； Hugo 中也有许多自带的评论系统，但是大多数都是海外的，使用起来很不方便。最终决定使用基于 Valine 的 Waline ；下面就来讲一下我自己配置的过程。&lt;/p>
@@ -1900,10 +1900,10 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;p>进入控制台后，点击创建应用，输入你喜欢的应用名称，选择开发版，然后点击创建：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_comment/1.png"
+&lt;p>&lt;img src="/archives/hugo_comment/1.png"
 width="1356"
 height="651"
-srcset="/p/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_480x0_resize_box_3.png 480w, /p/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_480x0_resize_box_3.png 480w, /archives/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 创建应用"
 class="gallery-image"
@@ -1911,10 +1911,10 @@ data-flex-grow="208"
 data-flex-basis="499px"
 >&lt;/p>
 &lt;p>进入应用，选择左下角的 &lt;strong>设置 &amp;gt; 应用凭证&lt;/strong> 。你可以看到你的各种凭证，先放在这里，后面会用上：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_comment/2.png"
+&lt;p>&lt;img src="/archives/hugo_comment/2.png"
 width="1107"
 height="766"
-srcset="/p/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_480x0_resize_box_3.png 480w, /p/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_480x0_resize_box_3.png 480w, /archives/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 应用凭证"
 class="gallery-image"
@@ -2072,10 +2072,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
 &lt;p>配置完成之后你就可以在运行 &lt;code>hugo server&lt;/code> 在本地进行评论测试了:&lt;/p>
-&lt;p>&lt;img src="/p/hugo_comment/3.png"
+&lt;p>&lt;img src="/archives/hugo_comment/3.png"
 width="1019"
 height="610"
-srcset="/p/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_480x0_resize_box_3.png 480w, /p/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_480x0_resize_box_3.png 480w, /archives/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 本地测试"
 class="gallery-image"
@@ -2134,7 +2134,7 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>Hugo 博客部署至托管服务提升访问体验</title><link>/p/hugo_deploy/</link><pubDate>Sun, 18 Sep 2022 14:02:55 +0800</pubDate><guid>/p/hugo_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>Hugo 博客部署至托管服务提升访问体验</title><link>/archives/hugo_deploy/</link><pubDate>Sun, 18 Sep 2022 14:02:55 +0800</pubDate><guid>/archives/hugo_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>之前在 &lt;a class="link" href="/p/hugo-actions/" >《使用 Github Actions 自动化部署 Hugo 博客》
 &lt;/a> 一文中我讲了通过 Github Actions 自动部署 Hugo 博客到 Github Pages ； Github Pages 免费而且无需考虑成本及维护；但是 Github 毕竟是在海外，访问有问题，还时常抽风；访问体验算不上差强人意吧，也只能说是大失所望了。那怎样简单又低成本解决这个问题呢？ (毕竟白嫖才是硬道理) 现在就来看一下今天的主角：&lt;/p>
 &lt;ul>
@@ -2175,10 +2175,10 @@ fill="currentColor">
 &lt;hr>
 &lt;h2 id="使用与部属">使用与部属&lt;/h2>
 &lt;p>这里我以 Vercel 为例，因为他们两家操作都差不多，首先打开 Vercel 官网，点击右上角 &lt;strong>Sign Up - Continue with GitHub&lt;/strong> 使用 Github 进行登陆：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/1.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/1.png"
 width="1162"
 height="800"
-srcset="/p/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_480x0_resize_box_3.png 480w, /p/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_480x0_resize_box_3.png 480w, /archives/hugo_deploy/1_hu520ac7caffc7e939e47a7c64a30cc591_96479_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 登陆"
 class="gallery-image"
@@ -2186,10 +2186,10 @@ data-flex-grow="145"
 data-flex-basis="348px"
 >&lt;/p>
 &lt;p>之后让你进行授权，点击确认授权即可：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/2.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/2.png"
 width="716"
 height="743"
-srcset="/p/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_480x0_resize_box_3.png 480w, /p/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_480x0_resize_box_3.png 480w, /archives/hugo_deploy/2_hucd5b0362bf39e53c3fd2d1985f5e38ce_37450_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 授权"
 class="gallery-image"
@@ -2197,10 +2197,10 @@ data-flex-grow="96"
 data-flex-basis="231px"
 >&lt;/p>
 &lt;p>进入管理面板后，点击 &lt;strong>Create a New Project&lt;/strong> 来创建新项目，然后选择 &lt;strong>Countinue with GitHub&lt;/strong> 导入 Github 的仓库：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/3.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/3.png"
 width="1304"
 height="757"
-srcset="/p/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_480x0_resize_box_3.png 480w, /p/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_480x0_resize_box_3.png 480w, /archives/hugo_deploy/3_hu35d92acd4d857a75d14331dc1b4ccd74_153817_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 导入 Github"
 class="gallery-image"
@@ -2208,10 +2208,10 @@ data-flex-grow="172"
 data-flex-basis="413px"
 >&lt;/p>
 &lt;p>到这会让你选择仓库，你可以选择读取所有仓库，或者指定读取某一个仓库 (这里我就选择读取我 Hugo 博客的仓库) ，然后 Install：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/4.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/4.png"
 width="821"
 height="779"
-srcset="/p/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_480x0_resize_box_3.png 480w, /p/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_480x0_resize_box_3.png 480w, /archives/hugo_deploy/4_hu3b8e077e0d652f00a1c95c7f92ebea08_47584_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 选择仓库"
 class="gallery-image"
@@ -2219,10 +2219,10 @@ data-flex-grow="105"
 data-flex-basis="252px"
 >&lt;/p>
 &lt;p>之后会回到管理面板，点击 &lt;strong>Improt&lt;/strong> 导入你刚才选择的仓库；然后就会进入部署配置页面，一般来讲是会自动识别你仓库的程序，然后自动选择好部署配置。如果没有的话可以自己设置；记得在环境变量添加一个 &lt;strong>HUGO_VERSION&lt;/strong> 记录值为 Hugo 最新版本号，以防有的主题对版本有要求从而导致部署失败；设置完后就可以直接点击 &lt;strong>Deploy&lt;/strong> 进行部署了：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/5.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/5.png"
 width="1125"
 height="890"
-srcset="/p/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_480x0_resize_box_3.png 480w, /p/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_480x0_resize_box_3.png 480w, /archives/hugo_deploy/5_hu382b33a8fea63f80566ee0c317ec3269_55335_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 部署参数"
 class="gallery-image"
@@ -2230,10 +2230,10 @@ data-flex-grow="126"
 data-flex-basis="303px"
 >&lt;/p>
 &lt;p>等待部署，看到完结撒花就代表已经部署完成了：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/6.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/6.png"
 width="1367"
 height="839"
-srcset="/p/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_480x0_resize_box_3.png 480w, /p/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_480x0_resize_box_3.png 480w, /archives/hugo_deploy/6_huf3b975515da8073a73fe2b1d47416f91_120000_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 部署完毕"
 class="gallery-image"
@@ -2244,10 +2244,10 @@ data-flex-basis="391px"
 &lt;blockquote>
 &lt;p>因为 Vercel 分配的二级域名是被 DNS 污染了的，所以通过二级 Vercel 分配的域名是访问不了的&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="/p/hugo_deploy/7.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/7.png"
 width="1383"
 height="712"
-srcset="/p/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_480x0_resize_box_3.png 480w, /p/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_480x0_resize_box_3.png 480w, /archives/hugo_deploy/7_hu213e8a820c8920687704529670824379_38769_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 绑定域名"
 class="gallery-image"
@@ -2255,10 +2255,10 @@ data-flex-grow="194"
 data-flex-basis="466px"
 >&lt;/p>
 &lt;p>在添加域名之后会提示你设置 &lt;strong>CNAME&lt;/strong> 解析至 &lt;strong>cname.vercel-dns.com&lt;/strong> ，这时候到你域名的管理商或者 DNS 提供商处添加 &lt;strong>CNAME&lt;/strong> 解析即可：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/8.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/8.png"
 width="1053"
 height="344"
-srcset="/p/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_480x0_resize_box_3.png 480w, /p/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_480x0_resize_box_3.png 480w, /archives/hugo_deploy/8_hu8747a23c42b5d3e7c2c312525db0de2c_19853_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 域名解析"
 class="gallery-image"
@@ -2270,10 +2270,10 @@ data-flex-basis="734px"
 &lt;hr>
 &lt;h2 id="总结">总结&lt;/h2>
 &lt;p>至此 Hugo 博客托管到 Vercel/Netlify 进行自动部署完成；通过测试，可以看到访问速度对比 Github Pages 还是拥有不小的提升的 (左边为 Vercel 右边为 Github Pages)：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_deploy/9.png"
+&lt;p>&lt;img src="/archives/hugo_deploy/9.png"
 width="1196"
 height="550"
-srcset="/p/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_480x0_resize_box_3.png 480w, /p/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_480x0_resize_box_3.png 480w, /archives/hugo_deploy/9_hu8e4198a331490e8b93693d76f9955d15_94208_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 速度对比"
 class="gallery-image"
@@ -2316,7 +2316,7 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>使用 Github Actions 自动化部署 Hugo 博客</title><link>/p/hugo_actions/</link><pubDate>Sat, 16 Jul 2022 13:25:48 +0800</pubDate><guid>/p/hugo_actions/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>使用 Github Actions 自动化部署 Hugo 博客</title><link>/archives/hugo_actions/</link><pubDate>Sat, 16 Jul 2022 13:25:48 +0800</pubDate><guid>/archives/hugo_actions/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>之前在 &lt;a class="link" href="/p/hugo/" >《使用 Hugo 搭建个人博客及部署》
 &lt;/a> 一文中, 我讲了通过 Hugo 来搭建个人博客, 并部署到 Github Pages 来实现一个在线访问.但是这样手动部署一开始还觉得比较新奇有趣, 时间一长的话难免会觉得有些麻烦, 一有什么改动就要全部重新部署, 那么本文就将讲一下通过 &lt;code>Github Actions&lt;/code> 来实现将我们的 Hugo 博客自动部署到 Github Pages 或者我们自己的云服务器上, 现在就一起来看一下.&lt;/p>
 &lt;p>&lt;strong>注意&lt;/strong>: 本文所有操作的前提条件是在 &lt;a class="link" href="/p/hugo/" >《使用 Hugo 搭建个人博客及部署》
@@ -2424,10 +2424,10 @@ GitHub 提供 Linux、Windows 和 macOS 虚拟机来运行你的工作流程, �
 &lt;p>重点来了, 现在配置文件已经编辑好了, 我们需要创建相对应的 Token 来给 Actions 使用&lt;/p>
 &lt;h4 id="personal-token">Personal Token&lt;/h4>
 &lt;p>打开 Github 点击 &lt;code>右上角头像 - Settings - Developer setting - Personal access tokens - Generate new token&lt;/code> 创建一个 Token, 记得要勾选 &lt;code>repo&lt;/code> 和 &lt;code>workflow&lt;/code> 权限:&lt;/p>
-&lt;p>&lt;img src="/p/hugo_actions/1.png"
+&lt;p>&lt;img src="/archives/hugo_actions/1.png"
 width="922"
 height="747"
-srcset="/p/hugo_actions/1_hu3522c9be6b2dad825089e416752b4a96_59902_480x0_resize_box_3.png 480w, /p/hugo_actions/1_hu3522c9be6b2dad825089e416752b4a96_59902_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_actions/1_hu3522c9be6b2dad825089e416752b4a96_59902_480x0_resize_box_3.png 480w, /archives/hugo_actions/1_hu3522c9be6b2dad825089e416752b4a96_59902_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 创建Token"
 class="gallery-image"
@@ -2435,10 +2435,10 @@ data-flex-grow="123"
 data-flex-basis="296px"
 >&lt;/p>
 &lt;p>生成后复制 Token &lt;strong>注意: Token 只会出现一次&lt;/strong>&lt;/p>
-&lt;p>&lt;img src="/p/hugo_actions/2.png"
+&lt;p>&lt;img src="/archives/hugo_actions/2.png"
 width="867"
 height="317"
-srcset="/p/hugo_actions/2_hu8fd7383f66fad8c9a9876d2a4e51ea72_20800_480x0_resize_box_3.png 480w, /p/hugo_actions/2_hu8fd7383f66fad8c9a9876d2a4e51ea72_20800_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_actions/2_hu8fd7383f66fad8c9a9876d2a4e51ea72_20800_480x0_resize_box_3.png 480w, /archives/hugo_actions/2_hu8fd7383f66fad8c9a9876d2a4e51ea72_20800_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ Token展示"
 class="gallery-image"
@@ -2446,10 +2446,10 @@ data-flex-grow="273"
 data-flex-basis="656px"
 >&lt;/p>
 &lt;p>复制后打开存放 Hugo 博客的仓库, 点击 &lt;code>Settings - Secrets - Actions - New repository secret&lt;/code> 输入刚才复制的 &lt;code>Token&lt;/code> , 名字为 &lt;code>PERSONAL_TOKEN&lt;/code>&lt;/p>
-&lt;p>&lt;img src="/p/hugo_actions/3.png"
+&lt;p>&lt;img src="/archives/hugo_actions/3.png"
 width="1007"
 height="555"
-srcset="/p/hugo_actions/3_huc13b2c964835fd1c93006ef2ced365b3_16813_480x0_resize_box_3.png 480w, /p/hugo_actions/3_huc13b2c964835fd1c93006ef2ced365b3_16813_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_actions/3_huc13b2c964835fd1c93006ef2ced365b3_16813_480x0_resize_box_3.png 480w, /archives/hugo_actions/3_huc13b2c964835fd1c93006ef2ced365b3_16813_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 创建 Secret"
 class="gallery-image"
@@ -2466,10 +2466,10 @@ data-flex-basis="435px"
 &lt;li>&lt;code>port&lt;/code> SSH 端口，默认为 22, 如果修改了端口，或者供应商有指定端口，填入指定端口即可&lt;/li>
 &lt;/ul>
 &lt;p>以 &lt;code>host&lt;/code> 为例, 在存放 Hugo 博客的仓库, 点击 &lt;code>Settings - Secrets - Actions - New repository secret&lt;/code> 输入 Token Name 为 &lt;code>DC_HOST&lt;/code> , Secret 为你的服务器 IP 地址, 对应配置文件中的 &lt;code>${{ secrets.DC_HOST }}&lt;/code> 项&lt;/p>
-&lt;p>&lt;img src="/p/hugo_actions/4.png"
+&lt;p>&lt;img src="/archives/hugo_actions/4.png"
 width="996"
 height="579"
-srcset="/p/hugo_actions/4_huf4571d29c961448e5cb85460feb31d56_20417_480x0_resize_box_3.png 480w, /p/hugo_actions/4_huf4571d29c961448e5cb85460feb31d56_20417_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_actions/4_huf4571d29c961448e5cb85460feb31d56_20417_480x0_resize_box_3.png 480w, /archives/hugo_actions/4_huf4571d29c961448e5cb85460feb31d56_20417_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 创建 Secret"
 class="gallery-image"
@@ -2487,10 +2487,10 @@ data-flex-basis="412px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git remote add origin git@github.com:username/name.git &lt;span class="c1"># 添加远程仓库, 格式为: 用户名/仓库名 .git&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push origin main &lt;span class="c1"># 推送&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>推送完成后，等待一会然后打开 Hugo 仓库的 Actions 我们就可以看到工作流已经完成:&lt;/p>
-&lt;p>&lt;img src="/p/hugo_actions/5.png"
+&lt;p>&lt;img src="/archives/hugo_actions/5.png"
 width="1161"
 height="682"
-srcset="/p/hugo_actions/5_huc21d97b91565e9272aafaedea766acc8_54304_480x0_resize_box_3.png 480w, /p/hugo_actions/5_huc21d97b91565e9272aafaedea766acc8_54304_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_actions/5_huc21d97b91565e9272aafaedea766acc8_54304_480x0_resize_box_3.png 480w, /archives/hugo_actions/5_huc21d97b91565e9272aafaedea766acc8_54304_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 工作流状态"
 class="gallery-image"
@@ -2498,10 +2498,10 @@ data-flex-grow="170"
 data-flex-basis="408px"
 >&lt;/p>
 &lt;p>再打开存放静态文件的仓库, 可以看到静态文件已经自动部署完毕并且生成 Github Pages 了:&lt;/p>
-&lt;p>&lt;img src="/p/hugo_actions/6.png"
+&lt;p>&lt;img src="/archives/hugo_actions/6.png"
 width="1288"
 height="830"
-srcset="/p/hugo_actions/6_hue00c9a32992b36571c003f698c72598d_123373_480x0_resize_box_3.png 480w, /p/hugo_actions/6_hue00c9a32992b36571c003f698c72598d_123373_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_actions/6_hue00c9a32992b36571c003f698c72598d_123373_480x0_resize_box_3.png 480w, /archives/hugo_actions/6_hue00c9a32992b36571c003f698c72598d_123373_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 部署完成"
 class="gallery-image"
@@ -2546,7 +2546,7 @@ fill="currentColor">
 &lt;/li>
 &lt;/ol>
 &lt;h2 id="总结">总结&lt;/h2>
-&lt;p>以上就是通过 Github Actions 实现的 Hugo 博客自动部署系统, 以后只需要在本地写好文章, 然后 Push 到 Github 的 Hugo 博客仓库中就可以自动进行静态文件生成和部署啦,可以说是方便又好用. 最重要它还是免费的, 这样写博客的方式是否够优雅呢?&lt;/p></description></item><item><title>使用 Hugo 搭建个人博客及部署</title><link>/p/hugo/</link><pubDate>Tue, 03 May 2022 10:50:47 +0800</pubDate><guid>/p/hugo/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>以上就是通过 Github Actions 实现的 Hugo 博客自动部署系统, 以后只需要在本地写好文章, 然后 Push 到 Github 的 Hugo 博客仓库中就可以自动进行静态文件生成和部署啦,可以说是方便又好用. 最重要它还是免费的, 这样写博客的方式是否够优雅呢?&lt;/p></description></item><item><title>使用 Hugo 搭建个人博客及部署</title><link>/archives/hugo/</link><pubDate>Tue, 03 May 2022 10:50:47 +0800</pubDate><guid>/archives/hugo/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>很早开始就接触到个人博客这块了，一开始是到处泛滥的 YH 、 BY 分销；各种免费主机，再到后来自己买虚拟主机、VPS 进行个人博客的使用；由于我懒得备案，于是一直用的是海外的服务器；但是海外服务器也有问题，就是访问体验相较于国内还是比较差的。 WordPress 的话，对我个人而言感觉比较臃肿，所以后面又用了 Typecho ；到最后工作、生活等诸多琐事导致没有太多的时间去进行打理，而且服务器的长期维护也是一笔不小的开支。&lt;/p>
 &lt;p>到后面我发现了 Hugo + GitHub Pages 这一方案，既可以进行托管，节省了许多维护心力，又能随时进行写作；虽然在部署与搭建上需要进行一些配置，但是后续更新和维护还是比较方便的。因此，在这里将博客系统搭建及部署进行记录，希望对大家有所帮助。&lt;/p>
 &lt;h3 id="博客程序选择">博客程序选择&lt;/h3>
@@ -2616,10 +2616,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir hugo &lt;span class="c1"># 创建 hugo 文件夹&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> hugo &lt;span class="c1"># 进入hugo文件夹&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hugo new site name &lt;span class="c1"># 创建新网站，name可以自行设置&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo1.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/hugo/hugo1.png"
 width="499"
 height="217"
-srcset="/p/hugo/hugo1_hu1593209fc24c3f241eae20b192d7df07_80052_480x0_resize_box_3.png 480w, /p/hugo/hugo1_hu1593209fc24c3f241eae20b192d7df07_80052_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo1_hu1593209fc24c3f241eae20b192d7df07_80052_480x0_resize_box_3.png 480w, /archives/hugo/hugo1_hu1593209fc24c3f241eae20b192d7df07_80052_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 创建站点"
 class="gallery-image"
@@ -2633,10 +2633,10 @@ data-flex-basis="551px"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> name
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git init
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git submodule add https://github.com/vaga/hugo-theme-m10c.git themes/m10c
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo2.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/hugo/hugo2.png"
 width="743"
 height="293"
-srcset="/p/hugo/hugo2_hu8b1c95630b8d6c2d2b4d5013a4a28dcc_147285_480x0_resize_box_3.png 480w, /p/hugo/hugo2_hu8b1c95630b8d6c2d2b4d5013a4a28dcc_147285_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo2_hu8b1c95630b8d6c2d2b4d5013a4a28dcc_147285_480x0_resize_box_3.png 480w, /archives/hugo/hugo2_hu8b1c95630b8d6c2d2b4d5013a4a28dcc_147285_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 添加主题"
 class="gallery-image"
@@ -2652,10 +2652,10 @@ data-flex-basis="608px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>初始化主题基础配置后，我们可以在 &lt;code>config.toml&lt;/code> 文件中进行站点细节配置，将博客站点配置文件中的 &lt;code>baseURL&lt;/code> 改为自己的域名，或者直接设置为 &lt;code>/&lt;/code> ；其余具体配置项参考各主题说明文档，或者作者主题仓库中的详细说明。&lt;/p>
 &lt;h5 id="调试主题">调试主题&lt;/h5>
 &lt;p>完成一些基本的站点配置后，我们就可以通过 &lt;code>hugo server&lt;/code> 命令进行本地实时预览：&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo3.png"
+&lt;p>&lt;img src="/archives/hugo/hugo3.png"
 width="848"
 height="413"
-srcset="/p/hugo/hugo3_hu195d9af53c49c1daaf661459675c35ad_151057_480x0_resize_box_3.png 480w, /p/hugo/hugo3_hu195d9af53c49c1daaf661459675c35ad_151057_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo3_hu195d9af53c49c1daaf661459675c35ad_151057_480x0_resize_box_3.png 480w, /archives/hugo/hugo3_hu195d9af53c49c1daaf661459675c35ad_151057_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 预览命令"
 class="gallery-image"
@@ -2663,10 +2663,10 @@ data-flex-grow="205"
 data-flex-basis="492px"
 >&lt;/p>
 &lt;p>运行服务后，我们可以通过浏览器 http://localhost:1313 地址访问我们的本地预览网页：&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo4.png"
+&lt;p>&lt;img src="/archives/hugo/hugo4.png"
 width="859"
 height="597"
-srcset="/p/hugo/hugo4_hu91f764b6575d40954d329e961623aeb3_50888_480x0_resize_box_3.png 480w, /p/hugo/hugo4_hu91f764b6575d40954d329e961623aeb3_50888_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo4_hu91f764b6575d40954d329e961623aeb3_50888_480x0_resize_box_3.png 480w, /archives/hugo/hugo4_hu91f764b6575d40954d329e961623aeb3_50888_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 本地预览"
 class="gallery-image"
@@ -2682,10 +2682,10 @@ data-flex-basis="345px"
 &lt;h4 id="git-pages-设置">Git Pages 设置&lt;/h4>
 &lt;h5 id="开通-github-pages-仓库">开通 Github Pages 仓库&lt;/h5>
 &lt;p>Github Pages 项目仓库需要符合 &lt;code>username.github.io&lt;/code> 的特殊命名格式，这样博客站点才能正常访问 GitHub Pages 生成的网站服务。&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo5.png"
+&lt;p>&lt;img src="/archives/hugo/hugo5.png"
 width="880"
 height="890"
-srcset="/p/hugo/hugo5_hua8df7804fcb6582fb128f2d3cde579e3_68194_480x0_resize_box_3.png 480w, /p/hugo/hugo5_hua8df7804fcb6582fb128f2d3cde579e3_68194_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo5_hua8df7804fcb6582fb128f2d3cde579e3_68194_480x0_resize_box_3.png 480w, /archives/hugo/hugo5_hua8df7804fcb6582fb128f2d3cde579e3_68194_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 新建仓库"
 class="gallery-image"
@@ -2695,10 +2695,10 @@ data-flex-basis="237px"
 &lt;h5 id="生成静态文件">生成静态文件&lt;/h5>
 &lt;p>配置完主题，并发布新文章之后，就可以通过 &lt;code>hugo&lt;/code> 命令来生成静态网页文件&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo6.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/hugo/hugo6.png"
 width="846"
 height="263"
-srcset="/p/hugo/hugo6_hua556ab7ea8094a1bb562d04c6605473b_80122_480x0_resize_box_3.png 480w, /p/hugo/hugo6_hua556ab7ea8094a1bb562d04c6605473b_80122_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo6_hua556ab7ea8094a1bb562d04c6605473b_80122_480x0_resize_box_3.png 480w, /archives/hugo/hugo6_hua556ab7ea8094a1bb562d04c6605473b_80122_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 生成静态文件"
 class="gallery-image"
@@ -2712,10 +2712,10 @@ data-flex-basis="772px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git add .
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git branch -M main &lt;span class="c1"># 好像现在官方默认是main分支&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -m &lt;span class="s2">&amp;#34;博客第一次提交&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo7.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/hugo/hugo7.png"
 width="730"
 height="544"
-srcset="/p/hugo/hugo7_hue6bbc362e6251bab546bb4b96f164b3e_233735_480x0_resize_box_3.png 480w, /p/hugo/hugo7_hue6bbc362e6251bab546bb4b96f164b3e_233735_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo7_hue6bbc362e6251bab546bb4b96f164b3e_233735_480x0_resize_box_3.png 480w, /archives/hugo/hugo7_hue6bbc362e6251bab546bb4b96f164b3e_233735_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 提交至本地仓库"
 class="gallery-image"
@@ -2726,10 +2726,10 @@ data-flex-basis="322px"
 &lt;h6 id="添加密钥">添加密钥&lt;/h6>
 &lt;p>这个密钥是用来安全连接 Github 远程仓库的，使用 Https 方式连接可能会出现各种问题，输入下面命令生成密钥，然后按下几次回车即可：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh-keygen -t ed25519 -C &lt;span class="s2">&amp;#34;你的Github邮箱&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/hugo/hugo8.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/hugo/hugo8.png"
 width="543"
 height="345"
-srcset="/p/hugo/hugo8_hue8529ca85d5514b15728b2b3eecf7f9f_17168_480x0_resize_box_3.png 480w, /p/hugo/hugo8_hue8529ca85d5514b15728b2b3eecf7f9f_17168_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo8_hue8529ca85d5514b15728b2b3eecf7f9f_17168_480x0_resize_box_3.png 480w, /archives/hugo/hugo8_hue8529ca85d5514b15728b2b3eecf7f9f_17168_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 生成密钥"
 class="gallery-image"
@@ -2737,10 +2737,10 @@ data-flex-grow="157"
 data-flex-basis="377px"
 >&lt;/p>
 &lt;p>生成完毕后输入 &lt;code>cat ~/.ssh/id_ed25519.pub&lt;/code> 查看公钥内容：&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo9.png"
+&lt;p>&lt;img src="/archives/hugo/hugo9.png"
 width="741"
 height="44"
-srcset="/p/hugo/hugo9_hu244e421d83d6064b29d90c59875d06c8_19752_480x0_resize_box_3.png 480w, /p/hugo/hugo9_hu244e421d83d6064b29d90c59875d06c8_19752_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo9_hu244e421d83d6064b29d90c59875d06c8_19752_480x0_resize_box_3.png 480w, /archives/hugo/hugo9_hu244e421d83d6064b29d90c59875d06c8_19752_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 查看公钥"
 class="gallery-image"
@@ -2748,10 +2748,10 @@ data-flex-grow="1684"
 data-flex-basis="4041px"
 >&lt;/p>
 &lt;p>复制展示出来的公钥，然后打开 Github 点击 &lt;code>右上角头像 - Settings - SSH and GPG keys - New SSH Key&lt;/code> 把刚才复制的公钥粘贴到 &lt;code>Key&lt;/code> 中，命名随意，然后保存：&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo10.png"
+&lt;p>&lt;img src="/archives/hugo/hugo10.png"
 width="1164"
 height="628"
-srcset="/p/hugo/hugo10_hu92918c3a83d40ad27e27b2d8bf7e9e88_45493_480x0_resize_box_3.png 480w, /p/hugo/hugo10_hu92918c3a83d40ad27e27b2d8bf7e9e88_45493_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo10_hu92918c3a83d40ad27e27b2d8bf7e9e88_45493_480x0_resize_box_3.png 480w, /archives/hugo/hugo10_hu92918c3a83d40ad27e27b2d8bf7e9e88_45493_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 上传公钥"
 class="gallery-image"
@@ -2762,10 +2762,10 @@ data-flex-basis="444px"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git remote add origin git@github.com:username/username.github.io.git &lt;span class="c1"># username换成你的github用户名&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push origin main
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后会提示你是否将 &lt;code>github.com&lt;/code> 添加到主机列表，输入 yes 回车即可&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo11.png"
+&lt;p>&lt;img src="/archives/hugo/hugo11.png"
 width="580"
 height="101"
-srcset="/p/hugo/hugo11_huc499c9330fd25cbc89511e4f67450492_24572_480x0_resize_box_3.png 480w, /p/hugo/hugo11_huc499c9330fd25cbc89511e4f67450492_24572_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo11_huc499c9330fd25cbc89511e4f67450492_24572_480x0_resize_box_3.png 480w, /archives/hugo/hugo11_huc499c9330fd25cbc89511e4f67450492_24572_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 推送至远程仓库"
 class="gallery-image"
@@ -2776,10 +2776,10 @@ data-flex-basis="1378px"
 &lt;hr>
 &lt;h2 id="绑定域名">绑定域名&lt;/h2>
 &lt;p>推送完毕后就可以绑定自己的域名了，绑定域名前，先到你的域名服务商或者 DNS 提供商处添加 &lt;code>CNAME&lt;/code> 记录解析到 &lt;code>username.github.io&lt;/code> 也就是你的 Github Pages 仓库名 (我这里是 CloudFlare ) ：&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo12.png"
+&lt;p>&lt;img src="/archives/hugo/hugo12.png"
 width="1157"
 height="534"
-srcset="/p/hugo/hugo12_hu5943c29bd7368fd339cc60f8beabdb7c_35882_480x0_resize_box_3.png 480w, /p/hugo/hugo12_hu5943c29bd7368fd339cc60f8beabdb7c_35882_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo12_hu5943c29bd7368fd339cc60f8beabdb7c_35882_480x0_resize_box_3.png 480w, /archives/hugo/hugo12_hu5943c29bd7368fd339cc60f8beabdb7c_35882_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 绑定域名"
 class="gallery-image"
@@ -2787,10 +2787,10 @@ data-flex-grow="216"
 data-flex-basis="520px"
 >&lt;/p>
 &lt;p>进入 Github Pages 仓库，点击 &lt;code>Settings - Pages&lt;/code> 找到 Custom domain 输入你自己的域名，等待验证 DNS 后开启 HTTPS ：&lt;/p>
-&lt;p>&lt;img src="/p/hugo/hugo13.png"
+&lt;p>&lt;img src="/archives/hugo/hugo13.png"
 width="1169"
 height="851"
-srcset="/p/hugo/hugo13_hu52f39e40f75c2ee40fc82424e6fd1dfc_97307_480x0_resize_box_3.png 480w, /p/hugo/hugo13_hu52f39e40f75c2ee40fc82424e6fd1dfc_97307_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo/hugo13_hu52f39e40f75c2ee40fc82424e6fd1dfc_97307_480x0_resize_box_3.png 480w, /archives/hugo/hugo13_hu52f39e40f75c2ee40fc82424e6fd1dfc_97307_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 开启HTTPS"
 class="gallery-image"
@@ -2799,7 +2799,7 @@ data-flex-basis="329px"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="总结">总结&lt;/h2>
-&lt;p>以上就是使用 Hugo 与 Github Pages 搭建个人博客的一个简单过程；后续还会进行更加详细的解读与说明，希望能够对大家有所帮助。&lt;/p></description></item><item><title>使用 Caddy+MySQL+PHP 架设 LCMP</title><link>/p/lcmp/</link><pubDate>Sat, 05 Mar 2022 17:14:41 +0800</pubDate><guid>/p/lcmp/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>以上就是使用 Hugo 与 Github Pages 搭建个人博客的一个简单过程；后续还会进行更加详细的解读与说明，希望能够对大家有所帮助。&lt;/p></description></item><item><title>使用 Caddy+MySQL+PHP 架设 LCMP</title><link>/archives/lcmp/</link><pubDate>Sat, 05 Mar 2022 17:14:41 +0800</pubDate><guid>/archives/lcmp/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>以前一直使用的是 Hugo+Github+Netlify；即上传本地网站项目到 Github 然后通过 Netlify 进行自动部署以及发布网站。一开始还好，但是到后面就感觉比较麻烦了；每次更新文章或者后期文章有修改的话就需要重新上传部署；所以后面就改成了 LNMP+Typecho 。而最近又开始折腾起了 Caddy，虽然说 Caddy 配置简单，开箱即用，但现在一般都是 CaddyV2 ；而网上的教程与配置大多都是 CaddyV1 所以在这里进行一个记录，避免以后踩坑。&lt;/p>
 &lt;hr>
 &lt;h2 id="安装及配置">安装及配置&lt;/h2>
@@ -2864,7 +2864,7 @@ data-flex-basis="329px"
 &lt;li>
 &lt;p>PHP 和 MySQL 可以根据自己的喜好来安装，或者选择 Mariadb、SQLite 等等都是可以的。&lt;/p>
 &lt;/li>
-&lt;/ul></description></item><item><title>LNMP 一键安装包开设网站</title><link>/p/lnmporg/</link><pubDate>Fri, 25 Feb 2022 17:14:41 +0800</pubDate><guid>/p/lnmporg/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ul></description></item><item><title>LNMP 一键安装包开设网站</title><link>/archives/lnmporg/</link><pubDate>Fri, 25 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/lnmporg/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;ul>
 &lt;li>LNMP一键安装包是什么&lt;/li>
 &lt;/ul>
@@ -2934,10 +2934,10 @@ fill="currentColor">
 &lt;/ol>
 &lt;p>运行上述命令后即可开始安装，目前提供了较多的 MySQL、MariaDB 版本和不安装数据库的选项，&lt;strong>需要注意的是 MySQL 5.6,5.7 及 MariaDB 10 必须在 1G 以上内存的更高配置上才能选择！&lt;/strong>&lt;/p>
 &lt;p>输入对应 MySQL 或 MariaDB 版本前面的序号，回车进入下一步：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/1.png"
+&lt;p>&lt;img src="/archives/lnmporg/1.png"
 width="681"
 height="442"
-srcset="/p/lnmporg/1_hu53c5b26ac56c1988f48e53cd584b8bad_47139_480x0_resize_box_3.png 480w, /p/lnmporg/1_hu53c5b26ac56c1988f48e53cd584b8bad_47139_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/1_hu53c5b26ac56c1988f48e53cd584b8bad_47139_480x0_resize_box_3.png 480w, /archives/lnmporg/1_hu53c5b26ac56c1988f48e53cd584b8bad_47139_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 数据库版本选择"
 class="gallery-image"
@@ -2948,10 +2948,10 @@ data-flex-basis="369px"
 &lt;p>如果选择 MySQL 5.7、8.0 且是 x86 或 x86_64 架构会提示： &lt;code>Using Generic Binaries [y/n]&lt;/code> 这一步是提示是否使用二进制安装，输入 y 为使用二进制安装，输入 n 为使用源码编译安装。&lt;/p>
 &lt;/blockquote>
 &lt;p>设置 MySQL 的 root 密码（直接回车将会设置为 lnmp.org#随机数字）如果输入有错误需要删除时，可以按住 Ctrl 再按 Backspace 键进行删除(个别情况下是只需按 Backspace 键)。输入后回车进入下一步，如图：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/2.png"
+&lt;p>&lt;img src="/archives/lnmporg/2.png"
 width="547"
 height="146"
-srcset="/p/lnmporg/2_hu74c055bd132385d9deaf85d27d86d554_13291_480x0_resize_box_3.png 480w, /p/lnmporg/2_hu74c055bd132385d9deaf85d27d86d554_13291_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/2_hu74c055bd132385d9deaf85d27d86d554_13291_480x0_resize_box_3.png 480w, /archives/lnmporg/2_hu74c055bd132385d9deaf85d27d86d554_13291_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 设置数据库密码"
 class="gallery-image"
@@ -2962,10 +2962,10 @@ data-flex-basis="899px"
 &lt;p>询问是否需要启用 MySQL InnoDB，InnoDB 引擎默认为开启，一般建议开启，直接回车或输入 y ，如果确定确实不需要该引擎可以输入 n&lt;/p>
 &lt;/blockquote>
 &lt;p>输入要选择的 PHP 版本的序号，回车进入下一步，&lt;strong>注意：选择 PHP 7+ 版本时需要自行确认 PHP 版本是否与自己的程序兼容&lt;/strong>：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/3.png"
+&lt;p>&lt;img src="/archives/lnmporg/3.png"
 width="576"
 height="430"
-srcset="/p/lnmporg/3_hue4971f2403331b1e7613c097c65437da_39755_480x0_resize_box_3.png 480w, /p/lnmporg/3_hue4971f2403331b1e7613c097c65437da_39755_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/3_hue4971f2403331b1e7613c097c65437da_39755_480x0_resize_box_3.png 480w, /archives/lnmporg/3_hue4971f2403331b1e7613c097c65437da_39755_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 选择 PHP 版本"
 class="gallery-image"
@@ -2980,10 +2980,10 @@ data-flex-basis="321px"
 &lt;ul>
 &lt;li>LNMP 一键安装包编译过程需要大量的时间，所以需要耐心等待。如果网络掉线，可以重新连接 SSH，再执行 &lt;code>screen -r lnmp&lt;/code> 就会看到你的 lnmp 安装进程；如果没恢复窗口，可以输入 &lt;code>screen -ls&lt;/code> 列出窗口进程，然后输入 &lt;code>screen -D -r XX(进程编号)&lt;/code> 进行恢复：&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="/p/lnmporg/4.png"
+&lt;p>&lt;img src="/archives/lnmporg/4.png"
 width="546"
 height="98"
-srcset="/p/lnmporg/4_hub14abd7083affe68c41e65d640365434_9873_480x0_resize_box_3.png 480w, /p/lnmporg/4_hub14abd7083affe68c41e65d640365434_9873_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/4_hub14abd7083affe68c41e65d640365434_9873_480x0_resize_box_3.png 480w, /archives/lnmporg/4_hub14abd7083affe68c41e65d640365434_9873_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 窗口恢复"
 class="gallery-image"
@@ -3002,10 +3002,10 @@ data-flex-basis="1337px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PHP: OK
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PHP-FPM: OK
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Clean Web Server src directory...
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/lnmporg/5.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/lnmporg/5.png"
 width="935"
 height="925"
-srcset="/p/lnmporg/5_hu551a874f02a57c843724fad6a73d62df_101114_480x0_resize_box_3.png 480w, /p/lnmporg/5_hu551a874f02a57c843724fad6a73d62df_101114_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/5_hu551a874f02a57c843724fad6a73d62df_101114_480x0_resize_box_3.png 480w, /archives/lnmporg/5_hu551a874f02a57c843724fad6a73d62df_101114_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 安装完成"
 class="gallery-image"
@@ -3028,10 +3028,10 @@ data-flex-basis="242px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./addons.sh install redis &lt;span class="c1"># 安装 Redis&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./addons.sh install imagemagick &lt;span class="c1"># 安装 imageMagick&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>以安装 Memcached 为例，演示如下：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/6.png"
+&lt;p>&lt;img src="/archives/lnmporg/6.png"
 width="604"
 height="277"
-srcset="/p/lnmporg/6_hu2f0ad3f599b0276e3a330b318a342112_22154_480x0_resize_box_3.png 480w, /p/lnmporg/6_hu2f0ad3f599b0276e3a330b318a342112_22154_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/6_hu2f0ad3f599b0276e3a330b318a342112_22154_480x0_resize_box_3.png 480w, /archives/lnmporg/6_hu2f0ad3f599b0276e3a330b318a342112_22154_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 组件安装"
 class="gallery-image"
@@ -3051,10 +3051,10 @@ data-flex-basis="523px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lnmp vhost list &lt;span class="c1"># 网站列表&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lnmp vhost del &lt;span class="c1"># 删除网站&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行：&lt;code>lnmp vhost add&lt;/code> 并按照下面操作添加网站（点击放大）：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/7.png"
+&lt;p>&lt;img src="/archives/lnmporg/7.png"
 width="973"
 height="738"
-srcset="/p/lnmporg/7_hu66e42baf4437361e061814b69d78de49_157767_480x0_resize_box_3.png 480w, /p/lnmporg/7_hu66e42baf4437361e061814b69d78de49_157767_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/7_hu66e42baf4437361e061814b69d78de49_157767_480x0_resize_box_3.png 480w, /archives/lnmporg/7_hu66e42baf4437361e061814b69d78de49_157767_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 添加网站"
 class="gallery-image"
@@ -3062,10 +3062,10 @@ data-flex-grow="131"
 data-flex-basis="316px"
 >&lt;/p>
 &lt;p>最后按下任意键，即可开始添加网站了，添加完成后提示如下：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/8.png"
+&lt;p>&lt;img src="/archives/lnmporg/8.png"
 width="637"
 height="331"
-srcset="/p/lnmporg/8_hub60c3d595f8e17131ac4747ae5d188c5_47635_480x0_resize_box_3.png 480w, /p/lnmporg/8_hub60c3d595f8e17131ac4747ae5d188c5_47635_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/8_hub60c3d595f8e17131ac4747ae5d188c5_47635_480x0_resize_box_3.png 480w, /archives/lnmporg/8_hub60c3d595f8e17131ac4747ae5d188c5_47635_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 完成提示"
 class="gallery-image"
@@ -3082,10 +3082,10 @@ data-flex-basis="461px"
 &lt;p>如果需要单独的 FTP 账户进行上传，那么就安装 FTP 服务器，并创建 FTP 用户进行上传&lt;/p>
 &lt;h4 id="安装-pureftpd">安装 pureftpd&lt;/h4>
 &lt;p>进入 LNMP 解压缩后的文件夹，输入 &lt;code>./pureftpd.sh&lt;/code> 会提示按任意键安装：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/9.png"
+&lt;p>&lt;img src="/archives/lnmporg/9.png"
 width="505"
 height="208"
-srcset="/p/lnmporg/9_hu15bb82c3688b4cf18e15bc88837efd64_12663_480x0_resize_box_3.png 480w, /p/lnmporg/9_hu15bb82c3688b4cf18e15bc88837efd64_12663_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/9_hu15bb82c3688b4cf18e15bc88837efd64_12663_480x0_resize_box_3.png 480w, /archives/lnmporg/9_hu15bb82c3688b4cf18e15bc88837efd64_12663_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 安装 FTP"
 class="gallery-image"
@@ -3093,10 +3093,10 @@ data-flex-grow="242"
 data-flex-basis="582px"
 >&lt;/p>
 &lt;p>按下任意键，等待安装完成，出现如下提示：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/10.png"
+&lt;p>&lt;img src="/archives/lnmporg/10.png"
 width="593"
 height="143"
-srcset="/p/lnmporg/10_hu0fae7493f4875ba5df3815f8a1d0aa10_11824_480x0_resize_box_3.png 480w, /p/lnmporg/10_hu0fae7493f4875ba5df3815f8a1d0aa10_11824_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/10_hu0fae7493f4875ba5df3815f8a1d0aa10_11824_480x0_resize_box_3.png 480w, /archives/lnmporg/10_hu0fae7493f4875ba5df3815f8a1d0aa10_11824_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 完成提示"
 class="gallery-image"
@@ -3120,7 +3120,7 @@ height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
 &lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
 fill="currentColor">
 &lt;/svg>&lt;/span>
-&lt;/a>&lt;/p></description></item><item><title>Oneinstack 一键安装 LNMP 及开设站点</title><link>/p/oneinstack/</link><pubDate>Wed, 23 Feb 2022 17:14:41 +0800</pubDate><guid>/p/oneinstack/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/a>&lt;/p></description></item><item><title>Oneinstack 一键安装 LNMP 及开设站点</title><link>/archives/oneinstack/</link><pubDate>Wed, 23 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/oneinstack/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;h3 id="什么是-lnmp">什么是 LNMP&lt;/h3>
 &lt;p>LNMP代表的就是：Linux 系统下 Nginx+MySQL+PHP 这种网站服务器架构。
 Linux 是一类 Unix 计算机操作系统的统称，是目前最流行的免费操作系统。代表版本有：debian、centos、ubuntu、fedora、gentoo 等。
@@ -3157,10 +3157,10 @@ fill="currentColor">
 &lt;li>安装说明&lt;/li>
 &lt;/ul>
 &lt;p>点击链接进入 OneinStack 官网，点击自动安装；然后选择自己所需要的组合，并视情况选择组件，然后就会生成相应的一键安装命令：&lt;/p>
-&lt;p>&lt;img src="/p/oneinstack/instack1.jpg"
+&lt;p>&lt;img src="/archives/oneinstack/instack1.jpg"
 width="1256"
 height="862"
-srcset="/p/oneinstack/instack1_hu035da576ecc982c8349711e160f8805b_140951_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack1_hu035da576ecc982c8349711e160f8805b_140951_1024x0_resize_q75_box.jpg 1024w"
+srcset="/archives/oneinstack/instack1_hu035da576ecc982c8349711e160f8805b_140951_480x0_resize_q75_box.jpg 480w, /archives/oneinstack/instack1_hu035da576ecc982c8349711e160f8805b_140951_1024x0_resize_q75_box.jpg 1024w"
 loading="lazy"
 alt="◎ 选择stack"
 class="gallery-image"
@@ -3175,10 +3175,10 @@ data-flex-basis="349px"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get install -y screen
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后复制 OneinStack 一键安装命令粘贴至终端，接下来就是耐心等待，安装时间视你所选组件的多少以及服务器配置而定。&lt;/p>
 &lt;p>安装完成后提示安装时长和组件路径：&lt;/p>
-&lt;p>&lt;img src="/p/oneinstack/instack2.jpg"
+&lt;p>&lt;img src="/archives/oneinstack/instack2.jpg"
 width="467"
 height="361"
-srcset="/p/oneinstack/instack2_hue16e9cd24bcc9ecbb5a7cc89073af203_198249_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack2_hue16e9cd24bcc9ecbb5a7cc89073af203_198249_1024x0_resize_q75_box.jpg 1024w"
+srcset="/archives/oneinstack/instack2_hue16e9cd24bcc9ecbb5a7cc89073af203_198249_480x0_resize_q75_box.jpg 480w, /archives/oneinstack/instack2_hue16e9cd24bcc9ecbb5a7cc89073af203_198249_1024x0_resize_q75_box.jpg 1024w"
 loading="lazy"
 alt="◎ 完成提示"
 class="gallery-image"
@@ -3215,10 +3215,10 @@ data-flex-basis="310px"
 &lt;h2 id="开设站点">开设站点&lt;/h2>
 &lt;h3 id="安装检查">安装检查&lt;/h3>
 &lt;p>首先打开浏览器，进入 Oneinstack 的默认首页，即服务器 &lt;code>IP&lt;/code> 地址，就可以看到默认页面：&lt;/p>
-&lt;p>&lt;img src="/p/oneinstack/instack3.jpg"
+&lt;p>&lt;img src="/archives/oneinstack/instack3.jpg"
 width="854"
 height="588"
-srcset="/p/oneinstack/instack3_huad7be3b27b9d88991502e22e6533f71c_79881_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack3_huad7be3b27b9d88991502e22e6533f71c_79881_1024x0_resize_q75_box.jpg 1024w"
+srcset="/archives/oneinstack/instack3_huad7be3b27b9d88991502e22e6533f71c_79881_480x0_resize_q75_box.jpg 480w, /archives/oneinstack/instack3_huad7be3b27b9d88991502e22e6533f71c_79881_1024x0_resize_q75_box.jpg 1024w"
 loading="lazy"
 alt="◎ 默认页面"
 class="gallery-image"
@@ -3235,10 +3235,10 @@ data-flex-basis="348px"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /root/oneinstack/
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./vhost.sh
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>流程如下：&lt;/p>
-&lt;p>&lt;img src="/p/oneinstack/instack4.png"
+&lt;p>&lt;img src="/archives/oneinstack/instack4.png"
 width="1608"
 height="2844"
-srcset="/p/oneinstack/instack4_hu6dce73c6561079d23c31967f0c5803d2_388325_480x0_resize_box_3.png 480w, /p/oneinstack/instack4_hu6dce73c6561079d23c31967f0c5803d2_388325_1024x0_resize_box_3.png 1024w"
+srcset="/archives/oneinstack/instack4_hu6dce73c6561079d23c31967f0c5803d2_388325_480x0_resize_box_3.png 480w, /archives/oneinstack/instack4_hu6dce73c6561079d23c31967f0c5803d2_388325_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 添加网站"
 class="gallery-image"
@@ -3248,10 +3248,10 @@ data-flex-basis="135px"
 &lt;hr>
 &lt;h3 id="创建mysql数据库">创建MySQL数据库&lt;/h3>
 &lt;p>Oneinstack 提供 phpMyAdmin 在线管理 Mysql；打开浏览器，输入 &lt;code>ip/phpMyAdmin&lt;/code> 登录到 phpMyAdmin：&lt;/p>
-&lt;p>&lt;img src="/p/oneinstack/instack5.jpg"
+&lt;p>&lt;img src="/archives/oneinstack/instack5.jpg"
 width="776"
 height="462"
-srcset="/p/oneinstack/instack5_hu9b9c6984803e3756aac3b523d6219af1_55110_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack5_hu9b9c6984803e3756aac3b523d6219af1_55110_1024x0_resize_q75_box.jpg 1024w"
+srcset="/archives/oneinstack/instack5_hu9b9c6984803e3756aac3b523d6219af1_55110_480x0_resize_q75_box.jpg 480w, /archives/oneinstack/instack5_hu9b9c6984803e3756aac3b523d6219af1_55110_1024x0_resize_q75_box.jpg 1024w"
 loading="lazy"
 alt="◎ phpMyAdmin"
 class="gallery-image"
@@ -3259,10 +3259,10 @@ data-flex-grow="167"
 data-flex-basis="403px"
 >&lt;/p>
 &lt;p>然后点击账户 &amp;gt; 新建用户账户，新增数据库与用户，并确认执行：&lt;/p>
-&lt;p>&lt;img src="/p/oneinstack/instack6.jpg"
+&lt;p>&lt;img src="/archives/oneinstack/instack6.jpg"
 width="676"
 height="592"
-srcset="/p/oneinstack/instack6_hud8ca3252d9bb6917c3e1fbcb0c2feb2a_73628_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack6_hud8ca3252d9bb6917c3e1fbcb0c2feb2a_73628_1024x0_resize_q75_box.jpg 1024w"
+srcset="/archives/oneinstack/instack6_hud8ca3252d9bb6917c3e1fbcb0c2feb2a_73628_480x0_resize_q75_box.jpg 480w, /archives/oneinstack/instack6_hud8ca3252d9bb6917c3e1fbcb0c2feb2a_73628_1024x0_resize_q75_box.jpg 1024w"
 loading="lazy"
 alt="◎ 创建用户与数据库"
 class="gallery-image"
@@ -3315,10 +3315,10 @@ data-flex-basis="274px"
 &lt;h3 id="删除虚拟主机">删除虚拟主机&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /root/oneinstack
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./vhost.sh --del
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/oneinstack/instack7.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/oneinstack/instack7.png"
 width="1608"
 height="1345"
-srcset="/p/oneinstack/instack7_hu62aa251923d55e408fa479b2b147caf2_180032_480x0_resize_box_3.png 480w, /p/oneinstack/instack7_hu62aa251923d55e408fa479b2b147caf2_180032_1024x0_resize_box_3.png 1024w"
+srcset="/archives/oneinstack/instack7_hu62aa251923d55e408fa479b2b147caf2_180032_480x0_resize_box_3.png 480w, /archives/oneinstack/instack7_hu62aa251923d55e408fa479b2b147caf2_180032_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 删除网站"
 class="gallery-image"
@@ -3329,10 +3329,10 @@ data-flex-basis="286px"
 &lt;h3 id="管理-ftp-账号">管理 FTP 账号&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /root/oneinstack
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./pureftpd_vhost.sh
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/oneinstack/instack8.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/oneinstack/instack8.png"
 width="1560"
 height="2325"
-srcset="/p/oneinstack/instack8_hud678b1f709aa631f8f69f32817cdee12_134303_480x0_resize_box_3.png 480w, /p/oneinstack/instack8_hud678b1f709aa631f8f69f32817cdee12_134303_1024x0_resize_box_3.png 1024w"
+srcset="/archives/oneinstack/instack8_hud678b1f709aa631f8f69f32817cdee12_134303_480x0_resize_box_3.png 480w, /archives/oneinstack/instack8_hud678b1f709aa631f8f69f32817cdee12_134303_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ FTP 管理"
 class="gallery-image"
@@ -3343,10 +3343,10 @@ data-flex-basis="161px"
 &lt;h3 id="备份管理">备份管理&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /root/oneinstack
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./backup_setup.sh
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/oneinstack/instack9.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/oneinstack/instack9.png"
 width="1934"
 height="1586"
-srcset="/p/oneinstack/instack9_hu5eed4b3f76dde9b5faf7ee7451870f38_121215_480x0_resize_box_3.png 480w, /p/oneinstack/instack9_hu5eed4b3f76dde9b5faf7ee7451870f38_121215_1024x0_resize_box_3.png 1024w"
+srcset="/archives/oneinstack/instack9_hu5eed4b3f76dde9b5faf7ee7451870f38_121215_480x0_resize_box_3.png 480w, /archives/oneinstack/instack9_hu5eed4b3f76dde9b5faf7ee7451870f38_121215_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 备份管理"
 class="gallery-image"
@@ -3364,7 +3364,7 @@ height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
 &lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
 fill="currentColor">
 &lt;/svg>&lt;/span>
-&lt;/a>&lt;/p></description></item><item><title>用 Caddy2 搭建静态页面站点</title><link>/p/caddy/</link><pubDate>Sun, 20 Feb 2022 16:30:17 +0800</pubDate><guid>/p/caddy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/a>&lt;/p></description></item><item><title>用 Caddy2 搭建静态页面站点</title><link>/archives/caddy/</link><pubDate>Sun, 20 Feb 2022 16:30:17 +0800</pubDate><guid>/archives/caddy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>Caddy服务器（或称 Caddy Web）是一个开源的，使用 Golang 编写，支持 HTTP/2 的 Web 服务端，它使用 Golang 标准库提供 HTTP 功能。Caddy 一个显著的特性是默认启用 HTTPS，它是第一个无需额外配置即可提供 HTTPS 特性的 Web 服务器。Caddy 可以提供各种网站技术，它也可以作为反向代理和负载均衡器。Caddy 的大部分功能都以中间件的形式实现，并通过 Caddyfile 中的指令（用于配置 Caddy 的文本文件）进行控制。&lt;/p>
 &lt;blockquote>
 &lt;p>简单来说就是开箱即用&lt;/p>
@@ -3393,10 +3393,10 @@ fill="currentColor">
 &lt;hr>
 &lt;h2 id="配置">配置&lt;/h2>
 &lt;p>安装完成后在浏览器输入服务器 IP 就可以看到 Caddy 已经开始运行了，并且生成了一个默认页面：&lt;/p>
-&lt;p>&lt;img src="/p/caddy/1.png"
+&lt;p>&lt;img src="/archives/caddy/1.png"
 width="700"
 height="500"
-srcset="/p/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_480x0_resize_box_3.png 480w, /p/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_1024x0_resize_box_3.png 1024w"
+srcset="/archives/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_480x0_resize_box_3.png 480w, /archives/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="默认页面"
 class="gallery-image"
@@ -3484,7 +3484,7 @@ fill="currentColor">
 &lt;/a>&lt;/p>
 &lt;hr>
 &lt;h2 id="上传文件">上传文件&lt;/h2>
-&lt;p>最后我们将自己的静态文件页面上传至 &lt;strong>/var/www/xxx&lt;/strong> 也就是你的网站根目录下即可进行访问啦！&lt;/p></description></item><item><title>VPS 的一些基本配置及优化</title><link>/p/setvps/</link><pubDate>Fri, 18 Feb 2022 17:14:41 +0800</pubDate><guid>/p/setvps/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>最后我们将自己的静态文件页面上传至 &lt;strong>/var/www/xxx&lt;/strong> 也就是你的网站根目录下即可进行访问啦！&lt;/p></description></item><item><title>VPS 的一些基本配置及优化</title><link>/archives/setvps/</link><pubDate>Fri, 18 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/setvps/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>由于最近在使用 VPS 时，发现 SSH 一直在被人暴力扫描，虽然说没有被破解，但是老是被人盯着总感觉不太舒服。其实要保证安全登录，最简单的方法就是修改默认的 22 端口；最彻底的方法，是禁用密码登录，改用密钥登录，只要保证密钥安全，服务器也没有人能进入了。而且现在手中的 VPS 越来越多，每次都要进行一些基本配置。所以对这些配置进行一下记录，方便以后查看。&lt;/p>
 &lt;h2 id="配置">配置&lt;/h2>
 &lt;h3 id="修改登录密码">修改登录密码&lt;/h3>
@@ -3562,10 +3562,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x tcp.sh
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./tcp.sh
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>面板如下：&lt;/p>
-&lt;p>&lt;img src="/p/setvps/1.png"
+&lt;p>&lt;img src="/archives/setvps/1.png"
 width="700"
 height="350"
-srcset="/p/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_480x0_resize_box_3.png 480w, /p/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_1024x0_resize_box_3.png 1024w"
+srcset="/archives/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_480x0_resize_box_3.png 480w, /archives/setvps/1_hu94e41dce69550f3ce8ef0aa12afc1238_130680_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 操作面板"
 class="gallery-image"
@@ -3574,10 +3574,10 @@ data-flex-basis="480px"
 >&lt;/p>
 &lt;p>操作方法：先安装内核，重启 VPS 让内核生效，再启动对应的加速即可。数字 1 的 BBR/BBR 魔改内核对应数字 4、5、6 的 BBR 加速、BBR 魔改加速和暴力 BBR 魔改版加速。数字 2 的 BBRplus 内核对应数字 7 的 BBRplus 加速。数字 3 的锐速加速内核对应数字 8 的锐速加速。&lt;/p>
 &lt;p>先安装内核，等待提示重启后输入 &lt;code>y&lt;/code> 进行重启：&lt;/p>
-&lt;p>&lt;img src="/p/setvps/2.png"
+&lt;p>&lt;img src="/archives/setvps/2.png"
 width="700"
 height="500"
-srcset="/p/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_480x0_resize_box_3.png 480w, /p/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_1024x0_resize_box_3.png 1024w"
+srcset="/archives/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_480x0_resize_box_3.png 480w, /archives/setvps/2_hu95b0bd781b4f3488105adc50efb4203d_247003_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 重启提示"
 class="gallery-image"
@@ -3585,10 +3585,10 @@ data-flex-grow="140"
 data-flex-basis="336px"
 >&lt;/p>
 &lt;p>如果安装内核过程中，出现以下情况，选择否即可：&lt;/p>
-&lt;p>&lt;img src="/p/setvps/3.png"
+&lt;p>&lt;img src="/archives/setvps/3.png"
 width="905"
 height="360"
-srcset="/p/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_480x0_resize_box_3.png 480w, /p/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_1024x0_resize_box_3.png 1024w"
+srcset="/archives/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_480x0_resize_box_3.png 480w, /archives/setvps/3_hud49bf6abde7ecb7140857e7670f57d84_18388_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 特殊情况"
 class="gallery-image"

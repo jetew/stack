@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>FileBrowser on Kitin's</title><link>/tags/filebrowser/</link><description>Recent content in FileBrowser on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Mon, 02 Jan 2023 13:21:30 +0800</lastBuildDate><atom:link href="/tags/filebrowser/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Cloudreve 搭建文件管理</title><link>/p/cloudreve/</link><pubDate>Mon, 02 Jan 2023 13:21:30 +0800</pubDate><guid>/p/cloudreve/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>FileBrowser on Kitin's</title><link>/tags/filebrowser/</link><description>Recent content in FileBrowser on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Mon, 02 Jan 2023 13:21:30 +0800</lastBuildDate><atom:link href="/tags/filebrowser/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Cloudreve 搭建文件管理</title><link>/archives/cloudreve/</link><pubDate>Mon, 02 Jan 2023 13:21:30 +0800</pubDate><guid>/archives/cloudreve/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>Cloudreve 可以让您快速搭建起公私兼备的网盘系统。Cloudreve 在底层支持不同的云存储平台，用户在实际使用时无须关心物理存储方式。你可以使用 Cloudreve 搭建个人用网盘、文件分享系统，亦或是针对大小团体的公有云系统。&lt;/p>
 &lt;h2 id="安装配置">安装配置&lt;/h2>
 &lt;h3 id="获取-cloudreve">获取 Cloudreve&lt;/h3>
@@ -176,7 +176,7 @@ fill="currentColor">
 &lt;p>然后更新配置并启动服务：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl daemon-reload
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl start cloudreve
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>File Browser 在线文件管理</title><link>/p/filebrowser/</link><pubDate>Fri, 16 Dec 2022 20:09:22 +0800</pubDate><guid>/p/filebrowser/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>File Browser 在线文件管理</title><link>/archives/filebrowser/</link><pubDate>Fri, 16 Dec 2022 20:09:22 +0800</pubDate><guid>/archives/filebrowser/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>File Browser 是一款使用 Golang 开发的文件管理器，跨平台，免费开源，功能强大。它是一个能独立运行的可执行二进制文件，可以与 Docker 或 Caddy 一起使用。这篇文章分享 Debian 11 下安装 File Browser 的过程。&lt;/p>
 &lt;h2 id="安装配置">安装配置&lt;/h2>
 &lt;h3 id="安装-file-browser">安装 File Browser&lt;/h3>

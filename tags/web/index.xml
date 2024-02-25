@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Web on Kitin's</title><link>/tags/web/</link><description>Recent content in Web on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sat, 05 Mar 2022 17:14:41 +0800</lastBuildDate><atom:link href="/tags/web/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Caddy+MySQL+PHP 架设 LCMP</title><link>/p/lcmp/</link><pubDate>Sat, 05 Mar 2022 17:14:41 +0800</pubDate><guid>/p/lcmp/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Web on Kitin's</title><link>/tags/web/</link><description>Recent content in Web on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sat, 05 Mar 2022 17:14:41 +0800</lastBuildDate><atom:link href="/tags/web/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Caddy+MySQL+PHP 架设 LCMP</title><link>/archives/lcmp/</link><pubDate>Sat, 05 Mar 2022 17:14:41 +0800</pubDate><guid>/archives/lcmp/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>以前一直使用的是 Hugo+Github+Netlify；即上传本地网站项目到 Github 然后通过 Netlify 进行自动部署以及发布网站。一开始还好，但是到后面就感觉比较麻烦了；每次更新文章或者后期文章有修改的话就需要重新上传部署；所以后面就改成了 LNMP+Typecho 。而最近又开始折腾起了 Caddy，虽然说 Caddy 配置简单，开箱即用，但现在一般都是 CaddyV2 ；而网上的教程与配置大多都是 CaddyV1 所以在这里进行一个记录，避免以后踩坑。&lt;/p>
 &lt;hr>
 &lt;h2 id="安装及配置">安装及配置&lt;/h2>
@@ -63,7 +63,7 @@
 &lt;li>
 &lt;p>PHP 和 MySQL 可以根据自己的喜好来安装，或者选择 Mariadb、SQLite 等等都是可以的。&lt;/p>
 &lt;/li>
-&lt;/ul></description></item><item><title>LNMP 一键安装包开设网站</title><link>/p/lnmporg/</link><pubDate>Fri, 25 Feb 2022 17:14:41 +0800</pubDate><guid>/p/lnmporg/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ul></description></item><item><title>LNMP 一键安装包开设网站</title><link>/archives/lnmporg/</link><pubDate>Fri, 25 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/lnmporg/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;ul>
 &lt;li>LNMP一键安装包是什么&lt;/li>
 &lt;/ul>
@@ -133,10 +133,10 @@ fill="currentColor">
 &lt;/ol>
 &lt;p>运行上述命令后即可开始安装，目前提供了较多的 MySQL、MariaDB 版本和不安装数据库的选项，&lt;strong>需要注意的是 MySQL 5.6,5.7 及 MariaDB 10 必须在 1G 以上内存的更高配置上才能选择！&lt;/strong>&lt;/p>
 &lt;p>输入对应 MySQL 或 MariaDB 版本前面的序号，回车进入下一步：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/1.png"
+&lt;p>&lt;img src="/archives/lnmporg/1.png"
 width="681"
 height="442"
-srcset="/p/lnmporg/1_hu53c5b26ac56c1988f48e53cd584b8bad_47139_480x0_resize_box_3.png 480w, /p/lnmporg/1_hu53c5b26ac56c1988f48e53cd584b8bad_47139_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/1_hu53c5b26ac56c1988f48e53cd584b8bad_47139_480x0_resize_box_3.png 480w, /archives/lnmporg/1_hu53c5b26ac56c1988f48e53cd584b8bad_47139_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 数据库版本选择"
 class="gallery-image"
@@ -147,10 +147,10 @@ data-flex-basis="369px"
 &lt;p>如果选择 MySQL 5.7、8.0 且是 x86 或 x86_64 架构会提示： &lt;code>Using Generic Binaries [y/n]&lt;/code> 这一步是提示是否使用二进制安装，输入 y 为使用二进制安装，输入 n 为使用源码编译安装。&lt;/p>
 &lt;/blockquote>
 &lt;p>设置 MySQL 的 root 密码（直接回车将会设置为 lnmp.org#随机数字）如果输入有错误需要删除时，可以按住 Ctrl 再按 Backspace 键进行删除(个别情况下是只需按 Backspace 键)。输入后回车进入下一步，如图：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/2.png"
+&lt;p>&lt;img src="/archives/lnmporg/2.png"
 width="547"
 height="146"
-srcset="/p/lnmporg/2_hu74c055bd132385d9deaf85d27d86d554_13291_480x0_resize_box_3.png 480w, /p/lnmporg/2_hu74c055bd132385d9deaf85d27d86d554_13291_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/2_hu74c055bd132385d9deaf85d27d86d554_13291_480x0_resize_box_3.png 480w, /archives/lnmporg/2_hu74c055bd132385d9deaf85d27d86d554_13291_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 设置数据库密码"
 class="gallery-image"
@@ -161,10 +161,10 @@ data-flex-basis="899px"
 &lt;p>询问是否需要启用 MySQL InnoDB，InnoDB 引擎默认为开启，一般建议开启，直接回车或输入 y ，如果确定确实不需要该引擎可以输入 n&lt;/p>
 &lt;/blockquote>
 &lt;p>输入要选择的 PHP 版本的序号，回车进入下一步，&lt;strong>注意：选择 PHP 7+ 版本时需要自行确认 PHP 版本是否与自己的程序兼容&lt;/strong>：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/3.png"
+&lt;p>&lt;img src="/archives/lnmporg/3.png"
 width="576"
 height="430"
-srcset="/p/lnmporg/3_hue4971f2403331b1e7613c097c65437da_39755_480x0_resize_box_3.png 480w, /p/lnmporg/3_hue4971f2403331b1e7613c097c65437da_39755_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/3_hue4971f2403331b1e7613c097c65437da_39755_480x0_resize_box_3.png 480w, /archives/lnmporg/3_hue4971f2403331b1e7613c097c65437da_39755_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 选择 PHP 版本"
 class="gallery-image"
@@ -179,10 +179,10 @@ data-flex-basis="321px"
 &lt;ul>
 &lt;li>LNMP 一键安装包编译过程需要大量的时间，所以需要耐心等待。如果网络掉线，可以重新连接 SSH，再执行 &lt;code>screen -r lnmp&lt;/code> 就会看到你的 lnmp 安装进程；如果没恢复窗口，可以输入 &lt;code>screen -ls&lt;/code> 列出窗口进程，然后输入 &lt;code>screen -D -r XX(进程编号)&lt;/code> 进行恢复：&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="/p/lnmporg/4.png"
+&lt;p>&lt;img src="/archives/lnmporg/4.png"
 width="546"
 height="98"
-srcset="/p/lnmporg/4_hub14abd7083affe68c41e65d640365434_9873_480x0_resize_box_3.png 480w, /p/lnmporg/4_hub14abd7083affe68c41e65d640365434_9873_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/4_hub14abd7083affe68c41e65d640365434_9873_480x0_resize_box_3.png 480w, /archives/lnmporg/4_hub14abd7083affe68c41e65d640365434_9873_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 窗口恢复"
 class="gallery-image"
@@ -201,10 +201,10 @@ data-flex-basis="1337px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PHP: OK
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PHP-FPM: OK
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Clean Web Server src directory...
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/lnmporg/5.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/lnmporg/5.png"
 width="935"
 height="925"
-srcset="/p/lnmporg/5_hu551a874f02a57c843724fad6a73d62df_101114_480x0_resize_box_3.png 480w, /p/lnmporg/5_hu551a874f02a57c843724fad6a73d62df_101114_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/5_hu551a874f02a57c843724fad6a73d62df_101114_480x0_resize_box_3.png 480w, /archives/lnmporg/5_hu551a874f02a57c843724fad6a73d62df_101114_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 安装完成"
 class="gallery-image"
@@ -227,10 +227,10 @@ data-flex-basis="242px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./addons.sh install redis &lt;span class="c1"># 安装 Redis&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./addons.sh install imagemagick &lt;span class="c1"># 安装 imageMagick&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>以安装 Memcached 为例，演示如下：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/6.png"
+&lt;p>&lt;img src="/archives/lnmporg/6.png"
 width="604"
 height="277"
-srcset="/p/lnmporg/6_hu2f0ad3f599b0276e3a330b318a342112_22154_480x0_resize_box_3.png 480w, /p/lnmporg/6_hu2f0ad3f599b0276e3a330b318a342112_22154_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/6_hu2f0ad3f599b0276e3a330b318a342112_22154_480x0_resize_box_3.png 480w, /archives/lnmporg/6_hu2f0ad3f599b0276e3a330b318a342112_22154_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 组件安装"
 class="gallery-image"
@@ -250,10 +250,10 @@ data-flex-basis="523px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lnmp vhost list &lt;span class="c1"># 网站列表&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lnmp vhost del &lt;span class="c1"># 删除网站&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行：&lt;code>lnmp vhost add&lt;/code> 并按照下面操作添加网站（点击放大）：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/7.png"
+&lt;p>&lt;img src="/archives/lnmporg/7.png"
 width="973"
 height="738"
-srcset="/p/lnmporg/7_hu66e42baf4437361e061814b69d78de49_157767_480x0_resize_box_3.png 480w, /p/lnmporg/7_hu66e42baf4437361e061814b69d78de49_157767_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/7_hu66e42baf4437361e061814b69d78de49_157767_480x0_resize_box_3.png 480w, /archives/lnmporg/7_hu66e42baf4437361e061814b69d78de49_157767_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 添加网站"
 class="gallery-image"
@@ -261,10 +261,10 @@ data-flex-grow="131"
 data-flex-basis="316px"
 >&lt;/p>
 &lt;p>最后按下任意键，即可开始添加网站了，添加完成后提示如下：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/8.png"
+&lt;p>&lt;img src="/archives/lnmporg/8.png"
 width="637"
 height="331"
-srcset="/p/lnmporg/8_hub60c3d595f8e17131ac4747ae5d188c5_47635_480x0_resize_box_3.png 480w, /p/lnmporg/8_hub60c3d595f8e17131ac4747ae5d188c5_47635_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/8_hub60c3d595f8e17131ac4747ae5d188c5_47635_480x0_resize_box_3.png 480w, /archives/lnmporg/8_hub60c3d595f8e17131ac4747ae5d188c5_47635_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 完成提示"
 class="gallery-image"
@@ -281,10 +281,10 @@ data-flex-basis="461px"
 &lt;p>如果需要单独的 FTP 账户进行上传，那么就安装 FTP 服务器，并创建 FTP 用户进行上传&lt;/p>
 &lt;h4 id="安装-pureftpd">安装 pureftpd&lt;/h4>
 &lt;p>进入 LNMP 解压缩后的文件夹，输入 &lt;code>./pureftpd.sh&lt;/code> 会提示按任意键安装：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/9.png"
+&lt;p>&lt;img src="/archives/lnmporg/9.png"
 width="505"
 height="208"
-srcset="/p/lnmporg/9_hu15bb82c3688b4cf18e15bc88837efd64_12663_480x0_resize_box_3.png 480w, /p/lnmporg/9_hu15bb82c3688b4cf18e15bc88837efd64_12663_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/9_hu15bb82c3688b4cf18e15bc88837efd64_12663_480x0_resize_box_3.png 480w, /archives/lnmporg/9_hu15bb82c3688b4cf18e15bc88837efd64_12663_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 安装 FTP"
 class="gallery-image"
@@ -292,10 +292,10 @@ data-flex-grow="242"
 data-flex-basis="582px"
 >&lt;/p>
 &lt;p>按下任意键，等待安装完成，出现如下提示：&lt;/p>
-&lt;p>&lt;img src="/p/lnmporg/10.png"
+&lt;p>&lt;img src="/archives/lnmporg/10.png"
 width="593"
 height="143"
-srcset="/p/lnmporg/10_hu0fae7493f4875ba5df3815f8a1d0aa10_11824_480x0_resize_box_3.png 480w, /p/lnmporg/10_hu0fae7493f4875ba5df3815f8a1d0aa10_11824_1024x0_resize_box_3.png 1024w"
+srcset="/archives/lnmporg/10_hu0fae7493f4875ba5df3815f8a1d0aa10_11824_480x0_resize_box_3.png 480w, /archives/lnmporg/10_hu0fae7493f4875ba5df3815f8a1d0aa10_11824_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 完成提示"
 class="gallery-image"
@@ -319,7 +319,7 @@ height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
 &lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
 fill="currentColor">
 &lt;/svg>&lt;/span>
-&lt;/a>&lt;/p></description></item><item><title>Oneinstack 一键安装 LNMP 及开设站点</title><link>/p/oneinstack/</link><pubDate>Wed, 23 Feb 2022 17:14:41 +0800</pubDate><guid>/p/oneinstack/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/a>&lt;/p></description></item><item><title>Oneinstack 一键安装 LNMP 及开设站点</title><link>/archives/oneinstack/</link><pubDate>Wed, 23 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/oneinstack/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;h3 id="什么是-lnmp">什么是 LNMP&lt;/h3>
 &lt;p>LNMP代表的就是：Linux 系统下 Nginx+MySQL+PHP 这种网站服务器架构。
 Linux 是一类 Unix 计算机操作系统的统称，是目前最流行的免费操作系统。代表版本有：debian、centos、ubuntu、fedora、gentoo 等。
@@ -356,10 +356,10 @@ fill="currentColor">
 &lt;li>安装说明&lt;/li>
 &lt;/ul>
 &lt;p>点击链接进入 OneinStack 官网，点击自动安装；然后选择自己所需要的组合，并视情况选择组件，然后就会生成相应的一键安装命令：&lt;/p>
-&lt;p>&lt;img src="/p/oneinstack/instack1.jpg"
+&lt;p>&lt;img src="/archives/oneinstack/instack1.jpg"
 width="1256"
 height="862"
-srcset="/p/oneinstack/instack1_hu035da576ecc982c8349711e160f8805b_140951_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack1_hu035da576ecc982c8349711e160f8805b_140951_1024x0_resize_q75_box.jpg 1024w"
+srcset="/archives/oneinstack/instack1_hu035da576ecc982c8349711e160f8805b_140951_480x0_resize_q75_box.jpg 480w, /archives/oneinstack/instack1_hu035da576ecc982c8349711e160f8805b_140951_1024x0_resize_q75_box.jpg 1024w"
 loading="lazy"
 alt="◎ 选择stack"
 class="gallery-image"
@@ -374,10 +374,10 @@ data-flex-basis="349px"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get install -y screen
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后复制 OneinStack 一键安装命令粘贴至终端，接下来就是耐心等待，安装时间视你所选组件的多少以及服务器配置而定。&lt;/p>
 &lt;p>安装完成后提示安装时长和组件路径：&lt;/p>
-&lt;p>&lt;img src="/p/oneinstack/instack2.jpg"
+&lt;p>&lt;img src="/archives/oneinstack/instack2.jpg"
 width="467"
 height="361"
-srcset="/p/oneinstack/instack2_hue16e9cd24bcc9ecbb5a7cc89073af203_198249_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack2_hue16e9cd24bcc9ecbb5a7cc89073af203_198249_1024x0_resize_q75_box.jpg 1024w"
+srcset="/archives/oneinstack/instack2_hue16e9cd24bcc9ecbb5a7cc89073af203_198249_480x0_resize_q75_box.jpg 480w, /archives/oneinstack/instack2_hue16e9cd24bcc9ecbb5a7cc89073af203_198249_1024x0_resize_q75_box.jpg 1024w"
 loading="lazy"
 alt="◎ 完成提示"
 class="gallery-image"
@@ -414,10 +414,10 @@ data-flex-basis="310px"
 &lt;h2 id="开设站点">开设站点&lt;/h2>
 &lt;h3 id="安装检查">安装检查&lt;/h3>
 &lt;p>首先打开浏览器，进入 Oneinstack 的默认首页，即服务器 &lt;code>IP&lt;/code> 地址，就可以看到默认页面：&lt;/p>
-&lt;p>&lt;img src="/p/oneinstack/instack3.jpg"
+&lt;p>&lt;img src="/archives/oneinstack/instack3.jpg"
 width="854"
 height="588"
-srcset="/p/oneinstack/instack3_huad7be3b27b9d88991502e22e6533f71c_79881_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack3_huad7be3b27b9d88991502e22e6533f71c_79881_1024x0_resize_q75_box.jpg 1024w"
+srcset="/archives/oneinstack/instack3_huad7be3b27b9d88991502e22e6533f71c_79881_480x0_resize_q75_box.jpg 480w, /archives/oneinstack/instack3_huad7be3b27b9d88991502e22e6533f71c_79881_1024x0_resize_q75_box.jpg 1024w"
 loading="lazy"
 alt="◎ 默认页面"
 class="gallery-image"
@@ -434,10 +434,10 @@ data-flex-basis="348px"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /root/oneinstack/
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./vhost.sh
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>流程如下：&lt;/p>
-&lt;p>&lt;img src="/p/oneinstack/instack4.png"
+&lt;p>&lt;img src="/archives/oneinstack/instack4.png"
 width="1608"
 height="2844"
-srcset="/p/oneinstack/instack4_hu6dce73c6561079d23c31967f0c5803d2_388325_480x0_resize_box_3.png 480w, /p/oneinstack/instack4_hu6dce73c6561079d23c31967f0c5803d2_388325_1024x0_resize_box_3.png 1024w"
+srcset="/archives/oneinstack/instack4_hu6dce73c6561079d23c31967f0c5803d2_388325_480x0_resize_box_3.png 480w, /archives/oneinstack/instack4_hu6dce73c6561079d23c31967f0c5803d2_388325_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 添加网站"
 class="gallery-image"
@@ -447,10 +447,10 @@ data-flex-basis="135px"
 &lt;hr>
 &lt;h3 id="创建mysql数据库">创建MySQL数据库&lt;/h3>
 &lt;p>Oneinstack 提供 phpMyAdmin 在线管理 Mysql；打开浏览器，输入 &lt;code>ip/phpMyAdmin&lt;/code> 登录到 phpMyAdmin：&lt;/p>
-&lt;p>&lt;img src="/p/oneinstack/instack5.jpg"
+&lt;p>&lt;img src="/archives/oneinstack/instack5.jpg"
 width="776"
 height="462"
-srcset="/p/oneinstack/instack5_hu9b9c6984803e3756aac3b523d6219af1_55110_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack5_hu9b9c6984803e3756aac3b523d6219af1_55110_1024x0_resize_q75_box.jpg 1024w"
+srcset="/archives/oneinstack/instack5_hu9b9c6984803e3756aac3b523d6219af1_55110_480x0_resize_q75_box.jpg 480w, /archives/oneinstack/instack5_hu9b9c6984803e3756aac3b523d6219af1_55110_1024x0_resize_q75_box.jpg 1024w"
 loading="lazy"
 alt="◎ phpMyAdmin"
 class="gallery-image"
@@ -458,10 +458,10 @@ data-flex-grow="167"
 data-flex-basis="403px"
 >&lt;/p>
 &lt;p>然后点击账户 &amp;gt; 新建用户账户，新增数据库与用户，并确认执行：&lt;/p>
-&lt;p>&lt;img src="/p/oneinstack/instack6.jpg"
+&lt;p>&lt;img src="/archives/oneinstack/instack6.jpg"
 width="676"
 height="592"
-srcset="/p/oneinstack/instack6_hud8ca3252d9bb6917c3e1fbcb0c2feb2a_73628_480x0_resize_q75_box.jpg 480w, /p/oneinstack/instack6_hud8ca3252d9bb6917c3e1fbcb0c2feb2a_73628_1024x0_resize_q75_box.jpg 1024w"
+srcset="/archives/oneinstack/instack6_hud8ca3252d9bb6917c3e1fbcb0c2feb2a_73628_480x0_resize_q75_box.jpg 480w, /archives/oneinstack/instack6_hud8ca3252d9bb6917c3e1fbcb0c2feb2a_73628_1024x0_resize_q75_box.jpg 1024w"
 loading="lazy"
 alt="◎ 创建用户与数据库"
 class="gallery-image"
@@ -514,10 +514,10 @@ data-flex-basis="274px"
 &lt;h3 id="删除虚拟主机">删除虚拟主机&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /root/oneinstack
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./vhost.sh --del
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/oneinstack/instack7.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/oneinstack/instack7.png"
 width="1608"
 height="1345"
-srcset="/p/oneinstack/instack7_hu62aa251923d55e408fa479b2b147caf2_180032_480x0_resize_box_3.png 480w, /p/oneinstack/instack7_hu62aa251923d55e408fa479b2b147caf2_180032_1024x0_resize_box_3.png 1024w"
+srcset="/archives/oneinstack/instack7_hu62aa251923d55e408fa479b2b147caf2_180032_480x0_resize_box_3.png 480w, /archives/oneinstack/instack7_hu62aa251923d55e408fa479b2b147caf2_180032_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 删除网站"
 class="gallery-image"
@@ -528,10 +528,10 @@ data-flex-basis="286px"
 &lt;h3 id="管理-ftp-账号">管理 FTP 账号&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /root/oneinstack
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./pureftpd_vhost.sh
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/oneinstack/instack8.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/oneinstack/instack8.png"
 width="1560"
 height="2325"
-srcset="/p/oneinstack/instack8_hud678b1f709aa631f8f69f32817cdee12_134303_480x0_resize_box_3.png 480w, /p/oneinstack/instack8_hud678b1f709aa631f8f69f32817cdee12_134303_1024x0_resize_box_3.png 1024w"
+srcset="/archives/oneinstack/instack8_hud678b1f709aa631f8f69f32817cdee12_134303_480x0_resize_box_3.png 480w, /archives/oneinstack/instack8_hud678b1f709aa631f8f69f32817cdee12_134303_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ FTP 管理"
 class="gallery-image"
@@ -542,10 +542,10 @@ data-flex-basis="161px"
 &lt;h3 id="备份管理">备份管理&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /root/oneinstack
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./backup_setup.sh
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/p/oneinstack/instack9.png"
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/oneinstack/instack9.png"
 width="1934"
 height="1586"
-srcset="/p/oneinstack/instack9_hu5eed4b3f76dde9b5faf7ee7451870f38_121215_480x0_resize_box_3.png 480w, /p/oneinstack/instack9_hu5eed4b3f76dde9b5faf7ee7451870f38_121215_1024x0_resize_box_3.png 1024w"
+srcset="/archives/oneinstack/instack9_hu5eed4b3f76dde9b5faf7ee7451870f38_121215_480x0_resize_box_3.png 480w, /archives/oneinstack/instack9_hu5eed4b3f76dde9b5faf7ee7451870f38_121215_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 备份管理"
 class="gallery-image"
@@ -563,7 +563,7 @@ height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
 &lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
 fill="currentColor">
 &lt;/svg>&lt;/span>
-&lt;/a>&lt;/p></description></item><item><title>用 Caddy2 搭建静态页面站点</title><link>/p/caddy/</link><pubDate>Sun, 20 Feb 2022 16:30:17 +0800</pubDate><guid>/p/caddy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/a>&lt;/p></description></item><item><title>用 Caddy2 搭建静态页面站点</title><link>/archives/caddy/</link><pubDate>Sun, 20 Feb 2022 16:30:17 +0800</pubDate><guid>/archives/caddy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>Caddy服务器（或称 Caddy Web）是一个开源的，使用 Golang 编写，支持 HTTP/2 的 Web 服务端，它使用 Golang 标准库提供 HTTP 功能。Caddy 一个显著的特性是默认启用 HTTPS，它是第一个无需额外配置即可提供 HTTPS 特性的 Web 服务器。Caddy 可以提供各种网站技术，它也可以作为反向代理和负载均衡器。Caddy 的大部分功能都以中间件的形式实现，并通过 Caddyfile 中的指令（用于配置 Caddy 的文本文件）进行控制。&lt;/p>
 &lt;blockquote>
 &lt;p>简单来说就是开箱即用&lt;/p>
@@ -592,10 +592,10 @@ fill="currentColor">
 &lt;hr>
 &lt;h2 id="配置">配置&lt;/h2>
 &lt;p>安装完成后在浏览器输入服务器 IP 就可以看到 Caddy 已经开始运行了，并且生成了一个默认页面：&lt;/p>
-&lt;p>&lt;img src="/p/caddy/1.png"
+&lt;p>&lt;img src="/archives/caddy/1.png"
 width="700"
 height="500"
-srcset="/p/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_480x0_resize_box_3.png 480w, /p/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_1024x0_resize_box_3.png 1024w"
+srcset="/archives/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_480x0_resize_box_3.png 480w, /archives/caddy/1_hu5cc3cb5db54b606449e77ebac198a0cc_104229_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="默认页面"
 class="gallery-image"

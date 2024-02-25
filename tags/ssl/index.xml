@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SSL on Kitin's</title><link>/tags/ssl/</link><description>Recent content in SSL on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Fri, 02 Dec 2022 10:17:55 +0800</lastBuildDate><atom:link href="/tags/ssl/index.xml" rel="self" type="application/rss+xml"/><item><title>SSL 证书安装部署</title><link>/p/own_ssl/</link><pubDate>Fri, 02 Dec 2022 10:17:55 +0800</pubDate><guid>/p/own_ssl/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SSL on Kitin's</title><link>/tags/ssl/</link><description>Recent content in SSL on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Fri, 02 Dec 2022 10:17:55 +0800</lastBuildDate><atom:link href="/tags/ssl/index.xml" rel="self" type="application/rss+xml"/><item><title>SSL 证书安装部署</title><link>/archives/own_ssl/</link><pubDate>Fri, 02 Dec 2022 10:17:55 +0800</pubDate><guid>/archives/own_ssl/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>在之前的文章中讲了在添加网站时通过 Oneinstack（LNMP 一键安装包）的 acme.sh/Caddy 来自动安装部署免费证书，当然你也可以使用自己的证书替代免费证书来进安装部署；现在来看下如何进行操作。&lt;/p>
 &lt;h3 id="场景与前提">场景与前提&lt;/h3>
 &lt;p>由于我使用的是 Oneintack 安装的 Nginx 和 Caddy 服务，所以本文以 Nginx/Caddy 视角进行操作。我的域名是在腾讯云下，并使用他们提供的为期1年免费 Trust Asia 证书，所以我以这些前提为演示；使用其他的也是完全可以的。&lt;/p>
@@ -95,7 +95,7 @@ height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
 fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/li>
-&lt;/ol></description></item><item><title>指定签发 SSL CA 机构</title><link>/p/setca/</link><pubDate>Thu, 24 Nov 2022 09:32:18 +0800</pubDate><guid>/p/setca/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>指定签发 SSL CA 机构</title><link>/archives/setca/</link><pubDate>Thu, 24 Nov 2022 09:32:18 +0800</pubDate><guid>/archives/setca/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>前几天使用 Oneinstack 添加网站进行临时测试，在自动签发 SSL 时发现证书签发失败；找了很久尝试了很多解决方法，但是并没有作用。。。然后想有没有可能是因为在同一 IP 多次申请 SSL 证书然后被限制了；但是我并没有进行多次申请。。。不管怎么样还是更换一下 CA 机构看看能不能解决，没想竟然成功了；虽然没有找到问题的原因，但最终还是解决了。遂在此进行一个记录。&lt;/p>
 &lt;h2 id="指定-ca-机构">指定 CA 机构&lt;/h2>
 &lt;h3 id="服务器环境">服务器环境&lt;/h3>

@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MariaDB on Kitin's</title><link>/tags/mariadb/</link><description>Recent content in MariaDB on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sat, 05 Nov 2022 17:18:10 +0800</lastBuildDate><atom:link href="/tags/mariadb/index.xml" rel="self" type="application/rss+xml"/><item><title>CentOS7 下 MariaDB 安装失败解决方法</title><link>/p/centos_sql_error/</link><pubDate>Sat, 05 Nov 2022 17:18:10 +0800</pubDate><guid>/p/centos_sql_error/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MariaDB on Kitin's</title><link>/tags/mariadb/</link><description>Recent content in MariaDB on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sat, 05 Nov 2022 17:18:10 +0800</lastBuildDate><atom:link href="/tags/mariadb/index.xml" rel="self" type="application/rss+xml"/><item><title>CentOS7 下 MariaDB 安装失败解决方法</title><link>/archives/centos_sql_error/</link><pubDate>Sat, 05 Nov 2022 17:18:10 +0800</pubDate><guid>/archives/centos_sql_error/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>由于最近腾讯云双11优惠活动，自己购买了一台腾讯云的轻量应用服务器 (老实说还是挺实惠的-。-) 加上自己按捺不住折腾的心，这次一改以前一直使用的 Debian 而选择了 CentOS ；这次的服务器系统我选择的是 CentOS7 ，LNMP 安装方式则是 Oneinstack 和 LNMP 一键安装包都进行了尝试。Debian 下，它们都是完美安装。但是 Centos7 下，在安装过程中 Oneinstack 和 LNMP 一键安装包都碰到了 MariaDB/MySQL 无法安装的情况，由于我是一个 Linux 小白，平常只靠从网上学习，知识量不足；所以在此记录下这次解决过程，以便日后进行查阅。&lt;/p>
 &lt;hr>
 &lt;h2 id="解决过程">解决过程&lt;/h2>
 &lt;h3 id="报错">报错&lt;/h3>
 &lt;p>和往常一样，服务器开通后，我通过 &lt;code>yum&lt;/code> 进行了一些基本的 &lt;code>update&lt;/code> 、&lt;code>autoremove&lt;/code> 、&lt;code>clean&lt;/code> 等操作，然后创建 Screen 窗口，输入 LNMP 一键包命令就开始安装了，到最后却发现 &lt;strong>MariaDB&lt;/strong> 安装失败；一开始也不知道啥情况，以为是我选的源码编译方式有问题，后面试了二进制安装依然如此：&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/1.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/1.png"
 width="865"
 height="341"
-srcset="/p/centos_sql_error/1_hudbdfc3d5c8c8e6002944dd56df4d9048_207022_480x0_resize_box_3.png 480w, /p/centos_sql_error/1_hudbdfc3d5c8c8e6002944dd56df4d9048_207022_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/1_hudbdfc3d5c8c8e6002944dd56df4d9048_207022_480x0_resize_box_3.png 480w, /archives/centos_sql_error/1_hudbdfc3d5c8c8e6002944dd56df4d9048_207022_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 安装失败"
 class="gallery-image"
@@ -26,10 +26,10 @@ data-flex-basis="608px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接着满怀期待的又进行安装，最后还是报错-。-&lt;/p>
 &lt;h3 id="错误日志">错误日志&lt;/h3>
 &lt;p>还是硬着头皮来看错误日志吧，我将 &lt;strong>/root/lnmp-install.log&lt;/strong> 安装日志下载下来进行查看。虽然说很长，咱也看不太懂。。。最后还是找到了一些破绽。。。发现应该是 &lt;strong>Cmake&lt;/strong> 版本低了：&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/2.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/2.png"
 width="685"
 height="459"
-srcset="/p/centos_sql_error/2_hu75d6d2a294a68bd65fd381e6476a6315_30039_480x0_resize_box_3.png 480w, /p/centos_sql_error/2_hu75d6d2a294a68bd65fd381e6476a6315_30039_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/2_hu75d6d2a294a68bd65fd381e6476a6315_30039_480x0_resize_box_3.png 480w, /archives/centos_sql_error/2_hu75d6d2a294a68bd65fd381e6476a6315_30039_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 错误日志"
 class="gallery-image"
@@ -73,10 +73,10 @@ fill="currentColor">
 &lt;p>一通操作下来，Cmake 已经是最新版本了，然后进入到 &lt;strong>~/lnmp1.9&lt;/strong> 也就是 LNMP 一键包解压目录下进行操作：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">./install.sh db
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后选择需要安装的数据库及版本，接下来等待安装完成：&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/3.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/3.png"
 width="928"
 height="391"
-srcset="/p/centos_sql_error/3_huda4be20eb036038aadd088c6e226da8b_162830_480x0_resize_box_3.png 480w, /p/centos_sql_error/3_huda4be20eb036038aadd088c6e226da8b_162830_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/3_huda4be20eb036038aadd088c6e226da8b_162830_480x0_resize_box_3.png 480w, /archives/centos_sql_error/3_huda4be20eb036038aadd088c6e226da8b_162830_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 安装完成"
 class="gallery-image"
@@ -84,10 +84,10 @@ data-flex-grow="237"
 data-flex-basis="569px"
 >&lt;/p>
 &lt;p>OK 打开浏览器输入 IP 地址进行访问，还是熟悉的默认页面：&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/4.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/4.png"
 width="1549"
 height="435"
-srcset="/p/centos_sql_error/4_hua19581040bc1ab46bde67107b44071b3_62918_480x0_resize_box_3.png 480w, /p/centos_sql_error/4_hua19581040bc1ab46bde67107b44071b3_62918_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/4_hua19581040bc1ab46bde67107b44071b3_62918_480x0_resize_box_3.png 480w, /archives/centos_sql_error/4_hua19581040bc1ab46bde67107b44071b3_62918_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 登录页面"
 class="gallery-image"
@@ -95,10 +95,10 @@ data-flex-grow="356"
 data-flex-basis="854px"
 >&lt;/p>
 &lt;p>然后点击 phpMyAdmin 登陆进去，OK 完美！&lt;/p>
-&lt;p>&lt;img src="/p/centos_sql_error/5.png"
+&lt;p>&lt;img src="/archives/centos_sql_error/5.png"
 width="1217"
 height="589"
-srcset="/p/centos_sql_error/5_hu690cf7f1faeba90e99f62d8fe55f0533_123368_480x0_resize_box_3.png 480w, /p/centos_sql_error/5_hu690cf7f1faeba90e99f62d8fe55f0533_123368_1024x0_resize_box_3.png 1024w"
+srcset="/archives/centos_sql_error/5_hu690cf7f1faeba90e99f62d8fe55f0533_123368_480x0_resize_box_3.png 480w, /archives/centos_sql_error/5_hu690cf7f1faeba90e99f62d8fe55f0533_123368_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 软件界面"
 class="gallery-image"
@@ -113,7 +113,7 @@ data-flex-basis="495px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>另外需要注意运行自动化脚本前查看一下是否会对配置文件进行编辑，若存在则需要修改脚本。&lt;/p>
 &lt;hr>
 &lt;h2 id="总结">总结&lt;/h2>
-&lt;p>以上就是我在使用 CentOS 安装 LNMP 环境时 MariaDB/MySQL 安装失败的情况，咱也不知道是个例还是就我这个小白这样。。。在此进行一个记录。希望能对大家有所帮助。最后顺带提一下，我咋就想到去折腾 CentOS 了；一直在用的Debian 它不香嘛。。。&lt;/p></description></item><item><title>Waline 服务端独立部署方案</title><link>/p/waline_deploy/</link><pubDate>Thu, 20 Oct 2022 10:50:47 +0800</pubDate><guid>/p/waline_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>以上就是我在使用 CentOS 安装 LNMP 环境时 MariaDB/MySQL 安装失败的情况，咱也不知道是个例还是就我这个小白这样。。。在此进行一个记录。希望能对大家有所帮助。最后顺带提一下，我咋就想到去折腾 CentOS 了；一直在用的Debian 它不香嘛。。。&lt;/p></description></item><item><title>Waline 服务端独立部署方案</title><link>/archives/waline_deploy/</link><pubDate>Thu, 20 Oct 2022 10:50:47 +0800</pubDate><guid>/archives/waline_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>之前讲了通过 Vercel 来进行 Waline 服务端的部署，这是最简单，也是完全免费的方法；但是对于拥有自己服务器的人来说，可能更想要将 Waline 直接部署到自己的服务器上；毕竟服务器摆在那，不用也是浪费，何不将 Waline 服务端也部署自己的服务器上以方便进行管理呢？其实 Waline 提供了很多的部署方案，可以看 &lt;a class="link" href="https://waline.js.org/advanced/intro.html" target="_blank" rel="noopener"
 >这里
 &lt;span style="white-space: nowrap;">&lt;svg width=".7em"
@@ -190,10 +190,10 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a> 下载二进制包，通过创建软链接至系统用户应用程序目录来使用。&lt;/p>
 &lt;p>打开 Nodejs 官网，点击 Downloads 然后右键复制 Linux Binaries (x64) 的下载链接：&lt;/p>
-&lt;p>&lt;img src="/p/waline_deploy/1.png"
+&lt;p>&lt;img src="/archives/waline_deploy/1.png"
 width="1152"
 height="628"
-srcset="/p/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_480x0_resize_box_3.png 480w, /p/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_1024x0_resize_box_3.png 1024w"
+srcset="/archives/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_480x0_resize_box_3.png 480w, /archives/waline_deploy/1_hu3bc2a4e0dda50b86813c98baa00fba1d_67223_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 二进制文件下载"
 class="gallery-image"
@@ -265,10 +265,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>下载完成后，可以试着运行一下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">node node_modules/@waline/vercel/vanilla.js
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>成功的话可以看到提示：&lt;/p>
-&lt;p>&lt;img src="/p/waline_deploy/2.png"
+&lt;p>&lt;img src="/archives/waline_deploy/2.png"
 width="600"
 height="89"
-srcset="/p/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_480x0_resize_box_3.png 480w, /p/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_1024x0_resize_box_3.png 1024w"
+srcset="/archives/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_480x0_resize_box_3.png 480w, /archives/waline_deploy/2_hu6e1486747a399baf803f1c14f13ca2b8_44276_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 运行状态"
 class="gallery-image"

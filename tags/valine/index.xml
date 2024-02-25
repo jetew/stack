@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Valine on Kitin's</title><link>/tags/valine/</link><description>Recent content in Valine on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sat, 15 Oct 2022 10:50:47 +0800</lastBuildDate><atom:link href="/tags/valine/index.xml" rel="self" type="application/rss+xml"/><item><title>为 Hugo 博客开启评论系统</title><link>/p/hugo_comment/</link><pubDate>Sat, 15 Oct 2022 10:50:47 +0800</pubDate><guid>/p/hugo_comment/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Valine on Kitin's</title><link>/tags/valine/</link><description>Recent content in Valine on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sat, 15 Oct 2022 10:50:47 +0800</lastBuildDate><atom:link href="/tags/valine/index.xml" rel="self" type="application/rss+xml"/><item><title>为 Hugo 博客开启评论系统</title><link>/archives/hugo_comment/</link><pubDate>Sat, 15 Oct 2022 10:50:47 +0800</pubDate><guid>/archives/hugo_comment/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>我的博客作为自己记录的地方，没有去做 SEO 也没有去进行优化；可以说完全没有必要去开启评论，但是为什么又添加了评论呢？我觉得万一有人看到了我博客中的一些内容，有什么没有了解的地方，或者说有什么地方需要进行交流，需要进行简单的评论该怎么办？为了这一两句话不可能去到邮箱里跟你进行深度交流，于是最后还是决定开启评论功能，并再此进行一个分享。&lt;/p>
 &lt;h3 id="评论系统选择">评论系统选择&lt;/h3>
 &lt;p>对于评论系统，我的感觉是一定要便捷，填上昵称，邮件等就可以进行评论，不需要进行注册等繁琐操作； Hugo 中也有许多自带的评论系统，但是大多数都是海外的，使用起来很不方便。最终决定使用基于 Valine 的 Waline ；下面就来讲一下我自己配置的过程。&lt;/p>
@@ -42,10 +42,10 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;p>进入控制台后，点击创建应用，输入你喜欢的应用名称，选择开发版，然后点击创建：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_comment/1.png"
+&lt;p>&lt;img src="/archives/hugo_comment/1.png"
 width="1356"
 height="651"
-srcset="/p/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_480x0_resize_box_3.png 480w, /p/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_480x0_resize_box_3.png 480w, /archives/hugo_comment/1_hu0053b852f29d033712973e6338b1d12a_42681_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 创建应用"
 class="gallery-image"
@@ -53,10 +53,10 @@ data-flex-grow="208"
 data-flex-basis="499px"
 >&lt;/p>
 &lt;p>进入应用，选择左下角的 &lt;strong>设置 &amp;gt; 应用凭证&lt;/strong> 。你可以看到你的各种凭证，先放在这里，后面会用上：&lt;/p>
-&lt;p>&lt;img src="/p/hugo_comment/2.png"
+&lt;p>&lt;img src="/archives/hugo_comment/2.png"
 width="1107"
 height="766"
-srcset="/p/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_480x0_resize_box_3.png 480w, /p/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_480x0_resize_box_3.png 480w, /archives/hugo_comment/2_hu2bf2bd5f17c732278b663374181046d9_69067_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 应用凭证"
 class="gallery-image"
@@ -214,10 +214,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
 &lt;p>配置完成之后你就可以在运行 &lt;code>hugo server&lt;/code> 在本地进行评论测试了:&lt;/p>
-&lt;p>&lt;img src="/p/hugo_comment/3.png"
+&lt;p>&lt;img src="/archives/hugo_comment/3.png"
 width="1019"
 height="610"
-srcset="/p/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_480x0_resize_box_3.png 480w, /p/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_1024x0_resize_box_3.png 1024w"
+srcset="/archives/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_480x0_resize_box_3.png 480w, /archives/hugo_comment/3_hu5eb5debdfb377ae4be91a9535e096deb_40768_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 本地测试"
 class="gallery-image"
