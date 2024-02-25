@@ -1,7 +1,7 @@
 baseurl: /
 languageCode: zh-cn
 theme: hugo-theme-stack
-paginate: 5
+paginate: 10
 title: Kitin's
 copyright: Kitin
 
@@ -138,7 +138,7 @@ params:
             - type: search
             - type: archives
               params:
-                  limit: 5
+                  limit: 999
             - type: categories
               params:
                   limit: 999
