@@ -97,6 +97,7 @@ params:
                 - name
                 - email
             locale:
+                admin: 渣渣
                 nick: 昵称
                 mail: 邮箱
                 link: 网址
