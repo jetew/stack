@@ -103,12 +103,13 @@ ln -s /usr/local/gcc/bin/gcc /usr/bin/gcc
 vim /etc/profile
 ```
 
-修改 `/etc/profile` 文件，在末尾添加如下两句：
+修改 `/etc/profile` 文件，在 `export PATH=` 后添加：
 
 ```bash
-LD_LIBRARY_PATH=/usr/local/gcc/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH
+exprot PATH=/usr/local/gcc/bin:$PATH
 ```
+
+若没有这项可以自行在最后添加，其中 `/usr/local/gcc/bin` 为 `gcc` 目录
 
 然后刷新一下变量环境：
 
