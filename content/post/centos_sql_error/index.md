@@ -59,7 +59,7 @@ rpm -e --nodeps mariadb-lib
 
 ### 下载编译 Cmake
 
-打开 [版本下载列表](https://cmake.org/files/LatestRelease/Cmake) 找到最新版本，我这里目前最新版是 **3.24.3** ，然后复制链接，回到 SSH 
+打开 ~~[下载列表](https://cmake.org/files/LatestRelease/Cmake)~~ [新下载列表](https://github.com/Kitware/CMake/releases/) 找到最新版本，然后复制链接，回到 SSH 
 
 ```bash
 # 卸载Cmake
@@ -69,13 +69,13 @@ mkdir /opt/cmake
 # 进入目录
 cd /opt/cmake
 # 下载压缩包
-wget https://cmake.org/files/LatestRelease/cmake-3.24.3.tar.gz
+wget https://github.com/Kitware/CMake/releases/download/v3.28.3/cmake-3.28.3.tar.gz
 # 解压
-tar -zxvf cmake-3.24.3.tar.gz
+tar -zxvf cmake-3.28.3.tar.gz
 # 安装依赖
 yum install -y gcc gcc-c++ openssl-devel
 # 进入目录
-cd cmake-3.24.3
+cd cmake-3.28.3
 # 设置编译目录
 ./configure --prefix=/usr/local/cmake
 # 安装
