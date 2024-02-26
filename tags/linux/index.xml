@@ -988,15 +988,23 @@ data-flex-basis="358px"
 >&lt;/p>
 &lt;p>可以看到，这里要求 &lt;strong>3.0.0&lt;/strong> 版本或者更高，而我的版本为 &lt;strong>2.8.12.2&lt;/strong> ，于是我返回 SSH 使用 &lt;code>yum update cmake&lt;/code> 更新之后发现还是 &lt;strong>2.8.12.2&lt;/strong> 版本，于是选择下载最新版本进行编译。&lt;/p>
 &lt;h3 id="下载编译-cmake">下载编译 Cmake&lt;/h3>
-&lt;p>打开 &lt;a class="link" href="https://cmake.org/files/LatestRelease/Cmake" target="_blank" rel="noopener"
->版本下载列表
+&lt;p>打开 &lt;del>&lt;a class="link" href="https://cmake.org/files/LatestRelease/Cmake" target="_blank" rel="noopener"
+>下载列表
 &lt;span style="white-space: nowrap;">&lt;svg width=".7em"
 height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
 &lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
 &lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
 fill="currentColor">
 &lt;/svg>&lt;/span>
-&lt;/a> 找到最新版本，我这里目前最新版是 &lt;strong>3.24.3&lt;/strong> ，然后复制链接，回到 SSH&lt;/p>
+&lt;/a>&lt;/del> &lt;a class="link" href="https://github.com/Kitware/CMake/releases/" target="_blank" rel="noopener"
+>新下载列表
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 找到最新版本，然后复制链接，回到 SSH&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 卸载Cmake&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yum remove -y cmake
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 创建文件夹&lt;/span>
@@ -1004,13 +1012,13 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 进入目录&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /opt/cmake
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 下载压缩包&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://cmake.org/files/LatestRelease/cmake-3.24.3.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://github.com/Kitware/CMake/releases/download/v3.28.3/cmake-3.28.3.tar.gz
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 解压&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -zxvf cmake-3.24.3.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -zxvf cmake-3.28.3.tar.gz
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安装依赖&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yum install -y gcc gcc-c++ openssl-devel
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 进入目录&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> cmake-3.24.3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> cmake-3.28.3
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 设置编译目录&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./configure --prefix&lt;span class="o">=&lt;/span>/usr/local/cmake
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安装&lt;/span>
