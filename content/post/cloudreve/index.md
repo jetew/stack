@@ -64,13 +64,12 @@ Cloudreve 默认会监听 5212 端口。你可以在浏览器中访问 http://IP
 ```nginx
 location / {
   proxy_pass http://127.0.0.1:5212;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_set_header Host $http_host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Proto $scheme;
   proxy_set_header X-NginX-Proxy true;
-  proxy_http_version 1.1;
   proxy_redirect off;
-
   # 如果您要使用本地存储策略，请将下一行注释符删除，并更改大小为理论最大文件尺寸
   # client_max_body_size 20000m;
 }
@@ -97,7 +96,12 @@ location / {
 
 ```caddyfile
 domain.com {
-    reverse_proxy 127.0.0.1:5212
+    reverse_proxy 127.0.0.1:5212 {
+        header_up Host {host}
+	      header_up X-Real-IP {remote}
+	      header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto https
+    }
 }
 ```
 
@@ -108,7 +112,7 @@ domain.com {
 创建编辑配置文件：
 
 ```bash
-vim /etc/systemd/system/cloudreve.service
+vim /usr/lib/systemd/system/cloudreve.service
 ```
 
 将下面的 `PATH_TO_CLOUDREVE` 换成程序所在目录：
