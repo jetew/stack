@@ -26,9 +26,9 @@ image:
 
 ### 准备工作
 
-域名解析这块就不多讲了，提前绑定到你的服务器 IP ；服务器基本配置与优化可以参考 [这里](/p/setvps) ；至于 Web 服务这块，如果你使用 Nginx/Apache+MariaDB/MySQL 可以看 [这里](/p/oneinstack) 搭建好 Web 服务与数据库。
+域名解析这块就不多讲了，提前绑定到你的服务器 IP ；服务器基本配置与优化可以参考 [这里](/archives/setvps) ；至于 Web 服务这块，如果你使用 Nginx/Apache+MariaDB/MySQL 可以看 [这里](/archives/oneinstack) 搭建好 Web 服务与数据库。
 
-如果你想和我一样使用 Caddy Server 那么你可以参考 [这里](/p/caddy) 先搭建 Caddy Server ；然后来安装数据库，我这里以 MariaDB/MySQL 为例：
+如果你想和我一样使用 Caddy Server 那么你可以参考 [这里](/archives/caddy) 先搭建 Caddy Server ；然后来安装数据库，我这里以 MariaDB/MySQL 为例：
 
 ```bash
 apt update
@@ -72,7 +72,7 @@ Thanks for using MariaDB!
 
 ### 安装 Nodejs
 
-这里要注意，不要直接使用 `apt install` 进行安装，因为软件包版本比较低，与 **npm** 版本不匹配，从而导致后面报错。所以我们可以通过包管理器，或者二进制文件安装。
+这里要注意，不要直接使用 `apt install` 进行安装，会导致后面报错，具体原因我也不知道。所以我们可以通过包管理器、二进制文件或者源码编译进行安装。
 
 #### 包管理器安装
 
@@ -129,7 +129,6 @@ mv node-v16.18.0-linux-x64 node # 重命名文件夹
 
 ```bash
 # Nodejs
-VERSION=v16.18.0
 DISTRO=linux-x64
 export PATH=/usr/local/src/node/bin:$PATH
 ```
@@ -167,17 +166,22 @@ vim /etc/profile
 
 ```bash
 # Nodejs
-VERSION=vxx.xx.x
 DISTRO=linux-x64
 export PATH=/usr/local/node/bin:$PATH
 ```
 
-为软件设置软链接：
+可以为软件设置个软链接：
 
 ```bash
 ln -s /usr/local/node/bin/node /usr/bin/node
 ln -s /usr/local/node/bin/npm /usr/bin/npm
 ln -s /usr/local/node/bin/npx /usr/bin/npx
+```
+
+刷新变量环境：
+
+```bash
+source /etc/profile
 ```
 
 源码编译安装比较费时，具体时间视机器配置而定，可酌情选择安装方式。
@@ -262,8 +266,7 @@ quit
 为了方便 Waline 的正常运行与管理，我使用的是 systemd 服务进行管理，创建文件并进行编辑(拿不准的可以在本地新建文件，编辑之后上传)：
 
 ```bash
-cd /etc/systemd/system/
-touch waline.service
+cd /usr/lib/systemd/system/
 vim waline.service
 ```
 
@@ -355,9 +358,13 @@ systemctl enable waline # 添加开机自启动
 
 ```caddyfile
 domain.com {
-    root * /var/www/waline
     encode gzip
-    reverse_proxy 127.0.0.1:8360
+    reverse_proxy 127.0.0.1:8360 {
+      header_up Host {host}
+		  header_up X-Real-IP {remote}
+		  header_up X-Forwarded-For {remote}
+		  header_up X-Forwarded-Proto https
+    }
     file_server
     tls user@email.com
 }
