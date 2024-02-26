@@ -39,7 +39,7 @@ apt install caddy
 
 ### 安装 PHP+MySQL
 
-这里我使用的是 Oneinstack 自动安装，参考：[一键安装 LNMP 及开设站点](/p/oneinstack)
+这里我使用的是 Oneinstack 自动安装，参考：[一键安装 LNMP 及开设站点](/archives/oneinstack)
 
 > 安装方式不限，以自己为准，我只是习惯用 Oneinstack 自动安装
 

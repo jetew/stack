@@ -47,14 +47,14 @@ vim /etc/ssh/sshd_config
 
 > 这里我使用 vim 编辑，拿不准可以直接下载到本地编辑
 
-找到默认 22 端口，将光标移动到该位置，输入 `i ` 进行编辑；去掉前面的注释，并且添加一个端口：
+找到默认 **22** 端口，将光标移动到该位置，输入 `i ` 进行编辑；去掉前面的注释，并且添加一个端口：
 
 ```bash
 Port 22
 Port 1234 # 以 1234 端口为例
 ```
 
-编辑完成后按下 `ESC` 然后输入 `:wq!` 保存退出，并重启 `sshd` 服务进程：
+编辑完成后按下 `ESC` 然后输入 `:wq` 保存退出，并重启 `ssh` 服务进程：
 
 ```bash
 systemctl restart sshd
@@ -106,17 +106,17 @@ Your identification has been saved in /root/.ssh/id_rsa.
 Your public key has been saved in /root/.ssh/id_rsa.pub. # 公钥与私钥存储位置
 ```
 
-> 生成的秘钥文件位于 `root/.ssh` 目录下
+> 生成的秘钥文件位于 `~/.ssh` 目录下
 
 也可以通过 `XShell` 或者 `PuTTy Gen` 软件进行生成秘钥文件，但是要注意它们生成的私钥并不通用，需要通过 `PuTTy Gen` 进行转换。
 
 - 上传/配置公钥文件
 
-如果是使用命令行在 VPS 生成的秘钥文件，则将私钥文件下载并导入 SSH 软件即可。若是软件生成，则将 `id_rsa.pub` 文件上传至 `root/.ssh` 目录下，完成上述操作后执行如下命令：
+如果是使用命令行在 VPS 生成的秘钥文件，则将私钥文件下载并导入 SSH 软件即可。若是软件生成，则将 `id_rsa.pub` 文件上传至 `~/.ssh` 目录下，完成上述操作后执行如下命令：
 
 ```bash
 mv id_rsa.pub authorized_keys
-chmod 600 ./authorized_keys
+chmod 600 authorized_keys
 ```
 
 然后修改 `sshd_config` 找到并修改成下面个配置 ：
@@ -141,7 +141,7 @@ systemctl restart sshd
 PasswordAuthentication no
 ```
 
-重启 `sshd` 
+重启 `ssh` 
 
 ```bash
 systemctl restart sshd
@@ -181,3 +181,5 @@ chmod +x tcp.sh
 ---
 
 至此 VPS 的一些基本配置与优化结束
+
+---

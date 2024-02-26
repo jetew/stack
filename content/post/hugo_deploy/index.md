@@ -17,7 +17,7 @@ image:
 
 ## 前言
 
-之前在 [《使用 Github Actions 自动化部署 Hugo 博客》](/p/hugo-actions/) 一文中我讲了通过 Github Actions 自动部署 Hugo 博客到 Github Pages ； Github Pages 免费而且无需考虑成本及维护；但是 Github 毕竟是在海外，访问有问题，还时常抽风；访问体验算不上差强人意吧，也只能说是大失所望了。那怎样简单又低成本解决这个问题呢？ (毕竟白嫖才是硬道理) 现在就来看一下今天的主角：
+之前在 [《使用 Github Actions 自动化部署 Hugo 博客》](/archives/hugo-actions/) 一文中我讲了通过 Github Actions 自动部署 Hugo 博客到 Github Pages ； Github Pages 免费而且无需考虑成本及维护；但是 Github 毕竟是在海外，访问有问题，还时常抽风；访问体验算不上差强人意吧，也只能说是大失所望了。那怎样简单又低成本解决这个问题呢？ (毕竟白嫖才是硬道理) 现在就来看一下今天的主角：
 
 - [Vercel 官网](https://vercel.com)
 
