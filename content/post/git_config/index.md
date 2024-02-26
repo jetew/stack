@@ -77,8 +77,8 @@ cat gitee.pub # 查看公钥内容
 ```bash
 ssh-add ~/.ssh/github
 ssh-add ~/.ssh/gitee
-ssh -T git@github
-ssh -T git@gitee
+ssh -T git@github.com
+ssh -T git@gitee.com
 ```
 
 成功则会返回欢迎你的用户名信息。
@@ -88,7 +88,6 @@ ssh -T git@gitee
 创建完密钥对后，需要创建一个配置文件来分配私钥以及主机
 
 ```bash
-touch config
 vim config # 或者直接用 VS Code 编辑
 ```
 
@@ -132,7 +131,7 @@ git remote add origin git@github.com:username/repositories.git # 添加远程仓
 
 ### 扩展配置
 
-除了为 Git 分配主机和私钥外，也可以为自己的服务器进行设置，首先为服务器设置密钥登陆，可以参考 [这里](/p/setvps/#设置秘钥登录) ；然后将密钥对下载到本地 ~/.ssh 目录下，然后重命名并编辑 config 文件，如下：
+除了为 Git 分配主机和私钥外，也可以为自己的服务器进行设置，首先为服务器设置密钥登陆，可以参考 [这里](/archives/setvps/#设置秘钥登录) ；然后将密钥对下载到本地 ~/.ssh 目录下，然后重命名并编辑 config 文件，如下：
 
 ```bash
 # Github
