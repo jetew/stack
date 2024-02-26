@@ -145,7 +145,7 @@ wget -N git.io/aria2.sh && chmod +x aria2.sh
 
 - 项目地址：[Github 项目地址](https://github.com/mayswind/AriaNg)
 
-首先创建一个网站，可以参考 [Oneinstack 创建虚拟主机](/p/oneinstack/#创建虚拟主机) 或 [Caddy 创建站点](/p/caddy/)
+首先创建一个网站，可以参考 [Oneinstack 创建虚拟主机](/archives/oneinstack/#创建虚拟主机) 或 [Caddy 创建站点](/archives/caddy/)
 
 然后打开 [下载版本](https://github.com/mayswind/AriaNg/releases/) 页面，将 AriaNG-x.x.x.zip 文件下载上传至网站根目录，并解压。
 
@@ -169,12 +169,12 @@ wget -N git.io/aria2.sh && chmod +x aria2.sh
   
 ```nginx
 location = /jsonrpc {
-    proxy_pass http://127.0.0.1:6800;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Host $http_host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-NginX-Proxy true;
-    proxy_http_version 1.1;
+  proxy_pass http://127.0.0.1:6800;
+  proxy_set_header Host $http_host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Forwarded-Proto $scheme;
+  proxy_set_header X-NginX-Proxy true;
 }
 ```
 
@@ -182,7 +182,12 @@ location = /jsonrpc {
   
 ```caddyfile
 domain.com {
-    reverse_proxy /jsonrpc 127.0.0.1:6800
+    reverse_proxy /jsonrpc 127.0.0.1:6800 {
+        header_up Host {host}
+		header_up X-Real-IP {remote}
+		header_up X-Forwarded-For {remote}
+		header_up X-Forwarded-Proto https
+    }
 }
 ```
 
