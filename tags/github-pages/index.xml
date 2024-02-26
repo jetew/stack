@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Github Pages on Kitin's</title><link>/tags/github-pages/</link><description>Recent content in Github Pages on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sat, 16 Jul 2022 13:25:48 +0800</lastBuildDate><atom:link href="/tags/github-pages/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Github Actions 自动化部署 Hugo 博客</title><link>/archives/hugo_actions/</link><pubDate>Sat, 16 Jul 2022 13:25:48 +0800</pubDate><guid>/archives/hugo_actions/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>之前在 &lt;a class="link" href="/p/hugo/" >《使用 Hugo 搭建个人博客及部署》
+&lt;p>之前在 &lt;a class="link" href="/archives/hugo/" >《使用 Hugo 搭建个人博客及部署》
 &lt;/a> 一文中, 我讲了通过 Hugo 来搭建个人博客, 并部署到 Github Pages 来实现一个在线访问.但是这样手动部署一开始还觉得比较新奇有趣, 时间一长的话难免会觉得有些麻烦, 一有什么改动就要全部重新部署, 那么本文就将讲一下通过 &lt;code>Github Actions&lt;/code> 来实现将我们的 Hugo 博客自动部署到 Github Pages 或者我们自己的云服务器上, 现在就一起来看一下.&lt;/p>
-&lt;p>&lt;strong>注意&lt;/strong>: 本文所有操作的前提条件是在 &lt;a class="link" href="/p/hugo/" >《使用 Hugo 搭建个人博客及部署》
+&lt;p>&lt;strong>注意&lt;/strong>: 本文所有操作的前提条件是在 &lt;a class="link" href="/archives/hugo/" >《使用 Hugo 搭建个人博客及部署》
 &lt;/a> 一文的基础上, 可以先行查阅.&lt;/p>
 &lt;hr>
 &lt;h2 id="介绍与准备">介绍与准备&lt;/h2>

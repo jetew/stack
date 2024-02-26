@@ -21,13 +21,12 @@
 </span></span><span class=line><span class=cl>./cloudreve
 </span></span></code></pre></div><p>Cloudreve 在首次启动时，会创建初始管理员账号，请注意保管管理员密码，此密码只会在首次启动时出现。如果您忘记初始管理员密码，需要删除同级目录下的 cloudreve.db，重新启动主程序以初始化新的管理员账户。</p><p>Cloudreve 默认会监听 5212 端口。你可以在浏览器中访问 http://IP:5212 进入 Cloudreve。</p><p>以上步骤操作完后，最简单的部署就完成了。你可能需要一些更为具体的配置，才能让 Cloudreve 更好的工作，具体流程请参考下面的配置流程。</p><h3 id=反向代理>反向代理</h3><p>在自用或者小规模使用的场景下，你完全可以使用 Cloudreve 内置的 Web 服务器。但是如果你需要使用 HTTPS，亦或是需要与服务器上其他 Web 服务共存时，你可能需要使用主流 Web 服务器反向代理 Cloudreve ，以获得更丰富的扩展功能。</p><p>你需要在 Web 服务器中新建一个虚拟主机，完成所需的各项配置（如启用 HTTPS），然后在网站配置文件中加入反代规则：</p><h4 id=nginx-配置>Nginx 配置</h4><p>在网站的 server 字段中加入：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-nginx data-lang=nginx><span class=line><span class=cl><span class=k>location</span> <span class=s>/</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>  <span class=kn>proxy_pass</span> <span class=s>http://127.0.0.1:5212</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>proxy_set_header</span> <span class=s>X-Forwarded-For</span> <span class=nv>$proxy_add_x_forwarded_for</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>  <span class=kn>proxy_set_header</span> <span class=s>Host</span> <span class=nv>$http_host</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=kn>proxy_set_header</span> <span class=s>X-Forwarded-For</span> <span class=nv>$proxy_add_x_forwarded_for</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>  <span class=kn>proxy_set_header</span> <span class=s>X-Real-IP</span> <span class=nv>$remote_addr</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=kn>proxy_set_header</span> <span class=s>X-Forwarded-Proto</span> <span class=nv>$scheme</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>  <span class=kn>proxy_set_header</span> <span class=s>X-NginX-Proxy</span> <span class=s>true</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>proxy_http_version</span> <span class=mi>1</span><span class=s>.1</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>  <span class=kn>proxy_redirect</span> <span class=no>off</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>  <span class=c1># 如果您要使用本地存储策略，请将下一行注释符删除，并更改大小为理论最大文件尺寸
 </span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=c1># client_max_body_size 20000m;
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
@@ -41,9 +40,14 @@
 </span></span><span class=line><span class=cl>  <span class=nb>ProxyPass</span> <span class=s2>&#34;/&#34;</span> <span class=s2>&#34;http://127.0.0.1:5212/&#34;</span> nocanon
 </span></span><span class=line><span class=cl><span class=nt>&lt;/VirtualHost&gt;</span>
 </span></span></code></pre></div><h4 id=caddy-配置>Caddy 配置</h4><p>在网站配置中加入：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>domain.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>reverse_proxy</span> <span class=n>127.0.0.1</span><span class=p>:</span><span class=mi>5212</span>
+</span></span><span class=line><span class=cl>    <span class=k>reverse_proxy</span> <span class=n>127.0.0.1</span><span class=p>:</span><span class=mi>5212</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>header_up</span> <span class=s>Host</span> <span class=se>{host}</span>
+</span></span><span class=line><span class=cl>	      <span class=k>header_up</span> <span class=s>X-Real-IP</span> <span class=se>{remote}</span>
+</span></span><span class=line><span class=cl>	      <span class=k>header_up</span> <span class=s>X-Forwarded-For</span> <span class=se>{remote}</span>
+</span></span><span class=line><span class=cl>        <span class=k>header_up</span> <span class=s>X-Forwarded-Proto</span> <span class=s>https</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></div><h3 id=后台运行>后台运行</h3><p>这里依旧使用 Systemd 大法：</p><p>创建编辑配置文件：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>vim /etc/systemd/system/cloudreve.service
+</span></span></code></pre></div><h3 id=后台运行>后台运行</h3><p>这里依旧使用 Systemd 大法：</p><p>创建编辑配置文件：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>vim /usr/lib/systemd/system/cloudreve.service
 </span></span></code></pre></div><p>将下面的 <code>PATH_TO_CLOUDREVE</code> 换成程序所在目录：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-service data-lang=service><span class=line><span class=cl><span class=k>[Unit]</span>
 </span></span><span class=line><span class=cl><span class=na>Description</span><span class=o>=</span><span class=s>Cloudreve</span>
 </span></span><span class=line><span class=cl><span class=na>After</span><span class=o>=</span><span class=s>network.target</span>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hugo on Kitin's</title><link>/tags/hugo/</link><description>Recent content in Hugo on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Tue, 01 Nov 2022 13:18:02 +0800</lastBuildDate><atom:link href="/tags/hugo/index.xml" rel="self" type="application/rss+xml"/><item><title>我写博客的方式</title><link>/archives/how_to_write/</link><pubDate>Tue, 01 Nov 2022 13:18:02 +0800</pubDate><guid>/archives/how_to_write/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>一般来说，大家会有一些想法或者突如其来的灵感需要进行记录；那么我们会选择将它们记录在手机便签、文本编辑器或者直接用笔写下来；等最后再梳理成文。正常情况下我们都是在电脑前进行写作，但是有时候用不了，或者不方便在电脑前进行写作；那应该怎么办？今天就来看下我的日常写作方式。&lt;/p>
+&lt;p>一般来说，大家会有一些想法或者突如其来的灵感需要进行记录；那么我们会选择将它们记录在手机便签、文本编辑器或者直接用笔写下来；等最后再梳理成文。正常情况下我们都是在电脑前进行写作，但是有时候不方便在电脑前进行写作；那应该怎么办？今天就来看下我的日常写作方式。&lt;/p>
 &lt;p>看过前面文章的应该知道，我自己是将 Hugo 博客源码通过 Git 推送到 Github 远程仓库然后由 Github Actions 自动部署到服务器上面，所以我写文章的流程就是通过 Git 同步远程仓库，写作完成后再推送到远程仓库通过 Github Actions 自动部署就可以了。那么现在就一起来看下这个过程的实现。&lt;/p>
 &lt;p>我的话，平常使用的客户端为：家里电脑 (WindowsX2) 、公司电脑 (Windows) 、笔记本 (Linux)、手机 (Android)；简化一点就是 Windows、Linux、Android。一般情况下，我们就是 Win 和 Android 了。要实现在安卓使用 Git 的话，我们就需要安装一款神级软件 &lt;strong>Termux&lt;/strong>&lt;/p>
 &lt;hr>
@@ -71,7 +71,7 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg update
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg install -y curl wget
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="安装-git">安装 Git&lt;/h4>
-&lt;p>更换完清华源后，进行 Git 安装：&lt;/p>
+&lt;p>进行 Git 安装：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg update
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg install -y git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="创建目录软链接">创建目录软链接&lt;/h4>
@@ -100,7 +100,7 @@ fill="currentColor">
 &lt;h3 id="公钥添加至-github">公钥添加至 Github&lt;/h3>
 &lt;p>输入 &lt;code>cat ~/.ssh/id_ed25519.pub&lt;/code> 查看公钥内容，然后复制；打开 Github 点击： &lt;strong>右上角头像 - Settings - SSH and GPG keys - New SSH Key&lt;/strong> 把刚才复制的公钥粘贴到 &lt;strong>Key&lt;/strong> 中，命名随意，然后保存。&lt;/p>
 &lt;blockquote>
-&lt;p>详细图文过程可以参考 &lt;a class="link" href="/p/hugo/#%e6%b7%bb%e5%8a%a0%e5%af%86%e9%92%a5" >这里
+&lt;p>详细图文过程可以参考 &lt;a class="link" href="/archives/hugo/#%e6%b7%bb%e5%8a%a0%e5%af%86%e9%92%a5" >这里
 &lt;/a>&lt;/p>
 &lt;/blockquote>
 &lt;h3 id="本地仓库配置">本地仓库配置&lt;/h3>
@@ -135,8 +135,8 @@ fill="currentColor">
 &lt;h2 id="本地预览及推送">本地预览及推送&lt;/h2>
 &lt;h3 id="本地预览">本地预览&lt;/h3>
 &lt;p>在 Android 端写作完成后，我们也可以通过 &lt;code>hugo server&lt;/code> 命令进行本地预览，但是在 termux 下不太一样，直接运行 &lt;code>hugo server&lt;/code> 会报错，所以要加上一个 &lt;code>noBuildLock&lt;/code> 参数：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo --noBuildLock
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过上述命令，即可在 Android 端通过 &lt;strong>localhost:1313&lt;/strong> 进行本地预览，同理，如果你要生成静态文件，也是需要添加 &lt;code>noBuildLock&lt;/code> 参数。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo server --noBuildLock
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过上述命令，即可在 Android 端通过 &lt;strong>localhost:1313&lt;/strong> 进行本地预览，同理，如果你要通过 &lt;code>hugo&lt;/code> 生成静态文件，也是需要添加 &lt;code>noBuildLock&lt;/code> 参数。&lt;/p>
 &lt;h3 id="推送">推送&lt;/h3>
 &lt;p>在写作完成及预览无误后，就可以进行推送到远程仓库了。与桌面端一样，通过 &lt;code>push&lt;/code> 进行推送：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git add .
@@ -182,10 +182,10 @@ fill="currentColor">
 &lt;/a> ；因为我一直使用的 Caddy 所以我就用 Caddy+MariaDB/MySQL 的方式来搭建，这里记录一下踩坑过程；当然你使用 Nginx/Apache 加上其他数据库的组合也是可以的。&lt;/p>
 &lt;h2 id="部署过程">部署过程&lt;/h2>
 &lt;h3 id="准备工作">准备工作&lt;/h3>
-&lt;p>域名解析这块就不多讲了，提前绑定到你的服务器 IP ；服务器基本配置与优化可以参考 &lt;a class="link" href="/p/setvps" >这里
-&lt;/a> ；至于 Web 服务这块，如果你使用 Nginx/Apache+MariaDB/MySQL 可以看 &lt;a class="link" href="/p/oneinstack" >这里
+&lt;p>域名解析这块就不多讲了，提前绑定到你的服务器 IP ；服务器基本配置与优化可以参考 &lt;a class="link" href="/archives/setvps" >这里
+&lt;/a> ；至于 Web 服务这块，如果你使用 Nginx/Apache+MariaDB/MySQL 可以看 &lt;a class="link" href="/archives/oneinstack" >这里
 &lt;/a> 搭建好 Web 服务与数据库。&lt;/p>
-&lt;p>如果你想和我一样使用 Caddy Server 那么你可以参考 &lt;a class="link" href="/p/caddy" >这里
+&lt;p>如果你想和我一样使用 Caddy Server 那么你可以参考 &lt;a class="link" href="/archives/caddy" >这里
 &lt;/a> 先搭建 Caddy Server ；然后来安装数据库，我这里以 MariaDB/MySQL 为例：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt update
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install mariadb-server -y
@@ -215,7 +215,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你需要用软件进行远程管理数据库，那么就不要禁用远程登陆，并且需要通过防火墙来开放 &lt;code>3306&lt;/code> 端口&lt;/p>
 &lt;hr>
 &lt;h3 id="安装-nodejs">安装 Nodejs&lt;/h3>
-&lt;p>这里要注意，不要直接使用 &lt;code>apt install&lt;/code> 进行安装，因为软件包版本比较低，与 &lt;strong>npm&lt;/strong> 版本不匹配，从而导致后面报错。所以我们可以通过包管理器，或者二进制文件安装。&lt;/p>
+&lt;p>这里要注意，不要直接使用 &lt;code>apt install&lt;/code> 进行安装，会导致后面报错，具体原因我也不知道。所以我们可以通过包管理器、二进制文件或者源码编译进行安装。&lt;/p>
 &lt;h4 id="包管理器安装">包管理器安装&lt;/h4>
 &lt;p>输入以下命令进行安装：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get update
@@ -264,7 +264,6 @@ data-flex-basis="440px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv node-v16.18.0-linux-x64 node &lt;span class="c1"># 重命名文件夹&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑 &lt;code>~/.profile&lt;/code> 设置环境变量，加入：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">VERSION&lt;/span>&lt;span class="o">=&lt;/span>v16.18.0
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/src/node/bin:&lt;span class="nv">$PATH&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>完成后可通过 &lt;code>node -v&lt;/code> 、 &lt;code>npm version&lt;/code> 、 &lt;code>npx -v&lt;/code> 进行验证，返回版本号则表示成功。&lt;/p>
@@ -292,13 +291,14 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/profile
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在最后添加：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">VERSION&lt;/span>&lt;span class="o">=&lt;/span>vxx.xx.x
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/node/bin:&lt;span class="nv">$PATH&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>为软件设置软链接：&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以为软件设置个软链接：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/node /usr/bin/node
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/npm /usr/bin/npm
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/npx /usr/bin/npx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>刷新变量环境：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> /etc/profile
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>源码编译安装比较费时，具体时间视机器配置而定，可酌情选择安装方式。&lt;/p>
 &lt;hr>
 &lt;h3 id="安装-waline">安装 Waline&lt;/h3>
@@ -371,8 +371,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
 &lt;h3 id="配置-systemd-服务">配置 systemd 服务&lt;/h3>
 &lt;p>为了方便 Waline 的正常运行与管理，我使用的是 systemd 服务进行管理，创建文件并进行编辑(拿不准的可以在本地新建文件，编辑之后上传)：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /etc/systemd/system/
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">touch waline.service
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/lib/systemd/system/
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim waline.service
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>模板如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-service" data-lang="service">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
@@ -430,9 +429,13 @@ fill="currentColor">
 &lt;h4 id="caddy">Caddy&lt;/h4>
 &lt;p>我使用的是 Caddy ， Caddy 反代需要修改 &lt;strong>/etc/caddy/Caddyfile&lt;/strong> 文件：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/waline&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">encode&lt;/span> &lt;span class="s">gzip&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">reverse_proxy&lt;/span> &lt;span class="n">127.0.0.1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8360&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">reverse_proxy&lt;/span> &lt;span class="n">127.0.0.1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8360&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">header_up&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="se">{host}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">header_up&lt;/span> &lt;span class="s">X-Real-IP&lt;/span> &lt;span class="se">{remote}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">header_up&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="se">{remote}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">header_up&lt;/span> &lt;span class="s">X-Forwarded-Proto&lt;/span> &lt;span class="s">https&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">tls&lt;/span> &lt;span class="s">user@email.com&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
@@ -780,7 +783,7 @@ fill="currentColor">
 &lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol></description></item><item><title>Hugo 博客部署至托管服务提升访问体验</title><link>/archives/hugo_deploy/</link><pubDate>Sun, 18 Sep 2022 14:02:55 +0800</pubDate><guid>/archives/hugo_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>之前在 &lt;a class="link" href="/p/hugo-actions/" >《使用 Github Actions 自动化部署 Hugo 博客》
+&lt;p>之前在 &lt;a class="link" href="/archives/hugo-actions/" >《使用 Github Actions 自动化部署 Hugo 博客》
 &lt;/a> 一文中我讲了通过 Github Actions 自动部署 Hugo 博客到 Github Pages ； Github Pages 免费而且无需考虑成本及维护；但是 Github 毕竟是在海外，访问有问题，还时常抽风；访问体验算不上差强人意吧，也只能说是大失所望了。那怎样简单又低成本解决这个问题呢？ (毕竟白嫖才是硬道理) 现在就来看一下今天的主角：&lt;/p>
 &lt;ul>
 &lt;li>&lt;a class="link" href="https://vercel.com" target="_blank" rel="noopener"
@@ -962,9 +965,9 @@ fill="currentColor">
 &lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol></description></item><item><title>使用 Github Actions 自动化部署 Hugo 博客</title><link>/archives/hugo_actions/</link><pubDate>Sat, 16 Jul 2022 13:25:48 +0800</pubDate><guid>/archives/hugo_actions/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>之前在 &lt;a class="link" href="/p/hugo/" >《使用 Hugo 搭建个人博客及部署》
+&lt;p>之前在 &lt;a class="link" href="/archives/hugo/" >《使用 Hugo 搭建个人博客及部署》
 &lt;/a> 一文中, 我讲了通过 Hugo 来搭建个人博客, 并部署到 Github Pages 来实现一个在线访问.但是这样手动部署一开始还觉得比较新奇有趣, 时间一长的话难免会觉得有些麻烦, 一有什么改动就要全部重新部署, 那么本文就将讲一下通过 &lt;code>Github Actions&lt;/code> 来实现将我们的 Hugo 博客自动部署到 Github Pages 或者我们自己的云服务器上, 现在就一起来看一下.&lt;/p>
-&lt;p>&lt;strong>注意&lt;/strong>: 本文所有操作的前提条件是在 &lt;a class="link" href="/p/hugo/" >《使用 Hugo 搭建个人博客及部署》
+&lt;p>&lt;strong>注意&lt;/strong>: 本文所有操作的前提条件是在 &lt;a class="link" href="/archives/hugo/" >《使用 Hugo 搭建个人博客及部署》
 &lt;/a> 一文的基础上, 可以先行查阅.&lt;/p>
 &lt;hr>
 &lt;h2 id="介绍与准备">介绍与准备&lt;/h2>

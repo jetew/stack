@@ -31,9 +31,8 @@
 </span></span><span class=line><span class=cl>ln -s /usr/local/gcc/bin/g++ /usr/bin/g++
 </span></span><span class=line><span class=cl>ln -s /usr/local/gcc/bin/gcc /usr/bin/gcc
 </span></span></code></pre></div><ol start=3><li>添加环境变量</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>vim /etc/profile
-</span></span></code></pre></div><p>修改 <code>/etc/profile</code> 文件，在末尾添加如下两句：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nv>LD_LIBRARY_PATH</span><span class=o>=</span>/usr/local/gcc/lib:<span class=nv>$LD_LIBRARY_PATH</span>
-</span></span><span class=line><span class=cl><span class=nb>export</span> LD_LIBRARY_PATH
-</span></span></code></pre></div><p>然后刷新一下变量环境：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>source</span> /etc/profile
+</span></span></code></pre></div><p>修改 <code>/etc/profile</code> 文件，在 <code>export PATH=</code> 后添加：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>exprot <span class=nv>PATH</span><span class=o>=</span>/usr/local/gcc/bin:<span class=nv>$PATH</span>
+</span></span></code></pre></div><p>若没有这项可以自行在最后添加，其中 <code>/usr/local/gcc/bin</code> 为 <code>gcc</code> 目录</p><p>然后刷新一下变量环境：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>source</span> /etc/profile
 </span></span></code></pre></div><h3 id=更新动态库>更新动态库</h3><p>更新完成后需要对旧版本的动态库进行替换，首先查找一下文件：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>find / -name <span class=s2>&#34;libstdc++.so&#34;</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># 输出</span>

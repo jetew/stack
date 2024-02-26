@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Github on Kitin's</title><link>/tags/github/</link><description>Recent content in Github on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Tue, 01 Nov 2022 13:18:02 +0800</lastBuildDate><atom:link href="/tags/github/index.xml" rel="self" type="application/rss+xml"/><item><title>我写博客的方式</title><link>/archives/how_to_write/</link><pubDate>Tue, 01 Nov 2022 13:18:02 +0800</pubDate><guid>/archives/how_to_write/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>一般来说，大家会有一些想法或者突如其来的灵感需要进行记录；那么我们会选择将它们记录在手机便签、文本编辑器或者直接用笔写下来；等最后再梳理成文。正常情况下我们都是在电脑前进行写作，但是有时候用不了，或者不方便在电脑前进行写作；那应该怎么办？今天就来看下我的日常写作方式。&lt;/p>
+&lt;p>一般来说，大家会有一些想法或者突如其来的灵感需要进行记录；那么我们会选择将它们记录在手机便签、文本编辑器或者直接用笔写下来；等最后再梳理成文。正常情况下我们都是在电脑前进行写作，但是有时候不方便在电脑前进行写作；那应该怎么办？今天就来看下我的日常写作方式。&lt;/p>
 &lt;p>看过前面文章的应该知道，我自己是将 Hugo 博客源码通过 Git 推送到 Github 远程仓库然后由 Github Actions 自动部署到服务器上面，所以我写文章的流程就是通过 Git 同步远程仓库，写作完成后再推送到远程仓库通过 Github Actions 自动部署就可以了。那么现在就一起来看下这个过程的实现。&lt;/p>
 &lt;p>我的话，平常使用的客户端为：家里电脑 (WindowsX2) 、公司电脑 (Windows) 、笔记本 (Linux)、手机 (Android)；简化一点就是 Windows、Linux、Android。一般情况下，我们就是 Win 和 Android 了。要实现在安卓使用 Git 的话，我们就需要安装一款神级软件 &lt;strong>Termux&lt;/strong>&lt;/p>
 &lt;hr>
@@ -71,7 +71,7 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg update
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg install -y curl wget
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="安装-git">安装 Git&lt;/h4>
-&lt;p>更换完清华源后，进行 Git 安装：&lt;/p>
+&lt;p>进行 Git 安装：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg update
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg install -y git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="创建目录软链接">创建目录软链接&lt;/h4>
@@ -100,7 +100,7 @@ fill="currentColor">
 &lt;h3 id="公钥添加至-github">公钥添加至 Github&lt;/h3>
 &lt;p>输入 &lt;code>cat ~/.ssh/id_ed25519.pub&lt;/code> 查看公钥内容，然后复制；打开 Github 点击： &lt;strong>右上角头像 - Settings - SSH and GPG keys - New SSH Key&lt;/strong> 把刚才复制的公钥粘贴到 &lt;strong>Key&lt;/strong> 中，命名随意，然后保存。&lt;/p>
 &lt;blockquote>
-&lt;p>详细图文过程可以参考 &lt;a class="link" href="/p/hugo/#%e6%b7%bb%e5%8a%a0%e5%af%86%e9%92%a5" >这里
+&lt;p>详细图文过程可以参考 &lt;a class="link" href="/archives/hugo/#%e6%b7%bb%e5%8a%a0%e5%af%86%e9%92%a5" >这里
 &lt;/a>&lt;/p>
 &lt;/blockquote>
 &lt;h3 id="本地仓库配置">本地仓库配置&lt;/h3>
@@ -135,8 +135,8 @@ fill="currentColor">
 &lt;h2 id="本地预览及推送">本地预览及推送&lt;/h2>
 &lt;h3 id="本地预览">本地预览&lt;/h3>
 &lt;p>在 Android 端写作完成后，我们也可以通过 &lt;code>hugo server&lt;/code> 命令进行本地预览，但是在 termux 下不太一样，直接运行 &lt;code>hugo server&lt;/code> 会报错，所以要加上一个 &lt;code>noBuildLock&lt;/code> 参数：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo --noBuildLock
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过上述命令，即可在 Android 端通过 &lt;strong>localhost:1313&lt;/strong> 进行本地预览，同理，如果你要生成静态文件，也是需要添加 &lt;code>noBuildLock&lt;/code> 参数。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo server --noBuildLock
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过上述命令，即可在 Android 端通过 &lt;strong>localhost:1313&lt;/strong> 进行本地预览，同理，如果你要通过 &lt;code>hugo&lt;/code> 生成静态文件，也是需要添加 &lt;code>noBuildLock&lt;/code> 参数。&lt;/p>
 &lt;h3 id="推送">推送&lt;/h3>
 &lt;p>在写作完成及预览无误后，就可以进行推送到远程仓库了。与桌面端一样，通过 &lt;code>push&lt;/code> 进行推送：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git add .
@@ -171,7 +171,7 @@ fill="currentColor">
 &lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol></description></item><item><title>Hugo 博客部署至托管服务提升访问体验</title><link>/archives/hugo_deploy/</link><pubDate>Sun, 18 Sep 2022 14:02:55 +0800</pubDate><guid>/archives/hugo_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>之前在 &lt;a class="link" href="/p/hugo-actions/" >《使用 Github Actions 自动化部署 Hugo 博客》
+&lt;p>之前在 &lt;a class="link" href="/archives/hugo-actions/" >《使用 Github Actions 自动化部署 Hugo 博客》
 &lt;/a> 一文中我讲了通过 Github Actions 自动部署 Hugo 博客到 Github Pages ； Github Pages 免费而且无需考虑成本及维护；但是 Github 毕竟是在海外，访问有问题，还时常抽风；访问体验算不上差强人意吧，也只能说是大失所望了。那怎样简单又低成本解决这个问题呢？ (毕竟白嫖才是硬道理) 现在就来看一下今天的主角：&lt;/p>
 &lt;ul>
 &lt;li>&lt;a class="link" href="https://vercel.com" target="_blank" rel="noopener"
@@ -353,9 +353,9 @@ fill="currentColor">
 &lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol></description></item><item><title>使用 Github Actions 自动化部署 Hugo 博客</title><link>/archives/hugo_actions/</link><pubDate>Sat, 16 Jul 2022 13:25:48 +0800</pubDate><guid>/archives/hugo_actions/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>之前在 &lt;a class="link" href="/p/hugo/" >《使用 Hugo 搭建个人博客及部署》
+&lt;p>之前在 &lt;a class="link" href="/archives/hugo/" >《使用 Hugo 搭建个人博客及部署》
 &lt;/a> 一文中, 我讲了通过 Hugo 来搭建个人博客, 并部署到 Github Pages 来实现一个在线访问.但是这样手动部署一开始还觉得比较新奇有趣, 时间一长的话难免会觉得有些麻烦, 一有什么改动就要全部重新部署, 那么本文就将讲一下通过 &lt;code>Github Actions&lt;/code> 来实现将我们的 Hugo 博客自动部署到 Github Pages 或者我们自己的云服务器上, 现在就一起来看一下.&lt;/p>
-&lt;p>&lt;strong>注意&lt;/strong>: 本文所有操作的前提条件是在 &lt;a class="link" href="/p/hugo/" >《使用 Hugo 搭建个人博客及部署》
+&lt;p>&lt;strong>注意&lt;/strong>: 本文所有操作的前提条件是在 &lt;a class="link" href="/archives/hugo/" >《使用 Hugo 搭建个人博客及部署》
 &lt;/a> 一文的基础上, 可以先行查阅.&lt;/p>
 &lt;hr>
 &lt;h2 id="介绍与准备">介绍与准备&lt;/h2>

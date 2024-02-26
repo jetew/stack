@@ -125,10 +125,10 @@ fill="currentColor">
 &lt;/a> ；因为我一直使用的 Caddy 所以我就用 Caddy+MariaDB/MySQL 的方式来搭建，这里记录一下踩坑过程；当然你使用 Nginx/Apache 加上其他数据库的组合也是可以的。&lt;/p>
 &lt;h2 id="部署过程">部署过程&lt;/h2>
 &lt;h3 id="准备工作">准备工作&lt;/h3>
-&lt;p>域名解析这块就不多讲了，提前绑定到你的服务器 IP ；服务器基本配置与优化可以参考 &lt;a class="link" href="/p/setvps" >这里
-&lt;/a> ；至于 Web 服务这块，如果你使用 Nginx/Apache+MariaDB/MySQL 可以看 &lt;a class="link" href="/p/oneinstack" >这里
+&lt;p>域名解析这块就不多讲了，提前绑定到你的服务器 IP ；服务器基本配置与优化可以参考 &lt;a class="link" href="/archives/setvps" >这里
+&lt;/a> ；至于 Web 服务这块，如果你使用 Nginx/Apache+MariaDB/MySQL 可以看 &lt;a class="link" href="/archives/oneinstack" >这里
 &lt;/a> 搭建好 Web 服务与数据库。&lt;/p>
-&lt;p>如果你想和我一样使用 Caddy Server 那么你可以参考 &lt;a class="link" href="/p/caddy" >这里
+&lt;p>如果你想和我一样使用 Caddy Server 那么你可以参考 &lt;a class="link" href="/archives/caddy" >这里
 &lt;/a> 先搭建 Caddy Server ；然后来安装数据库，我这里以 MariaDB/MySQL 为例：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt update
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install mariadb-server -y
@@ -158,7 +158,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你需要用软件进行远程管理数据库，那么就不要禁用远程登陆，并且需要通过防火墙来开放 &lt;code>3306&lt;/code> 端口&lt;/p>
 &lt;hr>
 &lt;h3 id="安装-nodejs">安装 Nodejs&lt;/h3>
-&lt;p>这里要注意，不要直接使用 &lt;code>apt install&lt;/code> 进行安装，因为软件包版本比较低，与 &lt;strong>npm&lt;/strong> 版本不匹配，从而导致后面报错。所以我们可以通过包管理器，或者二进制文件安装。&lt;/p>
+&lt;p>这里要注意，不要直接使用 &lt;code>apt install&lt;/code> 进行安装，会导致后面报错，具体原因我也不知道。所以我们可以通过包管理器、二进制文件或者源码编译进行安装。&lt;/p>
 &lt;h4 id="包管理器安装">包管理器安装&lt;/h4>
 &lt;p>输入以下命令进行安装：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt-get update
@@ -207,7 +207,6 @@ data-flex-basis="440px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv node-v16.18.0-linux-x64 node &lt;span class="c1"># 重命名文件夹&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑 &lt;code>~/.profile&lt;/code> 设置环境变量，加入：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">VERSION&lt;/span>&lt;span class="o">=&lt;/span>v16.18.0
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/src/node/bin:&lt;span class="nv">$PATH&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>完成后可通过 &lt;code>node -v&lt;/code> 、 &lt;code>npm version&lt;/code> 、 &lt;code>npx -v&lt;/code> 进行验证，返回版本号则表示成功。&lt;/p>
@@ -235,13 +234,14 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/profile
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在最后添加：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">VERSION&lt;/span>&lt;span class="o">=&lt;/span>vxx.xx.x
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/node/bin:&lt;span class="nv">$PATH&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>为软件设置软链接：&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以为软件设置个软链接：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/node /usr/bin/node
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/npm /usr/bin/npm
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/npx /usr/bin/npx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>刷新变量环境：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> /etc/profile
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>源码编译安装比较费时，具体时间视机器配置而定，可酌情选择安装方式。&lt;/p>
 &lt;hr>
 &lt;h3 id="安装-waline">安装 Waline&lt;/h3>
@@ -314,8 +314,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
 &lt;h3 id="配置-systemd-服务">配置 systemd 服务&lt;/h3>
 &lt;p>为了方便 Waline 的正常运行与管理，我使用的是 systemd 服务进行管理，创建文件并进行编辑(拿不准的可以在本地新建文件，编辑之后上传)：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /etc/systemd/system/
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">touch waline.service
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/lib/systemd/system/
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim waline.service
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>模板如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-service" data-lang="service">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
@@ -373,9 +372,13 @@ fill="currentColor">
 &lt;h4 id="caddy">Caddy&lt;/h4>
 &lt;p>我使用的是 Caddy ， Caddy 反代需要修改 &lt;strong>/etc/caddy/Caddyfile&lt;/strong> 文件：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">domain.com&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/waline&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">encode&lt;/span> &lt;span class="s">gzip&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">reverse_proxy&lt;/span> &lt;span class="n">127.0.0.1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8360&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">reverse_proxy&lt;/span> &lt;span class="n">127.0.0.1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8360&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">header_up&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="se">{host}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">header_up&lt;/span> &lt;span class="s">X-Real-IP&lt;/span> &lt;span class="se">{remote}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">header_up&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="se">{remote}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">header_up&lt;/span> &lt;span class="s">X-Forwarded-Proto&lt;/span> &lt;span class="s">https&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">tls&lt;/span> &lt;span class="s">user@email.com&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
@@ -457,7 +460,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install caddy
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
 &lt;h3 id="安装-phpmysql">安装 PHP+MySQL&lt;/h3>
-&lt;p>这里我使用的是 Oneinstack 自动安装，参考：&lt;a class="link" href="/p/oneinstack" >一键安装 LNMP 及开设站点
+&lt;p>这里我使用的是 Oneinstack 自动安装，参考：&lt;a class="link" href="/archives/oneinstack" >一键安装 LNMP 及开设站点
 &lt;/a>&lt;/p>
 &lt;blockquote>
 &lt;p>安装方式不限，以自己为准，我只是习惯用 Oneinstack 自动安装&lt;/p>

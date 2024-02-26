@@ -41,7 +41,7 @@
 </span></span><span class=line><span class=cl>nginx: configuration file /usr/local/nginx/conf/nginx.conf <span class=nb>test</span> is successful
 </span></span><span class=line><span class=cl>nginx -s reload
 </span></span></code></pre></div><h3 id=caddy-操作>Caddy 操作</h3><p>同样将 <code>domian.com.key</code> 和 <code>domian.com.crt</code> 上传至服务器，比如我上传到 <code>/var/caddy/ssl</code> 目录下，然后对 <code>Caddyfile</code> 进行修改：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>vim /etc/caddy/Caddyfile
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>domain.com</span> <span class=p>{</span>
+</span></span></code></pre></div><p>按照下面进行更改：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>domain.com</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>    <span class=k>log</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>        <span class=k>output</span> <span class=s>file</span> <span class=s>/var/log/caddy/domain.com.log</span>
 </span></span><span class=line><span class=cl>        <span class=k>level</span> <span class=s>error</span>
@@ -52,7 +52,7 @@
 </span></span><span class=line><span class=cl>        <span class=k>rewrite</span> <span class=nd>*</span> <span class=s>/</span><span class=se>{err.status_code}</span><span class=s>.html</span>
 </span></span><span class=line><span class=cl>        <span class=k>file_server</span>
 </span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=k>php_fastcgi</span> <span class=s>unix//run/php/php7.4-fpm.sock</span>
+</span></span><span class=line><span class=cl>    <span class=k>php_fastcgi</span> <span class=s>unix//dev/shm/php-cgi.sock</span>
 </span></span><span class=line><span class=cl>    <span class=k>file_server</span>
 </span></span><span class=line><span class=cl>    <span class=k>tls</span> <span class=nd>/path/to/domain.com.pem</span> <span class=s>/path/to/domain.com.key</span><span class=c1>
 </span></span></span><span class=line><span class=cl><span class=c1>    # 证书和密钥的 PEM 格式的文件绝对路径，注意中间空格

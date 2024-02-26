@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vrecel on Kitin's</title><link>/tags/vrecel/</link><description>Recent content in Vrecel on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sun, 18 Sep 2022 14:02:55 +0800</lastBuildDate><atom:link href="/tags/vrecel/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo 博客部署至托管服务提升访问体验</title><link>/archives/hugo_deploy/</link><pubDate>Sun, 18 Sep 2022 14:02:55 +0800</pubDate><guid>/archives/hugo_deploy/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>之前在 &lt;a class="link" href="/p/hugo-actions/" >《使用 Github Actions 自动化部署 Hugo 博客》
+&lt;p>之前在 &lt;a class="link" href="/archives/hugo-actions/" >《使用 Github Actions 自动化部署 Hugo 博客》
 &lt;/a> 一文中我讲了通过 Github Actions 自动部署 Hugo 博客到 Github Pages ； Github Pages 免费而且无需考虑成本及维护；但是 Github 毕竟是在海外，访问有问题，还时常抽风；访问体验算不上差强人意吧，也只能说是大失所望了。那怎样简单又低成本解决这个问题呢？ (毕竟白嫖才是硬道理) 现在就来看一下今天的主角：&lt;/p>
 &lt;ul>
 &lt;li>&lt;a class="link" href="https://vercel.com" target="_blank" rel="noopener"

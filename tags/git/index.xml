@@ -35,13 +35,12 @@
 &lt;p>然后添加私钥并进行测试&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh-add ~/.ssh/github
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ssh-add ~/.ssh/gitee
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ssh -T git@github
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ssh -T git@gitee
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ssh -T git@github.com
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ssh -T git@gitee.com
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>成功则会返回欢迎你的用户名信息。&lt;/p>
 &lt;h4 id="创建配置文件">创建配置文件&lt;/h4>
 &lt;p>创建完密钥对后，需要创建一个配置文件来分配私钥以及主机&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">touch config
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim config &lt;span class="c1"># 或者直接用 VS Code 编辑&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim config &lt;span class="c1"># 或者直接用 VS Code 编辑&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>config 配置文件内容如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Github&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host github.com
@@ -67,7 +66,7 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里注意下新的 remote 格式，因为之前设置了 config 文件，所以相对的地址为：git@(config 中的 Host):用户名/仓库名.git 即：&lt;code>git@github.com:uesrname/repositories.git&lt;/code>&lt;/p>
 &lt;p>然后按照同样的方法为 Gitee 设置即可。&lt;/p>
 &lt;h3 id="扩展配置">扩展配置&lt;/h3>
-&lt;p>除了为 Git 分配主机和私钥外，也可以为自己的服务器进行设置，首先为服务器设置密钥登陆，可以参考 &lt;a class="link" href="/p/setvps/#%e8%ae%be%e7%bd%ae%e7%a7%98%e9%92%a5%e7%99%bb%e5%bd%95" >这里
+&lt;p>除了为 Git 分配主机和私钥外，也可以为自己的服务器进行设置，首先为服务器设置密钥登陆，可以参考 &lt;a class="link" href="/archives/setvps/#%e8%ae%be%e7%bd%ae%e7%a7%98%e9%92%a5%e7%99%bb%e5%bd%95" >这里
 &lt;/a> ；然后将密钥对下载到本地 ~/.ssh 目录下，然后重命名并编辑 config 文件，如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Github&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host github.com
@@ -108,7 +107,7 @@
 &lt;p>这样就可以通过代理来进行 Github 的推送/拉取操作，再也不用担心连接超时和连接失败啦。&lt;/p>
 &lt;h2 id="总结">总结&lt;/h2>
 &lt;p>以上就是 Git 多用户、仓库配置及使用代理的全部过程啦，希望能给大家带来一定的帮助。有个问题就是我在创建 config 配置文件后无法通过 PS (Power Shell) 进行 SSH 连接；连接就报错 &lt;code>Bad owner or permissions&lt;/code> ；网上也找了解决方案，但是都没有用。现在一直是使用 Terminal 打开 Git bash 进行 SSH 连接，以后有了好的解决方案会和大家进行分享；也希望能有懂的大佬给出一点建设性的意见，十分感谢🙏&lt;/p></description></item><item><title>我写博客的方式</title><link>/archives/how_to_write/</link><pubDate>Tue, 01 Nov 2022 13:18:02 +0800</pubDate><guid>/archives/how_to_write/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>一般来说，大家会有一些想法或者突如其来的灵感需要进行记录；那么我们会选择将它们记录在手机便签、文本编辑器或者直接用笔写下来；等最后再梳理成文。正常情况下我们都是在电脑前进行写作，但是有时候用不了，或者不方便在电脑前进行写作；那应该怎么办？今天就来看下我的日常写作方式。&lt;/p>
+&lt;p>一般来说，大家会有一些想法或者突如其来的灵感需要进行记录；那么我们会选择将它们记录在手机便签、文本编辑器或者直接用笔写下来；等最后再梳理成文。正常情况下我们都是在电脑前进行写作，但是有时候不方便在电脑前进行写作；那应该怎么办？今天就来看下我的日常写作方式。&lt;/p>
 &lt;p>看过前面文章的应该知道，我自己是将 Hugo 博客源码通过 Git 推送到 Github 远程仓库然后由 Github Actions 自动部署到服务器上面，所以我写文章的流程就是通过 Git 同步远程仓库，写作完成后再推送到远程仓库通过 Github Actions 自动部署就可以了。那么现在就一起来看下这个过程的实现。&lt;/p>
 &lt;p>我的话，平常使用的客户端为：家里电脑 (WindowsX2) 、公司电脑 (Windows) 、笔记本 (Linux)、手机 (Android)；简化一点就是 Windows、Linux、Android。一般情况下，我们就是 Win 和 Android 了。要实现在安卓使用 Git 的话，我们就需要安装一款神级软件 &lt;strong>Termux&lt;/strong>&lt;/p>
 &lt;hr>
@@ -180,7 +179,7 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg update
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg install -y curl wget
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="安装-git">安装 Git&lt;/h4>
-&lt;p>更换完清华源后，进行 Git 安装：&lt;/p>
+&lt;p>进行 Git 安装：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg update
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg install -y git
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="创建目录软链接">创建目录软链接&lt;/h4>
@@ -209,7 +208,7 @@ fill="currentColor">
 &lt;h3 id="公钥添加至-github">公钥添加至 Github&lt;/h3>
 &lt;p>输入 &lt;code>cat ~/.ssh/id_ed25519.pub&lt;/code> 查看公钥内容，然后复制；打开 Github 点击： &lt;strong>右上角头像 - Settings - SSH and GPG keys - New SSH Key&lt;/strong> 把刚才复制的公钥粘贴到 &lt;strong>Key&lt;/strong> 中，命名随意，然后保存。&lt;/p>
 &lt;blockquote>
-&lt;p>详细图文过程可以参考 &lt;a class="link" href="/p/hugo/#%e6%b7%bb%e5%8a%a0%e5%af%86%e9%92%a5" >这里
+&lt;p>详细图文过程可以参考 &lt;a class="link" href="/archives/hugo/#%e6%b7%bb%e5%8a%a0%e5%af%86%e9%92%a5" >这里
 &lt;/a>&lt;/p>
 &lt;/blockquote>
 &lt;h3 id="本地仓库配置">本地仓库配置&lt;/h3>
@@ -244,8 +243,8 @@ fill="currentColor">
 &lt;h2 id="本地预览及推送">本地预览及推送&lt;/h2>
 &lt;h3 id="本地预览">本地预览&lt;/h3>
 &lt;p>在 Android 端写作完成后，我们也可以通过 &lt;code>hugo server&lt;/code> 命令进行本地预览，但是在 termux 下不太一样，直接运行 &lt;code>hugo server&lt;/code> 会报错，所以要加上一个 &lt;code>noBuildLock&lt;/code> 参数：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo --noBuildLock
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过上述命令，即可在 Android 端通过 &lt;strong>localhost:1313&lt;/strong> 进行本地预览，同理，如果你要生成静态文件，也是需要添加 &lt;code>noBuildLock&lt;/code> 参数。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo server --noBuildLock
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过上述命令，即可在 Android 端通过 &lt;strong>localhost:1313&lt;/strong> 进行本地预览，同理，如果你要通过 &lt;code>hugo&lt;/code> 生成静态文件，也是需要添加 &lt;code>noBuildLock&lt;/code> 参数。&lt;/p>
 &lt;h3 id="推送">推送&lt;/h3>
 &lt;p>在写作完成及预览无误后，就可以进行推送到远程仓库了。与桌面端一样，通过 &lt;code>push&lt;/code> 进行推送：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git add .

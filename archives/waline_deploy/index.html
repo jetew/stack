@@ -4,9 +4,9 @@
 <time class=article-time--published>Oct 20, 2022</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>阅读时长: 5 分钟</time></div></footer></div></header><section class=article-content><h2 id=前言>前言</h2><p>之前讲了通过 Vercel 来进行 Waline 服务端的部署，这是最简单，也是完全免费的方法；但是对于拥有自己服务器的人来说，可能更想要将 Waline 直接部署到自己的服务器上；毕竟服务器摆在那，不用也是浪费，何不将 Waline 服务端也部署自己的服务器上以方便进行管理呢？其实 Waline 提供了很多的部署方案，可以看 <a class=link href=https://waline.js.org/advanced/intro.html target=_blank rel=noopener>这里
 <span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span>
-</a>；因为我一直使用的 Caddy 所以我就用 Caddy+MariaDB/MySQL 的方式来搭建，这里记录一下踩坑过程；当然你使用 Nginx/Apache 加上其他数据库的组合也是可以的。</p><h2 id=部署过程>部署过程</h2><h3 id=准备工作>准备工作</h3><p>域名解析这块就不多讲了，提前绑定到你的服务器 IP ；服务器基本配置与优化可以参考 <a class=link href=/p/setvps>这里
-</a>；至于 Web 服务这块，如果你使用 Nginx/Apache+MariaDB/MySQL 可以看 <a class=link href=/p/oneinstack>这里
-</a>搭建好 Web 服务与数据库。</p><p>如果你想和我一样使用 Caddy Server 那么你可以参考 <a class=link href=/p/caddy>这里
+</a>；因为我一直使用的 Caddy 所以我就用 Caddy+MariaDB/MySQL 的方式来搭建，这里记录一下踩坑过程；当然你使用 Nginx/Apache 加上其他数据库的组合也是可以的。</p><h2 id=部署过程>部署过程</h2><h3 id=准备工作>准备工作</h3><p>域名解析这块就不多讲了，提前绑定到你的服务器 IP ；服务器基本配置与优化可以参考 <a class=link href=/archives/setvps>这里
+</a>；至于 Web 服务这块，如果你使用 Nginx/Apache+MariaDB/MySQL 可以看 <a class=link href=/archives/oneinstack>这里
+</a>搭建好 Web 服务与数据库。</p><p>如果你想和我一样使用 Caddy Server 那么你可以参考 <a class=link href=/archives/caddy>这里
 </a>先搭建 Caddy Server ；然后来安装数据库，我这里以 MariaDB/MySQL 为例：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt update
 </span></span><span class=line><span class=cl>apt install mariadb-server -y
 </span></span></code></pre></div><p>安装完 MariaDB 后，键入以下命令来进行初始化：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mysql_secure_installation
@@ -30,7 +30,7 @@
 </span></span><span class=line><span class=cl>installation should now be secure.
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>Thanks <span class=k>for</span> using MariaDB!
-</span></span></code></pre></div><p>如果你需要用软件进行远程管理数据库，那么就不要禁用远程登陆，并且需要通过防火墙来开放 <code>3306</code> 端口</p><hr><h3 id=安装-nodejs>安装 Nodejs</h3><p>这里要注意，不要直接使用 <code>apt install</code> 进行安装，因为软件包版本比较低，与 <strong>npm</strong> 版本不匹配，从而导致后面报错。所以我们可以通过包管理器，或者二进制文件安装。</p><h4 id=包管理器安装>包管理器安装</h4><p>输入以下命令进行安装：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt-get update
+</span></span></code></pre></div><p>如果你需要用软件进行远程管理数据库，那么就不要禁用远程登陆，并且需要通过防火墙来开放 <code>3306</code> 端口</p><hr><h3 id=安装-nodejs>安装 Nodejs</h3><p>这里要注意，不要直接使用 <code>apt install</code> 进行安装，会导致后面报错，具体原因我也不知道。所以我们可以通过包管理器、二进制文件或者源码编译进行安装。</p><h4 id=包管理器安装>包管理器安装</h4><p>输入以下命令进行安装：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt-get update
 </span></span><span class=line><span class=cl>apt-get install -y ca-certificates curl gnupg
 </span></span><span class=line><span class=cl>mkdir -p /etc/apt/keyrings
 </span></span><span class=line><span class=cl>curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key <span class=p>|</span> gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
@@ -52,7 +52,6 @@
 </span></span><span class=line><span class=cl>tar -Jxvf node-v16.18.0-linux-x64.tar.xz <span class=c1># 解压</span>
 </span></span><span class=line><span class=cl>mv node-v16.18.0-linux-x64 node <span class=c1># 重命名文件夹</span>
 </span></span></code></pre></div><p>编辑 <code>~/.profile</code> 设置环境变量，加入：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Nodejs</span>
-</span></span><span class=line><span class=cl><span class=nv>VERSION</span><span class=o>=</span>v16.18.0
 </span></span><span class=line><span class=cl><span class=nv>DISTRO</span><span class=o>=</span>linux-x64
 </span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>PATH</span><span class=o>=</span>/usr/local/src/node/bin:<span class=nv>$PATH</span>
 </span></span></code></pre></div><p>完成后可通过 <code>node -v</code> 、 <code>npm version</code> 、 <code>npx -v</code> 进行验证，返回版本号则表示成功。</p><h4 id=源码编译安装>源码编译安装</h4><p>首先安装依赖：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt-get install python3 g++ make python3-pip
@@ -68,12 +67,12 @@
 </span></span><span class=line><span class=cl>make <span class=o>&amp;&amp;</span> make install
 </span></span></code></pre></div><p>安装完成之后为软件设置环境变量：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>vim /etc/profile
 </span></span></code></pre></div><p>在最后添加：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Nodejs</span>
-</span></span><span class=line><span class=cl><span class=nv>VERSION</span><span class=o>=</span>vxx.xx.x
 </span></span><span class=line><span class=cl><span class=nv>DISTRO</span><span class=o>=</span>linux-x64
 </span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>PATH</span><span class=o>=</span>/usr/local/node/bin:<span class=nv>$PATH</span>
-</span></span></code></pre></div><p>为软件设置软链接：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ln -s /usr/local/node/bin/node /usr/bin/node
+</span></span></code></pre></div><p>可以为软件设置个软链接：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ln -s /usr/local/node/bin/node /usr/bin/node
 </span></span><span class=line><span class=cl>ln -s /usr/local/node/bin/npm /usr/bin/npm
 </span></span><span class=line><span class=cl>ln -s /usr/local/node/bin/npx /usr/bin/npx
+</span></span></code></pre></div><p>刷新变量环境：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>source</span> /etc/profile
 </span></span></code></pre></div><p>源码编译安装比较费时，具体时间视机器配置而定，可酌情选择安装方式。</p><hr><h3 id=安装-waline>安装 Waline</h3><p>按照官方给出的独立部署中直接运行的方案，进入你想要安装的位置，安装好模块后直接运行模块内的 vanilla.js 文件：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> /usr/local/node/lib
 </span></span><span class=line><span class=cl>npm install -g @waline/vercel
 </span></span></code></pre></div><p>国内服务器请先将 <strong>npm</strong> 设置为国内镜像！！！</p><h4 id=更换镜像>更换镜像</h4><ol><li>临时更换</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>npm --registry https://registry.npmmirror.com install -g @waline/vercel
@@ -96,8 +95,7 @@
 </span></span><span class=line><span class=cl>GRANT ALL PRIVILEGES ON waline.* TO <span class=s1>&#39;waline&#39;</span>@<span class=s1>&#39;%&#39;</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>flush privileges<span class=p>;</span>
 </span></span><span class=line><span class=cl>quit
-</span></span></code></pre></div><hr><h3 id=配置-systemd-服务>配置 systemd 服务</h3><p>为了方便 Waline 的正常运行与管理，我使用的是 systemd 服务进行管理，创建文件并进行编辑(拿不准的可以在本地新建文件，编辑之后上传)：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> /etc/systemd/system/
-</span></span><span class=line><span class=cl>touch waline.service
+</span></span></code></pre></div><hr><h3 id=配置-systemd-服务>配置 systemd 服务</h3><p>为了方便 Waline 的正常运行与管理，我使用的是 systemd 服务进行管理，创建文件并进行编辑(拿不准的可以在本地新建文件，编辑之后上传)：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> /usr/lib/systemd/system/
 </span></span><span class=line><span class=cl>vim waline.service
 </span></span></code></pre></div><p>模板如下：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-service data-lang=service><span class=line><span class=cl><span class=k>[Unit]</span>
 </span></span><span class=line><span class=cl><span class=na>Description</span><span class=o>=</span><span class=s>Waline</span>
@@ -142,9 +140,13 @@
 </span></span><span class=line><span class=cl>systemctl status waline <span class=c1># 服务状态</span>
 </span></span><span class=line><span class=cl>systemctl <span class=nb>enable</span> waline <span class=c1># 添加开机自启动</span>
 </span></span></code></pre></div><hr><h3 id=反向代理设置>反向代理设置</h3><p>如果你不想通过 IP:8360 进行访问，那么就需要设置反向代理来通过域名进行访问了这里提供两个配置：</p><h4 id=caddy>Caddy</h4><p>我使用的是 Caddy ， Caddy 反代需要修改 <strong>/etc/caddy/Caddyfile</strong> 文件：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>domain.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/waline</span>
 </span></span><span class=line><span class=cl>    <span class=k>encode</span> <span class=s>gzip</span>
-</span></span><span class=line><span class=cl>    <span class=k>reverse_proxy</span> <span class=n>127.0.0.1</span><span class=p>:</span><span class=mi>8360</span>
+</span></span><span class=line><span class=cl>    <span class=k>reverse_proxy</span> <span class=n>127.0.0.1</span><span class=p>:</span><span class=mi>8360</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>header_up</span> <span class=s>Host</span> <span class=se>{host}</span>
+</span></span><span class=line><span class=cl>		  <span class=k>header_up</span> <span class=s>X-Real-IP</span> <span class=se>{remote}</span>
+</span></span><span class=line><span class=cl>		  <span class=k>header_up</span> <span class=s>X-Forwarded-For</span> <span class=se>{remote}</span>
+</span></span><span class=line><span class=cl>		  <span class=k>header_up</span> <span class=s>X-Forwarded-Proto</span> <span class=s>https</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
 </span></span><span class=line><span class=cl>    <span class=k>file_server</span>
 </span></span><span class=line><span class=cl>    <span class=k>tls</span> <span class=s>user@email.com</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>

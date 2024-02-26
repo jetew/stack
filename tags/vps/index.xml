@@ -312,10 +312,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
 &lt;p>这里我使用 vim 编辑，拿不准可以直接下载到本地编辑&lt;/p>
 &lt;/blockquote>
-&lt;p>找到默认 22 端口，将光标移动到该位置，输入 &lt;code>i &lt;/code> 进行编辑；去掉前面的注释，并且添加一个端口：&lt;/p>
+&lt;p>找到默认 &lt;strong>22&lt;/strong> 端口，将光标移动到该位置，输入 &lt;code>i &lt;/code> 进行编辑；去掉前面的注释，并且添加一个端口：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Port &lt;span class="m">22&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Port &lt;span class="m">1234&lt;/span> &lt;span class="c1"># 以 1234 端口为例&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑完成后按下 &lt;code>ESC&lt;/code> 然后输入 &lt;code>:wq!&lt;/code> 保存退出，并重启 &lt;code>sshd&lt;/code> 服务进程：&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑完成后按下 &lt;code>ESC&lt;/code> 然后输入 &lt;code>:wq&lt;/code> 保存退出，并重启 &lt;code>ssh&lt;/code> 服务进程：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart sshd
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置完毕后需要开放新端口，并开启防火墙；如果 VPS 管理面板自带防火墙可以通过管理面板开放端口；没有的话，我一般用 &lt;code>ufw&lt;/code>：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt install -y ufw
@@ -344,15 +344,15 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Your identification has been saved in /root/.ssh/id_rsa.
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Your public key has been saved in /root/.ssh/id_rsa.pub. &lt;span class="c1"># 公钥与私钥存储位置&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>生成的秘钥文件位于 &lt;code>root/.ssh&lt;/code> 目录下&lt;/p>
+&lt;p>生成的秘钥文件位于 &lt;code>~/.ssh&lt;/code> 目录下&lt;/p>
 &lt;/blockquote>
 &lt;p>也可以通过 &lt;code>XShell&lt;/code> 或者 &lt;code>PuTTy Gen&lt;/code> 软件进行生成秘钥文件，但是要注意它们生成的私钥并不通用，需要通过 &lt;code>PuTTy Gen&lt;/code> 进行转换。&lt;/p>
 &lt;ul>
 &lt;li>上传/配置公钥文件&lt;/li>
 &lt;/ul>
-&lt;p>如果是使用命令行在 VPS 生成的秘钥文件，则将私钥文件下载并导入 SSH 软件即可。若是软件生成，则将 &lt;code>id_rsa.pub&lt;/code> 文件上传至 &lt;code>root/.ssh&lt;/code> 目录下，完成上述操作后执行如下命令：&lt;/p>
+&lt;p>如果是使用命令行在 VPS 生成的秘钥文件，则将私钥文件下载并导入 SSH 软件即可。若是软件生成，则将 &lt;code>id_rsa.pub&lt;/code> 文件上传至 &lt;code>~/.ssh&lt;/code> 目录下，完成上述操作后执行如下命令：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mv id_rsa.pub authorized_keys
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">600&lt;/span> ./authorized_keys
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">600&lt;/span> authorized_keys
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后修改 &lt;code>sshd_config&lt;/code> 找到并修改成下面个配置 ：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">PubkeyAuthentication yes
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>保存退出，并重启服务进程：&lt;/p>
@@ -363,7 +363,7 @@ fill="currentColor">
 &lt;/ul>
 &lt;p>确认可以通过秘钥文件进行登录后，就可以禁止密码登录了，修改 &lt;code>etc/ssh/sshd_config&lt;/code> 文件，找到并修改成如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">PasswordAuthentication no
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启 &lt;code>sshd&lt;/code>&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启 &lt;code>ssh&lt;/code>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart sshd
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
 &lt;h3 id="开启加速服务">开启加速服务&lt;/h3>
@@ -408,4 +408,5 @@ data-flex-basis="603px"
 &lt;p>重启完成后，输入 &lt;code>./tcp.sh&lt;/code> 进入加速面板，选择对应内核的加速并输入对应数字开启加速。看到提示加速成功后，再次输入 &lt;code>./tcp.sh&lt;/code> 检查是否成功开启&lt;/p>
 &lt;p>如果想换一个加速，输入 &lt;code>./tcp.sh&lt;/code> 进入面板，并输入数字9进行卸载加速，然后进行同样的操作，安装内核再安装对应内核的加速即可。&lt;/p>
 &lt;hr>
-&lt;p>至此 VPS 的一些基本配置与优化结束&lt;/p></description></item></channel></rss>
+&lt;p>至此 VPS 的一些基本配置与优化结束&lt;/p>
+&lt;hr></description></item></channel></rss>
