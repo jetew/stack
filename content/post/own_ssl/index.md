@@ -115,6 +115,8 @@ nginx -s reload
 vim /etc/caddy/Caddyfile
 ```
 
+按照下面进行更改：
+
 ```caddyfile
 domain.com {
     log {
@@ -127,7 +129,7 @@ domain.com {
         rewrite * /{err.status_code}.html
         file_server
     }
-    php_fastcgi unix//run/php/php7.4-fpm.sock
+    php_fastcgi unix//dev/shm/php-cgi.sock
     file_server
     tls /path/to/domain.com.pem /path/to/domain.com.key
     # 证书和密钥的 PEM 格式的文件绝对路径，注意中间空格
