@@ -16,7 +16,7 @@ image:
 
 ## 前言
 
-一般来说，大家会有一些想法或者突如其来的灵感需要进行记录；那么我们会选择将它们记录在手机便签、文本编辑器或者直接用笔写下来；等最后再梳理成文。正常情况下我们都是在电脑前进行写作，但是有时候用不了，或者不方便在电脑前进行写作；那应该怎么办？今天就来看下我的日常写作方式。
+一般来说，大家会有一些想法或者突如其来的灵感需要进行记录；那么我们会选择将它们记录在手机便签、文本编辑器或者直接用笔写下来；等最后再梳理成文。正常情况下我们都是在电脑前进行写作，但是有时候不方便在电脑前进行写作；那应该怎么办？今天就来看下我的日常写作方式。
 
 <!--more-->
 
@@ -62,7 +62,7 @@ pkg install -y curl wget
 
 #### 安装 Git
 
-更换完清华源后，进行 Git 安装：
+进行 Git 安装：
 
 ```bash
 pkg update
@@ -123,7 +123,7 @@ ssh-keygen -t ed25519 -C "email"
 
 输入 `cat ~/.ssh/id_ed25519.pub` 查看公钥内容，然后复制；打开 Github 点击： **右上角头像 - Settings - SSH and GPG keys - New SSH Key** 把刚才复制的公钥粘贴到 **Key** 中，命名随意，然后保存。
 
-> 详细图文过程可以参考 [这里](/p/hugo/#添加密钥)
+> 详细图文过程可以参考 [这里](/archives/hugo/#添加密钥)
 
 
 ### 本地仓库配置
@@ -199,10 +199,10 @@ git clone https://github.com/zzossig/hugo-theme-zzo.git themes/zzo
 在 Android 端写作完成后，我们也可以通过 `hugo server` 命令进行本地预览，但是在 termux 下不太一样，直接运行 `hugo server` 会报错，所以要加上一个 `noBuildLock` 参数：
 
 ```bash
-hugo --noBuildLock
+hugo server --noBuildLock
 ```
 
-通过上述命令，即可在 Android 端通过 **localhost:1313** 进行本地预览，同理，如果你要生成静态文件，也是需要添加 `noBuildLock` 参数。
+通过上述命令，即可在 Android 端通过 **localhost:1313** 进行本地预览，同理，如果你要通过 `hugo` 生成静态文件，也是需要添加 `noBuildLock` 参数。
 
 ### 推送
 
