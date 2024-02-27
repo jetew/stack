@@ -262,10 +262,12 @@ data-flex-basis="440px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://nodejs.org/dist/v16.18.0/node-v16.18.0-linux-x64.tar.xz &lt;span class="c1"># 下载二进制包&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -Jxvf node-v16.18.0-linux-x64.tar.xz &lt;span class="c1"># 解压&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv node-v16.18.0-linux-x64 node &lt;span class="c1"># 重命名文件夹&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑 &lt;code>~/.profile&lt;/code> 设置环境变量，加入：&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑 &lt;code>~/.bashrc&lt;/code> 设置环境变量，加入：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/src/node/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>刷新变量环境：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.bashrc
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>完成后可通过 &lt;code>node -v&lt;/code> 、 &lt;code>npm version&lt;/code> 、 &lt;code>npx -v&lt;/code> 进行验证，返回版本号则表示成功。&lt;/p>
 &lt;h4 id="源码编译安装">源码编译安装&lt;/h4>
 &lt;p>首先安装依赖：&lt;/p>
@@ -288,7 +290,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">screen -S node
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> make install
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完成之后为软件设置环境变量：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/profile
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim ~/.bashrc
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在最后添加：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
@@ -298,7 +300,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/npm /usr/bin/npm
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/npx /usr/bin/npx
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>刷新变量环境：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> /etc/profile
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.bashrc
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>源码编译安装比较费时，具体时间视机器配置而定，可酌情选择安装方式。&lt;/p>
 &lt;hr>
 &lt;h3 id="安装-waline">安装 Waline&lt;/h3>

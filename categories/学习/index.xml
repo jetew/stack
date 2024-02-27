@@ -1,4 +1,136 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>学习 on Kitin's</title><link>/categories/%E5%AD%A6%E4%B9%A0/</link><description>Recent content in 学习 on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Mon, 02 Jan 2023 13:21:30 +0800</lastBuildDate><atom:link href="/categories/%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Cloudreve 搭建文件管理</title><link>/archives/cloudreve/</link><pubDate>Mon, 02 Jan 2023 13:21:30 +0800</pubDate><guid>/archives/cloudreve/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>学习 on Kitin's</title><link>/categories/%E5%AD%A6%E4%B9%A0/</link><description>Recent content in 学习 on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Tue, 27 Feb 2024 23:37:17 +0800</lastBuildDate><atom:link href="/categories/%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml"/><item><title>CentOS7 编译安装 Node</title><link>/archives/make_node/</link><pubDate>Tue, 27 Feb 2024 23:37:17 +0800</pubDate><guid>/archives/make_node/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>在之前的文章 &lt;a class="link" href="/archives/waline_deploy/" >《Waline 服务端独立部署方案》
+&lt;/a> 中有讲到过进行源码编译安装 Node ，但只是带过一下。其实我在使用 Debian 时直接进行编译安装是没有问题的，但是在 CentOS7 下，遇到许多问题；于是便在此记录一下方便日后进行查阅。&lt;/p>
+&lt;hr>
+&lt;h2 id="安装步骤">安装步骤&lt;/h2>
+&lt;h3 id="准备工作">准备工作&lt;/h3>
+&lt;ol>
+&lt;li>软件依赖&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;code>gcc&lt;/code> &lt;code>g++&lt;/code> ≥ 10.1&lt;/li>
+&lt;li>GNU Make ≥ 3.81&lt;/li>
+&lt;li>Python&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>安装依赖&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">yum install -y python3 make python3-pip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>gcc&lt;/code> 和 &lt;code>gcc-c++&lt;/code> 由于 &lt;strong>yum&lt;/strong> 源版本过低，需要另外进行编译安装，参考 &lt;a class="link" href="/archives/make_gcc/" >《CentOS 7 编译安装 gcc》
+&lt;/a>&lt;/p>
+&lt;ol start="3">
+&lt;li>下载源码&lt;/li>
+&lt;/ol>
+&lt;p>从 &lt;a class="link" href="https://nodejs.org/" target="_blank" rel="noopener"
+>Nodejs官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 下载源码并进行解压&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://nodejs.org/dist/v20.11.1/node-v20.11.1.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxvf node-v20.11.1.tar.gz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="编译安装">编译安装&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> node-v20.11.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./configure --prefix&lt;span class="o">=&lt;/span>/usr/local/node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">……
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">INFO: configure completed successfully
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 创建窗口，防止网络问题断开终端导致安装中止&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">screen -S node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里可以通过 &lt;code>make -j&lt;/code> 设置线程数来提升编译速度，如果不清楚该设置多少，可以通过 &lt;code>make -j$(nproc)&lt;/code> 自动计算线程数：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">make -j&lt;span class="k">$(&lt;/span>nproc&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>为软件设置环境变量：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim ~/.bashrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在最后添加：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/node/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>刷新变量环境：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.bashrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>完成后可通过 &lt;code>node -v&lt;/code> 、 &lt;code>npm version&lt;/code> 、 &lt;code>npx -v&lt;/code> 进行验证，返回版本号则表示成功。&lt;/p>
+&lt;ul>
+&lt;li>可能出现的问题&lt;/li>
+&lt;/ul>
+&lt;p>安装过程中可能会出现 &lt;code>…… : Error: no such instruction: ……&lt;/code> 若遇到此问题则需要通过编译安装新版 &lt;code>binutils&lt;/code>&lt;/p>
+&lt;h4 id="编译安装-binutils">编译安装 binutils&lt;/h4>
+&lt;p>可通过 &lt;a class="link" href="https://ftp.gnu.org/gnu/binutils/" target="_blank" rel="noopener"
+>GNU官方镜像
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 下载新版源码，国内服务器可使用 &lt;a class="link" href="https://mirrors.tuna.tsinghua.edu.cn/gnu/binutils/" target="_blank" rel="noopener"
+>清华大学镜像
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 国内服务器可更换为清华大学镜像下载地址&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxvf binutils-2.42.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> binutils-2.42
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./configure --prefix&lt;span class="o">=&lt;/span>/usr/local/binutils
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">…………
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">…………
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">configure: creating ./config.status
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">config.status: creating Makefile
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>卸载旧版本：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">yum remove -y binutils
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置环境变量：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim ~/.bashrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在最后添加：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/binutils/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>刷新变量环境：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.bashrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>最后编辑 &lt;code>/etc/yum.conf&lt;/code> 为 &lt;code>node&lt;/code> 和 &lt;code>binutils&lt;/code> 添加忽略：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/yum.conf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在末尾添加上：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">exclude&lt;/span>&lt;span class="o">=&lt;/span>node*,binutils*
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/nodejs/node/blob/main/BUILDING.md#building-nodejs-on-supported-platforms" target="_blank" rel="noopener"
+>Building Node.js from source on supported platforms
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://sourceware.org/binutils/binutils-porting-guide.txt" target="_blank" rel="noopener"
+>guide to porting the binutils
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>使用 Cloudreve 搭建文件管理</title><link>/archives/cloudreve/</link><pubDate>Mon, 02 Jan 2023 13:21:30 +0800</pubDate><guid>/archives/cloudreve/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>Cloudreve 可以让您快速搭建起公私兼备的网盘系统。Cloudreve 在底层支持不同的云存储平台，用户在实际使用时无须关心物理存储方式。你可以使用 Cloudreve 搭建个人用网盘、文件分享系统，亦或是针对大小团体的公有云系统。&lt;/p>
 &lt;h2 id="安装配置">安装配置&lt;/h2>
 &lt;h3 id="获取-cloudreve">获取 Cloudreve&lt;/h3>
@@ -615,38 +747,17 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/gcc/bin/g++ /usr/bin/g++
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/gcc/bin/gcc /usr/bin/gcc
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
-&lt;li>添加环境变量&lt;/li>
+&lt;li>添加环境变量、更新动态库&lt;/li>
 &lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/profile
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改 &lt;code>/etc/profile&lt;/code> 文件，在 &lt;code>export PATH=&lt;/code> 后添加：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">exprot &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/gcc/bin:&lt;span class="nv">$PATH&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>若没有这项可以自行在最后添加，其中 &lt;code>/usr/local/gcc/bin&lt;/code> 为 &lt;code>gcc&lt;/code> 目录&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim ~/.bashrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改 &lt;code>~/.bashrc&lt;/code> 文件，在最后添加：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/gcc/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">LD_LIBRARY_PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/gcc/lib64:&lt;span class="nv">$LD_LIBRARY_PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中 &lt;code>/usr/local/gcc&lt;/code> 为 &lt;code>gcc&lt;/code> 安装目录&lt;/p>
 &lt;p>然后刷新一下变量环境：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> /etc/profile
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="更新动态库">更新动态库&lt;/h3>
-&lt;p>更新完成后需要对旧版本的动态库进行替换，首先查找一下文件：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find / -name &lt;span class="s2">&amp;#34;libstdc++.so&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输出&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/lib64/libstdc++.so.6
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/lib64/libstdc++.so.6.0.19
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.py
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.pyc
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.pyo
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/gcc/lib64/libstdc++.so.6.0.28
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/gcc/lib64/libstdc++.so.6
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/gcc/lib64/libstdc++.so
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/gcc/lib64/libstdc++.so.6.0.28-gdb.py
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到现在老版本是 &lt;code>6.0.19&lt;/code> 而 &lt;code>libstdc++.so.6&lt;/code> 则是 &lt;code>libstdc++.so.6.0.19&lt;/code> 的软链接：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ls -l /usr/lib64/libstdc++.so.6
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输出&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lrwxrwxrwx. &lt;span class="m">1&lt;/span> root root &lt;span class="m">30&lt;/span> Dec &lt;span class="m">10&lt;/span> 06:50 /usr/lib64/libstdc++.so.6 -&amp;gt; /usr/lib64/libstdc++.so.6.0.19
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后将 gcc 中的动态库复制过去，删除旧版本链接并重新链接新版本：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cp /usr/local/gcc/lib64/libstdc++.so.6.0.28 /usr/lib64/
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rm -f /usr/lib64/libstdc++.so.6
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/lib64/libstdc++.so.6.0.28 /usr/lib64/libstdc++.so.6
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.bashrc
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>更新完毕，接下来就可以正常使用了。&lt;/p>
+&lt;hr>
 &lt;h3 id="添加忽略可选">添加忽略（可选）&lt;/h3>
 &lt;p>为防止误操作或运行自动化脚本情况导致被覆盖，可以将 cmake 添加忽略，编辑 &lt;code>/etc/yum.conf&lt;/code>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/yum.conf
@@ -1337,6 +1448,12 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/cmake/bin/cmake /usr/bin/cmake
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看版本&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cmake -version
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="添加环境变量">添加环境变量&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim ~/.bashrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改 &lt;code>~/.bashrc&lt;/code> 文件，在最后添加：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/cmake/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后刷新一下变量环境：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.bashrc
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="重新安装数据库">重新安装数据库&lt;/h3>
 &lt;p>一通操作下来，Cmake 已经是最新版本了，然后进入到 &lt;strong>~/lnmp1.9&lt;/strong> 也就是 LNMP 一键包解压目录下进行操作：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">./install.sh db
@@ -1645,10 +1762,12 @@ data-flex-basis="440px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://nodejs.org/dist/v16.18.0/node-v16.18.0-linux-x64.tar.xz &lt;span class="c1"># 下载二进制包&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -Jxvf node-v16.18.0-linux-x64.tar.xz &lt;span class="c1"># 解压&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv node-v16.18.0-linux-x64 node &lt;span class="c1"># 重命名文件夹&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑 &lt;code>~/.profile&lt;/code> 设置环境变量，加入：&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑 &lt;code>~/.bashrc&lt;/code> 设置环境变量，加入：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/src/node/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>刷新变量环境：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.bashrc
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>完成后可通过 &lt;code>node -v&lt;/code> 、 &lt;code>npm version&lt;/code> 、 &lt;code>npx -v&lt;/code> 进行验证，返回版本号则表示成功。&lt;/p>
 &lt;h4 id="源码编译安装">源码编译安装&lt;/h4>
 &lt;p>首先安装依赖：&lt;/p>
@@ -1671,7 +1790,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">screen -S node
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> make install
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完成之后为软件设置环境变量：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/profile
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim ~/.bashrc
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在最后添加：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
@@ -1681,7 +1800,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/npm /usr/bin/npm
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/npx /usr/bin/npx
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>刷新变量环境：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> /etc/profile
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.bashrc
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>源码编译安装比较费时，具体时间视机器配置而定，可酌情选择安装方式。&lt;/p>
 &lt;hr>
 &lt;h3 id="安装-waline">安装 Waline&lt;/h3>
