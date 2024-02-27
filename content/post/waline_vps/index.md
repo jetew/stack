@@ -128,9 +128,9 @@ mv node-v16.18.0-linux-x64 node # 重命名文件夹
 编辑 `~/.bashrc` 设置环境变量，加入：
 
 ```bash
-# Nodejs
-DISTRO=linux-x64
 export PATH=/usr/local/src/node/bin:$PATH
+export CPATH=/usr/local/src/node/include:$CPATH
+export LD_LIBRARY_PATH=/usr/local/src/node/lib:$LD_LIBRARY_PATH
 ```
 
 刷新变量环境：
@@ -171,9 +171,9 @@ vim ~/.bashrc
 在最后添加：
 
 ```bash
-# Nodejs
-DISTRO=linux-x64
 export PATH=/usr/local/node/bin:$PATH
+export CPATH=/usr/local/node/include:$CPATH
+export LD_LIBRARY_PATH=/usr/local/node/lib:$LD_LIBRARY_PATH
 ```
 
 可以为软件设置个软链接：
