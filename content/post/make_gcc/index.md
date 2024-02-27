@@ -97,63 +97,30 @@ ln -s /usr/local/gcc/bin/g++ /usr/bin/g++
 ln -s /usr/local/gcc/bin/gcc /usr/bin/gcc
 ```
 
-3. 添加环境变量
+3. 添加环境变量、更新动态库
 
 ```bash
-vim /etc/profile
+vim ~/.bashrc
 ```
 
-修改 `/etc/profile` 文件，在 `export PATH=` 后添加：
+修改 `~/.bashrc` 文件，在最后添加：
 
 ```bash
-exprot PATH=/usr/local/gcc/bin:$PATH
+export PATH=/usr/local/gcc/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/gcc/lib64:$LD_LIBRARY_PATH
 ```
 
-若没有这项可以自行在最后添加，其中 `/usr/local/gcc/bin` 为 `gcc` 目录
+其中 `/usr/local/gcc` 为 `gcc` 安装目录
 
 然后刷新一下变量环境：
 
 ```bash
-source /etc/profile
-```
-
-### 更新动态库
-
-更新完成后需要对旧版本的动态库进行替换，首先查找一下文件：
-
-```bash
-find / -name "libstdc++.so"
-
-# 输出
-/usr/lib64/libstdc++.so.6
-/usr/lib64/libstdc++.so.6.0.19
-/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.py
-/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.pyc
-/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.pyo
-/usr/local/gcc/lib64/libstdc++.so.6.0.28
-/usr/local/gcc/lib64/libstdc++.so.6
-/usr/local/gcc/lib64/libstdc++.so
-/usr/local/gcc/lib64/libstdc++.so.6.0.28-gdb.py
-```
-
-可以看到现在老版本是 `6.0.19` 而 `libstdc++.so.6` 则是 `libstdc++.so.6.0.19` 的软链接：
-
-```bash
-ls -l /usr/lib64/libstdc++.so.6
-
-# 输出
-lrwxrwxrwx. 1 root root 30 Dec 10 06:50 /usr/lib64/libstdc++.so.6 -> /usr/lib64/libstdc++.so.6.0.19
-```
-
-然后将 gcc 中的动态库复制过去，删除旧版本链接并重新链接新版本：
-
-```bash
-cp /usr/local/gcc/lib64/libstdc++.so.6.0.28 /usr/lib64/
-rm -f /usr/lib64/libstdc++.so.6
-ln -s /usr/lib64/libstdc++.so.6.0.28 /usr/lib64/libstdc++.so.6
+source ~/.bashrc
 ```
 
 更新完毕，接下来就可以正常使用了。
+
+---
 
 ### 添加忽略（可选）
 
