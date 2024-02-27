@@ -118,6 +118,48 @@ export LD_LIBRARY_PATH=/usr/local/gcc/lib64:$LD_LIBRARY_PATH
 source ~/.bashrc
 ```
 
+添加完毕，接下来更新动态库，首先查找一下动态库：
+
+```bash
+find / -name "libstdc++.so*"
+```
+
+输出结果：
+
+```bash
+/usr/lib64/libstdc++.so.6
+/usr/lib64/libstdc++.so.6.0.19
+/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.py
+/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.pyc
+/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.pyo
+/usr/local/src/gcc-9.5.0/build/x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6.0.28
+/usr/local/src/gcc-9.5.0/build/x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6
+/usr/local/src/gcc-9.5.0/build/prev-x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6.0.28
+/usr/local/src/gcc-9.5.0/build/prev-x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6
+/usr/local/src/gcc-9.5.0/build/stage1-x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6.0.28
+/usr/local/src/gcc-9.5.0/build/stage1-x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6
+/usr/local/gcc/lib64/libstdc++.so.6.0.28
+/usr/local/gcc/lib64/libstdc++.so.6
+/usr/local/gcc/lib64/libstdc++.so
+/usr/local/gcc/lib64/libstdc++.so.6.0.28-gdb.py
+```
+
+可以看到现在老版本是 `6.0.19` 而 `libstdc++.so.6` 则是 `libstdc++.so.6.0.19` 的软链接：
+
+```bash
+ls -l /usr/lib64/libstdc++.so.6
+# 输出
+lrwxrwxrwx. 1 root root 30 Dec 10 06:50 /usr/lib64/libstdc++.so.6 -> /usr/lib64/libstdc++.so.6.0.19
+```
+
+然后将 `gcc` 中的动态库复制过去，删除旧版本链接并重新链接新版本：
+
+```bash
+cp /usr/local/gcc/lib64/libstdc++.so.6.0.28 /usr/lib64/
+rm -f /usr/lib64/libstdc++.so.6
+ln -s /usr/lib64/libstdc++.so.6.0.28 /usr/lib64/libstdc++.so.6
+```
+
 更新完毕，接下来就可以正常使用了。
 
 ---
