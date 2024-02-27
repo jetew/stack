@@ -45,6 +45,8 @@ jobs:
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
+          SCRIPT_BEFORE: |
+            rm -rf /data/wwwroot/blog/*
           SCRIPT_AFTER: |
             chown -R www:www /data/wwwroot/
             find /data/wwwroot/ -type d -exec chmod 755 {} \;
