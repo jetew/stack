@@ -86,6 +86,24 @@ ln -s /usr/local/cmake/bin/cmake /usr/bin/cmake
 cmake -version
 ```
 
+### 添加环境变量
+
+```bash
+vim ~/.bashrc
+```
+
+修改 `~/.bashrc` 文件，在最后添加：
+
+```bash
+export PATH=/usr/local/cmake/bin:$PATH
+```
+
+然后刷新一下变量环境：
+
+```bash
+source ~/.bashrc
+```
+
 ### 重新安装数据库
 
 一通操作下来，Cmake 已经是最新版本了，然后进入到 **~/lnmp1.9** 也就是 LNMP 一键包解压目录下进行操作：
