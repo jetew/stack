@@ -762,6 +762,32 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中 &lt;code>/usr/local/gcc&lt;/code> 为 &lt;code>gcc&lt;/code> 安装目录&lt;/p>
 &lt;p>然后刷新一下变量环境：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.bashrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加完毕，接下来更新动态库，首先查找一下动态库：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find / -name &lt;span class="s2">&amp;#34;libstdc++.so*&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输出结果：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/usr/lib64/libstdc++.so.6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/lib64/libstdc++.so.6.0.19
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.py
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.pyc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.pyo
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/src/gcc-9.5.0/build/x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6.0.28
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/src/gcc-9.5.0/build/x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/src/gcc-9.5.0/build/prev-x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6.0.28
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/src/gcc-9.5.0/build/prev-x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/src/gcc-9.5.0/build/stage1-x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6.0.28
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/src/gcc-9.5.0/build/stage1-x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/gcc/lib64/libstdc++.so.6.0.28
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/gcc/lib64/libstdc++.so.6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/gcc/lib64/libstdc++.so
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/gcc/lib64/libstdc++.so.6.0.28-gdb.py
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到现在老版本是 &lt;code>6.0.19&lt;/code> 而 &lt;code>libstdc++.so.6&lt;/code> 则是 &lt;code>libstdc++.so.6.0.19&lt;/code> 的软链接：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ls -l /usr/lib64/libstdc++.so.6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lrwxrwxrwx. &lt;span class="m">1&lt;/span> root root &lt;span class="m">30&lt;/span> Dec &lt;span class="m">10&lt;/span> 06:50 /usr/lib64/libstdc++.so.6 -&amp;gt; /usr/lib64/libstdc++.so.6.0.19
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后将 &lt;code>gcc&lt;/code> 中的动态库复制过去，删除旧版本链接并重新链接新版本：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cp /usr/local/gcc/lib64/libstdc++.so.6.0.28 /usr/lib64/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rm -f /usr/lib64/libstdc++.so.6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/lib64/libstdc++.so.6.0.28 /usr/lib64/libstdc++.so.6
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>更新完毕，接下来就可以正常使用了。&lt;/p>
 &lt;hr>
 &lt;h3 id="添加忽略可选">添加忽略（可选）&lt;/h3>
