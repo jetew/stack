@@ -51,9 +51,9 @@
 </span></span><span class=line><span class=cl>wget https://nodejs.org/dist/v16.18.0/node-v16.18.0-linux-x64.tar.xz <span class=c1># 下载二进制包</span>
 </span></span><span class=line><span class=cl>tar -Jxvf node-v16.18.0-linux-x64.tar.xz <span class=c1># 解压</span>
 </span></span><span class=line><span class=cl>mv node-v16.18.0-linux-x64 node <span class=c1># 重命名文件夹</span>
-</span></span></code></pre></div><p>编辑 <code>~/.bashrc</code> 设置环境变量，加入：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Nodejs</span>
-</span></span><span class=line><span class=cl><span class=nv>DISTRO</span><span class=o>=</span>linux-x64
-</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>PATH</span><span class=o>=</span>/usr/local/src/node/bin:<span class=nv>$PATH</span>
+</span></span></code></pre></div><p>编辑 <code>~/.bashrc</code> 设置环境变量，加入：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>export</span> <span class=nv>PATH</span><span class=o>=</span>/usr/local/src/node/bin:<span class=nv>$PATH</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>CPATH</span><span class=o>=</span>/usr/local/src/node/include:<span class=nv>$CPATH</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>LD_LIBRARY_PATH</span><span class=o>=</span>/usr/local/src/node/lib:<span class=nv>$LD_LIBRARY_PATH</span>
 </span></span></code></pre></div><p>刷新变量环境：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>source</span> ~/.bashrc
 </span></span></code></pre></div><p>完成后可通过 <code>node -v</code> 、 <code>npm version</code> 、 <code>npx -v</code> 进行验证，返回版本号则表示成功。</p><h4 id=源码编译安装>源码编译安装</h4><p>首先安装依赖：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt-get install python3 g++ make python3-pip
 </span></span></code></pre></div><p>打开 <a class=link href=https://nodejs.org/ target=_blank rel=noopener>Nodejs官网
@@ -67,9 +67,9 @@
 </span></span><span class=line><span class=cl>screen -S node
 </span></span><span class=line><span class=cl>make <span class=o>&amp;&amp;</span> make install
 </span></span></code></pre></div><p>安装完成之后为软件设置环境变量：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>vim ~/.bashrc
-</span></span></code></pre></div><p>在最后添加：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Nodejs</span>
-</span></span><span class=line><span class=cl><span class=nv>DISTRO</span><span class=o>=</span>linux-x64
-</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>PATH</span><span class=o>=</span>/usr/local/node/bin:<span class=nv>$PATH</span>
+</span></span></code></pre></div><p>在最后添加：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>export</span> <span class=nv>PATH</span><span class=o>=</span>/usr/local/node/bin:<span class=nv>$PATH</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>CPATH</span><span class=o>=</span>/usr/local/node/include:<span class=nv>$CPATH</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>LD_LIBRARY_PATH</span><span class=o>=</span>/usr/local/node/lib:<span class=nv>$LD_LIBRARY_PATH</span>
 </span></span></code></pre></div><p>可以为软件设置个软链接：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ln -s /usr/local/node/bin/node /usr/bin/node
 </span></span><span class=line><span class=cl>ln -s /usr/local/node/bin/npm /usr/bin/npm
 </span></span><span class=line><span class=cl>ln -s /usr/local/node/bin/npx /usr/bin/npx

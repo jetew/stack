@@ -91,9 +91,9 @@ data-flex-basis="440px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -Jxvf node-v16.18.0-linux-x64.tar.xz &lt;span class="c1"># 解压&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv node-v16.18.0-linux-x64 node &lt;span class="c1"># 重命名文件夹&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑 &lt;code>~/.bashrc&lt;/code> 设置环境变量，加入：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/src/node/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/src/node/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">CPATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/src/node/include:&lt;span class="nv">$CPATH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">LD_LIBRARY_PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/src/node/lib:&lt;span class="nv">$LD_LIBRARY_PATH&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>刷新变量环境：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.bashrc
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>完成后可通过 &lt;code>node -v&lt;/code> 、 &lt;code>npm version&lt;/code> 、 &lt;code>npx -v&lt;/code> 进行验证，返回版本号则表示成功。&lt;/p>
@@ -120,9 +120,9 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完成之后为软件设置环境变量：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim ~/.bashrc
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在最后添加：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Nodejs&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISTRO&lt;/span>&lt;span class="o">=&lt;/span>linux-x64
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/node/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/node/bin:&lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">CPATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/node/include:&lt;span class="nv">$CPATH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">LD_LIBRARY_PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/node/lib:&lt;span class="nv">$LD_LIBRARY_PATH&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以为软件设置个软链接：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/node /usr/bin/node
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/node/bin/npm /usr/bin/npm
