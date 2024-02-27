@@ -78,6 +78,8 @@ vim ~/.bashrc
 
 ```bash
 export PATH=/usr/local/node/bin:$PATH
+export CPATH=/usr/local/node/include:$CPATH
+export LD_LIBRARY_PATH=/usr/local/node/lib:$LD_LIBRARY_PATH
 ```
 
 刷新变量环境：
@@ -132,6 +134,8 @@ vim ~/.bashrc
 
 ```bash
 export PATH=/usr/local/binutils/bin:$PATH
+export CPATH=/usr/local/binutils/include:$CPATH
+export LD_LIBRARY_PATH=/usr/local/binutils/lib:$LD_LIBRARY_PATH
 ```
 
 刷新变量环境：
