@@ -107,7 +107,8 @@ vim ~/.bashrc
 
 ```bash
 export PATH=/usr/local/gcc/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/gcc/lib64:$LD_LIBRARY_PATH
+export CPATH=/usr/local/gcc/include:$CPATH
+export LD_LIBRARY_PATH=/usr/local/gcc/lib:/usr/local/gcc/lib64:$LD_LIBRARY_PATH
 ```
 
 其中 `/usr/local/gcc` 为 `gcc` 安装目录
