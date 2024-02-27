@@ -125,12 +125,18 @@ tar -Jxvf node-v16.18.0-linux-x64.tar.xz # 解压
 mv node-v16.18.0-linux-x64 node # 重命名文件夹
 ```
 
-编辑 `~/.profile` 设置环境变量，加入：
+编辑 `~/.bashrc` 设置环境变量，加入：
 
 ```bash
 # Nodejs
 DISTRO=linux-x64
 export PATH=/usr/local/src/node/bin:$PATH
+```
+
+刷新变量环境：
+
+```bash
+source ~/.bashrc
 ```
 
 完成后可通过 `node -v` 、 `npm version` 、 `npx -v` 进行验证，返回版本号则表示成功。
@@ -159,7 +165,7 @@ make && make install
 安装完成之后为软件设置环境变量：
 
 ```bash
-vim /etc/profile
+vim ~/.bashrc
 ```
 
 在最后添加：
@@ -181,7 +187,7 @@ ln -s /usr/local/node/bin/npx /usr/bin/npx
 刷新变量环境：
 
 ```bash
-source /etc/profile
+source ~/.bashrc
 ```
 
 源码编译安装比较费时，具体时间视机器配置而定，可酌情选择安装方式。
