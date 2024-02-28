@@ -306,7 +306,7 @@ fill="currentColor">
 &lt;h3 id="使用参考">使用参考：&lt;/h3>
 &lt;p>例如国内服务器从清华大学源下载 Debian12 镜像安装，设置时区为 Asia/Shanghai，并设置主机名、SSH 端口、密码、交换分区：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash InstallNET.sh -debian &lt;span class="m">12&lt;/span> -mirror &lt;span class="s2">&amp;#34;https://mirrors.tuna.tsinghua.edu.cn/debian/&amp;#34;&lt;/span> -hostname &lt;span class="s2">&amp;#34;Debian&amp;#34;&lt;/span> -port &lt;span class="s2">&amp;#34;1234&amp;#34;&lt;/span> -pwd &lt;span class="s2">&amp;#34;debian123&amp;#34;&lt;/span> -timezone &lt;span class="s2">&amp;#34;Asia/Shanghai&amp;#34;&lt;/span> -swap &lt;span class="s2">&amp;#34;2048&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>回车后等待脚本运行，运行完成后配置一致性：&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>回车后等待脚本运行，运行完成后检查配置一致性（网络配置和自定义配置是否正确）：&lt;/p>
 &lt;p>&lt;img src="/archives/installnet/1.png"
 width="1020"
 height="680"
