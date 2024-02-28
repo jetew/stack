@@ -274,9 +274,9 @@ fill="currentColor">
 &lt;blockquote>
 &lt;p>通过镜像下载安装，可设置与服务器实际位置接近的镜像地址以加快下载速度&lt;/p>
 &lt;/blockquote>
-&lt;p>如国内主机，可通过科学技术大学源：&lt;/p>
+&lt;p>如国内主机，可通过中科大源：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://mirrors.ustc.edu.cn/debian/
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>或清华大学源：&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>或清华源：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://mirrors.tuna.tsinghua.edu.cn/debian/
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>更多镜像地址如下：&lt;/p>
 &lt;p>Debian：&lt;/p>
@@ -1126,7 +1126,7 @@ height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
 fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/li>
-&lt;/ol></description></item><item><title>一键 DD 自动重装脚本</title><link>/archives/dd_sh/</link><pubDate>Thu, 01 Dec 2022 10:53:36 +0800</pubDate><guid>/archives/dd_sh/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>一键 DD 自动重装脚本</title><link>/archives/reinstall/</link><pubDate>Thu, 01 Dec 2022 10:53:36 +0800</pubDate><guid>/archives/reinstall/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>VPS 主机一键自动重装系统脚本优化版，DD 过程简单，傻瓜式安装。 脚本支持原版自定义密码安装，可选 Linux 和 Windows 系统，而且脚本支持 Oracle 甲骨文免费云主机使用支持 UEFI 的镜像包安装。&lt;/p>
 &lt;p>一键 DD 脚本，支持性好，更智能更全面，支持国内外各种 VPS 重装，特别是对国内各种访问国外资源慢的 VPS 安装有奇效。&lt;/p>
 &lt;ul>
@@ -1170,10 +1170,10 @@ fill="currentColor">
 &lt;blockquote>
 &lt;p>公网 IP 、网关及子网掩码可在 VPS 控制面板进行查看，若不一致，可输入 &lt;code>N&lt;/code> 进行自定义&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="/archives/dd_sh/1.png"
+&lt;p>&lt;img src="/archives/reinstall/1.png"
 width="700"
 height="400"
-srcset="/archives/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_480x0_resize_box_3.png 480w, /archives/dd_sh/1_hu8eecd73445506abac9ee4a2934803dae_143707_1024x0_resize_box_3.png 1024w"
+srcset="/archives/reinstall/1_hu8eecd73445506abac9ee4a2934803dae_143707_480x0_resize_box_3.png 480w, /archives/reinstall/1_hu8eecd73445506abac9ee4a2934803dae_143707_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 网络确认"
 class="gallery-image"
@@ -1181,10 +1181,10 @@ data-flex-grow="175"
 data-flex-basis="420px"
 >&lt;/p>
 &lt;p>然后进行系统选择，41合1的系统一键 DD 选择界面，输入 &lt;code>99&lt;/code> 则使用自定义镜像：&lt;/p>
-&lt;p>&lt;img src="/archives/dd_sh/2.png"
+&lt;p>&lt;img src="/archives/reinstall/2.png"
 width="700"
 height="720"
-srcset="/archives/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_480x0_resize_box_3.png 480w, /archives/dd_sh/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_1024x0_resize_box_3.png 1024w"
+srcset="/archives/reinstall/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_480x0_resize_box_3.png 480w, /archives/reinstall/2_hu21f5d0e9e5cf82f6ab7f93c5c8b682bf_255218_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 系统选择"
 class="gallery-image"
@@ -1192,10 +1192,10 @@ data-flex-grow="97"
 data-flex-basis="233px"
 >&lt;/p>
 &lt;p>若输入 &lt;code>9-16&lt;/code> 安装原版系统，可自定义密码，密码要求8-16位，以英文字母或数字开头，可以是大小写英文字母、数字及7个特殊字符.!$@#&amp;amp;%的任意组合，然后设置端口确认信息后，即可进行安装：&lt;/p>
-&lt;p>&lt;img src="/archives/dd_sh/3.png"
+&lt;p>&lt;img src="/archives/reinstall/3.png"
 width="700"
 height="360"
-srcset="/archives/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_480x0_resize_box_3.png 480w, /archives/dd_sh/3_hu68c416604472933cf2bc0e1c84c573bc_11747_1024x0_resize_box_3.png 1024w"
+srcset="/archives/reinstall/3_hu68c416604472933cf2bc0e1c84c573bc_11747_480x0_resize_box_3.png 480w, /archives/reinstall/3_hu68c416604472933cf2bc0e1c84c573bc_11747_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="◎ 自定义设置"
 class="gallery-image"
