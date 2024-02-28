@@ -241,7 +241,7 @@ https://admin.fedoraproject.org/mirrormanager/mirrors/Fedora
 bash InstallNET.sh -debian 12 -mirror "https://mirrors.tuna.tsinghua.edu.cn/debian/" -hostname "Debian" -port "1234" -pwd "debian123" -timezone "Asia/Shanghai" -swap "2048"
 ```
 
-回车后等待脚本运行，运行完成后配置一致性：
+回车后等待脚本运行，运行完成后检查配置一致性（网络配置和自定义配置是否正确）：
 
 ![配置完成](1.png)
 
