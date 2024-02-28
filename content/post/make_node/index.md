@@ -2,8 +2,8 @@
 title: "CentOS7 编译安装 Node"
 slug: "make_node"
 description: "在 CentOS 7 下编译安装新版 Node"
-date: 2024-02-27T23:37:17+08:00
-lastmod: 2024-02-27T23:37:17+08:00
+date: 2024-02-25T23:37:17+08:00
+lastmod: 2024-02-25T23:37:17+08:00
 draft: false
 toc: true
 image: ""
