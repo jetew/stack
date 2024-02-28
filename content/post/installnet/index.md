@@ -162,13 +162,13 @@ bash InstallNET.sh
 
   > 通过镜像下载安装，可设置与服务器实际位置接近的镜像地址以加快下载速度
 
-如国内主机，可通过科学技术大学源：
+如国内主机，可通过中科大源：
 
 ```
 https://mirrors.ustc.edu.cn/debian/
 ```
 
-或清华大学源：
+或清华源：
 
 ```
 https://mirrors.tuna.tsinghua.edu.cn/debian/
