@@ -7,6 +7,5 @@ lastmod: {{ .Date }}
 draft: false
 toc: true
 image: ""
-categories: [""]
 tags: [""]
 ---
