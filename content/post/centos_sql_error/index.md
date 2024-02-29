@@ -9,8 +9,6 @@ tags:
 - LNMP
 - MariaDB
 - MySQL
-categories:
-- 学习
 image: 
 ---
 

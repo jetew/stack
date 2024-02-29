@@ -7,8 +7,6 @@ description: VPS 主机使用一键 DD 脚本自动重装系统优化版
 tags:
 - Linux
 - VPS
-categories:
-- 学习
 image: 
 ---
 

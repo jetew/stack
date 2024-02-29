@@ -7,8 +7,6 @@ description: 小内存服务器设置 Swap 分区，解决内存不足的尴尬
 tags:
 - Linux
 - VPS
-categories:
-- 学习
 image: 
 ---
 

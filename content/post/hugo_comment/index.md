@@ -9,8 +9,6 @@ tags:
 - Blog
 - Valine
 - Waline
-categories:
-- 学习
 image: 
 ---
 

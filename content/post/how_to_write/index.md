@@ -9,8 +9,6 @@ tags:
 - Git
 - Github
 - Blog
-categories:
-- 学习
 image: 
 ---
 

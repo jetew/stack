@@ -7,8 +7,6 @@ description: Linux 下使用 Cloudreve 搭建在线文件管理
 tags:
 - Linux
 - FileBrowser
-categories:
-- 学习
 image: 
 ---
 

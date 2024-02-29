@@ -7,8 +7,6 @@ description: Caddy 服务使用与配置入门，旨在通过 Caddy 快速搭建
 tags:
 - Caddy
 - Web
-categories:
-- 学习
 image: 
 ---
 

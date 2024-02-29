@@ -7,7 +7,6 @@ lastmod: 2024-02-25T23:37:17+08:00
 draft: false
 toc: true
 image: ""
-categories: ["学习"]
 tags: ["Linux"]
 ---
 

@@ -10,8 +10,6 @@ tags:
 - MySQL
 - PHP
 - Web
-categories:
-- 学习
 image: 
 ---
 

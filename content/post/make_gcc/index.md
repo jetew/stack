@@ -6,8 +6,6 @@ lastmod: 2022-12-10T15:43:06+08:00
 description: 在 CentOS 7 下编译安装新版 gcc
 tags:
 - Linux
-categories:
-- 学习
 image:
 ---
 

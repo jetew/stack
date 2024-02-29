@@ -7,8 +7,6 @@ description: VPS 的一些基本设置及优化，包括更新、安装基本软
 tags:
 - Linux
 - VPS
-categories:
-- 学习
 image: 
 ---
 

@@ -7,8 +7,6 @@ description: 在 Linux 下使用 File Browser 搭建一个在线文件管理器
 tags:
 - Linux
 - FileBrowser
-categories:
-- 学习
 image: 
 ---
 

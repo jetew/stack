@@ -10,8 +10,6 @@ tags:
 - Netlify
 - Vrecel
 - Blog
-categories:
-- 学习
 image:
 ---
 

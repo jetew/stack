@@ -8,8 +8,6 @@ tags:
 - Linux
 - Aira
 - AriaNg
-categories:
-- 学习
 image:
 ---
 

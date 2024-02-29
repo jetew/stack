@@ -11,8 +11,6 @@ tags:
 - MySQL
 - MariaDB
 - Waline
-categories:
-- 学习
 image: 
 ---
 

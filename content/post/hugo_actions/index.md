@@ -10,8 +10,6 @@ tags:
 - Github Pages
 - Github Actions
 - Blog
-categories:
-- 学习
 image: 
 ---
 

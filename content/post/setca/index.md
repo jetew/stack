@@ -8,8 +8,6 @@ tags:
 - SSL
 - Nginx
 - Caddy
-categories:
-- 学习
 image: 
 ---
 

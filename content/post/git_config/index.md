@@ -6,8 +6,6 @@ lastmod: 2022-11-06T11:56:29+08:00
 description: Git 多用户、仓库及使用代理的设置
 tags:
 - Git
-categories:
-- 学习
 image: 
 ---
 
