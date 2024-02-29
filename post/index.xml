@@ -1,4 +1,120 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Kitin's</title><link>/post/</link><description>Recent content in Posts on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sun, 25 Feb 2024 23:37:17 +0800</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml"/><item><title>CentOS7 编译安装 Node</title><link>/archives/make_node/</link><pubDate>Sun, 25 Feb 2024 23:37:17 +0800</pubDate><guid>/archives/make_node/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Kitin's</title><link>/post/</link><description>Recent content in Posts on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Fri, 01 Mar 2024 05:26:41 +0800</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux 安装 XanMod 内核开启 BBR V3</title><link>/archives/xanmod/</link><pubDate>Fri, 01 Mar 2024 05:26:41 +0800</pubDate><guid>/archives/xanmod/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;h3 id="关于-xanmod-内核">关于 XanMod 内核&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://xanmod.org/" target="_blank" rel="noopener"
+>XanMod 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>默认的 Linux 内核被设计为一种通用解决方案，能够在不同的系统和硬件配置上提供广泛的兼容性。它稳定、可靠且经过广泛测试，但并不总是针对特定用例提供最佳性能。&lt;/p>
+&lt;p>自定义内核（例如 XanMod）则能满足这一需求。XanMod 内核是基于最新稳定版本的 Linux 内核，旨在通过低延迟提高系统的响应性能。它是由社区驱动的项目，结合了其他内核的最佳特性和独特的增强功能，更加专注于优化桌面、多媒体和游戏工作负载，以提供更具响应性和流畅性的 Linux 使用体验。&lt;/p>
+&lt;h3 id="注意事项">注意事项&lt;/h3>
+&lt;p>XanMod 内核目前仅支持 X86 结构的 CPU，且目前仅支持 Debian/Ubuntu&lt;/p>
+&lt;h3 id="内核选择">内核选择&lt;/h3>
+&lt;p>XanMod 项目提供多种不同的内核构建，每种构建都针对特定的用例和硬件配置。&lt;/p>
+&lt;h4 id="xanmod-main-内核">XanMod MAIN 内核&lt;/h4>
+&lt;p>MAIN 内核是标准的 XanMod，包括最新稳定版本的 Linux 内核，并针对桌面、多媒体和游戏工作负载进行了优化。MAIN 内核有四个版本可供选择：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>linux-xanmod-x64v1&lt;/code>&lt;/li>
+&lt;li>&lt;code>linux-xanmod-x64v2&lt;/code>&lt;/li>
+&lt;li>&lt;code>linux-xanmod-x64v3&lt;/code>&lt;/li>
+&lt;li>&lt;code>linux-xanmod-x64v4&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h4 id="xanmod-edge-内核">XanMod EDGE 内核&lt;/h4>
+&lt;p>EDGE 内核专为想要最新功能和增强的用户而设计，它们包括最近版本的 Linux 内核，并针对高性能工作负载进行了优化。EDGE 内核有三个版本可供选择：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>linux-xanmod-edge-x64v2&lt;/code>&lt;/li>
+&lt;li>&lt;code>linux-xanmod-edge-x64v3&lt;/code>&lt;/li>
+&lt;li>&lt;code>linux-xanmod-edge-x64v4&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h4 id="xanmod-lts-内核">XanMod LTS 内核&lt;/h4>
+&lt;p>LTS（长期支持）内核是为将稳定性和可靠性放在优先考虑的用户而设计，它们包括较旧但经过更多测试的 Linux 内核版本，并针对通用工作负载进行了优化。LTS 内核有四个版本可供选择：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>linux-xanmod-lts-x64v1&lt;/code>&lt;/li>
+&lt;li>&lt;code>linux-xanmod-lts-x64v2&lt;/code>&lt;/li>
+&lt;li>&lt;code>linux-xanmod-lts-x64v3&lt;/code>&lt;/li>
+&lt;li>&lt;code>linux-xanmod-lts-x64v4&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h4 id="xanmod-rt-内核">XanMod RT 内核&lt;/h4>
+&lt;p>RT（实时）内核是为关键应用场景设计的，例如 Linux 游戏服务器、流媒体、直播制作和超低延迟需求的用户，它们包括 PREEMPT_RT 实时补丁，可降低系统的延迟并提高响应性。RT 内核有三个版本可供选择：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>linux-xanmod-rt-x64v2&lt;/code>&lt;/li>
+&lt;li>&lt;code>linux-xanmod-rt-x64v3&lt;/code>&lt;/li>
+&lt;li>&lt;code>linux-xanmod-rt-x64v4&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>这些特定的 XanMod 内核构建被设计用于特定的硬件配置，涵盖从较旧的 x86-64 系统到最新的 AMD 和 Intel 处理器。您可以在 &lt;a class="link" href="https://xanmod.org" target="_blank" rel="noopener"
+>XanMod 官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 上找到不同内核构建硬件兼容性的更详细信息。&lt;/p>
+&lt;hr>
+&lt;h2 id="安装步骤">安装步骤&lt;/h2>
+&lt;h3 id="准备工作">准备工作&lt;/h3>
+&lt;h4 id="安装必要组件">安装必要组件&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install -y gnupg
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="检测-cpu-支持版本">检测 CPU 支持版本&lt;/h4>
+&lt;p>XanMod 有各种版本，需依据 CPU ISA（指令集架构）而选择合适的版本，我们可以通过官方提供的脚本来确认：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">awk -f &amp;lt;&lt;span class="o">(&lt;/span>wget -O - https://dl.xanmod.org/check_x86-64_psabi.sh&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输出结果：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">CPU supports x86-64-v4
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里可以看到我的 CPU 是支持 v4 版本的，安装时可以按照此结果进行选择。&lt;/p>
+&lt;p>&lt;strong>注意&lt;/strong>：一定要选择符合的版本进行安装，否则将导致无法正常启动！&lt;/p>
+&lt;h4 id="安装-xanmod">安装 XanMod&lt;/h4>
+&lt;p>注册 PGP 密钥：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget -qO - https://dl.xanmod.org/archive.key &lt;span class="p">|&lt;/span> gpg --dearmor -o /usr/share/keyrings/xanmod-archive-keyring.gpg
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加存储库：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;deb [signed-by=/usr/share/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> tee /etc/apt/sources.list.d/xanmod-release.list
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>更新 APT 软件包：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装 XanMod 内核，这里我以 XanMod MAIN x64 v4 内核为例，你可以根据自己的需求进行安装 MAIN、EDGE、LTS 或 RT 内核：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt install -y linux-xanmod-x64v4
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装完成后可通过 &lt;code>reboot&lt;/code> 进行重启使内核生效，如果遇到通过命令重启不生效的情况，可以去云服务商后台进行重启操作。&lt;/p>
+&lt;h4 id="检测内核">检测内核&lt;/h4>
+&lt;p>在终端执行 &lt;code>uname -r&lt;/code> 输出结果：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">6.7.6-x64v4-xanmod1
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这说明已经成功安装并切换至 XanMod 内核了。&lt;/p>
+&lt;h4 id="bbr3-状态与队列算法">BBR3 状态与队列算法&lt;/h4>
+&lt;p>在终端执行以下命令开启 BBR3 并设置队列算法：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;net.ipv4.tcp_congestion_control=bbr
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">net.core.default_qdisc=fq_pie&amp;#34;&lt;/span>&amp;gt;&amp;gt;/etc/sysctl.conf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后执行 &lt;code>sysctl -p&lt;/code> 看到以下内容则说明开启成功：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">net.ipv4.tcp_congestion_control &lt;span class="o">=&lt;/span> bbr
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">net.core.default_qdisc &lt;span class="o">=&lt;/span> fq_pie
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后执行 &lt;code>reboot&lt;/code> 重启生效。&lt;/p>
+&lt;p>在终端执行以下命令检查 BBR3 状态：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">modinfo tcp_bbr
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输出内容：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">name: tcp_bbr
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">filename: &lt;span class="o">(&lt;/span>&lt;span class="nb">builtin&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">version: &lt;span class="m">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">description: TCP BBR &lt;span class="o">(&lt;/span>Bottleneck Bandwidth and RTT&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">license: Dual BSD/GPL
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">file: net/ipv4/tcp_bbr
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">author: David Morley &amp;lt;morleyd@google.com&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">author: Arjun Roy &amp;lt;arjunroy@google.com&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">author: Kevin Yang &amp;lt;yyd@google.com&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">author: Yousuk Seung &amp;lt;ysseung@google.com&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">author: Priyaranjan Jha &amp;lt;priyarjha@google.com&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">author: Soheil Hassas Yeganeh &amp;lt;soheil@google.com&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">author: Yuchung Cheng &amp;lt;ycheng@google.com&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">author: Neal Cardwell &amp;lt;ncardwell@google.com&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">author: Van Jacobson &amp;lt;vanj@google.com&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到已成功开启 BBR3，如果报错可以先执行 &lt;code>depmod&lt;/code>&lt;/p>
+&lt;p>执行以下命令查看队列算法：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sysctl net.core.default_qdisc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输出结果：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">net.core.default_qdisc &lt;span class="o">=&lt;/span> fq_pie
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>CentOS7 编译安装 Node</title><link>/archives/make_node/</link><pubDate>Sun, 25 Feb 2024 23:37:17 +0800</pubDate><guid>/archives/make_node/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>在之前的文章 &lt;a class="link" href="/archives/waline_deploy/" >《Waline 服务端独立部署方案》
 &lt;/a> 中有讲到过进行源码编译安装 Node ，但只是带过一下。其实我在使用 Debian 时直接进行编译安装是没有问题的，但是在 CentOS7 下，遇到许多问题；于是便在此记录一下方便日后进行查阅。&lt;/p>
 &lt;hr>
