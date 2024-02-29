@@ -125,7 +125,7 @@ apt install -y linux-xanmod-x64v4
 
 #### 检测内核
 
-在终端执行 `uname -r` 输出结果：
+在终端执行 `uname -r` 查看内核，输出结果：
 
 ```bash
 6.7.6-x64v4-xanmod1
