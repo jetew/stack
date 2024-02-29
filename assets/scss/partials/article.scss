@@ -275,31 +275,3 @@
         }
     }
 }
-
-/* 代码块字体 */
-code {
-    border-radius: var(--tag-border-radius);
-    font-size: 14px; // Add font size setting for code block
-    font-family: var(--code-font-family);
-}
-
-/* H3样式 */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    margin-inline-start: calc((var(--card-padding)) * -1);
-    padding-inline-start: calc( var(--card-padding) - var(--heading-border-size));
-}
-h1,
-h2 {
-    border-inline-start: var(--heading-border-size) solid var(--accent-color);
-}
-h3,
-h4,
-h5,
-h6 {
-    border-inline-start: var(--heading-border-size) solid #f5f5fa;
-}
