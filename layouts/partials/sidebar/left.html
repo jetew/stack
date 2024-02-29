@@ -75,6 +75,7 @@
         </li>
         {{ end }}
 
+        <div class="menu-bottom-section">
             {{ if (default false .Site.Params.colorScheme.toggle) }}
                 <li id="dark-mode-toggle">
                     {{ partial "helper/icon" "toggle-left" }}
