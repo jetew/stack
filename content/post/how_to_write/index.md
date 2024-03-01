@@ -36,7 +36,7 @@ image:
 
 你可以通过 [F-Droid](https://f-droid.org/en/packages/com.termux/) 或者 [Github](https://github.com/termux/termux-app/releases) 进行下载，下载完成之后进行更换清华源，安装 Git ，创建目录软链接，安装 Hugo 即可。
 
-> 无法下载或者下载慢可以找国内下载地址，或者通过 “应用” 进行下载。
+> 无法下载或者下载慢可以找国内下载地址。
 > 
 > Termux 安装使用基于国光大佬的 [Termux 高级终端安装使用配置教程](https://www.sqlsec.com/2018/05/termux.html) ；写的非常全，强烈推荐观看！！！
 
