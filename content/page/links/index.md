@@ -14,7 +14,7 @@ menu:
         weight: -50
         params:
             icon: link
-
+draft: true
 license: false
 lastmod: 2023-01-02
 ---
