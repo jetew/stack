@@ -158,9 +158,27 @@ Host tencent
 
 ## 代理设置
 
-由于 Github 服务器在海外，以及某些不可控因素，导致在推送及拉取代码时老是失败；我们可以为在 config 配置文件中为 Github 添加代理访问。打开 config 文件进行编辑：
+想要通过代理连接 Github；可以通过以下方式：
 
-> 使用前请确保你拥有 “应用” 
+1. 通过 `git config` 设置：
+
+```bash
+# 使用Socks5 代理（推荐）
+git config --global https.https://github.com.proxy socks5://127.0.0.1:10808
+
+# 使用 HTTP 代理
+git config --global https.https://github.com.proxy https://127.0.0.1:10808
+```
+
+若不需要使用代理，可以取消之前的设置：
+
+```bash
+git config --global --unset https.proxy
+```
+
+2. 通过 SSH 设置（推荐使用）：
+
+在 `~/.ssh/config` 配置文件中为 Github 添加代理访问。打开 config 文件进行编辑：
 
 ```bash
 # Github
@@ -174,10 +192,17 @@ Host github.com
 需要注意 `ProxyCommand connect -S 127.0.0.1:10808 %h %p` 这行：
 
 > -S 代表 Socks，-H 代表 HTTP
-> 
->  如果你按照我之前的文章架设的 “应用” ，则 127.0.0.1:10808 是 Socks 的端口，HTTP 的端口为 10809 
 
-这样就可以通过代理来进行 Github 的推送/拉取操作，再也不用担心连接超时和连接失败啦。
+类 Unix 系统下：
+
+```bash
+# Github
+Host github.com
+  HostName github.com
+    ProxyCommand nc -X 5 -x 127.0.0.1:10808 %h %p
+  User username
+  IdentityFile ~/.ssh/github
+```
 
 ## 总结
 
