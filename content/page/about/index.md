@@ -1,8 +1,9 @@
 ---
 title: 关于
+slug: "about"
 menu:
     main: 
-        weight: -90
+        weight: -60
         params:
             icon: user
 
