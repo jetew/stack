@@ -9,6 +9,7 @@ menu:
 
 comments: false
 license: false
+readingTime: false
 ---
 
 ## 🙋‍♂️ 关于我与博客
