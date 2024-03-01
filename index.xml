@@ -660,13 +660,7 @@ fill="currentColor">
 &lt;p>然后更新配置并启动服务：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl daemon-reload
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl start cloudreve
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>友链</title><link>/%E5%8F%8B%E9%93%BE/</link><pubDate>Mon, 02 Jan 2023 00:00:00 +0000</pubDate><guid>/%E5%8F%8B%E9%93%BE/</guid><description>&lt;p>添加 &lt;code>友链&lt;/code> 请按照如下格式：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">links&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">title&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">GitHub&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">description&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">站点描述&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">website&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://github.com&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">网站图片地址&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>使用 Aria2 + AriaNG 搭建离线下载站</title><link>/archives/aria/</link><pubDate>Sat, 24 Dec 2022 10:58:22 +0800</pubDate><guid>/archives/aria/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>使用 Aria2 + AriaNG 搭建离线下载站</title><link>/archives/aria/</link><pubDate>Sat, 24 Dec 2022 10:58:22 +0800</pubDate><guid>/archives/aria/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;h3 id="介绍">介绍&lt;/h3>
 &lt;p>Aria2 是目前最强大的全能型下载工具，它支持 BT、磁力、HTTP、FTP 等下载协议，常用做离线下载的服务端。&lt;/p>
 &lt;p>AriaNg 是一个让 Aria2 更容易使用的现代 Web 前端。 AriaNg 使用纯 html &amp;amp; javascript 开发，所以其不需要任何编译器或运行环境.。您只要将 AriaNg 放在您的 Web 服务器里并在浏览器中打开即可使用；AriaNg 使用响应式布局，支持各种计算机或移动设备。&lt;/p>
