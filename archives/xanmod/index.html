@@ -20,11 +20,33 @@
 </span></span></code></pre></div><p>更新 APT 软件包：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt update
 </span></span></code></pre></div><p>安装 XanMod 内核，这里我以 XanMod MAIN x64 v4 内核为例，你可以根据自己的需求进行安装 MAIN、EDGE、LTS 或 RT 内核：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt install -y linux-xanmod-x64v4
 </span></span></code></pre></div><p>安装完成后可通过 <code>reboot</code> 进行重启使内核生效，如果遇到通过命令重启不生效的情况，可以去云服务商后台进行重启操作。</p><h4 id=检测内核>检测内核</h4><p>在终端执行 <code>uname -r</code> 查看内核，输出结果：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>6.7.6-x64v4-xanmod1
-</span></span></code></pre></div><p>这说明已经成功安装并切换至 XanMod 内核了。</p><h4 id=bbr3-状态与队列算法>BBR3 状态与队列算法</h4><p>在终端执行以下命令开启 BBR3 并设置队列算法：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;net.ipv4.tcp_congestion_control=bbr
-</span></span></span><span class=line><span class=cl><span class=s2>net.core.default_qdisc=fq_pie&#34;</span>&gt;&gt;/etc/sysctl.conf
+</span></span></code></pre></div><p>这说明已经成功安装并切换至 XanMod 内核了。</p><h4 id=bbr3-状态与队列算法>BBR3 状态与队列算法</h4><p>在终端执行以下命令开启 BBR3 并设置队列算法：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /etc/sysctl.conf <span class=s>&lt;&lt; EOF
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.tcp_congestion_control=bbr
+</span></span></span><span class=line><span class=cl><span class=s>net.core.default_qdisc=fq_pie
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
 </span></span></code></pre></div><p>然后执行 <code>sysctl -p</code> 看到以下内容则说明开启成功：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>net.ipv4.tcp_congestion_control <span class=o>=</span> bbr
 </span></span><span class=line><span class=cl>net.core.default_qdisc <span class=o>=</span> fq_pie
-</span></span></code></pre></div><p>然后执行 <code>reboot</code> 重启生效。</p><p>在终端执行以下命令检查 BBR3 状态：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>modinfo tcp_bbr
+</span></span></code></pre></div><p>然后执行 <code>reboot</code> 重启生效。</p><p>下面是我抄来的内核参数配置：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /etc/sysctl.conf <span class=s>&lt;&lt; EOF
+</span></span></span><span class=line><span class=cl><span class=s>vm.swappiness = 1
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.tcp_congestion_control = bbr
+</span></span></span><span class=line><span class=cl><span class=s>net.core.default_qdisc = fq_pie
+</span></span></span><span class=line><span class=cl><span class=s>fs.file-max = 1000000
+</span></span></span><span class=line><span class=cl><span class=s>fs.inotify.max_user_instances = 8192
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.tcp_syncookies = 1
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.tcp_fin_timeout = 30
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.tcp_tw_reuse = 1
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.ip_local_port_range = 1024 65000
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.tcp_max_syn_backlog = 16384
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.tcp_max_tw_buckets = 6000
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.route.gc_timeout = 100
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.tcp_syn_retries = 1
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.tcp_synack_retries = 1
+</span></span></span><span class=line><span class=cl><span class=s>net.core.somaxconn = 32768
+</span></span></span><span class=line><span class=cl><span class=s>net.core.netdev_max_backlog = 32768
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.tcp_timestamps = 0
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.tcp_max_orphans = 32768
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span></code></pre></div><p>在终端执行以下命令检查 BBR3 状态：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>modinfo tcp_bbr
 </span></span></code></pre></div><p>输出内容：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>name:           tcp_bbr
 </span></span><span class=line><span class=cl>filename:       <span class=o>(</span><span class=nb>builtin</span><span class=o>)</span>
 </span></span><span class=line><span class=cl>version:        <span class=m>3</span>
