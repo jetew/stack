@@ -138,8 +138,10 @@ apt install -y linux-xanmod-x64v4
 在终端执行以下命令开启 BBR3 并设置队列算法：
 
 ```bash
-echo "net.ipv4.tcp_congestion_control=bbr
-net.core.default_qdisc=fq_pie">>/etc/sysctl.conf
+cat > /etc/sysctl.conf << EOF
+net.ipv4.tcp_congestion_control=bbr
+net.core.default_qdisc=fq_pie
+EOF
 ```
 
 然后执行 `sysctl -p` 看到以下内容则说明开启成功：
@@ -150,6 +152,31 @@ net.core.default_qdisc = fq_pie
 ```
 
 然后执行 `reboot` 重启生效。
+
+下面是我抄来的内核参数配置：
+
+```bash
+cat > /etc/sysctl.conf << EOF
+vm.swappiness = 1
+net.ipv4.tcp_congestion_control = bbr
+net.core.default_qdisc = fq_pie
+fs.file-max = 1000000
+fs.inotify.max_user_instances = 8192
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_fin_timeout = 30
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.ip_local_port_range = 1024 65000
+net.ipv4.tcp_max_syn_backlog = 16384
+net.ipv4.tcp_max_tw_buckets = 6000
+net.ipv4.route.gc_timeout = 100
+net.ipv4.tcp_syn_retries = 1
+net.ipv4.tcp_synack_retries = 1
+net.core.somaxconn = 32768
+net.core.netdev_max_backlog = 32768
+net.ipv4.tcp_timestamps = 0
+net.ipv4.tcp_max_orphans = 32768
+EOF
+```
 
 在终端执行以下命令检查 BBR3 状态：
 
