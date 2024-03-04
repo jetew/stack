@@ -36,18 +36,18 @@ jobs:
           cname: blog.kitin.cn
           commit_message: ${{ github.event.head_commit.message }}
           
-      # - name: Deploy to Server
-        # uses: easingthemes/ssh-deploy@main
-        # env:
-          # SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          # SOURCE: "public/"
-          # REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          # REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
-          # REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          # TARGET: ${{ secrets.REMOTE_TARGET }}
-          # SCRIPT_BEFORE: |
-            # rm -rf /data/wwwroot/blog/*
-          # SCRIPT_AFTER: |
-            # chown -R www:www /data/wwwroot/
-            # find /data/wwwroot/ -type d -exec chmod 755 {} \;
-            # find /data/wwwroot/ -type f -exec chmod 644 {} \;
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SOURCE: "public/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_TARGET }}
+          SCRIPT_BEFORE: |
+            rm -rf /data/www/blog/*
+          SCRIPT_AFTER: |
+            chown -R caddy:caddy /data/www/
+            find /data/www/ -type d -exec chmod 755 {} \;
+            find /data/www/ -type f -exec chmod 644 {} \;
