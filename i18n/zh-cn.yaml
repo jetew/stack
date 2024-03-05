@@ -7,3 +7,10 @@ widget:
     categoriesCloud:
         title: 
             other: 分类
+
+footer:
+    builtWith:
+        other: Built with {{ .Generator }}
+
+    designedBy:
+        other: "{{ .Theme }} Theme by {{ .DesignedBy }}"
