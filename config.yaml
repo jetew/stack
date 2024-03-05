@@ -33,8 +33,8 @@ params:
     favicon: /favicon.ico
 
     footer:
-        since: 2022
-        customText: <a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2024024305号</a>
+        since: 
+        customText: <img src="/img/icp.png" alt="MPS" width="14px" height="14px" />    <a href="https://beian.mps.gov.cn/#/query/webSearch?code=36010302000981" rel="noreferrer" target="_blank">赣公网安备36010302000981</a> | <a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2024024305号-1</a>
 
     dateFormat:
         published: Jan 02, 2006
