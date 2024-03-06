@@ -1,25 +1,22 @@
 {{- $ThemeVersion := "3.23.0" -}}
 <footer class="site-footer">
-    <section class="copyright">
-        Copyright &copy; 
+    <section class="powerby">
+        &copy; 
         {{ if and (.Site.Params.footer.since) (ne .Site.Params.footer.since (int (now.Format "2006"))) }}
             {{ .Site.Params.footer.since }} - 
         {{ end }}
-        {{ now.Format "2006" }} {{ default .Site.Title .Site.Copyright }} <br />
-        {{ with .Site.Params.footer.customText }}
-            {{ . | safeHTML }}
-        {{ end }}
-        
-    </section>
-    
-    <section class="powerby">
-
-        {{- $Generator := `<a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>` -}}
+        {{ now.Format "2006" }} <b>{{ default .Site.Title .Site.Copyright }}</b>&nbsp;&middot;&nbsp;
+        {{- $Generator := `<b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b>` -}}
         {{- $Theme := printf `<b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b>` $ThemeVersion -}}
-        {{- $DesignedBy := `<a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>` -}}
 
         {{ T "footer.builtWith" (dict "Generator" $Generator) | safeHTML }} &
-        {{ T "footer.designedBy" (dict "Theme" $Theme "DesignedBy" $DesignedBy) | safeHTML }}
+        {{ T "footer.designedBy" (dict "Theme" $Theme) | safeHTML }}
+    </section>
+
+    <section class="copyright">
+        {{ with .Site.Params.footer.customText }}
+            {{ . | safeHTML }}
+        {{ end }}       
     </section>
 
 </footer>

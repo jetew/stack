@@ -13,4 +13,4 @@ footer:
         other: Built with {{ .Generator }}
 
     designedBy:
-        other: "{{ .Theme }} Theme by {{ .DesignedBy }}"
+        other: "{{ .Theme }} Theme"
