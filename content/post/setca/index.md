@@ -1,8 +1,8 @@
 ---
 title: "指定签发 SSL CA 机构"
 slug: "setca"
-date: 2022-11-24T09:32:18+08:00
-lastmod: 2022-11-24T09:32:18+08:00
+date: 2022-03-20T09:32:18+08:00
+lastmod: 2022-03-20T09:32:18+08:00
 description: LNMP/Caddy 添加网站时指定签发 SSL  CA 机构
 comments: false
 tags:

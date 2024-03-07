@@ -1,8 +1,8 @@
 ---
 title: "SSL 证书安装部署"
 slug: "own_ssl"
-date: 2022-12-02T10:17:55+08:00
-lastmod: 2022-12-02T10:17:55+08:00
+date: 2022-04-02T10:17:55+08:00
+lastmod: 2022-04-02T10:17:55+08:00
 description: 在 Nginx/Caddy 服务下安装部署自有 SSL 证书
 comments: false
 tags:
