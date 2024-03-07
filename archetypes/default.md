@@ -6,6 +6,7 @@ date: {{ .Date }}
 lastmod: {{ .Date }}
 draft: false
 toc: true
+comments: false
 image: ""
 tags: [""]
 ---
