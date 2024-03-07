@@ -4,6 +4,7 @@ slug: "centos_sql_error"
 date: 2022-11-05T17:18:10+08:00
 lastmod: 2022-11-05T17:18:10+08:00
 description: CentOS7 下搭建 LNMP 环境遇到 MariaDB/MySQL 安装失败的解决方法
+comments: false
 tags:
 - Linux
 - LNMP

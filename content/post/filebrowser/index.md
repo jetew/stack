@@ -4,6 +4,7 @@ slug: "filebrowser"
 date: 2022-12-16T20:09:22+08:00
 lastmod: 2022-12-16T20:09:22+08:00
 description: 在 Linux 下使用 File Browser 搭建一个在线文件管理器
+comments: false
 tags:
 - Linux
 - FileBrowser
@@ -34,40 +35,40 @@ curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bas
 
 ```bash
 # 创建目录
-mkdir /opt/filebrowser
+mkdir /var/lib/filebrowser
 
 # 创建配置数据库
-filebrowser -d /opt/filebrowser/filebrowser.db config init
+filebrowser -d /var/lib/filebrowser/filebrowser.db config init
 ```
 
 设置监听地址：
 
 ```bash
-filebrowser -d /opt/filebrowser/filebrowser.db config set -a 0.0.0.0
+filebrowser -d /var/lib/filebrowser/filebrowser.db config set -a 0.0.0.0
 ```
 
 设置监听端口：
 
 ```bash
-filebrowser -d /opt/filebrowser/filebrowser.db config set -p 8080
+filebrowser -d /var/lib/filebrowser/filebrowser.db config set -p 8080
 ```
 
 设置根目录：
 
 ```bash
-filebrowser -d /opt/filebrowser/filebrowser.db config set -r /var/filebrowser
+filebrowser -d /var/lib/filebrowser/filebrowser.db config set -r /var/filebrowser
 ```
 
 设置语言环境：
 
 ```bash
-filebrowser -d /opt/filebrowser/filebrowser.db config set --locale zh-cn
+filebrowser -d /var/lib/filebrowser/filebrowser.db config set --locale zh-cn
 ```
 
 添加用户：
 
 ```bash
-filebrowser -d /opt/filebrowser/filebrowser.db users add user password --perm.admin --locale zh-cn
+filebrowser -d /var/lib/filebrowser/filebrowser.db users add user password --perm.admin --locale zh-cn
 ```
 
 其中的 `user` 与 `password` 为用户名和密码
@@ -75,7 +76,7 @@ filebrowser -d /opt/filebrowser/filebrowser.db users add user password --perm.ad
 试运行：
 
 ```bash
-filebrowser -d /opt/filebrowser/filebrowser.db
+filebrowser -d /var/lib/filebrowser/filebrowser.db
 ```
 
 之后即可通过 `http://ip:8080` 进行访问
@@ -188,7 +189,7 @@ domain.com {
 如果你想要通过 `https://domian.com/pan` 进行访问，那么需要设置 `baseurl` :
 
 ```bash
-filebrowser -d /opt/filebrowser/filebrowser.db config set -b /pan
+filebrowser -d /var/lib/filebrowser/filebrowser.db config set -b /pan
 ```
 
 然后进行反代：

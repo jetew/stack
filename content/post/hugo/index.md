@@ -4,6 +4,7 @@ slug: "hugo"
 date: 2022-05-03T10:50:47+08:00
 lastmod: 2022-05-05T10:50:47+08:00
 description: 使用 Hugo 进行免费的个人博客系统搭建并进行远程部署 (Hugo + GitHub Pages)
+comments: false
 tags:
 - Hugo
 - Blog

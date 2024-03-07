@@ -4,6 +4,7 @@ slug: "hugo_deploy"
 date: 2022-09-18T14:02:55+08:00
 lastmod: 2022-09-20T14:02:55+08:00
 description: 将 Hugo 博客免费托管到 Vercel/Netlify 进行自动部署，提升访问速度。
+comments: false
 tags:
 - Hugo
 - Github

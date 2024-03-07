@@ -4,6 +4,7 @@ slug: "lnmporg"
 date: 2022-02-25T17:14:41+08:00
 lastmod: 2022-02-27T10:50:47+08:00
 description: 使用 LNMP 一键包架设 LNMP 环境并开设网站。
+comments: false
 tags:
 - LNMP
 - Nginx

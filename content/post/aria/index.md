@@ -4,6 +4,7 @@ slug: "aria"
 date: 2022-12-24T10:58:22+08:00
 lastmod: 2022-12-24T10:58:22+08:00
 description: 在 Liunx 下使用 Aria2 和 AriaNG 搭建一个离线下载站
+comments: false
 tags:
 - Linux
 - Aira

@@ -4,6 +4,7 @@ slug: "lcmp"
 date: 2022-03-05T17:14:41+08:00
 lastmod: 2022-10-27T17:14:41+08:00
 description: 使用 Caddy 服务 +PHP+MySQL 架设并配置站点。
+comments: false
 tags:
 - Caddy
 - Web

@@ -4,6 +4,7 @@ slug: "hugo_comment"
 date: 2022-10-15T10:50:47+08:00
 lastmod: 2022-10-15T10:50:47+08:00
 description: 使用 Valine/Waline 为 Hugo 开启评论系统及配置
+comments: false
 tags:
 - Hugo
 - Blog

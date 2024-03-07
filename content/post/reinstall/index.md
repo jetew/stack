@@ -4,6 +4,7 @@ slug: "reinstall"
 date: 2022-12-01T10:53:36+08:00
 lastmod: 2022-12-01T10:53:36+08:00
 description: VPS 主机使用一键 DD 脚本自动重装系统优化版
+comments: false
 tags:
 - Linux
 - VPS

@@ -4,6 +4,7 @@ slug: "caddy"
 date: 2022-02-20T16:30:17+08:00
 lastmod: 2022-02-22T16:30:17+08:00
 description: Caddy 服务使用与配置入门，旨在通过 Caddy 快速搭建一个静态页面网站
+comments: false
 tags:
 - Caddy
 - Web

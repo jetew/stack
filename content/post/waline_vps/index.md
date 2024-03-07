@@ -4,6 +4,7 @@ slug: "waline_deploy"
 date: 2022-10-20T10:50:47+08:00
 lastmod: 2022-10-23T10:50:47+08:00
 description: 使用 Caddy+MariaDB/MySQL 在你的服务器上独立部署 Waline 服务端
+comments: false
 tags:
 - Hugo
 - Blog

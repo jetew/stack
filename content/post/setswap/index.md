@@ -4,6 +4,7 @@ slug: "setswap"
 date: 2022-11-11T19:15:56+08:00
 lastmod: 2022-11-11T19:15:56+08:00
 description: 小内存服务器设置 Swap 分区，解决内存不足的尴尬
+comments: false
 tags:
 - Linux
 - VPS

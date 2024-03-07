@@ -4,6 +4,7 @@ slug: "how_to_write"
 date: 2022-11-01T13:18:02+08:00
 lastmod: 2022-11-01T13:18:02+08:00
 description: 分享一下我日常是怎么在不同终端进行博客写作与数据同步的
+comments: false
 tags:
 - Hugo
 - Git

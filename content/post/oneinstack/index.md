@@ -4,6 +4,7 @@ slug: "oneinstack"
 date: 2022-02-23T17:14:41+08:00
 lastmod: 2022-02-25T10:50:47+08:00
 description: 使用 Oneinstack 自动安装方式一键架设 LNMP 环境并开设站点。
+comments: false
 tags:
 - LNMP
 - Nginx

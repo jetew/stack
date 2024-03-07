@@ -4,6 +4,7 @@ slug: "hugo_actions"
 date: 2022-07-16T13:25:48+08:00
 lastmod: 2022-07-21T10:50:47+08:00
 description: Github Actions 使用入门, 通过 Github 提供的 Actions 服务优雅地将 Hugo 博客自动部署到Github Pages 或云服务器
+comments: false
 tags:
 - Github
 - Hugo

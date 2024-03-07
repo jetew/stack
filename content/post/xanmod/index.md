@@ -2,6 +2,7 @@
 title: "Linux 安装 XanMod 内核开启 BBR V3"
 slug: "xanmod"
 description: "Linux 安装 XanMod 内核开启 BBR V3 使 VPS 降低延迟提升性能"
+comments: false
 date: 2024-03-01T05:26:41+08:00
 lastmod: 2024-03-01T05:26:41+08:00
 draft: false

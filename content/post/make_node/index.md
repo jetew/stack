@@ -6,6 +6,7 @@ date: 2024-02-25T23:37:17+08:00
 lastmod: 2024-02-25T23:37:17+08:00
 draft: false
 toc: true
+comments: false
 image: ""
 tags: ["Linux"]
 ---

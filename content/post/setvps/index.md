@@ -4,6 +4,7 @@ slug: "setvps"
 date: 2022-02-18T17:14:41+08:00
 lastmod: 2022-02-25T10:50:47+08:00
 description: VPS 的一些基本设置及优化，包括更新、安装基本软件、修改 SSH 端口、设置密钥登陆、开启加速服务等。
+comments: false
 tags:
 - Linux
 - VPS
