@@ -32,7 +32,7 @@ passwd
 ### 更新、安装基本软件
 
 ```bash
-apt update && apt full-upgrade -y && apt autoremove -y && apt autoclean
+apt update && apt dist-upgrade -y && apt autoremove -y && apt autoclean
 apt install -y wget curl vim screen
 ```
 
