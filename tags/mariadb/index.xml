@@ -1,4 +1,713 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MariaDB on Kitin's</title><link>/tags/mariadb/</link><description>Recent content in MariaDB on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Sat, 05 Nov 2022 17:18:10 +0800</lastBuildDate><atom:link href="/tags/mariadb/index.xml" rel="self" type="application/rss+xml"/><item><title>CentOS7 下 MariaDB 安装失败解决方法</title><link>/archives/centos_sql_error/</link><pubDate>Sat, 05 Nov 2022 17:18:10 +0800</pubDate><guid>/archives/centos_sql_error/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MariaDB on Kitin's</title><link>/tags/mariadb/</link><description>Recent content in MariaDB on Kitin's</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Kitin</copyright><lastBuildDate>Fri, 20 Oct 2023 22:24:35 +0800</lastBuildDate><atom:link href="/tags/mariadb/index.xml" rel="self" type="application/rss+xml"/><item><title>Debian 下手动安装 LCMP 环境</title><link>/archives/install_lcmp/</link><pubDate>Fri, 20 Oct 2023 22:24:35 +0800</pubDate><guid>/archives/install_lcmp/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>继 &lt;a class="link" href="https://mp.weixin.qq.com/s/OT7C1l5rjBNCawFXRIUJOQ" target="_blank" rel="noopener"
+>LNMP 供应链投毒事件
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 后，知名 LNMP 部署工具 Oneinstack 也被发现挂码，参考 Oneinstack 项目 &lt;a class="link" href="https://github.com/oneinstack/oneinstack/issues/487" target="_blank" rel="noopener"
+>Issues #487
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 和 &lt;a class="link" href="https://github.com/oneinstack/oneinstack/issues/511" target="_blank" rel="noopener"
+>Issues #511
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/p>
+&lt;p>此事在 Github 和 V2EX 上已有帖子在讨论；而始作俑者 &lt;strong>金华市矜贵网络科技有限公司&lt;/strong> 至今陆续拥有了 &lt;strong>WDCP&lt;/strong>、&lt;strong>LNMP 一建包&lt;/strong> 和 &lt;strong>Oneinstack&lt;/strong>；鉴于金华矜贵还试图收购秋水逸冰大佬的 &lt;strong>LAMP 一键安装包&lt;/strong> (但被秋大拒绝了)，他们后续可能还会盯上其他部署工具；所以建议大家最近有使用过上述工具的直接重装系统。&lt;/p>
+&lt;p>而对 LNMP 一建包和 Oneinstack 有使用需求的人不在少数，所以我们必须寻找替代品，如上文提到的秋水逸冰大佬的 LAMP/LCMP 一键包或者学着自己进行搭建与配置。&lt;/p>
+&lt;hr>
+&lt;h3 id="脚本推荐">脚本推荐&lt;/h3>
+&lt;h4 id="lamp-一键包">LAMP 一键包&lt;/h4>
+&lt;p>LAMP 一键安装包是一个用 Linux Shell 编写的可以为 Amazon Linux 2/CentOS/Debian/Ubuntu 系统的 VPS 或服务器安装 LAMP(Linux + Apache + MySQL/MariaDB + PHP) 生产环境的 Shell 脚本。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://lamp.sh" target="_blank" rel="noopener"
+>LAMP 一键包官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/teddysun/lamp" target="_blank" rel="noopener"
+>Github 项目地址
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h4 id="lcmp-一键包">LCMP 一键包&lt;/h4>
+&lt;p>LCMP 一键包 (Linux + Caddy2 + MySQL/MariaDB + PHP) 是一个强大的 Bash 脚本，用于安装 Caddy2 + MariaDB + PHP；可以通过 &lt;code>yum&lt;/code> 或 &lt;code>apt-get&lt;/code> 命令在内存较小的 VPS 中安装 Caddy2 + MariaDB + PHP，只需在安装前输入数字选择要安装的内容即可；同为秋水逸冰大佬制作&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/teddysun/lamp" target="_blank" rel="noopener"
+>Github 项目地址
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>接下来看下如何手动安装及配置。&lt;/p>
+&lt;hr>
+&lt;h2 id="安装与配置">安装与配置&lt;/h2>
+&lt;h3 id="安装必要软件和依赖">安装必要软件和依赖&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install -y debian-keyring debian-archive-keyring build-essential gcc g++ make cmake autoconf libjpeg62-turbo-dev libjpeg-dev libpng-dev libwebp7 libwebp-dev libfreetype6 libfreetype6-dev libssh2-1-dev libmhash2 libpcre3 libpcre3-dev gzip libbz2-1.0 libbz2-dev libgd-dev libxml2 libxml2-dev libsodium-dev argon2 libargon2-1 libargon2-dev libiconv-hook-dev zlib1g zlib1g-dev libc6 libc6-dev libc-client2007e-dev libglib2.0-0 libglib2.0-dev bzip2 libzip-dev libbz2-1.0 libncurses5 libncurses5-dev libaio1 libaio-dev numactl libreadline-dev curl libcurl3-gnutls libcurl4-openssl-dev e2fsprogs libkrb5-3 libkrb5-dev libltdl-dev libidn11-dev openssl net-tools libssl-dev libtool libevent-dev bison re2c libsasl2-dev libxslt1-dev libicu-dev locales patch vim zip unzip tmux htop bc dc expect libexpat1-dev libonig-dev libtirpc-dev rsync git lsof lrzsz rsyslog cron logrotate chrony libsqlite3-dev psmisc wget sysv-rc apt-transport-https ca-certificates software-properties-common gnupg screen
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-caddy">安装 Caddy&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -1sLf &lt;span class="s1">&amp;#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -1sLf &lt;span class="s1">&amp;#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> tee /etc/apt/sources.list.d/caddy-stable.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install caddy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="配置-caddy">配置 Caddy&lt;/h4>
+&lt;p>首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 &lt;strong>/data/www&lt;/strong>，SSL 存放目录我在 Caddy 默认的 SSL 目录中创建一个文件夹放置自有证书，位置可以自己更改&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p /data/www/default
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /var/lib/caddy/ssl
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将 Caddy 默认网站文件移到创建的默认网站文件夹中&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mv /usr/share/caddy/index.html /data/www/default
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rm -r /usr/share/caddy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑 Caddyfile 配置文件，并进行重写，位于 &lt;strong>/etc/caddy/Caddyfile&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat &amp;gt; /etc/caddy/Caddyfile &lt;span class="s">&amp;lt;&amp;lt; EOF
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">:80 {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> root * /data/www/default
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> header {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> Strict-Transport-Security max-age=31536000;preload
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> X-Content-Type-Options nosniff
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> X-Frame-Options SAMEORIGIN
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> encode gzip
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> php_fastcgi unix//dev/shm/php-cgi.sock
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> file_server
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">}
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">caddy fmt --overwrite /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="安装-mariadb">安装 MariaDB&lt;/h3>
+&lt;p>可以使用预编译的二进制包安装或者源码编译进行安装，自行选择即可；我推荐使用二进制包进行安装。&lt;/p>
+&lt;h4 id="安装前的准备">安装前的准备&lt;/h4>
+&lt;p>为 MariaDB 创建用户组，创建安装目录并设置权限&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">useradd -M -s /sbin/nologin mysql
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /usr/local/mariadb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /data/mariadb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown -R mysql:mysql /usr/local/mariadb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown -R mysql:mysql /data/mariadb
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编译安装 Jemalloc 为 MariaDB 提供内存分配管理&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://github.com/jemalloc/jemalloc/archive/5.3.0.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxf 5.3.0.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> jemalloc-5.3.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">autoconf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./configure
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j&lt;span class="k">$(&lt;/span>nproc&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>链接动态库&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ln -s /usr/local/lib/libjemalloc.so.2 /usr/lib/libjemalloc.so.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;/usr/local/lib&amp;#39;&lt;/span> &amp;gt; /etc/ld.so.conf.d/jemalloc.conf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ldconfig
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="二进制安装">二进制安装&lt;/h4>
+&lt;p>下载二进制包&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://archive.mariadb.org/mariadb-10.11.7/bintar-linux-systemd-x86_64/mariadb-10.11.7-linux-systemd-x86_64.tar.gz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>国内主机可以使用清华源地址：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://mirrors.tuna.tsinghua.edu.cn/mariadb/mariadb-10.11.7/bintar-linux-systemd-x86_64/mariadb-10.11.7-linux-systemd-x86_64.tar.gz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>只需要将下载好的预编译二进制文件解压到安装位置，然后更改相关文件的配置即可&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxf mariadb-10.11.7-linux-systemd-x86_64.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv /usr/local/src/mariadb-10.11.7-linux-systemd-x86_64/* /usr/local/mariadb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 为 MariaDB 开启 Jemalloc 支持&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -i &lt;span class="s1">&amp;#39;s@executing mysqld_safe@executing mysqld_safe\nexport LD_PRELOAD=/usr/local/lib/libjemalloc.so@&amp;#39;&lt;/span> /usr/local/mariadb/bin/mysqld_safe
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 更改相关文件中 MariaDB 安装位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -i &lt;span class="s2">&amp;#34;s@/usr/local/mysql@/usr/local/mariadb@g&amp;#34;&lt;/span> /usr/local/mariadb/bin/mysqld_safe
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="配置-mariadb">配置 MariaDB&lt;/h4>
+&lt;p>首先设置 Service 脚本，方便进行管理；这里主要将编译好的脚本设置一下安装路径和数据路径&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cp /usr/local/mariadb/support-files/mysql.server /etc/init.d/mysql
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 更改 MariaDB安装位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -i &lt;span class="s2">&amp;#34;s@^basedir=.*@basedir=/usr/local/mariadb@&amp;#34;&lt;/span> /etc/init.d/mysql
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 更改 MariaDB 数据位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -i &lt;span class="s2">&amp;#34;s@^datadir=.*@datadir=/data/mariadb@&amp;#34;&lt;/span> /etc/init.d/mysql
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x /etc/init.d/mysql
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接着来配置下 &lt;code>my.cnf&lt;/code> 文件&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat &amp;gt; /etc/my.cnf &lt;span class="s">&amp;lt;&amp;lt; EOF
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[client]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">port = 3306
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">socket = /tmp/mysql.sock
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">default-character-set = utf8mb4
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[mysqld]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">port = 3306
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">socket = /tmp/mysql.sock
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">basedir = /usr/local/mariadb
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">datadir = /data/mariadb
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">pid-file = /data/mariadb/mysql.pid
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">user = mysql
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">bind-address = 0.0.0.0
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">server-id = 1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">init-connect = &amp;#39;SET NAMES utf8mb4&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">character-set-server = utf8mb4
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">skip-name-resolve
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">#skip-networking
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">back_log = 300
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">max_connections = 1000
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">max_connect_errors = 6000
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">open_files_limit = 65535
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">table_open_cache = 128
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">max_allowed_packet = 500M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">binlog_cache_size = 1M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">max_heap_table_size = 8M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">tmp_table_size = 16M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">read_buffer_size = 2M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">read_rnd_buffer_size = 8M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">sort_buffer_size = 8M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">join_buffer_size = 8M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">key_buffer_size = 4M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">thread_cache_size = 8
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">query_cache_type = 1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">query_cache_size = 8M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">query_cache_limit = 2M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">ft_min_word_len = 4
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">log_bin = mysql-bin
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">binlog_format = mixed
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">expire_logs_days = 7
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">log_error = /data/mariadb/mysql-error.log
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">slow_query_log = 1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">long_query_time = 1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">slow_query_log_file = /data/mariadb/mysql-slow.log
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">performance_schema = 0
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">#lower_case_table_names = 1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">skip-external-locking
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">default_storage_engine = InnoDB
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">innodb_file_per_table = 1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">innodb_open_files = 500
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">innodb_buffer_pool_size = 64M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">innodb_write_io_threads = 4
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">innodb_read_io_threads = 4
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">innodb_purge_threads = 1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">innodb_flush_log_at_trx_commit = 2
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">innodb_log_buffer_size = 2M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">innodb_log_file_size = 32M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">innodb_max_dirty_pages_pct = 90
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">innodb_lock_wait_timeout = 120
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">bulk_insert_buffer_size = 8M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">myisam_sort_buffer_size = 8M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">myisam_max_sort_file_size = 10G
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">interactive_timeout = 28800
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">wait_timeout = 28800
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[mysqldump]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">quick
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">max_allowed_packet = 500M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[myisamchk]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">key_buffer_size = 8M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">sort_buffer_size = 8M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">read_buffer = 4M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">write_buffer = 4M
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后进行如下修改：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 最大连接数，改为内存（单位：M）/3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">max_connections&lt;/span> &lt;span class="o">=&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存 1500M - 2500M 改成如下：&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">thread_cache_size&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">16&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">query_cache_size&lt;/span> &lt;span class="o">=&lt;/span> 16M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">myisam_sort_buffer_size&lt;/span> &lt;span class="o">=&lt;/span> 16M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">key_buffer_size&lt;/span> &lt;span class="o">=&lt;/span> 16M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">innodb_buffer_pool_size&lt;/span> &lt;span class="o">=&lt;/span> 128M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">tmp_table_size&lt;/span> &lt;span class="o">=&lt;/span> 32M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">table_open_cache&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">256&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存 2500M - 3500M 改成如下：&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">thread_cache_size&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">32&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">query_cache_size&lt;/span> &lt;span class="o">=&lt;/span> 32M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">myisam_sort_buffer_size&lt;/span> &lt;span class="o">=&lt;/span> 32M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">key_buffer_size&lt;/span> &lt;span class="o">=&lt;/span> 64M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">innodb_buffer_pool_size&lt;/span> &lt;span class="o">=&lt;/span> 512M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">tmp_table_size&lt;/span> &lt;span class="o">=&lt;/span> 64M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">table_open_cache&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">512&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存大于 3500M 改成如下：&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">thread_cache_size&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">query_cache_size&lt;/span> &lt;span class="o">=&lt;/span> 64M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">myisam_sort_buffer_size&lt;/span> &lt;span class="o">=&lt;/span> 64M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">key_buffer_size&lt;/span> &lt;span class="o">=&lt;/span> 256M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">innodb_buffer_pool_size&lt;/span> &lt;span class="o">=&lt;/span> 1024M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">tmp_table_size&lt;/span> &lt;span class="o">=&lt;/span> 128M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">table_open_cache&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">1024&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建必要文件、文件夹，并赋予权限&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">touch /tmp/mysql.sock
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown mysql:mysql /tmp/mysql.sock
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /data/mariadb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">touch /data/mariadb/&lt;span class="o">{&lt;/span>mysql.pid,mysql-error.log,mysql-slow.log&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown -R mysql:mysql /data/mariadb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">664&lt;/span> /tmp/mysql.sock /data/mariadb/*
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown -R mysql:mysql /usr/local/mariadb
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加环境变量&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;PATH=/usr/local/mariadb/bin:\$PATH&amp;#34;&lt;/span> &amp;gt; /etc/profile.d/mysql.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> /etc/profile.d/mysql.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来使用自带的脚本进行数据导入及初始化&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/usr/local/mariadb/scripts/mysql_install_db --user&lt;span class="o">=&lt;/span>mysql --basedir&lt;span class="o">=&lt;/span>/usr/local/mariadb/ --datadir&lt;span class="o">=&lt;/span>/data/mariadb
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="/archives/install_lcmp/1.png"
+width="805"
+height="470"
+srcset="/archives/install_lcmp/1_hu5e0c1d4a3bced10ccd0956b80e01422d_73048_480x0_resize_box_3.png 480w, /archives/install_lcmp/1_hu5e0c1d4a3bced10ccd0956b80e01422d_73048_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="初始化数据"
+class="gallery-image"
+data-flex-grow="171"
+data-flex-basis="411px"
+>&lt;/p>
+&lt;p>完成之后，赋予 my.cnf 对应的权限并启动 MariaDB&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">600&lt;/span> /etc/my.cnf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl daemon-reload
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">service mysql start
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后执行下面命令进行安全设置，&lt;code>dbrootpwd=&lt;/code> 设置为你要设置的密码&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">dbrootpwd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;password&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/mariadb/bin/mysql -e &lt;span class="s2">&amp;#34;grant all privileges on *.* to root@&amp;#39;127.0.0.1&amp;#39; identified by \&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">dbrootpwd&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">\&amp;#34; with grant option;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/mariadb/bin/mysql -e &lt;span class="s2">&amp;#34;grant all privileges on *.* to root@&amp;#39;localhost&amp;#39; identified by \&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">dbrootpwd&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">\&amp;#34; with grant option;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/mariadb/bin/mysql -uroot -p&lt;span class="si">${&lt;/span>&lt;span class="nv">dbrootpwd&lt;/span>&lt;span class="si">}&lt;/span> -e &lt;span class="s2">&amp;#34;delete from mysql.user where Password=&amp;#39;&amp;#39; and User not like &amp;#39;mariadb.%&amp;#39;;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/mariadb/bin/mysql -uroot -p&lt;span class="si">${&lt;/span>&lt;span class="nv">dbrootpwd&lt;/span>&lt;span class="si">}&lt;/span> -e &lt;span class="s2">&amp;#34;delete from mysql.db where User=&amp;#39;&amp;#39;;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/mariadb/bin/mysql -uroot -p&lt;span class="si">${&lt;/span>&lt;span class="nv">dbrootpwd&lt;/span>&lt;span class="si">}&lt;/span> -e &lt;span class="s2">&amp;#34;delete from mysql.proxies_priv where Host!=&amp;#39;localhost&amp;#39;;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/mariadb/bin/mysql -uroot -p&lt;span class="si">${&lt;/span>&lt;span class="nv">dbrootpwd&lt;/span>&lt;span class="si">}&lt;/span> -e &lt;span class="s2">&amp;#34;drop database test;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/mariadb/bin/mysql -uroot -p&lt;span class="si">${&lt;/span>&lt;span class="nv">dbrootpwd&lt;/span>&lt;span class="si">}&lt;/span> -e &lt;span class="s2">&amp;#34;reset master;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>完成安全设置后为 MariaDB 链接动态库&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;/usr/local/mariadb/lib&amp;#34;&lt;/span> &amp;gt; /etc/ld.so.conf.d/mariadb.conf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ldconfig
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="安装-php">安装 PHP&lt;/h3>
+&lt;h4 id="准备工作">准备工作&lt;/h4>
+&lt;p>在安装 PHP 之前，需要编译安装 libiconv&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxf libiconv-1.17.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> libiconv-1.17
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./configure
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j&lt;span class="k">$(&lt;/span>nproc&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>链接动态库&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;/usr/local/lib&amp;#39;&lt;/span> &amp;gt; /etc/ld.so.conf.d/libc.conf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ldconfig
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="源码编译安装">源码编译安装&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://secure.php.net/distributions/php-8.2.16.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxf php-8.2.16.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> php-8.2.16
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir build-php &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> build-php
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">../configure --prefix&lt;span class="o">=&lt;/span>/usr/local/php &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-config-file-path&lt;span class="o">=&lt;/span>/usr/local/php/etc &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-config-file-scan-dir&lt;span class="o">=&lt;/span>/usr/local/php/etc/php.d &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-fpm-user&lt;span class="o">=&lt;/span>caddy &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-fpm-group&lt;span class="o">=&lt;/span>caddy &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-mysqli&lt;span class="o">=&lt;/span>mysqlnd &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-pdo-mysql&lt;span class="o">=&lt;/span>mysqlnd &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-iconv&lt;span class="o">=&lt;/span>/usr/local/ &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-freetype &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-jpeg &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-zlib &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-password-argon2 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-sodium &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-curl &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-openssl &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-mhash &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-xsl &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-gettext &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-zip &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-fpm &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-opcache &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-mysqlnd &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-xml &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-bcmath &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-shmop &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-exif &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-sysvsem &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-mbregex &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-mbstring &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-gd &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-pcntl &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-sockets &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-ftp &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-intl &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-soap &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--disable-fileinfo &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--disable-rpath &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--disable-debug
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make &lt;span class="nv">ZEND_EXTRA_LIBS&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;-liconv&amp;#39;&lt;/span> -j &lt;span class="k">$(&lt;/span>nproc&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>为 PHP 添加环境变量&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;export PATH=/usr/local/php/bin:\$PATH&amp;#34;&lt;/span> &amp;gt; /etc/profile.d/php.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> /etc/profile.d/php.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>复制 php.ini 配置并进行修改&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cp /usr/local/src/php-8.2.16/php.ini-production /usr/local/php/etc/php.ini
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 修改以下部分&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">memory_limit&lt;/span> &lt;span class="o">=&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">output_buffering&lt;/span> &lt;span class="o">=&lt;/span> On
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">short_open_tag&lt;/span> &lt;span class="o">=&lt;/span> On
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">expose_php&lt;/span> &lt;span class="o">=&lt;/span> Off
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">equest_order&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;CGP&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date.timezone &lt;span class="o">=&lt;/span> Asia/Shanghai
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">post_max_size&lt;/span> &lt;span class="o">=&lt;/span> 100M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">upload_max_filesize&lt;/span> &lt;span class="o">=&lt;/span> 50M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">max_execution_time&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">600&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">realpath_cache_size&lt;/span> &lt;span class="o">=&lt;/span> 2M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">disable_functions&lt;/span> &lt;span class="o">=&lt;/span> passthru,exec,system,chroot,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_restore,dl,readlink,symlink,popepassthru,stream_socket_server,fsocket,popen
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来为 PHP 开启 OPcache 缓存并进行配置&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat &amp;gt; /usr/local/php/etc/php.d/opcache.ini &lt;span class="s">&amp;lt;&amp;lt; EOF
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[opcache]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">zend_extension=opcache.so
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">opcache.enable=1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">opcache.enable_cli=1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">opcache.memory_consumption=
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">opcache.interned_strings_buffer=8
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">opcache.max_accelerated_files=100000
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">opcache.max_wasted_percentage=5
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">opcache.use_cwd=1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">opcache.validate_timestamps=1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">opcache.revalidate_freq=60
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">;opcache.save_comments=0
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">opcache.consistency_checks=0
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">;opcache.optimization_level=0
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中 &lt;code>opcache.memory_consumption=&lt;/code> 项，参数如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">内存小于 &lt;span class="nv">640M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">内存为 640M - &lt;span class="nv">1280M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">128&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">内存为 1280M - &lt;span class="nv">2500M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">192&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">内存为 2500M - &lt;span class="nv">3500M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">256&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">内存为 3500M - &lt;span class="nv">4500M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">320&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">内存为 4500M - &lt;span class="nv">8000M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">384&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">内存大于 &lt;span class="nv">8000M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">448&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加 php-fpm 启动脚本，并设置开机自启&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat &amp;gt; /usr/lib/systemd/system/php-fpm.service &lt;span class="s">&amp;lt;&amp;lt; &amp;#39;EOF&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[Unit]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Description=The PHP FastCGI Process Manager
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Documentation=http://php.net/docs.php
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">After=network.target
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[Service]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Type=simple
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">PIDFile=/usr/local/php/var/run/php-fpm.pid
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">ExecStart=/usr/local/php/sbin/php-fpm --nodaemonize --fpm-config usr/local/php/etc/php-fpm.conf
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">ExecReload=/bin/kill -USR2 $MAINPID
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">LimitNOFILE=1000000
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">LimitNPROC=1000000
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">LimitCORE=1000000
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[Install]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">WantedBy=multi-user.target
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl &lt;span class="nb">enable&lt;/span> php-fpm
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接着还需要添加 php-fpm 配置文件，并进行配置&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat &amp;gt; /usr/local/php/etc/php-fpm.conf &lt;span class="s">&amp;lt;&amp;lt; EOF
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">;;;;;;;;;;;;;;;;;;;;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">; FPM Configuration ;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">;;;;;;;;;;;;;;;;;;;;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">;;;;;;;;;;;;;;;;;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">; Global Options ;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">;;;;;;;;;;;;;;;;;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[global]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">pid = run/php-fpm.pid
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">error_log = log/php-fpm.log
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">log_level = warning
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">emergency_restart_threshold = 30
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">emergency_restart_interval = 60s
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">process_control_timeout = 5s
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">daemonize = yes
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">;;;;;;;;;;;;;;;;;;;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">; Pool Definitions ;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">;;;;;;;;;;;;;;;;;;;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[caddy]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">listen = /dev/shm/php-cgi.sock
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">listen.backlog = -1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">listen.allowed_clients = 127.0.0.1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">listen.owner = caddy
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">listen.group = caddy
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">listen.mode = 0666
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">user = caddy
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">group = caddy
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">pm = dynamic
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">pm.max_children = 12
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">pm.start_servers = 8
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">pm.min_spare_servers = 6
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">pm.max_spare_servers = 12
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">pm.max_requests = 2048
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">pm.process_idle_timeout = 10s
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">request_terminate_timeout = 120
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">request_slowlog_timeout = 0
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">pm.status_path = /php-fpm_status
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">slowlog = var/log/slow.log
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">rlimit_files = 51200
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">rlimit_core = 0
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">catch_workers_output = yes
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">;env[HOSTNAME] = $HOSTNAME
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">env[PATH] = /usr/local/bin:/usr/bin:/bin
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">env[TMP] = /tmp
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">env[TMPDIR] = /tmp
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">env[TEMP] = /tmp
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>进行如下修改：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存小于 3000M&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.max_children &lt;span class="o">=&lt;/span> 内存（单位：M） /3/20
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.start_servers &lt;span class="o">=&lt;/span> 内存（单位：M） /3/30
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.min_spare_servers &lt;span class="o">=&lt;/span> 内存（单位：M） /3/40
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.max_spare_servers &lt;span class="o">=&lt;/span> 内存（单位：M） /3/20
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存为 3000M - 4500M&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.max_children &lt;span class="o">=&lt;/span> &lt;span class="m">50&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.start_servers &lt;span class="o">=&lt;/span> &lt;span class="m">30&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.min_spare_servers &lt;span class="o">=&lt;/span> &lt;span class="m">20&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.max_spare_servers &lt;span class="o">=&lt;/span> &lt;span class="m">50&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存为 4500M - 6500M&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.max_children &lt;span class="o">=&lt;/span> &lt;span class="m">60&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.start_servers &lt;span class="o">=&lt;/span> &lt;span class="m">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.min_spare_servers &lt;span class="o">=&lt;/span> &lt;span class="m">30&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.max_spare_servers &lt;span class="o">=&lt;/span> &lt;span class="m">60&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存为 6500M - 8500M&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.max_children &lt;span class="o">=&lt;/span> &lt;span class="m">70&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.start_servers &lt;span class="o">=&lt;/span> &lt;span class="m">50&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.min_spare_servers &lt;span class="o">=&lt;/span> &lt;span class="m">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.max_spare_servers &lt;span class="o">=&lt;/span> &lt;span class="m">70&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存大于 8500M&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.max_children &lt;span class="o">=&lt;/span> &lt;span class="m">80&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.start_servers &lt;span class="o">=&lt;/span> &lt;span class="m">60&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.min_spare_servers &lt;span class="o">=&lt;/span> &lt;span class="m">50&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.max_spare_servers &lt;span class="o">=&lt;/span> &lt;span class="m">80&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="安装php-扩展">安装PHP 扩展&lt;/h3>
+&lt;h4 id="redis-扩展">Redis 扩展&lt;/h4>
+&lt;p>下载 Redis Server 和 PECL Redis&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://github.com/redis/redis/archive/7.2.4.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://pecl.php.net/get/redis-6.0.2.tgz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编译安装 Redis Srever&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p /usr/local/redis/&lt;span class="o">{&lt;/span>etc,var&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxf 7.2.4.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> redis-7.2.4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j&lt;span class="k">$(&lt;/span>nproc&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make &lt;span class="nv">PREFIX&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/redis install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将 bin 目录下可执行文件进行链接并配置 redis&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ln -s /usr/local/redis/bin/* /usr/local/bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /usr/local/src/redis-7.2.4/redis.conf /usr/local/redis/etc/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim /usr/local/redis/etc/redis.conf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 改成如下&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pidfile /var/run/redis/redis.pid
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">logfile /usr/local/redis/var/redis.log
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dir /usr/local/redis/var
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">daemonize yes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">bind&lt;/span> 127.0.0.1 ::1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># maxmemory 计算方法：内存（单位：M）/8*1000000&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">maxmemory &lt;span class="m">512000000&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加用户 并设置文件夹权限&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">useradd -M -s /sbin/nologin redis
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown -R redis:redis /usr/local/redis/&lt;span class="o">{&lt;/span>var,etc&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加 Redis Server 启动脚本，并设置开机自启&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat &amp;gt; /usr/lib/systemd/system/redis-server.service &lt;span class="s">&amp;lt;&amp;lt; &amp;#39;EOF&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[Unit]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Description=Redis In-Memory Data Store
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">After=network.target
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[Service]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Type=forking
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">PIDFile=/var/run/redis/redis.pid
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">User=redis
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Group=redis
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Environment=statedir=/var/run/redis
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">PermissionsStartOnly=true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">ExecStartPre=/bin/mkdir -p ${statedir}
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">ExecStartPre=/bin/chown -R redis:redis ${statedir}
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">ExecStart=/usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">ExecStop=/bin/kill -s TERM $MAINPID
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Restart=always
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">LimitNOFILE=1000000
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">LimitNPROC=1000000
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">LimitCORE=1000000
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[Install]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">WantedBy=multi-user.target
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl &lt;span class="nb">enable&lt;/span> redis-server
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl start redis-server
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接着安装 PECL Redis 并为 PHP 开启 PECL Redis 扩展&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxf redis-6.0.2.tgz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> redis-6.0.2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/php/bin/phpize
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./configure --with-php-config&lt;span class="o">=&lt;/span>/usr/local/php/bin/php-config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j&lt;span class="k">$(&lt;/span>nproc&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;extension=redis.so&amp;#39;&lt;/span> &amp;gt; /usr/local/php/etc/php.d/redis.ini
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="memcached-扩展">Memcached 扩展&lt;/h4>
+&lt;p>首先需要下载 Memcached、libMemcached 和 PECL Memcached&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://memcached.org/files/memcached-1.6.24.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://pecl.php.net/get/memcached-3.2.0.tgz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>开始编译安装 Memcached&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 添加用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">useradd -M -s /sbin/nologin memcached
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxf memcached-1.6.24.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> memcached-1.6.24
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./configure --prefix&lt;span class="o">=&lt;/span>/usr/local/memcached
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j&lt;span class="k">$(&lt;/span>nproc&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 链接可执行文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/local/memcached/bin/memcached /usr/bin/memcached
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加 Memcached 启动脚本，并设置开机自启&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat &amp;gt; /usr/lib/systemd/system/memcached.service &lt;span class="s">&amp;lt;&amp;lt; &amp;#39;EOF&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[Unit]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Description=memcached daemon
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">After=network.target
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[Service]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Environment=PORT=11211
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Environment=USER=memcached
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Environment=MAXCONN=1024
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Environment=CACHESIZE=256
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Environment=&amp;#34;OPTIONS=-l 127.0.0.1&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">ExecStart=/usr/bin/memcached -p ${PORT} -u ${USER} -m ${CACHESIZE} -c ${MAXCONN} $OPTIONS
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">PrivateTmp=true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">ProtectSystem=full
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">NoNewPrivileges=true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">PrivateDevices=true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">CapabilityBoundingSet=CAP_SETGID CAP_SETUID CAP_SYS_RESOURCE
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[Install]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">WantedBy=multi-user.target
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl &lt;span class="nb">enable&lt;/span> memcached
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl start memcached
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在编译安装之前先给 libMencached 打个补丁&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxf libmemcached-1.0.18.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat &amp;gt; libmemcached-build.patch &lt;span class="s">&amp;lt;&amp;lt; &amp;#39;EOF&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">diff -up ./clients/memflush.cc.old ./clients/memflush.cc
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">--- ./clients/memflush.cc.old 2017-02-12 10:12:59.615209225 +0100
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">+++ ./clients/memflush.cc 2017-02-12 10:13:39.998382783 +0100
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> options_parse(argc, argv);
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- if (opt_servers == false)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">+ if (!opt_servers)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> char *temp;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> opt_servers= strdup(temp);
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- if (opt_servers == false)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">+ if (!opt_servers)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> std::cerr &amp;lt;&amp;lt; &amp;#34;No Servers provided&amp;#34; &amp;lt;&amp;lt; std::endl;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> exit(EXIT_FAILURE);
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">patch -d libmemcached-1.0.18 -p0 &amp;lt; libmemcached-build.patch
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后编译安装 libMencached&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> libmemcached-1.0.18
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -i &lt;span class="s2">&amp;#34;s@lthread -pthread -pthreads@lthread -lpthread -pthreads@&amp;#34;&lt;/span> ./configure
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./configure --with-memcached&lt;span class="o">=&lt;/span>/usr/local/memcached
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j&lt;span class="k">$(&lt;/span>nproc&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来编译安装 PECL Memcached 并为 PHP 开启 Memcached 扩展&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxf memcached-3.2.0.tgz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> memcached-3.2.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/php/bin/phpize
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./configure --with-php-config&lt;span class="o">=&lt;/span>/usr/local/php/bin/php-config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j&lt;span class="k">$(&lt;/span>nproc&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat &amp;gt; /usr/local/php/etc/php.d/memcached.ini &lt;span class="s">&amp;lt;&amp;lt; EOF
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">extension=memcached.so
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">memcached.use_sasl=1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="imagick-扩展">Imagick 扩展&lt;/h4>
+&lt;p>下载 Imagemagick 和 PECL Imagick&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://imagemagick.org/archive/ImageMagick.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://pecl.php.net/get/imagick-3.7.0.tgz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编译安装 Imagemagick&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxf ImageMagick.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> ImageMagick-7.1.1-29
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./configure --prefix&lt;span class="o">=&lt;/span>/usr/local/imagemagick &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-shared &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--enable-static
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j&lt;span class="k">$(&lt;/span>nproc&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编译安装 PECL Imagick 并为 PHP 开启 Imagick 扩展&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxf imagick-3.7.0.tgz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> imagick-3.7.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/usr/local/php/bin/phpize
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./configure --with-php-config&lt;span class="o">=&lt;/span>/usr/local/php/bin/php-config &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--with-imagick&lt;span class="o">=&lt;/span>/usr/local/imagemagick
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make -j&lt;span class="k">$(&lt;/span>nproc&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;extension=imagick.so&amp;#39;&lt;/span> &amp;gt; /usr/local/php/etc/php.d/imagick.ini
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;p>至此 Caddy2 + MariaDB + PHP 安装完成&lt;/p></description></item><item><title>CentOS7 下 MariaDB 安装失败解决方法</title><link>/archives/centos_sql_error/</link><pubDate>Sat, 05 Nov 2022 17:18:10 +0800</pubDate><guid>/archives/centos_sql_error/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>由于最近腾讯云双11优惠活动，自己购买了一台腾讯云的轻量应用服务器 (老实说还是挺实惠的-。-) 加上自己按捺不住折腾的心，这次一改以前一直使用的 Debian 而选择了 CentOS ；这次的服务器系统我选择的是 CentOS7 ，LNMP 安装方式则是 Oneinstack 和 LNMP 一键安装包都进行了尝试。Debian 下，它们都是完美安装。但是 Centos7 下，在安装过程中 Oneinstack 和 LNMP 一键安装包都碰到了 MariaDB/MySQL 无法安装的情况，由于我是一个 Linux 小白，平常只靠从网上学习，知识量不足；所以在此记录下这次解决过程，以便日后进行查阅。&lt;/p>
 &lt;hr>
 &lt;h2 id="解决过程">解决过程&lt;/h2>
