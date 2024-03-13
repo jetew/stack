@@ -535,39 +535,13 @@ fill="currentColor">
 &lt;h3 id="脚本推荐">脚本推荐&lt;/h3>
 &lt;h4 id="lamp-一键包">LAMP 一键包&lt;/h4>
 &lt;p>LAMP 一键安装包是一个用 Linux Shell 编写的可以为 Amazon Linux 2/CentOS/Debian/Ubuntu 系统的 VPS 或服务器安装 LAMP(Linux + Apache + MySQL/MariaDB + PHP) 生产环境的 Shell 脚本。&lt;/p>
-&lt;ul>
-&lt;li>&lt;a class="link" href="https://lamp.sh" target="_blank" rel="noopener"
->LAMP 一键包官网
-&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
-height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
-&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
-&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
-fill="currentColor">
-&lt;/svg>&lt;/span>
-&lt;/a>&lt;/li>
-&lt;li>&lt;a class="link" href="https://github.com/teddysun/lamp" target="_blank" rel="noopener"
->Github 项目地址
-&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
-height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
-&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
-&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
-fill="currentColor">
-&lt;/svg>&lt;/span>
-&lt;/a>&lt;/li>
-&lt;/ul>
+&lt;pre>&lt;code>- [LAMP 一键包官网](https://lamp.sh)
+- [Github 项目地址](https://github.com/teddysun/lamp)
+&lt;/code>&lt;/pre>
 &lt;h4 id="lcmp-一键包">LCMP 一键包&lt;/h4>
 &lt;p>LCMP 一键包 (Linux + Caddy2 + MySQL/MariaDB + PHP) 是一个强大的 Bash 脚本，用于安装 Caddy2 + MariaDB + PHP；可以通过 &lt;code>yum&lt;/code> 或 &lt;code>apt-get&lt;/code> 命令在内存较小的 VPS 中安装 Caddy2 + MariaDB + PHP，只需在安装前输入数字选择要安装的内容即可；同为秋水逸冰大佬制作&lt;/p>
-&lt;ul>
-&lt;li>&lt;a class="link" href="https://github.com/teddysun/lamp" target="_blank" rel="noopener"
->Github 项目地址
-&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
-height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
-&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
-&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
-fill="currentColor">
-&lt;/svg>&lt;/span>
-&lt;/a>&lt;/li>
-&lt;/ul>
+&lt;pre>&lt;code>- [Github 项目地址](https://github.com/teddysun/lamp)
+&lt;/code>&lt;/pre>
 &lt;p>接下来看下如何手动安装及配置。&lt;/p>
 &lt;hr>
 &lt;h2 id="安装与配置">安装与配置&lt;/h2>
@@ -581,7 +555,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt update
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install caddy
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="配置-caddy">配置 Caddy&lt;/h4>
-&lt;p>首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 &lt;strong>/data/www&lt;/strong>，SSL 存放目录我在 Caddy 默认的 SSL 目录中创建一个文件夹放置自有证书，位置可以自己更改&lt;/p>
+&lt;p>首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 &lt;strong>/data/www&lt;/strong>，自有证书存放目录在 Caddy 默认位置中创建一个文件夹，位置可以自己更改&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p /data/www/default
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /var/lib/caddy/ssl
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将 Caddy 默认网站文件移到创建的默认网站文件夹中&lt;/p>
@@ -642,7 +616,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 更改相关文件中 MariaDB 安装位置&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -i &lt;span class="s2">&amp;#34;s@/usr/local/mysql@/usr/local/mariadb@g&amp;#34;&lt;/span> /usr/local/mariadb/bin/mysqld_safe
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="配置-mariadb">配置 MariaDB&lt;/h4>
-&lt;p>首先设置 Service 脚本，方便进行管理；这里主要将编译好的脚本设置一下安装路径和数据路径&lt;/p>
+&lt;p>首先设置 Service 脚本，方便进行管理；这里主要设置一下安装路径和数据路径&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cp /usr/local/mariadb/support-files/mysql.server /etc/init.d/mysql
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 更改 MariaDB安装位置&lt;/span>
@@ -891,6 +865,27 @@ data-flex-basis="411px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">max_execution_time&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">600&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">realpath_cache_size&lt;/span> &lt;span class="o">=&lt;/span> 2M
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">disable_functions&lt;/span> &lt;span class="o">=&lt;/span> passthru,exec,system,chroot,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_restore,dl,readlink,symlink,popepassthru,stream_socket_server,fsocket,popen
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中 &lt;code>memory_limit&lt;/code> 项参数如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存小于 640M&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">memory_limit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存为 640M - 1280M&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">memory_limit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">128&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存为 1280M - 2500M&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">memory_limit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">192&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存为 2500M - 3500M&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">memory_limit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">256&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存为 3500M - 4500M&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">memory_limit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">320&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 内存为 4500M - 8000M&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">memory_limit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">384&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#内存大于 8000M&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">memory_limit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">448&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来为 PHP 开启 OPcache 缓存并进行配置&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat &amp;gt; /usr/local/php/etc/php.d/opcache.ini &lt;span class="s">&amp;lt;&amp;lt; EOF
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[opcache]
@@ -908,15 +903,8 @@ data-flex-basis="411px"
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">opcache.consistency_checks=0
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">;opcache.optimization_level=0
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中 &lt;code>opcache.memory_consumption=&lt;/code> 项，参数如下：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">内存小于 &lt;span class="nv">640M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">64&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">内存为 640M - &lt;span class="nv">1280M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">128&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">内存为 1280M - &lt;span class="nv">2500M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">192&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">内存为 2500M - &lt;span class="nv">3500M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">256&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">内存为 3500M - &lt;span class="nv">4500M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">320&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">内存为 4500M - &lt;span class="nv">8000M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">384&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">内存大于 &lt;span class="nv">8000M&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">448&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>添加 php-fpm 启动脚本，并设置开机自启&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中 &lt;code>opcache.memory_consumption=&lt;/code> 项，与上文 &lt;strong>php.ini&lt;/strong> 中 &lt;code>memory_limit&lt;/code> 一致&lt;/p>
+&lt;p>添加 php-fpm 启动脚本，并设置开机自启&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat &amp;gt; /usr/lib/systemd/system/php-fpm.service &lt;span class="s">&amp;lt;&amp;lt; &amp;#39;EOF&amp;#39;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">[Unit]
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">Description=The PHP FastCGI Process Manager
@@ -1147,7 +1135,7 @@ data-flex-basis="411px"
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">--- ./clients/memflush.cc.old 2017-02-12 10:12:59.615209225 +0100
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">+++ ./clients/memflush.cc 2017-02-12 10:13:39.998382783 +0100
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">{
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> options_parse(argc, argv);
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">- if (opt_servers == false)

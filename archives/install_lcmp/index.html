@@ -13,17 +13,17 @@
 </a>后，知名 LNMP 部署工具 Oneinstack 也被发现挂码，参考 Oneinstack 项目 <a class=link href=https://github.com/oneinstack/oneinstack/issues/487 target=_blank rel=noopener>Issues #487
 <span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span>
 </a>和 <a class=link href=https://github.com/oneinstack/oneinstack/issues/511 target=_blank rel=noopener>Issues #511
-<span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span></a></p><p>此事在 Github 和 V2EX 上已有帖子在讨论；而始作俑者 <strong>金华市矜贵网络科技有限公司</strong> 至今陆续拥有了 <strong>WDCP</strong>、<strong>LNMP 一建包</strong> 和 <strong>Oneinstack</strong>；鉴于金华矜贵还试图收购秋水逸冰大佬的 <strong>LAMP 一键安装包</strong> (但被秋大拒绝了)，他们后续可能还会盯上其他部署工具；所以建议大家最近有使用过上述工具的直接重装系统。</p><p>而对 LNMP 一建包和 Oneinstack 有使用需求的人不在少数，所以我们必须寻找替代品，如上文提到的秋水逸冰大佬的 LAMP/LCMP 一键包或者学着自己进行搭建与配置。</p><hr><h3 id=脚本推荐>脚本推荐</h3><h4 id=lamp-一键包>LAMP 一键包</h4><p>LAMP 一键安装包是一个用 Linux Shell 编写的可以为 Amazon Linux 2/CentOS/Debian/Ubuntu 系统的 VPS 或服务器安装 LAMP(Linux + Apache + MySQL/MariaDB + PHP) 生产环境的 Shell 脚本。</p><ul><li><a class=link href=https://lamp.sh target=_blank rel=noopener>LAMP 一键包官网
-<span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span></a></li><li><a class=link href=https://github.com/teddysun/lamp target=_blank rel=noopener>Github 项目地址
-<span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span></a></li></ul><h4 id=lcmp-一键包>LCMP 一键包</h4><p>LCMP 一键包 (Linux + Caddy2 + MySQL/MariaDB + PHP) 是一个强大的 Bash 脚本，用于安装 Caddy2 + MariaDB + PHP；可以通过 <code>yum</code> 或 <code>apt-get</code> 命令在内存较小的 VPS 中安装 Caddy2 + MariaDB + PHP，只需在安装前输入数字选择要安装的内容即可；同为秋水逸冰大佬制作</p><ul><li><a class=link href=https://github.com/teddysun/lamp target=_blank rel=noopener>Github 项目地址
-<span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span></a></li></ul><p>接下来看下如何手动安装及配置。</p><hr><h2 id=安装与配置>安装与配置</h2><h3 id=安装必要软件和依赖>安装必要软件和依赖</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt update
+<span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span></a></p><p>此事在 Github 和 V2EX 上已有帖子在讨论；而始作俑者 <strong>金华市矜贵网络科技有限公司</strong> 至今陆续拥有了 <strong>WDCP</strong>、<strong>LNMP 一建包</strong> 和 <strong>Oneinstack</strong>；鉴于金华矜贵还试图收购秋水逸冰大佬的 <strong>LAMP 一键安装包</strong> (但被秋大拒绝了)，他们后续可能还会盯上其他部署工具；所以建议大家最近有使用过上述工具的直接重装系统。</p><p>而对 LNMP 一建包和 Oneinstack 有使用需求的人不在少数，所以我们必须寻找替代品，如上文提到的秋水逸冰大佬的 LAMP/LCMP 一键包或者学着自己进行搭建与配置。</p><hr><h3 id=脚本推荐>脚本推荐</h3><h4 id=lamp-一键包>LAMP 一键包</h4><p>LAMP 一键安装包是一个用 Linux Shell 编写的可以为 Amazon Linux 2/CentOS/Debian/Ubuntu 系统的 VPS 或服务器安装 LAMP(Linux + Apache + MySQL/MariaDB + PHP) 生产环境的 Shell 脚本。</p><pre><code>- [LAMP 一键包官网](https://lamp.sh)
+- [Github 项目地址](https://github.com/teddysun/lamp)
+</code></pre><h4 id=lcmp-一键包>LCMP 一键包</h4><p>LCMP 一键包 (Linux + Caddy2 + MySQL/MariaDB + PHP) 是一个强大的 Bash 脚本，用于安装 Caddy2 + MariaDB + PHP；可以通过 <code>yum</code> 或 <code>apt-get</code> 命令在内存较小的 VPS 中安装 Caddy2 + MariaDB + PHP，只需在安装前输入数字选择要安装的内容即可；同为秋水逸冰大佬制作</p><pre><code>- [Github 项目地址](https://github.com/teddysun/lamp)
+</code></pre><p>接下来看下如何手动安装及配置。</p><hr><h2 id=安装与配置>安装与配置</h2><h3 id=安装必要软件和依赖>安装必要软件和依赖</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt update
 </span></span><span class=line><span class=cl>apt install -y debian-keyring debian-archive-keyring build-essential gcc g++ make cmake autoconf libjpeg62-turbo-dev libjpeg-dev libpng-dev libwebp7 libwebp-dev libfreetype6 libfreetype6-dev libssh2-1-dev libmhash2 libpcre3 libpcre3-dev gzip libbz2-1.0 libbz2-dev libgd-dev libxml2 libxml2-dev libsodium-dev argon2 libargon2-1 libargon2-dev libiconv-hook-dev zlib1g zlib1g-dev libc6 libc6-dev libc-client2007e-dev libglib2.0-0 libglib2.0-dev bzip2 libzip-dev libbz2-1.0 libncurses5 libncurses5-dev libaio1 libaio-dev numactl libreadline-dev curl libcurl3-gnutls libcurl4-openssl-dev e2fsprogs libkrb5-3 libkrb5-dev libltdl-dev libidn11-dev openssl net-tools libssl-dev libtool libevent-dev bison re2c libsasl2-dev libxslt1-dev libicu-dev locales patch vim zip unzip tmux htop bc dc expect libexpat1-dev libonig-dev libtirpc-dev rsync git lsof lrzsz rsyslog cron logrotate chrony libsqlite3-dev psmisc wget sysv-rc apt-transport-https ca-certificates software-properties-common gnupg screen
 </span></span></code></pre></div><h3 id=安装-caddy>安装 Caddy</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
 </span></span><span class=line><span class=cl>curl -1sLf <span class=s1>&#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&#39;</span> <span class=p>|</span> gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 </span></span><span class=line><span class=cl>curl -1sLf <span class=s1>&#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&#39;</span> <span class=p>|</span> tee /etc/apt/sources.list.d/caddy-stable.list
 </span></span><span class=line><span class=cl>apt update
 </span></span><span class=line><span class=cl>apt install caddy
-</span></span></code></pre></div><h4 id=配置-caddy>配置 Caddy</h4><p>首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 <strong>/data/www</strong>，SSL 存放目录我在 Caddy 默认的 SSL 目录中创建一个文件夹放置自有证书，位置可以自己更改</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir -p /data/www/default
+</span></span></code></pre></div><h4 id=配置-caddy>配置 Caddy</h4><p>首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 <strong>/data/www</strong>，自有证书存放目录在 Caddy 默认位置中创建一个文件夹，位置可以自己更改</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir -p /data/www/default
 </span></span><span class=line><span class=cl>mkdir -p /var/lib/caddy/ssl
 </span></span></code></pre></div><p>将 Caddy 默认网站文件移到创建的默认网站文件夹中</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mv /usr/share/caddy/index.html /data/www/default
 </span></span><span class=line><span class=cl>rm -r /usr/share/caddy
@@ -36,7 +36,7 @@
 </span></span></span><span class=line><span class=cl><span class=s>		X-Frame-Options SAMEORIGIN
 </span></span></span><span class=line><span class=cl><span class=s>	}
 </span></span></span><span class=line><span class=cl><span class=s>	encode gzip
-</span></span></span><span class=line><span class=cl><span class=s>  php_fastcgi unix//dev/shm/php-cgi.sock
+</span></span></span><span class=line><span class=cl><span class=s>	php_fastcgi unix//dev/shm/php-cgi.sock
 </span></span></span><span class=line><span class=cl><span class=s>	file_server
 </span></span></span><span class=line><span class=cl><span class=s>}
 </span></span></span><span class=line><span class=cl><span class=s>EOF</span>
@@ -69,7 +69,7 @@
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># 更改相关文件中 MariaDB 安装位置</span>
 </span></span><span class=line><span class=cl>sed -i <span class=s2>&#34;s@/usr/local/mysql@/usr/local/mariadb@g&#34;</span> /usr/local/mariadb/bin/mysqld_safe
-</span></span></code></pre></div><h4 id=配置-mariadb>配置 MariaDB</h4><p>首先设置 Service 脚本，方便进行管理；这里主要将编译好的脚本设置一下安装路径和数据路径</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cp /usr/local/mariadb/support-files/mysql.server /etc/init.d/mysql
+</span></span></code></pre></div><h4 id=配置-mariadb>配置 MariaDB</h4><p>首先设置 Service 脚本，方便进行管理；这里主要设置一下安装路径和数据路径</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cp /usr/local/mariadb/support-files/mysql.server /etc/init.d/mysql
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># 更改 MariaDB安装位置</span>
 </span></span><span class=line><span class=cl>sed -i <span class=s2>&#34;s@^basedir=.*@basedir=/usr/local/mariadb@&#34;</span> /etc/init.d/mysql
@@ -291,6 +291,26 @@
 </span></span><span class=line><span class=cl><span class=nv>max_execution_time</span> <span class=o>=</span> <span class=m>600</span>
 </span></span><span class=line><span class=cl><span class=nv>realpath_cache_size</span> <span class=o>=</span> 2M
 </span></span><span class=line><span class=cl><span class=nv>disable_functions</span> <span class=o>=</span> passthru,exec,system,chroot,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_restore,dl,readlink,symlink,popepassthru,stream_socket_server,fsocket,popen
+</span></span></code></pre></div><p>其中 <code>memory_limit</code> 项参数如下：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 内存小于 640M</span>
+</span></span><span class=line><span class=cl><span class=nv>memory_limit</span> <span class=o>=</span> <span class=m>64</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 内存为 640M - 1280M</span>
+</span></span><span class=line><span class=cl><span class=nv>memory_limit</span> <span class=o>=</span> <span class=m>128</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 内存为 1280M - 2500M</span>
+</span></span><span class=line><span class=cl><span class=nv>memory_limit</span> <span class=o>=</span> <span class=m>192</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 内存为 2500M - 3500M</span>
+</span></span><span class=line><span class=cl><span class=nv>memory_limit</span> <span class=o>=</span> <span class=m>256</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 内存为 3500M - 4500M</span>
+</span></span><span class=line><span class=cl><span class=nv>memory_limit</span> <span class=o>=</span> <span class=m>320</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 内存为 4500M - 8000M</span>
+</span></span><span class=line><span class=cl><span class=nv>memory_limit</span> <span class=o>=</span> <span class=m>384</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#内存大于 8000M</span>
+</span></span><span class=line><span class=cl><span class=nv>memory_limit</span> <span class=o>=</span> <span class=m>448</span>
 </span></span></code></pre></div><p>接下来为 PHP 开启 OPcache 缓存并进行配置</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /usr/local/php/etc/php.d/opcache.ini <span class=s>&lt;&lt; EOF
 </span></span></span><span class=line><span class=cl><span class=s>[opcache]
 </span></span></span><span class=line><span class=cl><span class=s>zend_extension=opcache.so
@@ -307,14 +327,7 @@
 </span></span></span><span class=line><span class=cl><span class=s>opcache.consistency_checks=0
 </span></span></span><span class=line><span class=cl><span class=s>;opcache.optimization_level=0
 </span></span></span><span class=line><span class=cl><span class=s>EOF</span>
-</span></span></code></pre></div><p>其中 <code>opcache.memory_consumption=</code> 项，参数如下：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>内存小于 <span class=nv>640M</span> <span class=o>=</span> <span class=m>64</span>
-</span></span><span class=line><span class=cl>内存为 640M - <span class=nv>1280M</span> <span class=o>=</span> <span class=m>128</span>
-</span></span><span class=line><span class=cl>内存为 1280M - <span class=nv>2500M</span> <span class=o>=</span> <span class=m>192</span>
-</span></span><span class=line><span class=cl>内存为 2500M - <span class=nv>3500M</span> <span class=o>=</span> <span class=m>256</span>
-</span></span><span class=line><span class=cl>内存为 3500M - <span class=nv>4500M</span> <span class=o>=</span> <span class=m>320</span>
-</span></span><span class=line><span class=cl>内存为 4500M - <span class=nv>8000M</span> <span class=o>=</span> <span class=m>384</span>
-</span></span><span class=line><span class=cl>内存大于 <span class=nv>8000M</span> <span class=o>=</span> <span class=m>448</span>
-</span></span></code></pre></div><p>添加 php-fpm 启动脚本，并设置开机自启</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /usr/lib/systemd/system/php-fpm.service <span class=s>&lt;&lt; &#39;EOF&#39;
+</span></span></code></pre></div><p>其中 <code>opcache.memory_consumption=</code> 项，与上文 <strong>php.ini</strong> 中 <code>memory_limit</code> 一致</p><p>添加 php-fpm 启动脚本，并设置开机自启</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /usr/lib/systemd/system/php-fpm.service <span class=s>&lt;&lt; &#39;EOF&#39;
 </span></span></span><span class=line><span class=cl><span class=s>[Unit]
 </span></span></span><span class=line><span class=cl><span class=s>Description=The PHP FastCGI Process Manager
 </span></span></span><span class=line><span class=cl><span class=s>Documentation=http://php.net/docs.php
@@ -528,23 +541,23 @@
 </span></span></span><span class=line><span class=cl><span class=s>--- ./clients/memflush.cc.old	2017-02-12 10:12:59.615209225 +0100
 </span></span></span><span class=line><span class=cl><span class=s>+++ ./clients/memflush.cc	2017-02-12 10:13:39.998382783 +0100
 </span></span></span><span class=line><span class=cl><span class=s>@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
-</span></span></span><span class=line><span class=cl><span class=s> {
-</span></span></span><span class=line><span class=cl><span class=s>   options_parse(argc, argv);
+</span></span></span><span class=line><span class=cl><span class=s>{
+</span></span></span><span class=line><span class=cl><span class=s>	options_parse(argc, argv);
 </span></span></span><span class=line><span class=cl><span class=s> 
-</span></span></span><span class=line><span class=cl><span class=s>-  if (opt_servers == false)
-</span></span></span><span class=line><span class=cl><span class=s>+  if (!opt_servers)
-</span></span></span><span class=line><span class=cl><span class=s>   {
-</span></span></span><span class=line><span class=cl><span class=s>     char *temp;
+</span></span></span><span class=line><span class=cl><span class=s>-	if (opt_servers == false)
+</span></span></span><span class=line><span class=cl><span class=s>+	if (!opt_servers)
+</span></span></span><span class=line><span class=cl><span class=s>	{
+</span></span></span><span class=line><span class=cl><span class=s>		char *temp;
 </span></span></span><span class=line><span class=cl><span class=s> 
 </span></span></span><span class=line><span class=cl><span class=s>@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
-</span></span></span><span class=line><span class=cl><span class=s>       opt_servers= strdup(temp);
-</span></span></span><span class=line><span class=cl><span class=s>     }
+</span></span></span><span class=line><span class=cl><span class=s>		opt_servers= strdup(temp);
+</span></span></span><span class=line><span class=cl><span class=s>	}
 </span></span></span><span class=line><span class=cl><span class=s> 
-</span></span></span><span class=line><span class=cl><span class=s>-    if (opt_servers == false)
-</span></span></span><span class=line><span class=cl><span class=s>+    if (!opt_servers)
-</span></span></span><span class=line><span class=cl><span class=s>     {
-</span></span></span><span class=line><span class=cl><span class=s>       std::cerr &lt;&lt; &#34;No Servers provided&#34; &lt;&lt; std::endl;
-</span></span></span><span class=line><span class=cl><span class=s>       exit(EXIT_FAILURE);
+</span></span></span><span class=line><span class=cl><span class=s>-	if (opt_servers == false)
+</span></span></span><span class=line><span class=cl><span class=s>+	if (!opt_servers)
+</span></span></span><span class=line><span class=cl><span class=s>    {
+</span></span></span><span class=line><span class=cl><span class=s>		std::cerr &lt;&lt; &#34;No Servers provided&#34; &lt;&lt; std::endl;
+</span></span></span><span class=line><span class=cl><span class=s>		exit(EXIT_FAILURE);
 </span></span></span><span class=line><span class=cl><span class=s>EOF</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>patch -d libmemcached-1.0.18 -p0 &lt; libmemcached-build.patch
