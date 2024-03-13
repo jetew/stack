@@ -321,7 +321,7 @@ chown -R mysql:mysql /usr/local/mariadb
 添加环境变量
 
 ```bash
-echo "PATH=/usr/local/mariadb/bin:\$PATH" > /etc/profile.d/mysql.sh
+echo 'export PATH=/usr/local/mariadb/bin:$PATH' > /etc/profile.d/mysql.sh
 source /etc/profile.d/mysql.sh
 ```
 
