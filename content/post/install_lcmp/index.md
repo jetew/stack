@@ -27,14 +27,14 @@ tags: ["Linux","Caddy","MariaDB","PHP","Web"]
 
 LAMP 一键安装包是一个用 Linux Shell 编写的可以为 Amazon Linux 2/CentOS/Debian/Ubuntu 系统的 VPS 或服务器安装 LAMP(Linux + Apache + MySQL/MariaDB + PHP) 生产环境的 Shell 脚本。
 
-  - [LAMP 一键包官网](https://lamp.sh)
-  - [Github 项目地址](https://github.com/teddysun/lamp)
+	- [LAMP 一键包官网](https://lamp.sh)
+	- [Github 项目地址](https://github.com/teddysun/lamp)
 
 #### LCMP 一键包
 
 LCMP 一键包 (Linux + Caddy2 + MySQL/MariaDB + PHP) 是一个强大的 Bash 脚本，用于安装 Caddy2 + MariaDB + PHP；可以通过 `yum` 或 `apt-get` 命令在内存较小的 VPS 中安装 Caddy2 + MariaDB + PHP，只需在安装前输入数字选择要安装的内容即可；同为秋水逸冰大佬制作
 
-  - [Github 项目地址](https://github.com/teddysun/lamp)
+	- [Github 项目地址](https://github.com/teddysun/lamp)
 
 接下来看下如何手动安装及配置。
 
@@ -60,7 +60,7 @@ apt install caddy
 
 #### 配置 Caddy
 
-首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 **/data/www**，SSL 存放目录我在 Caddy 默认的 SSL 目录中创建一个文件夹放置自有证书，位置可以自己更改
+首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 **/data/www**，自有证书存放目录在 Caddy 默认位置中创建一个文件夹，位置可以自己更改
 
 ```bash
 mkdir -p /data/www/default
@@ -86,7 +86,7 @@ cat > /etc/caddy/Caddyfile << EOF
 		X-Frame-Options SAMEORIGIN
 	}
 	encode gzip
-  php_fastcgi unix//dev/shm/php-cgi.sock
+	php_fastcgi unix//dev/shm/php-cgi.sock
 	file_server
 }
 EOF
@@ -162,7 +162,7 @@ sed -i "s@/usr/local/mysql@/usr/local/mariadb@g" /usr/local/mariadb/bin/mysqld_s
 
 #### 配置 MariaDB
 
-首先设置 Service 脚本，方便进行管理；这里主要将编译好的脚本设置一下安装路径和数据路径
+首先设置 Service 脚本，方便进行管理；这里主要设置一下安装路径和数据路径
 
 ```bash
 cp /usr/local/mariadb/support-files/mysql.server /etc/init.d/mysql
@@ -461,6 +461,31 @@ realpath_cache_size = 2M
 disable_functions = passthru,exec,system,chroot,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_restore,dl,readlink,symlink,popepassthru,stream_socket_server,fsocket,popen
 ```
 
+其中 `memory_limit` 项参数如下：
+
+```bash
+# 内存小于 640M
+memory_limit = 64
+
+# 内存为 640M - 1280M
+memory_limit = 128
+
+# 内存为 1280M - 2500M
+memory_limit = 192
+
+# 内存为 2500M - 3500M
+memory_limit = 256
+
+# 内存为 3500M - 4500M
+memory_limit = 320
+
+# 内存为 4500M - 8000M
+memory_limit = 384
+
+#内存大于 8000M
+memory_limit = 448
+```
+
 接下来为 PHP 开启 OPcache 缓存并进行配置
 
 ```bash
@@ -482,17 +507,9 @@ opcache.consistency_checks=0
 EOF
 ```
 
-其中 `opcache.memory_consumption=` 项，参数如下：
+其中 `opcache.memory_consumption=` 项，与上文 **php.ini** 中 `memory_limit` 一致
 
-```bash
-内存小于 640M = 64
-内存为 640M - 1280M = 128
-内存为 1280M - 2500M = 192
-内存为 2500M - 3500M = 256
-内存为 3500M - 4500M = 320
-内存为 4500M - 8000M = 384
-内存大于 8000M = 448
-```
+
 
 添加 php-fpm 启动脚本，并设置开机自启
 
@@ -778,23 +795,23 @@ diff -up ./clients/memflush.cc.old ./clients/memflush.cc
 --- ./clients/memflush.cc.old	2017-02-12 10:12:59.615209225 +0100
 +++ ./clients/memflush.cc	2017-02-12 10:13:39.998382783 +0100
 @@ -39,7 +39,7 @@ int main(int argc, char *argv[])
- {
-   options_parse(argc, argv);
+{
+	options_parse(argc, argv);
  
--  if (opt_servers == false)
-+  if (!opt_servers)
-   {
-     char *temp;
+-	if (opt_servers == false)
++	if (!opt_servers)
+	{
+		char *temp;
  
 @@ -48,7 +48,7 @@ int main(int argc, char *argv[])
-       opt_servers= strdup(temp);
-     }
+		opt_servers= strdup(temp);
+	}
  
--    if (opt_servers == false)
-+    if (!opt_servers)
-     {
-       std::cerr << "No Servers provided" << std::endl;
-       exit(EXIT_FAILURE);
+-	if (opt_servers == false)
++	if (!opt_servers)
+    {
+		std::cerr << "No Servers provided" << std::endl;
+		exit(EXIT_FAILURE);
 EOF
 
 patch -d libmemcached-1.0.18 -p0 < libmemcached-build.patch
