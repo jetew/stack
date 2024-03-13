@@ -30,13 +30,39 @@ fill="currentColor">
 &lt;h3 id="脚本推荐">脚本推荐&lt;/h3>
 &lt;h4 id="lamp-一键包">LAMP 一键包&lt;/h4>
 &lt;p>LAMP 一键安装包是一个用 Linux Shell 编写的可以为 Amazon Linux 2/CentOS/Debian/Ubuntu 系统的 VPS 或服务器安装 LAMP(Linux + Apache + MySQL/MariaDB + PHP) 生产环境的 Shell 脚本。&lt;/p>
-&lt;pre>&lt;code>- [LAMP 一键包官网](https://lamp.sh)
-- [Github 项目地址](https://github.com/teddysun/lamp)
-&lt;/code>&lt;/pre>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://lamp.sh" target="_blank" rel="noopener"
+>LAMP 一键包官网
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/teddysun/lamp" target="_blank" rel="noopener"
+>Github 项目地址
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
 &lt;h4 id="lcmp-一键包">LCMP 一键包&lt;/h4>
 &lt;p>LCMP 一键包 (Linux + Caddy2 + MySQL/MariaDB + PHP) 是一个强大的 Bash 脚本，用于安装 Caddy2 + MariaDB + PHP；可以通过 &lt;code>yum&lt;/code> 或 &lt;code>apt-get&lt;/code> 命令在内存较小的 VPS 中安装 Caddy2 + MariaDB + PHP，只需在安装前输入数字选择要安装的内容即可；同为秋水逸冰大佬制作&lt;/p>
-&lt;pre>&lt;code>- [Github 项目地址](https://github.com/teddysun/lamp)
-&lt;/code>&lt;/pre>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/teddysun/lamp" target="_blank" rel="noopener"
+>Github 项目地址
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a>&lt;/li>
+&lt;/ul>
 &lt;p>接下来看下如何手动安装及配置。&lt;/p>
 &lt;hr>
 &lt;h2 id="安装与配置">安装与配置&lt;/h2>
