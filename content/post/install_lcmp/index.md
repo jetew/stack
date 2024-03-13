@@ -27,14 +27,14 @@ tags: ["Linux","Caddy","MariaDB","PHP","Web"]
 
 LAMP 一键安装包是一个用 Linux Shell 编写的可以为 Amazon Linux 2/CentOS/Debian/Ubuntu 系统的 VPS 或服务器安装 LAMP(Linux + Apache + MySQL/MariaDB + PHP) 生产环境的 Shell 脚本。
 
-	- [LAMP 一键包官网](https://lamp.sh)
-	- [Github 项目地址](https://github.com/teddysun/lamp)
+  - [LAMP 一键包官网](https://lamp.sh)
+  - [Github 项目地址](https://github.com/teddysun/lamp)
 
 #### LCMP 一键包
 
 LCMP 一键包 (Linux + Caddy2 + MySQL/MariaDB + PHP) 是一个强大的 Bash 脚本，用于安装 Caddy2 + MariaDB + PHP；可以通过 `yum` 或 `apt-get` 命令在内存较小的 VPS 中安装 Caddy2 + MariaDB + PHP，只需在安装前输入数字选择要安装的内容即可；同为秋水逸冰大佬制作
 
-	- [Github 项目地址](https://github.com/teddysun/lamp)
+  - [Github 项目地址](https://github.com/teddysun/lamp)
 
 接下来看下如何手动安装及配置。
 
