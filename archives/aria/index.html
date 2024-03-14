@@ -50,12 +50,12 @@
 </span></span><span class=line><span class=cl>	<span class=kn>proxy_set_header</span> <span class=s>X-NginX-Proxy</span> <span class=s>true</span><span class=p>;</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><ul><li>Caddy</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>domain.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=k>reverse_proxy</span> <span class=nd>/jsonrpc</span> <span class=n>127.0.0.1</span><span class=p>:</span><span class=mi>6800</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>				<span class=k>header_up</span> <span class=s>Host</span> <span class=se>{host}</span>
+</span></span><span class=line><span class=cl>	<span class=k>reverse_proxy</span> <span class=nd>/jsonrpc</span> <span class=n>127.0.0.1</span><span class=p>:</span><span class=mi>6800</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>Host</span> <span class=se>{host}</span>
 </span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>X-Real-IP</span> <span class=se>{remote}</span>
 </span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>X-Forwarded-For</span> <span class=se>{remote}</span>
 </span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>X-Forwarded-Proto</span> <span class=s>https</span>
-</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><p>然后在 AriaNG 中修改 Aria2 RPC 地址为：<code>https://domian.com:443/jsonrpc</code></p></section><footer class=article-footer><section class=article-tags><a href=/tags/linux/>Linux</a>
 <a href=/tags/aira/>Aira</a>

@@ -61,25 +61,25 @@
 </span></span><span class=line><span class=cl>	<span class=kn>client_max_body_size</span> <span class=mi>10240m</span><span class=p>;</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><ul><li>Caddy 设置：</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>domain.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=k>log</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>				<span class=k>output</span> <span class=s>file</span> <span class=s>/var/log/caddy/filebrowser.log</span>
-</span></span><span class=line><span class=cl>				<span class=k>level</span> <span class=s>error</span>
-</span></span><span class=line><span class=cl>		<span class=p>}</span>
-</span></span><span class=line><span class=cl>		<span class=k>root</span> <span class=nd>*</span> <span class=s>/var/filebrowser</span>
-</span></span><span class=line><span class=cl>		<span class=k>header</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>log</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>output</span> <span class=s>file</span> <span class=s>/var/log/caddy/filebrowser.log</span>
+</span></span><span class=line><span class=cl>		<span class=k>level</span> <span class=s>error</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>root</span> <span class=nd>*</span> <span class=s>/var/filebrowser</span>
+</span></span><span class=line><span class=cl>	<span class=k>header</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>		<span class=k>Strict-Transport-Security</span> <span class=s>max-age=31536000;preload</span>
 </span></span><span class=line><span class=cl>		<span class=k>X-Content-Type-Options</span> <span class=s>nosniff</span>
 </span></span><span class=line><span class=cl>		<span class=k>X-Frame-Options</span> <span class=s>SAMEORIGIN</span>
 </span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl>		<span class=k>encode</span> <span class=s>gzip</span>
-</span></span><span class=line><span class=cl>		<span class=k>reverse_proxy</span> <span class=n>127.0.0.1</span><span class=p>:</span><span class=mi>8080</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>				<span class=k>header_up</span> <span class=s>Host</span> <span class=se>{host}</span>
+</span></span><span class=line><span class=cl>	<span class=k>encode</span> <span class=s>gzip</span>
+</span></span><span class=line><span class=cl>	<span class=k>reverse_proxy</span> <span class=n>127.0.0.1</span><span class=p>:</span><span class=mi>8080</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>Host</span> <span class=se>{host}</span>
 </span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>X-Real-IP</span> <span class=se>{remote}</span>
 </span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>X-Forwarded-For</span> <span class=se>{remote}</span>
 </span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>X-Forwarded-Proto</span> <span class=s>https</span>
-</span></span><span class=line><span class=cl>		<span class=p>}</span>
-</span></span><span class=line><span class=cl>		<span class=k>file_server</span>
-</span></span><span class=line><span class=cl>		<span class=k>tls</span> <span class=s>user@email.com</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>file_server</span>
+</span></span><span class=line><span class=cl>	<span class=k>tls</span> <span class=s>user@email.com</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><p>配置完成后即可通过域名进行访问。</p><h4 id=扩展设置>扩展设置</h4><p>如果你想要通过 <code>https://domian.com/pan</code> 进行访问，那么需要设置 <code>baseurl</code> :</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>filebrowser -d /var/lib/filebrowser/filebrowser.db config <span class=nb>set</span> -b /pan
 </span></span></code></pre></div><p>然后进行反代：</p><ul><li>Ngxin：</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-nginx data-lang=nginx><span class=line><span class=cl><span class=k>location</span> <span class=p>~</span><span class=sr>*</span> <span class=s>/pan</span> <span class=p>{</span>
@@ -93,12 +93,12 @@
 </span></span><span class=line><span class=cl>	<span class=kn>client_max_body_size</span> <span class=mi>10240m</span><span class=p>;</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><ul><li>Caddy:</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>domain.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=k>reverse_proxy</span> <span class=nd>/pan/*</span> <span class=n>127.0.0.1</span><span class=p>:</span><span class=mi>8080</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>				<span class=k>header_up</span> <span class=s>Host</span> <span class=se>{host}</span>
+</span></span><span class=line><span class=cl>	<span class=k>reverse_proxy</span> <span class=nd>/pan/*</span> <span class=n>127.0.0.1</span><span class=p>:</span><span class=mi>8080</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>Host</span> <span class=se>{host}</span>
 </span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>X-Real-IP</span> <span class=se>{remote}</span>
 </span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>X-Forwarded-For</span> <span class=se>{remote}</span>
 </span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>X-Forwarded-Proto</span> <span class=s>https</span>
-</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div></section><footer class=article-footer><section class=article-tags><a href=/tags/linux/>Linux</a>
 <a href=/tags/filebrowser/>FileBrowser</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>

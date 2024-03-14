@@ -21,26 +21,26 @@
 </span></span><span class=line><span class=cl>nginx -s reload
 </span></span></code></pre></div><h3 id=使用已有网站>使用已有网站</h3><p>若需要将证书部署至已有网站，则修改对应的配置文件即可，配置文件位于 <code>/usr/local/nginx/conf/vhost/domian.com.conf</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>vim /usr/local/nginx/conf/vhost/domian.com.conf
 </span></span></code></pre></div><p>按照备注位置修改证书路径：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-nginx data-lang=nginx><span class=line><span class=cl><span class=k>server</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>  <span class=kn>listen</span> <span class=mi>80</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>listen</span> <span class=s>[::]:80</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>listen</span> <span class=mi>443</span> <span class=s>ssl</span> <span class=s>http2</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>listen</span> <span class=s>[::]:443</span> <span class=s>ssl</span> <span class=s>http2</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>ssl_certificate</span> <span class=s>/usr/local/nginx/conf/ssl/domain.com.crt</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=c1># 证书文件的相对路径或绝对路径
-</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kn>ssl_certificate_key</span> <span class=s>/usr/local/nginx/conf/ssl/domain.com.key</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=c1># 私钥文件的相对路径或绝对路径
-</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kn>ssl_protocols</span> <span class=s>TLSv1.2</span> <span class=s>TLSv1.3</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>ssl_ecdh_curve</span> <span class=s>X25519:prime256v1:secp384r1:secp521r1</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>ssl_ciphers</span> <span class=s>ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>ssl_conf_command</span> <span class=s>Ciphersuites</span> <span class=s>TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>ssl_conf_command</span> <span class=s>Options</span> <span class=s>PrioritizeChaCha</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>ssl_prefer_server_ciphers</span> <span class=no>on</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>ssl_session_timeout</span> <span class=mi>10m</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>ssl_session_cache</span> <span class=s>shared:SSL:10m</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>ssl_buffer_size</span> <span class=mi>2k</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>add_header</span> <span class=s>Strict-Transport-Security</span> <span class=s>max-age=15768000</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>ssl_stapling</span> <span class=no>on</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>  <span class=kn>ssl_stapling_verify</span> <span class=no>on</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>listen</span> <span class=mi>80</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>listen</span> <span class=s>[::]:80</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>listen</span> <span class=mi>443</span> <span class=s>ssl</span> <span class=s>http2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>listen</span> <span class=s>[::]:443</span> <span class=s>ssl</span> <span class=s>http2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>ssl_certificate</span> <span class=s>/usr/local/nginx/conf/ssl/domain.com.crt</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=c1># 证书文件的相对路径或绝对路径
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=kn>ssl_certificate_key</span> <span class=s>/usr/local/nginx/conf/ssl/domain.com.key</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=c1># 私钥文件的相对路径或绝对路径
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=kn>ssl_protocols</span> <span class=s>TLSv1.2</span> <span class=s>TLSv1.3</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>ssl_ecdh_curve</span> <span class=s>X25519:prime256v1:secp384r1:secp521r1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>ssl_ciphers</span> <span class=s>ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>ssl_conf_command</span> <span class=s>Ciphersuites</span> <span class=s>TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>ssl_conf_command</span> <span class=s>Options</span> <span class=s>PrioritizeChaCha</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>ssl_prefer_server_ciphers</span> <span class=no>on</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>ssl_session_timeout</span> <span class=mi>10m</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>ssl_session_cache</span> <span class=s>shared:SSL:10m</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>ssl_buffer_size</span> <span class=mi>2k</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>add_header</span> <span class=s>Strict-Transport-Security</span> <span class=s>max-age=15768000</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>ssl_stapling</span> <span class=no>on</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>ssl_stapling_verify</span> <span class=no>on</span><span class=p>;</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><p>修改完成后可通过 <code>nginx -t</code> 进行测试，无误后即可通过 <code>nginx -s reload</code> 重载 Nginx：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>nginx -t
 </span></span><span class=line><span class=cl>nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok
@@ -48,21 +48,22 @@
 </span></span><span class=line><span class=cl>nginx -s reload
 </span></span></code></pre></div><h3 id=caddy-操作>Caddy 操作</h3><p>同样将 <code>domian.com.key</code> 和 <code>domian.com.crt</code> 上传至服务器，比如我上传到 <code>/var/caddy/ssl</code> 目录下，然后对 <code>Caddyfile</code> 进行修改：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>vim /etc/caddy/Caddyfile
 </span></span></code></pre></div><p>按照下面进行更改：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>domain.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>log</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=k>output</span> <span class=s>file</span> <span class=s>/var/log/caddy/domain.com.log</span>
-</span></span><span class=line><span class=cl>        <span class=k>level</span> <span class=s>error</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/domain.com</span>
-</span></span><span class=line><span class=cl>    <span class=k>encode</span> <span class=s>gzip</span>
-</span></span><span class=line><span class=cl>    <span class=k>handle_errors</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=k>rewrite</span> <span class=nd>*</span> <span class=s>/</span><span class=se>{err.status_code}</span><span class=s>.html</span>
-</span></span><span class=line><span class=cl>        <span class=k>file_server</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=k>php_fastcgi</span> <span class=s>unix//dev/shm/php-cgi.sock</span>
-</span></span><span class=line><span class=cl>    <span class=k>file_server</span>
-</span></span><span class=line><span class=cl>    <span class=k>tls</span> <span class=nd>/path/to/domain.com.pem</span> <span class=s>/path/to/domain.com.key</span><span class=c1>
-</span></span></span><span class=line><span class=cl><span class=c1>    # 证书和密钥的 PEM 格式的文件绝对路径，注意中间空格
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>log</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>output</span> <span class=s>file</span> <span class=s>/var/log/caddy/domain.com.log</span>
+</span></span><span class=line><span class=cl>		<span class=k>level</span> <span class=s>error</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/domain.com</span>
+</span></span><span class=line><span class=cl>	<span class=k>encode</span> <span class=s>gzip</span>
+</span></span><span class=line><span class=cl>	<span class=k>handle_errors</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>rewrite</span> <span class=nd>*</span> <span class=s>/</span><span class=se>{err.status_code}</span><span class=s>.html</span>
+</span></span><span class=line><span class=cl>		<span class=k>file_server</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>php_fastcgi</span> <span class=s>unix//dev/shm/php-cgi.sock</span>
+</span></span><span class=line><span class=cl>	<span class=k>file_server</span><span class=c1>
+</span></span></span><span class=line><span class=cl><span class=c1>
+</span></span></span><span class=line><span class=cl><span class=c1>	# 证书和密钥的 PEM 格式的文件绝对路径，注意中间空格
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=k>tls</span> <span class=nd>/path/to/domain.com.pem</span> <span class=s>/path/to/domain.com.key</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><p>设置完毕后，通过以下命令进行测试：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>caddy adapt --config /etc/caddy/Caddyfile
 </span></span></code></pre></div><p>确认无误后重载配置文件：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>caddy reload --config /etc/caddy/Caddyfile
 </span></span></code></pre></div><p>若出现 <code>ERR_SSL_PROTOCOL_ERROR</code>，可重载 Caddy:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>systemctl restart caddy

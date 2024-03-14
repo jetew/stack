@@ -14,20 +14,20 @@
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><p>或者你也可以设置 <code>tls</code> 邮箱，Caddy 会在签发证书遇到问题时自动更换 CA：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>domain.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>tls</span> <span class=s>your@email.com</span>
+</span></span><span class=line><span class=cl>	<span class=k>tls</span> <span class=s>your@email.com</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><p>如果你需要指定 CA 机构为 ZeroSSL，你可以进行全局设置：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>acme_ca</span> <span class=s>https://acme.zerossl.com/v2/DV90</span>
-</span></span><span class=line><span class=cl>    <span class=k>email</span> <span class=s>your@email.com</span>
+</span></span><span class=line><span class=cl>	<span class=k>acme_ca</span> <span class=s>https://acme.zerossl.com/v2/DV90</span>
+</span></span><span class=line><span class=cl>	<span class=k>email</span> <span class=s>your@email.com</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=gh>domain.com</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><p>或者单独对某个网站进行设置：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>domain.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>tls</span> <span class=s>your@email.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=k>ca</span> <span class=s>https://acme.zerossl.com/v2/DV90</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>tls</span> <span class=s>your@email.com</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>ca</span> <span class=s>https://acme.zerossl.com/v2/DV90</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><p>如果要指定 CA 为 Let’s Encrypt，只需要将 <code>https://acme.zerossl.com/v2/DV90</code> 更换为 <code>https://acme-v02.api.letsencrypt.org/directory</code> 即可</p></section><footer class=article-footer><section class=article-tags><a href=/tags/ssl/>SSL</a>
 <a href=/tags/nginx/>Nginx</a>

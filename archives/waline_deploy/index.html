@@ -147,27 +147,28 @@
 </span></span><span class=line><span class=cl>systemctl status waline <span class=c1># 服务状态</span>
 </span></span><span class=line><span class=cl>systemctl <span class=nb>enable</span> waline <span class=c1># 添加开机自启动</span>
 </span></span></code></pre></div><hr><h3 id=反向代理设置>反向代理设置</h3><p>如果你不想通过 IP:8360 进行访问，那么就需要设置反向代理来通过域名进行访问了这里提供两个配置：</p><h4 id=caddy>Caddy</h4><p>我使用的是 Caddy ， Caddy 反代需要修改 <strong>/etc/caddy/Caddyfile</strong> 文件：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>domain.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=k>encode</span> <span class=s>gzip</span>
-</span></span><span class=line><span class=cl>		<span class=k>reverse_proxy</span> <span class=n>127.0.0.1</span><span class=p>:</span><span class=mi>8360</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=k>header_up</span> <span class=s>Host</span> <span class=se>{host}</span>
-</span></span><span class=line><span class=cl>			<span class=k>header_up</span> <span class=s>X-Real-IP</span> <span class=se>{remote}</span>
-</span></span><span class=line><span class=cl>			<span class=k>header_up</span> <span class=s>X-Forwarded-For</span> <span class=se>{remote}</span>
-</span></span><span class=line><span class=cl>			<span class=k>header_up</span> <span class=s>X-Forwarded-Proto</span> <span class=s>https</span>
-</span></span><span class=line><span class=cl>		<span class=p>}</span>
-</span></span><span class=line><span class=cl>		<span class=k>file_server</span>
-</span></span><span class=line><span class=cl>		<span class=k>tls</span> <span class=s>user@email.com</span>
+</span></span><span class=line><span class=cl>	<span class=k>encode</span> <span class=s>gzip</span>
+</span></span><span class=line><span class=cl>	<span class=k>reverse_proxy</span> <span class=n>127.0.0.1</span><span class=p>:</span><span class=mi>8360</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>Host</span> <span class=se>{host}</span>
+</span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>X-Real-IP</span> <span class=se>{remote}</span>
+</span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>X-Forwarded-For</span> <span class=se>{remote}</span>
+</span></span><span class=line><span class=cl>		<span class=k>header_up</span> <span class=s>X-Forwarded-Proto</span> <span class=s>https</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>file_server</span>
+</span></span><span class=line><span class=cl>	<span class=k>tls</span> <span class=s>user@email.com</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><h4 id=nginx>Nginx</h4><p>Nginx 反向代理如下：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-nginx data-lang=nginx><span class=line><span class=cl><span class=k>location</span> <span class=s>/</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=kn>proxy_pass</span> <span class=s>http://127.0.0.1:8360</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>		<span class=kn>proxy_set_header</span> <span class=s>Host</span> <span class=nv>$host</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>		<span class=kn>proxy_set_header</span> <span class=s>X-Real-IP</span> <span class=nv>$remote_addr</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>		<span class=kn>proxy_set_header</span> <span class=s>X-Forwarded-For</span> <span class=nv>$proxy_add_x_forwarded_for</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>		<span class=kn>proxy_set_header</span> <span class=s>X-Forwarded-Proto</span> <span class=nv>$scheme</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>		<span class=kn>proxy_set_header</span> <span class=s>REMOTE-HOST</span> <span class=nv>$remote_addr</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>		<span class=kn>add_header</span> <span class=s>X-Cache</span> <span class=nv>$upstream_cache_status</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>		<span class=c1># cache
-</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=kn>add_header</span> <span class=s>Cache-Control</span> <span class=s>no-cache</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>		<span class=kn>expires</span> <span class=s>12h</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>proxy_pass</span> <span class=s>http://127.0.0.1:8360</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>proxy_set_header</span> <span class=s>Host</span> <span class=nv>$host</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>proxy_set_header</span> <span class=s>X-Real-IP</span> <span class=nv>$remote_addr</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>proxy_set_header</span> <span class=s>X-Forwarded-For</span> <span class=nv>$proxy_add_x_forwarded_for</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>proxy_set_header</span> <span class=s>X-Forwarded-Proto</span> <span class=nv>$scheme</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>proxy_set_header</span> <span class=s>REMOTE-HOST</span> <span class=nv>$remote_addr</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>add_header</span> <span class=s>X-Cache</span> <span class=nv>$upstream_cache_status</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	<span class=c1># cache
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=kn>add_header</span> <span class=s>Cache-Control</span> <span class=s>no-cache</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=kn>expires</span> <span class=s>12h</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>	<span class=p>}</span>
 </span></span></code></pre></div><hr><h2 id=总结>总结</h2><p>以上就是我通过 Caddy+MariaDB 独立部署 Waline 的过程，希望能给大家带来帮助。后期如果需要设置邮件通知等功能可以在 waline.service 文件中的 <strong>[Service]</strong> 项下直接添加 Environment= 然后根据官方给出的环境变量进行设置即可。</p><p>若 Waline 后台发现有更新提示，可通过 <code>npm</code> 对 Waline 进行更新：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>npm update @waline/vercel
 </span></span></code></pre></div><h3 id=参考资料>参考资料</h3><ol><li><p><a class=link href=https://waline.js.org target=_blank rel=noopener>Waline 官方文档
