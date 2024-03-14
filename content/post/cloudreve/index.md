@@ -95,12 +95,12 @@ location / {
 
 ```caddyfile
 domain.com {
-		reverse_proxy 127.0.0.1:5212 {
-				header_up Host {host}
-				header_up X-Real-IP {remote}
-				header_up X-Forwarded-For {remote}
-				header_up X-Forwarded-Proto https
-		}
+	reverse_proxy 127.0.0.1:5212 {
+		header_up Host {host}
+		header_up X-Real-IP {remote}
+		header_up X-Forwarded-For {remote}
+		header_up X-Forwarded-Proto https
+	}
 }
 ```
 

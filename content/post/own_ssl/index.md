@@ -74,26 +74,26 @@ vim /usr/local/nginx/conf/vhost/domian.com.conf
 
 ```nginx
 server {
-  listen 80;
-  listen [::]:80;
-  listen 443 ssl http2;
-  listen [::]:443 ssl http2;
-  ssl_certificate /usr/local/nginx/conf/ssl/domain.com.crt;
-  # 证书文件的相对路径或绝对路径
-  ssl_certificate_key /usr/local/nginx/conf/ssl/domain.com.key;
-  # 私钥文件的相对路径或绝对路径
-  ssl_protocols TLSv1.2 TLSv1.3;
-  ssl_ecdh_curve X25519:prime256v1:secp384r1:secp521r1;
-  ssl_ciphers ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256;
-  ssl_conf_command Ciphersuites TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256;
-  ssl_conf_command Options PrioritizeChaCha;
-  ssl_prefer_server_ciphers on;
-  ssl_session_timeout 10m;
-  ssl_session_cache shared:SSL:10m;
-  ssl_buffer_size 2k;
-  add_header Strict-Transport-Security max-age=15768000;
-  ssl_stapling on;
-  ssl_stapling_verify on;
+	listen 80;
+	listen [::]:80;
+	listen 443 ssl http2;
+	listen [::]:443 ssl http2;
+	ssl_certificate /usr/local/nginx/conf/ssl/domain.com.crt;
+	# 证书文件的相对路径或绝对路径
+	ssl_certificate_key /usr/local/nginx/conf/ssl/domain.com.key;
+	# 私钥文件的相对路径或绝对路径
+	ssl_protocols TLSv1.2 TLSv1.3;
+	ssl_ecdh_curve X25519:prime256v1:secp384r1:secp521r1;
+	ssl_ciphers ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256;
+	ssl_conf_command Ciphersuites TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256;
+	ssl_conf_command Options PrioritizeChaCha;
+	ssl_prefer_server_ciphers on;
+	ssl_session_timeout 10m;
+	ssl_session_cache shared:SSL:10m;
+	ssl_buffer_size 2k;
+	add_header Strict-Transport-Security max-age=15768000;
+	ssl_stapling on;
+	ssl_stapling_verify on;
 }
 ```
 
@@ -118,20 +118,21 @@ vim /etc/caddy/Caddyfile
 
 ```caddyfile
 domain.com {
-    log {
-        output file /var/log/caddy/domain.com.log
-        level error
-    }
-    root * /var/www/domain.com
-    encode gzip
-    handle_errors {
-        rewrite * /{err.status_code}.html
-        file_server
-    }
-    php_fastcgi unix//dev/shm/php-cgi.sock
-    file_server
-    tls /path/to/domain.com.pem /path/to/domain.com.key
-    # 证书和密钥的 PEM 格式的文件绝对路径，注意中间空格
+	log {
+		output file /var/log/caddy/domain.com.log
+		level error
+	}
+	root * /var/www/domain.com
+	encode gzip
+	handle_errors {
+		rewrite * /{err.status_code}.html
+		file_server
+	}
+	php_fastcgi unix//dev/shm/php-cgi.sock
+	file_server
+
+	# 证书和密钥的 PEM 格式的文件绝对路径，注意中间空格
+	tls /path/to/domain.com.pem /path/to/domain.com.key
 }
 ```
 

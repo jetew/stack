@@ -160,25 +160,25 @@ location ^~ / {
 
 ```caddyfile
 domain.com {
-		log {
-				output file /var/log/caddy/filebrowser.log
-				level error
-		}
-		root * /var/filebrowser
-		header {
+	log {
+		output file /var/log/caddy/filebrowser.log
+		level error
+	}
+	root * /var/filebrowser
+	header {
 		Strict-Transport-Security max-age=31536000;preload
 		X-Content-Type-Options nosniff
 		X-Frame-Options SAMEORIGIN
 	}
-		encode gzip
-		reverse_proxy 127.0.0.1:8080 {
-				header_up Host {host}
+	encode gzip
+	reverse_proxy 127.0.0.1:8080 {
+		header_up Host {host}
 		header_up X-Real-IP {remote}
 		header_up X-Forwarded-For {remote}
 		header_up X-Forwarded-Proto https
-		}
-		file_server
-		tls user@email.com
+	}
+	file_server
+	tls user@email.com
 }
 ```
 
@@ -213,12 +213,12 @@ location ~* /pan {
 
 ```caddyfile
 domain.com {
-		reverse_proxy /pan/* 127.0.0.1:8080 {
-				header_up Host {host}
+	reverse_proxy /pan/* 127.0.0.1:8080 {
+		header_up Host {host}
 		header_up X-Real-IP {remote}
 		header_up X-Forwarded-For {remote}
 		header_up X-Forwarded-Proto https
-		}
+	}
 }
 ```
 

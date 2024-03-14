@@ -181,12 +181,12 @@ location = /jsonrpc {
 	
 ```caddyfile
 domain.com {
-		reverse_proxy /jsonrpc 127.0.0.1:6800 {
-				header_up Host {host}
+	reverse_proxy /jsonrpc 127.0.0.1:6800 {
+		header_up Host {host}
 		header_up X-Real-IP {remote}
 		header_up X-Forwarded-For {remote}
 		header_up X-Forwarded-Proto https
-		}
+	}
 }
 ```
 
