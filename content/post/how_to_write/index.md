@@ -152,7 +152,7 @@ Initialized empty Git repository in /storage/emulated/0/termux/hugo/blog/.git/
 fatal: detected dubious ownership in repository at '/storage/emulated/0/termux/hugo/blog/'
 To add an exception for this directory, call:
 
-        git config --global --add safe.directory /storage/emulated/0/termux/hugo/blog
+				git config --global --add safe.directory /storage/emulated/0/termux/hugo/blog
 ```
 
 按照提示输入命令添加到安全仓库即可：

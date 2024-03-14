@@ -95,15 +95,15 @@ config 配置文件内容如下：
 ```bash
 # Github
 Host github.com
-  HostName github.com
-  User username # username改成你的 Github 用户名
-  IdentityFile ~/.ssh/github # 私钥位置
+	HostName github.com
+	User username # username改成你的 Github 用户名
+	IdentityFile ~/.ssh/github # 私钥位置
 
 # Gitee
 Host gitee.com
-  HostName gitee.com
-  User username # username改成你的 Gitee 用户名
-  IdentityFile ~/.ssh/gitee # 私钥位置
+	HostName gitee.com
+	User username # username改成你的 Gitee 用户名
+	IdentityFile ~/.ssh/gitee # 私钥位置
 ```
 
 #### 用户及 Remote 配置
@@ -135,22 +135,22 @@ git remote add origin git@github.com:username/repositories.git # 添加远程仓
 ```bash
 # Github
 Host github.com
-  HostName github.com
-  User username # username改成你的 Github 用户名
-  IdentityFile ~/.ssh/github # 私钥位置
+	HostName github.com
+	User username # username改成你的 Github 用户名
+	IdentityFile ~/.ssh/github # 私钥位置
 
 # Gitee
 Host gitee.com
-  HostName gitee.com
-  User username # username改成你的 Github 用户名
-  IdentityFile ~/.ssh/gitee # 私钥位置
+	HostName gitee.com
+	User username # username改成你的 Github 用户名
+	IdentityFile ~/.ssh/gitee # 私钥位置
 
 # Tencent Cloud
 Host tencent
-  HostName xx.xx.xx.xx # 服务器 IP
-  User root
-  Port 22
-  IdentityFile ~/.ssh/tencent # 私钥位置
+	HostName xx.xx.xx.xx # 服务器 IP
+	User root
+	Port 22
+	IdentityFile ~/.ssh/tencent # 私钥位置
 ```
 
 之后就可以通过 `ssh tencent` 进行远程服务器的登陆了。
@@ -184,10 +184,10 @@ git config --global --unset https.proxy
 ```bash
 # Github
 Host github.com
-  HostName github.com
-    ProxyCommand connect -S 127.0.0.1:10808 %h %p
-  User username
-  IdentityFile ~/.ssh/github
+	HostName github.com
+		ProxyCommand connect -S 127.0.0.1:10808 %h %p
+	User username
+	IdentityFile ~/.ssh/github
 ```
 
 需要注意 `ProxyCommand connect -S 127.0.0.1:10808 %h %p` 这行：
@@ -199,10 +199,10 @@ Host github.com
 ```bash
 # Github
 Host github.com
-  HostName github.com
-    ProxyCommand nc -X 5 -x 127.0.0.1:10808 %h %p
-  User username
-  IdentityFile ~/.ssh/github
+	HostName github.com
+		ProxyCommand nc -X 5 -x 127.0.0.1:10808 %h %p
+	User username
+	IdentityFile ~/.ssh/github
 ```
 
 ## 总结

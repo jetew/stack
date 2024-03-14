@@ -25,7 +25,7 @@ AriaNg 是一个让 Aria2 更容易使用的现代 Web 前端。 AriaNg 使用�
 #### Aria2
 
 1. BT 下载率高、速度快
-   
+	 
 2. 重启后不丢失任务进度、不重复下载
 
 3. 删除正在下载的任务自动删除未完成的文件
@@ -49,41 +49,41 @@ AriaNg 是一个让 Aria2 更容易使用的现代 Web 前端。 AriaNg 使用�
 #### AriaNG
 
 1. 纯 Html & Javascript 实现, 不依赖任何运行时
-   
+	 
 2. 响应式布局设计, 兼容计算机与移动设备
-   
+	 
 3. 友好的界面交互
-   
-    - 任务排序 (按文件名, 文件大小, 进度, 剩余时间, 下载速度等.), 文件排序, Bittorrent 连接节点排序
-  
-    - 任务搜索
+	 
+	- 任务排序 (按文件名, 文件大小, 进度, 剩余时间, 下载速度等.), 文件排序, Bittorrent 连接节点排序
+	
+	- 任务搜索
 
-    - 任务重试
-  
-    - 拖拽调整任务顺序
-  
-    - 更详细的任务信息 (健康度, 连接节点客户端信息等.)
-  
-    - 根据特定文件类型或文件扩展名筛选文件 (视频, 音频, 图片, 文档, 应用程序, 存档文件等.)
-  
-    - 多目录任务支持树形结构显示
-  
-    - Aria2 及单个任务的下载/上传速度图表
-  
-    - 完整支持 Aria2 设置选项
+	- 任务重试
+	
+	- 拖拽调整任务顺序
+	
+	- 更详细的任务信息 (健康度, 连接节点客户端信息等.)
+	
+	- 根据特定文件类型或文件扩展名筛选文件 (视频, 音频, 图片, 文档, 应用程序, 存档文件等.)
+	
+	- 多目录任务支持树形结构显示
+	
+	- Aria2 及单个任务的下载/上传速度图表
+	
+	- 完整支持 Aria2 设置选项
 
 4. 深色主题
-   
+	 
 5. 支持网页地址命令行 API
-   
+	 
 6. 下载完成消息通知
-   
+	 
 7. 多语言支持
-   
+	 
 8. 支持配置多个 aria2 RPC
-   
+	 
 9. 支持导出和导入设置
-    
+		
 10. 节省带宽, 仅请求增量数据
 
 ---
@@ -104,32 +104,32 @@ wget -N git.io/aria2.sh && chmod +x aria2.sh
 运行脚本后，会进入管理面板：
 
 ```bash
- Aria2 一键安装管理脚本 增强版 [v2.7.4] by P3TERX.COM
+Aria2 一键安装管理脚本 增强版 [v2.7.4] by P3TERX.COM
  
-  1. 升级脚本
- ———————————————————————
-  1. 安装 Aria2
-  2. 更新 Aria2
-  3. 卸载 Aria2
- ———————————————————————
-  1. 启动 Aria2
-  2. 停止 Aria2
-  3. 重启 Aria2
- ———————————————————————
-  1. 修改 配置
-  2. 查看 配置
-  3. 查看 日志
- 1.  清空 日志
- ———————————————————————
- 1.  手动更新 BT-Tracker
- 2.  自动更新 BT-Tracker
- ———————————————————————
+	0. 升级脚本
+———————————————————————
+	1. 安装 Aria2
+	2. 更新 Aria2
+	3. 卸载 Aria2
+———————————————————————
+	4. 启动 Aria2
+	5. 停止 Aria2
+	6. 重启 Aria2
+———————————————————————
+	7. 修改 配置
+	8. 查看 配置
+	9. 查看 日志
+	10. 清空 日志
+———————————————————————
+	11. 手动更新 BT-Tracker
+	12. 自动更新 BT-Tracker
+———————————————————————
 
- Aria2 状态: 已安装 | 已启动
+Aria2 状态: 已安装 | 已启动
 
- 自动更新 BT-Tracker: 已开启
+自动更新 BT-Tracker: 已开启
 
- 请输入数字 [0-12]:
+请输入数字 [0-12]:
 ```
 
 输入 `1` 进行安装，安装完成之后会跳出配置信息：
@@ -165,28 +165,28 @@ wget -N git.io/aria2.sh && chmod +x aria2.sh
 修改 AriaNG 网站配置，添加下面的配置：
 
 - Nginx
-  
+	
 ```nginx
 location = /jsonrpc {
-  proxy_pass http://127.0.0.1:6800;
-  proxy_set_header Host $http_host;
-  proxy_set_header X-Real-IP $remote_addr;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  proxy_set_header X-Forwarded-Proto $scheme;
-  proxy_set_header X-NginX-Proxy true;
+	proxy_pass http://127.0.0.1:6800;
+	proxy_set_header Host $http_host;
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header X-Forwarded-Proto $scheme;
+	proxy_set_header X-NginX-Proxy true;
 }
 ```
 
 - Caddy
-  
+	
 ```caddyfile
 domain.com {
-    reverse_proxy /jsonrpc 127.0.0.1:6800 {
-        header_up Host {host}
+		reverse_proxy /jsonrpc 127.0.0.1:6800 {
+				header_up Host {host}
 		header_up X-Real-IP {remote}
 		header_up X-Forwarded-For {remote}
 		header_up X-Forwarded-Proto https
-    }
+		}
 }
 ```
 

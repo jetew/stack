@@ -277,7 +277,7 @@ vim waline.service
 
 模板如下：
 
-```service
+```systemd
 [Unit]
 Description=Waline
 
@@ -305,7 +305,7 @@ WantedBy=multi-user.target
 
 我的配置如下：
 
-```service
+```systemd
 [Unit]
 Description=Waline
 
@@ -363,15 +363,15 @@ systemctl enable waline # 添加开机自启动
 
 ```caddyfile
 domain.com {
-    encode gzip
-    reverse_proxy 127.0.0.1:8360 {
-      header_up Host {host}
-		  header_up X-Real-IP {remote}
-		  header_up X-Forwarded-For {remote}
-		  header_up X-Forwarded-Proto https
-    }
-    file_server
-    tls user@email.com
+		encode gzip
+		reverse_proxy 127.0.0.1:8360 {
+			header_up Host {host}
+			header_up X-Real-IP {remote}
+			header_up X-Forwarded-For {remote}
+			header_up X-Forwarded-Proto https
+		}
+		file_server
+		tls user@email.com
 }
 ```
 
@@ -381,17 +381,17 @@ Nginx 反向代理如下：
 
 ```nginx
 location / {
-    proxy_pass http://127.0.0.1:8360;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_set_header REMOTE-HOST $remote_addr;
-    add_header X-Cache $upstream_cache_status;
-    # cache
-    add_header Cache-Control no-cache;
-    expires 12h;
-  }
+		proxy_pass http://127.0.0.1:8360;
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_set_header REMOTE-HOST $remote_addr;
+		add_header X-Cache $upstream_cache_status;
+		# cache
+		add_header Cache-Control no-cache;
+		expires 12h;
+	}
 ```
 
 ---
@@ -409,9 +409,9 @@ npm update @waline/vercel
 ### 参考资料
 
 1. [Waline 官方文档](https://waline.js.org)
-   
+
 2. [NodeSource - Node.js 官方二进制发行版](https://github.com/nodesource/distributions/blob/master/README.md)
-   
+
 3. [通过二进制文件安装 Node.js](https://github.com/nodejs/help/wiki/Installation)
 
 4. [Node 应用的 Systemd 启动](https://www.ruanyifeng.com/blog/2016/03/node-systemd-tutorial.html)

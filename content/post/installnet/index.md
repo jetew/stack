@@ -164,65 +164,45 @@ bash InstallNET.sh
 
 如国内主机，可通过中科大源：
 
-```
-https://mirrors.ustc.edu.cn/debian/
-```
+- `https://mirrors.ustc.edu.cn/debian/`
 
 或清华源：
 
-```
-https://mirrors.tuna.tsinghua.edu.cn/debian/
-```
+- `https://mirrors.tuna.tsinghua.edu.cn/debian/`
 
 更多镜像地址如下：
 
 Debian：
 
-```
-https://www.debian.org/mirror/list.html
-```
+- `https://www.debian.org/mirror/list.html`
 
 CentOS7/8-stream：
 
-```
-https://www.centos.org/download/mirrors
-```
+- `https://www.centos.org/download/mirrors`
 
 CentOS 9-stream/+：
 
-```
-https://admin.fedoraproject.org/mirrormanager/mirrors/CentOS
-```
+- `https://admin.fedoraproject.org/mirrormanager/mirrors/CentOS`
 
 Ubuntu：
 
-```
-https://launchpad.net/ubuntu/+cdmirrors
-```
+- `https://launchpad.net/ubuntu/+cdmirrors`
 
 Kali：
 
-```
-https://http.kali.org/README.mirrorlist
-```
+- `https://http.kali.org/README.mirrorlist`
 
 Alpine Linux：
 
-```
-https://mirrors.alpinelinux.org/
-```
+- `https://mirrors.alpinelinux.org/`
 
 RockyLinux：
 
-```
-https://mirrors.rockylinux.org/mirrormanager/mirrors
-```
+- `https://mirrors.rockylinux.org/mirrormanager/mirrors`
 
 Fedora：
 
-```
-https://admin.fedoraproject.org/mirrormanager/mirrors/Fedora
-```
+- `https://admin.fedoraproject.org/mirrormanager/mirrors/Fedora`
 
 `-timezone "Asia/Shanghai"`
 

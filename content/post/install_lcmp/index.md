@@ -79,17 +79,18 @@ rm -r /usr/share/caddy
 ```bash
 cat > /etc/caddy/Caddyfile << EOF
 :80 {
-	root * /data/www/default
-	header {
-		Strict-Transport-Security max-age=31536000;preload
-		X-Content-Type-Options nosniff
-		X-Frame-Options SAMEORIGIN
-	}
-	encode gzip
-	php_fastcgi unix//dev/shm/php-cgi.sock
-	file_server
+		root * /data/www/default
+		header {
+				Strict-Transport-Security max-age=31536000;preload
+				X-Content-Type-Options nosniff
+				X-Frame-Options SAMEORIGIN
+		}
+		encode gzip
+		php_fastcgi unix//dev/shm/php-cgi.sock
+		file_server
 }
 EOF
+
 caddy fmt --overwrite /etc/caddy/Caddyfile
 ```
 
@@ -366,7 +367,7 @@ ldconfig
 ### 安装 PHP
 #### 准备工作
 
-在安装 PHP 之前，需要编译安装 libiconv 
+在安装 PHP 之前，需要编译安装 libiconv
 
 ```bash
 cd /usr/local/src
@@ -798,20 +799,20 @@ diff -up ./clients/memflush.cc.old ./clients/memflush.cc
 {
 	options_parse(argc, argv);
  
--	if (opt_servers == false)
-+	if (!opt_servers)
+- if (opt_servers == false)
++ if (!opt_servers)
 	{
 		char *temp;
  
 @@ -48,7 +48,7 @@ int main(int argc, char *argv[])
-		opt_servers= strdup(temp);
-	}
+			opt_servers= strdup(temp);
+		}
  
--	if (opt_servers == false)
-+	if (!opt_servers)
-    {
-		std::cerr << "No Servers provided" << std::endl;
-		exit(EXIT_FAILURE);
+-		if (opt_servers == false)
++		if (!opt_servers)
+		{
+			std::cerr << "No Servers provided" << std::endl;
+			exit(EXIT_FAILURE);
 EOF
 
 patch -d libmemcached-1.0.18 -p0 < libmemcached-build.patch
