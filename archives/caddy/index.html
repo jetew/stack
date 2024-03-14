@@ -18,55 +18,55 @@
 </span></span></code></pre></div><p>然后我们可以对 Caddy 进行配置了，用 <code>vim</code> 命令对配置文件进行编辑，拿不准的可以下载下来编辑文件路径为 <strong>/etc/caddy/Caddyfile</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>vim /etc/caddy/Caddyfile
 </span></span></code></pre></div><p>Caddy 的配置比较简单，第一行输入绑定好的域名，这样就会自动开启80和443端口：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>xx.com</span><span class=p>
 </span></span></span></code></pre></div><p>然后是网站根目录设置：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>xx.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/xx</span>
+</span></span><span class=line><span class=cl>		<span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/xx</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><p>这样一个简单的站点就已经配置完成了，然后添加一些自己需要的功能，并且开启静态文件浏览：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>xx.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/xx</span>
-</span></span><span class=line><span class=cl>    <span class=k>encode</span> <span class=s>gzip</span>
-</span></span><span class=line><span class=cl>    <span class=k>file_server</span>
-</span></span><span class=line><span class=cl>    <span class=k>tls</span> <span class=s>XX@email.com</span>
+</span></span><span class=line><span class=cl>		<span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/xx</span>
+</span></span><span class=line><span class=cl>		<span class=k>encode</span> <span class=s>gzip</span>
+</span></span><span class=line><span class=cl>		<span class=k>file_server</span>
+</span></span><span class=line><span class=cl>		<span class=k>tls</span> <span class=s>XX@email.com</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><p>如果要开设多个站点，那么直接另起一行，进行其他站点的配置就行了：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>xx.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/xx</span>
-</span></span><span class=line><span class=cl>    <span class=k>encode</span> <span class=s>gzip</span>
-</span></span><span class=line><span class=cl>    <span class=k>file_server</span>
-</span></span><span class=line><span class=cl>    <span class=k>tls</span> <span class=s>XX@email.com</span>
+</span></span><span class=line><span class=cl>		<span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/xx</span>
+</span></span><span class=line><span class=cl>		<span class=k>encode</span> <span class=s>gzip</span>
+</span></span><span class=line><span class=cl>		<span class=k>file_server</span>
+</span></span><span class=line><span class=cl>		<span class=k>tls</span> <span class=s>XX@email.com</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=gh>www.xx.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/yy</span>
-</span></span><span class=line><span class=cl>    <span class=k>tls</span> <span class=s>xx@email.com</span>
+</span></span><span class=line><span class=cl>		<span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/yy</span>
+</span></span><span class=line><span class=cl>		<span class=k>tls</span> <span class=s>xx@email.com</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><p>或者将子域名重定向到主域名：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=gh>xx.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/xx</span>
-</span></span><span class=line><span class=cl>    <span class=k>encode</span> <span class=s>gzip</span>
-</span></span><span class=line><span class=cl>    <span class=k>file_server</span>
-</span></span><span class=line><span class=cl>    <span class=k>tls</span> <span class=s>XX@email.com</span>
+</span></span><span class=line><span class=cl>		<span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/xx</span>
+</span></span><span class=line><span class=cl>		<span class=k>encode</span> <span class=s>gzip</span>
+</span></span><span class=line><span class=cl>		<span class=k>file_server</span>
+</span></span><span class=line><span class=cl>		<span class=k>tls</span> <span class=s>XX@email.com</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=gh>www.xx.com</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=k>redir</span> <span class=s>https://xx.com</span><span class=se>{uri}</span>
+</span></span><span class=line><span class=cl>		<span class=k>redir</span> <span class=s>https://xx.com</span><span class=se>{uri}</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><p>我的设置参考：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-caddyfile data-lang=caddyfile><span class=line><span class=cl><span class=c1># 域名
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=gh>domain.com</span> <span class=p>{</span><span class=c1>
-</span></span></span><span class=line><span class=cl><span class=c1>    # 设置日志文件位置，等级为 error
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>log</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=k>output</span> <span class=s>file</span> <span class=s>/var/log/caddy/xx.log</span>
-</span></span><span class=line><span class=cl>        <span class=k>level</span> <span class=s>error</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span><span class=c1>
-</span></span></span><span class=line><span class=cl><span class=c1>    # 网站根目录
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/xx</span><span class=c1>
-</span></span></span><span class=line><span class=cl><span class=c1>    # 开启 gzip
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>encode</span> <span class=s>gzip</span><span class=c1>
-</span></span></span><span class=line><span class=cl><span class=c1>    # 错误页面
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>handle_errors</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=k>rewrite</span> <span class=nd>*</span> <span class=s>/</span><span class=se>{err.status_code}</span><span class=s>.html</span>
-</span></span><span class=line><span class=cl>        <span class=k>file_server</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span><span class=c1>
-</span></span></span><span class=line><span class=cl><span class=c1>    # PHP
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>php_fastcgi</span> <span class=s>unix//run/php/php7-fpm.sock</span><span class=c1>
-</span></span></span><span class=line><span class=cl><span class=c1>    # 静态文件服务
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>file_server</span><span class=c1>
-</span></span></span><span class=line><span class=cl><span class=c1>    # TLS设置
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>tls</span> <span class=s>xx@email.com</span>
+</span></span></span><span class=line><span class=cl><span class=c1>		# 设置日志文件位置，等级为 error
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>log</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=k>output</span> <span class=s>file</span> <span class=s>/var/log/caddy/xx.log</span>
+</span></span><span class=line><span class=cl>				<span class=k>level</span> <span class=s>error</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span><span class=c1>
+</span></span></span><span class=line><span class=cl><span class=c1>		# 网站根目录
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>root</span> <span class=nd>*</span> <span class=s>/var/www/xx</span><span class=c1>
+</span></span></span><span class=line><span class=cl><span class=c1>		# 开启 gzip
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>encode</span> <span class=s>gzip</span><span class=c1>
+</span></span></span><span class=line><span class=cl><span class=c1>		# 错误页面
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>handle_errors</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=k>rewrite</span> <span class=nd>*</span> <span class=s>/</span><span class=se>{err.status_code}</span><span class=s>.html</span>
+</span></span><span class=line><span class=cl>				<span class=k>file_server</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span><span class=c1>
+</span></span></span><span class=line><span class=cl><span class=c1>		# PHP
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>php_fastcgi</span> <span class=s>unix//run/php/php7-fpm.sock</span><span class=c1>
+</span></span></span><span class=line><span class=cl><span class=c1>		# 静态文件服务
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>file_server</span><span class=c1>
+</span></span></span><span class=line><span class=cl><span class=c1>		# TLS设置
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>tls</span> <span class=s>xx@email.com</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></div><p>配置完成后输入以下命令检查配置：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>caddy adapt --config /etc/caddy/Caddyfile
 </span></span></code></pre></div><p>如未报错，则表示配置无误。</p><p>重载 Caddy 配置：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>caddy reload --config /etc/caddy/Caddyfile

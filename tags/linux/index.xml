@@ -414,27 +414,47 @@ fill="currentColor">
 &lt;p>通过镜像下载安装，可设置与服务器实际位置接近的镜像地址以加快下载速度&lt;/p>
 &lt;/blockquote>
 &lt;p>如国内主机，可通过中科大源：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://mirrors.ustc.edu.cn/debian/
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>或清华源：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://mirrors.tuna.tsinghua.edu.cn/debian/
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>更多镜像地址如下：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://mirrors.ustc.edu.cn/debian/&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>或清华源：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://mirrors.tuna.tsinghua.edu.cn/debian/&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>更多镜像地址如下：&lt;/p>
 &lt;p>Debian：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://www.debian.org/mirror/list.html
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>CentOS7/8-stream：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">www&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">centos&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">org&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">download&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">mirrors&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>CentOS 9-stream/+：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://admin.fedoraproject.org/mirrormanager/mirrors/CentOS
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Ubuntu：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://launchpad.net/ubuntu/+cdmirrors
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Kali：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://http.kali.org/README.mirrorlist
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Alpine Linux：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://mirrors.alpinelinux.org/
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>RockyLinux：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://mirrors.rockylinux.org/mirrormanager/mirrors
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Fedora：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://admin.fedoraproject.org/mirrormanager/mirrors/Fedora
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>-timezone &amp;quot;Asia/Shanghai&amp;quot;&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://www.debian.org/mirror/list.html&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>CentOS7/8-stream：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://www.centos.org/download/mirrors&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>CentOS 9-stream/+：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://admin.fedoraproject.org/mirrormanager/mirrors/CentOS&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>Ubuntu：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://launchpad.net/ubuntu/+cdmirrors&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>Kali：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://http.kali.org/README.mirrorlist&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>Alpine Linux：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://mirrors.alpinelinux.org/&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>RockyLinux：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://mirrors.rockylinux.org/mirrormanager/mirrors&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>Fedora：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://admin.fedoraproject.org/mirrormanager/mirrors/Fedora&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>-timezone &amp;quot;Asia/Shanghai&amp;quot;&lt;/code>&lt;/p>
 &lt;blockquote>
 &lt;p>手动设置时区，若输入的时区参数有误，则自动设置为 &amp;ldquo;Asia/Tokyo&amp;rdquo;；若未设置该参数，则按照访客 IP 地理位置分配，该选项不可用于 Windows 系统&lt;/p>
 &lt;/blockquote>
@@ -601,6 +621,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> file_server
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">}
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">caddy fmt --overwrite /etc/caddy/Caddyfile
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
 &lt;h3 id="安装-mariadb">安装 MariaDB&lt;/h3>
@@ -1386,7 +1407,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 进程退出前安全关闭数据库连接的缓冲时间&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">GracePeriod&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">30&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置完成后将 Systemd 文件修改如下：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-service" data-lang="service">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-systemd" data-lang="systemd">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">Cloudreve&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">After&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">network.target&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">After&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">mysqld.service&lt;/span>
@@ -1527,32 +1548,32 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget -N git.io/aria2.sh &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> chmod +x aria2.sh
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./aria2.sh
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行脚本后，会进入管理面板：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl"> Aria2 一键安装管理脚本 增强版 &lt;span class="o">[&lt;/span>v2.7.4&lt;span class="o">]&lt;/span> by P3TERX.COM
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Aria2 一键安装管理脚本 增强版 &lt;span class="o">[&lt;/span>v2.7.4&lt;span class="o">]&lt;/span> by P3TERX.COM
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1. 升级脚本
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ———————————————————————
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 0. 升级脚本
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">———————————————————————
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1. 安装 Aria2
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 2. 更新 Aria2
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 3. 卸载 Aria2
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ———————————————————————
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1. 启动 Aria2
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 2. 停止 Aria2
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 3. 重启 Aria2
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ———————————————————————
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1. 修改 配置
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 2. 查看 配置
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 3. 查看 日志
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1. 清空 日志
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ———————————————————————
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1. 手动更新 BT-Tracker
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 2. 自动更新 BT-Tracker
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ———————————————————————
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">———————————————————————
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 4. 启动 Aria2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 5. 停止 Aria2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 6. 重启 Aria2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">———————————————————————
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 7. 修改 配置
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 8. 查看 配置
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 9. 查看 日志
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 10. 清空 日志
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">———————————————————————
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 11. 手动更新 BT-Tracker
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 12. 自动更新 BT-Tracker
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">———————————————————————
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Aria2 状态: 已安装 &lt;span class="p">|&lt;/span> 已启动
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Aria2 状态: 已安装 &lt;span class="p">|&lt;/span> 已启动
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 自动更新 BT-Tracker: 已开启
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">自动更新 BT-Tracker: 已开启
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 请输入数字 &lt;span class="o">[&lt;/span>0-12&lt;span class="o">]&lt;/span>:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">请输入数字 &lt;span class="o">[&lt;/span>0-12&lt;span class="o">]&lt;/span>:
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输入 &lt;code>1&lt;/code> 进行安装，安装完成之后会跳出配置信息：&lt;/p>
 &lt;p>&lt;img src="/archives/aria/1.png"
 width="820"
@@ -1675,7 +1696,7 @@ fill="currentColor">
 &lt;p>创建 &lt;code>filebrowser.service&lt;/code> 然后进行编辑：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /usr/lib/systemd/system/filebrowser.service
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>复制下面文件并粘贴：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-service" data-lang="service">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-systemd" data-lang="systemd">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">File Browser&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">After&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">network.target&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">

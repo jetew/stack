@@ -158,7 +158,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 进程退出前安全关闭数据库连接的缓冲时间&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">GracePeriod&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">30&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置完成后将 Systemd 文件修改如下：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-service" data-lang="service">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-systemd" data-lang="systemd">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">Cloudreve&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">After&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">network.target&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">After&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">mysqld.service&lt;/span>
@@ -226,7 +226,7 @@ fill="currentColor">
 &lt;p>创建 &lt;code>filebrowser.service&lt;/code> 然后进行编辑：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /usr/lib/systemd/system/filebrowser.service
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>复制下面文件并粘贴：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-service" data-lang="service">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-systemd" data-lang="systemd">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">File Browser&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">After&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">network.target&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">

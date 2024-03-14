@@ -96,6 +96,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> file_server
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">}
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">caddy fmt --overwrite /etc/caddy/Caddyfile
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
 &lt;h3 id="安装-mariadb">安装 MariaDB&lt;/h3>
@@ -1056,7 +1057,7 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/lib/systemd/system/
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim waline.service
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>模板如下：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-service" data-lang="service">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-systemd" data-lang="systemd">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">Waline&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Service]&lt;/span>
@@ -1076,7 +1077,7 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">[/path/to/node]：node 可执行文件绝对路径
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[path/to/node_modules]：通过 npm 安装模块位置
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我的配置如下：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-service" data-lang="service">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-systemd" data-lang="systemd">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">Waline&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Service]&lt;/span>

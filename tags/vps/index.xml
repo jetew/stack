@@ -139,27 +139,47 @@ fill="currentColor">
 &lt;p>通过镜像下载安装，可设置与服务器实际位置接近的镜像地址以加快下载速度&lt;/p>
 &lt;/blockquote>
 &lt;p>如国内主机，可通过中科大源：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://mirrors.ustc.edu.cn/debian/
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>或清华源：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://mirrors.tuna.tsinghua.edu.cn/debian/
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>更多镜像地址如下：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://mirrors.ustc.edu.cn/debian/&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>或清华源：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://mirrors.tuna.tsinghua.edu.cn/debian/&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>更多镜像地址如下：&lt;/p>
 &lt;p>Debian：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://www.debian.org/mirror/list.html
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>CentOS7/8-stream：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">www&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">centos&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">org&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">download&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">mirrors&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>CentOS 9-stream/+：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://admin.fedoraproject.org/mirrormanager/mirrors/CentOS
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Ubuntu：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://launchpad.net/ubuntu/+cdmirrors
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Kali：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://http.kali.org/README.mirrorlist
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Alpine Linux：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://mirrors.alpinelinux.org/
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>RockyLinux：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://mirrors.rockylinux.org/mirrormanager/mirrors
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Fedora：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://admin.fedoraproject.org/mirrormanager/mirrors/Fedora
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>-timezone &amp;quot;Asia/Shanghai&amp;quot;&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://www.debian.org/mirror/list.html&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>CentOS7/8-stream：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://www.centos.org/download/mirrors&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>CentOS 9-stream/+：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://admin.fedoraproject.org/mirrormanager/mirrors/CentOS&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>Ubuntu：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://launchpad.net/ubuntu/+cdmirrors&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>Kali：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://http.kali.org/README.mirrorlist&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>Alpine Linux：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://mirrors.alpinelinux.org/&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>RockyLinux：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://mirrors.rockylinux.org/mirrormanager/mirrors&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>Fedora：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://admin.fedoraproject.org/mirrormanager/mirrors/Fedora&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>-timezone &amp;quot;Asia/Shanghai&amp;quot;&lt;/code>&lt;/p>
 &lt;blockquote>
 &lt;p>手动设置时区，若输入的时区参数有误，则自动设置为 &amp;ldquo;Asia/Tokyo&amp;rdquo;；若未设置该参数，则按照访客 IP 地理位置分配，该选项不可用于 Windows 系统&lt;/p>
 &lt;/blockquote>
