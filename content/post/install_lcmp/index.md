@@ -886,3 +886,13 @@ echo 'extension=imagick.so' > /usr/local/php/etc/php.d/imagick.ini
 ---
 
 至此 Caddy2 + MariaDB + PHP 安装完成
+
+另外需要注意网站根目录权限，网站根目录权限应遵循：
+文件 644 文件夹 755  权限用户和用户组 caddy ，其余文档 777 权限是不正常的
+如出现文件权限问题时，请执行下面 3 条命令：
+
+```bash
+chown -R caddy:caddy /data/www/
+find /data/www/ -type d -exec chmod 755 {} \;
+find /data/www/ -type f -exec chmod 644 {} \;
+```
