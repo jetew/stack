@@ -35,40 +35,40 @@ curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bas
 
 ```bash
 # 创建目录
-mkdir /var/lib/filebrowser
+mkdir /usr/local/lib/filebrowser
 
 # 创建配置数据库
-filebrowser -d /var/lib/filebrowser/filebrowser.db config init
+filebrowser -d /usr/local/lib/filebrowser/filebrowser.db config init
 ```
 
 设置监听地址：
 
 ```bash
-filebrowser -d /var/lib/filebrowser/filebrowser.db config set -a 0.0.0.0
+filebrowser -d /usr/local/lib/filebrowser/filebrowser.db config set -a 0.0.0.0
 ```
 
 设置监听端口：
 
 ```bash
-filebrowser -d /var/lib/filebrowser/filebrowser.db config set -p 8080
+filebrowser -d /usr/local/lib/filebrowser/filebrowser.db config set -p 8080
 ```
 
 设置根目录：
 
 ```bash
-filebrowser -d /var/lib/filebrowser/filebrowser.db config set -r /var/filebrowser
+filebrowser -d /usr/local/lib/filebrowser/filebrowser.db config set -r /var/filebrowser
 ```
 
 设置语言环境：
 
 ```bash
-filebrowser -d /var/lib/filebrowser/filebrowser.db config set --locale zh-cn
+filebrowser -d /usr/local/lib/filebrowser/filebrowser.db config set --locale zh-cn
 ```
 
 添加用户：
 
 ```bash
-filebrowser -d /var/lib/filebrowser/filebrowser.db users add user password --perm.admin --locale zh-cn
+filebrowser -d /usr/local/lib/filebrowser/filebrowser.db users add user password --perm.admin --locale zh-cn
 ```
 
 其中的 `user` 与 `password` 为用户名和密码
@@ -76,7 +76,7 @@ filebrowser -d /var/lib/filebrowser/filebrowser.db users add user password --per
 试运行：
 
 ```bash
-filebrowser -d /var/lib/filebrowser/filebrowser.db
+filebrowser -d /usr/local/lib/filebrowser/filebrowser.db
 ```
 
 之后即可通过 `http://ip:8080` 进行访问
@@ -189,7 +189,7 @@ domain.com {
 如果你想要通过 `https://domian.com/pan` 进行访问，那么需要设置 `baseurl` :
 
 ```bash
-filebrowser -d /var/lib/filebrowser/filebrowser.db config set -b /pan
+filebrowser -d /usr/local/lib/filebrowser/filebrowser.db config set -b /pan
 ```
 
 然后进行反代：
