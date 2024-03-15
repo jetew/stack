@@ -234,8 +234,13 @@ systemctl enable caddy
 
 ---
 
-## 写在最后
+注意！网站根目录权限应遵循：
 
-- Caddy 作为 Golang 编写的程序，简单易用，但是性能方面是稍落后于 Nginx 的，但是对于小站来说，这一点点的差距是可以忽略不计的。
+文件 644 文件夹 755  权限用户和用户组 caddy ，其余文档 777 权限是不正常的
+如出现文件权限问题时，请执行下面 3 条命令：
 
-- PHP 和 MySQL 可以根据自己的喜好来安装，或者选择 Mariadb、SQLite 等等都是可以的。
+```bash
+chown -R caddy:caddy /data/www/
+find /data/www/ -type d -exec chmod 755 {} \;
+find /data/www/ -type f -exec chmod 644 {} \;
+```
