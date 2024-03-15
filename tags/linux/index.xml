@@ -2332,7 +2332,178 @@ data-flex-basis="495px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>另外需要注意运行自动化脚本前查看一下是否会对配置文件进行编辑，若存在则需要修改脚本。&lt;/p>
 &lt;hr>
 &lt;h2 id="总结">总结&lt;/h2>
-&lt;p>以上就是我在使用 CentOS 安装 LNMP 环境时 MariaDB/MySQL 安装失败的情况，咱也不知道是个例还是就我这个小白这样。。。在此进行一个记录。希望能对大家有所帮助。最后顺带提一下，我咋就想到去折腾 CentOS 了；一直在用的Debian 它不香嘛。。。&lt;/p></description></item><item><title>VPS 的一些基本配置及优化</title><link>/archives/setvps/</link><pubDate>Fri, 18 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/setvps/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>以上就是我在使用 CentOS 安装 LNMP 环境时 MariaDB/MySQL 安装失败的情况，咱也不知道是个例还是就我这个小白这样。。。在此进行一个记录。希望能对大家有所帮助。最后顺带提一下，我咋就想到去折腾 CentOS 了；一直在用的Debian 它不香嘛。。。&lt;/p></description></item><item><title>使用 Caddy + MariaDB + PHP 架设 LCMP</title><link>/archives/lcmp/</link><pubDate>Sat, 05 Mar 2022 17:14:41 +0800</pubDate><guid>/archives/lcmp/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>以前一直使用的是 Hugo + Github + Vercel；即上传本地网站项目到 Github 然后通过 Vercel 进行自动部署以及发布网站。一开始还好，但是到后面就感觉比较麻烦了；每次更新文章或者后期文章有修改的话就需要重新上传部署；所以后面就改成了 Typecho。而最近又开始折腾起了 Caddy，需要搭建 LCMP 环境，所以在这里进行一个记录，避免以后踩坑。&lt;/p>
+&lt;hr>
+&lt;h2 id="安装及配置">安装及配置&lt;/h2>
+&lt;h3 id="安装caddy">安装Caddy&lt;/h3>
+&lt;p>我使用的是 Debian 10 系统&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt install -y debian-keyring debian-archive-keyring apt-transport-https
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -1sLf &lt;span class="s1">&amp;#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -1sLf &lt;span class="s1">&amp;#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> tee /etc/apt/sources.list.d/caddy-stable.list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install caddy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-mariadb">安装 MariaDB&lt;/h3>
+&lt;p>可以使用 Oneinstack 自动安装，参考：&lt;a class="link" href="/archives/oneinstack" >一键安装 LNMP 及开设站点
+&lt;/a>&lt;/p>
+&lt;p>这里主要讲讲通过 &lt;code>apt&lt;/code> 包管理器安装&lt;/p>
+&lt;p>首先安装 MariaDB：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install -y mariadb-server mariadb-common mariadb-client
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>&lt;strong>MySQL&lt;/strong> 或者 &lt;strong>MariaDB&lt;/strong> 都行，看个人选择进行安装，两个差别不大&lt;/p>
+&lt;/blockquote>
+&lt;p>按照下面简单修改下配置，文件位于 &lt;code>/etc/mysql/mariadb.conf.d/50-server.cnf&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>client&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">default-character-set &lt;span class="o">=&lt;/span> utf8mb4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>mysqld&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">innodb_buffer_pool_size&lt;/span> &lt;span class="o">=&lt;/span> 64M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">max_allowed_packet&lt;/span> &lt;span class="o">=&lt;/span> 500M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">net_read_timeout&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">3600&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">net_write_timeout&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">3600&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>mariadb&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">character-set-server &lt;span class="o">=&lt;/span> utf8mb4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>client-mariadb&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">default-character-set &lt;span class="o">=&lt;/span> utf8mb4
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>启动 MariaDB 并进行安全设置&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl start mariadb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mysql_secure_installation
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输入初始密码，回车即可&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Enter current password &lt;span class="k">for&lt;/span> root &lt;span class="o">(&lt;/span>enter &lt;span class="k">for&lt;/span> none&lt;span class="o">)&lt;/span>:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">OK, successfully used password, moving on...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 设置密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Set root password? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">New password:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Re-enter new password:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Password updated successfully!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Reloading privilege tables..
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ... Success!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 移除匿名用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Remove anonymous users? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ... Success!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 是否禁止非本地登录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow root login remotely? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> n
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ... skipping.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 是否移除测试数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Remove &lt;span class="nb">test&lt;/span> database and access to it? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - Dropping &lt;span class="nb">test&lt;/span> database...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ... Success!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - Removing privileges on &lt;span class="nb">test&lt;/span> database...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ... Success!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 是否重新刷新权限&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Reload privilege tables now? &lt;span class="o">[&lt;/span>Y/n&lt;span class="o">]&lt;/span> y
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ... Success!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Cleaning up...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Thanks &lt;span class="k">for&lt;/span> using MariaDB!
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-php">安装 PHP&lt;/h3>
+&lt;p>通过 &lt;code>apt list php*&lt;/code> 可以看到 Debian10 下 PHP 版本为 7.3，然后来安装 PHP 及其组件&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install -y php7.3 php7.3-bcmath php7.3-bz2 php7.3-cgi php7.3-cli php7.3-common php7.3-curl php7.3-dba php7.3-enchant php7.3-fpm php7.3-gd php7.3-gmp php7.3-imap php7.3-interbase php7.3-intl php7.3-json php7.3-ldap php7.3-mbstring php7.3-mysql php7.3-odbc php7.3-opcache php7.3-pgsql php7.3-phpdbg php7.3-pspell php7.3-readline php7.3-recode php7.3-snmp php7.3-soap php7.3-sqlite3 php7.3-sybase php7.3-tidy php7.3-xml php7.3-xmlrpc php7.3-xsl php7.3-zip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>按照下面简单修改下配置文件，位于 &lt;code>/etc/php/7.3/fpm/pool.d/www.conf&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">user&lt;/span> &lt;span class="o">=&lt;/span> caddy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">group&lt;/span> &lt;span class="o">=&lt;/span> caddy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">listen.owner &lt;span class="o">=&lt;/span> caddy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">listen.group &lt;span class="o">=&lt;/span> caddy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">listen.acl_users &lt;span class="o">=&lt;/span> caddy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">listen.allowed_clients &lt;span class="o">=&lt;/span> 127.0.0.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.max_children &lt;span class="o">=&lt;/span> &lt;span class="m">50&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.start_servers &lt;span class="o">=&lt;/span> &lt;span class="m">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.min_spare_servers &lt;span class="o">=&lt;/span> &lt;span class="m">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pm.max_spare_servers &lt;span class="o">=&lt;/span> &lt;span class="m">35&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">slowlog&lt;/span> &lt;span class="o">=&lt;/span> /var/log/www-slow.log
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">php_admin_value&lt;span class="o">[&lt;/span>error_log&lt;span class="o">]&lt;/span> &lt;span class="o">=&lt;/span> /var/log/www-error.log
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">php_admin_flag&lt;span class="o">[&lt;/span>log_errors&lt;span class="o">]&lt;/span> &lt;span class="o">=&lt;/span> on
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 最后添加如下&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">php_value&lt;span class="o">[&lt;/span>session.save_handler&lt;span class="o">]&lt;/span> &lt;span class="o">=&lt;/span> files
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">php_value&lt;span class="o">[&lt;/span>session.save_path&lt;span class="o">]&lt;/span> &lt;span class="o">=&lt;/span> /var/lib/php/session
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">php_value&lt;span class="o">[&lt;/span>soap.wsdl_cache_dir&lt;span class="o">]&lt;/span> &lt;span class="o">=&lt;/span> /var/lib/php/wsdlcache
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">php_value&lt;span class="o">[&lt;/span>opcache.file_cache&lt;span class="o">]&lt;/span> &lt;span class="o">=&lt;/span> /var/lib/php/opcache
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后按照下面简单修改下 &lt;code>php.ini&lt;/code>，位于 &lt;code>/etc/php/7.3/fpm/php.ini&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">disable_functions&lt;/span> &lt;span class="o">=&lt;/span> passthru,exec,shell_exec,system,chroot,chgrp,chown,proc_open,proc_get_status,ini_alter,ini_alter,ini_restore
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">max_execution_time&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">300&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">max_input_time&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">300&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">post_max_size&lt;/span> &lt;span class="o">=&lt;/span> 128M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">upload_max_filesize&lt;/span> &lt;span class="o">=&lt;/span> 128M
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">expose_php&lt;/span> &lt;span class="o">=&lt;/span> Off
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">short_open_tag&lt;/span> &lt;span class="o">=&lt;/span> On
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mysqli.default_socket &lt;span class="o">=&lt;/span> /run/mysqld/mysqld.sock
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pdo_mysql.default_socket &lt;span class="o">=&lt;/span> /run/mysqld/mysqld.sock
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置下权限&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="chown-caddycaddy-varlibphpopcache">chown caddy:caddy /var/lib/php/session
+chown caddy:caddy /var/lib/php/wsdlcache
+chown caddy:caddy /var/lib/php/opcache&lt;/h2>
+&lt;h3 id="caddy-配置">Caddy 配置&lt;/h3>
+&lt;p>修改 Caddyfile 配置，拿不准的可以下载下来进行编辑，然后再上传，文件路径为 &lt;strong>/etc/caddy/Caddyfile&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我的配置如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddy" data-lang="caddy">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">example.com&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # 网站根目录
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/xx&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # Typecho 伪静态，建议安装完程序后写入
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nd">@key1&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">not&lt;/span> &lt;span class="k">file&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">path_regexp&lt;/span> &lt;span class="s">key1&lt;/span> &lt;span class="s">&amp;#39;(.*)&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">rewrite&lt;/span> &lt;span class="nd">@key1&lt;/span> &lt;span class="s">/index.php&lt;/span>&lt;span class="se">{re.key1.1}&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # 开启 gzip
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">encode&lt;/span> &lt;span class="s">gzip&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # 错误页面
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">handle_errors&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">rewrite&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/&lt;/span>&lt;span class="se">{err.status_code}&lt;/span>&lt;span class="s">.html&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # 使用 unix socket 通信
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">php_fastcgi&lt;/span> &lt;span class="nd">/run/php/php7.3-fpm.sock&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> # 设置 TLS
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">tls&lt;/span> &lt;span class="s">mail@example.com&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>若使用 Oneinstack 自动安装方式，php_fastcgi 设置为 &lt;code>unix//dev/shm/php-cgi.sock&lt;/code>
+伪静态可以在网上查找对应程序的伪静态规则，然后通过 &lt;a class="link" href="https://www.toolnb.com/tools/rewriteTools.html" target="_blank" rel="noopener"
+>伪静态转换工具
+&lt;span style="white-space: nowrap;">&lt;svg width=".7em"
+height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+&lt;path d="m13 3l3.293 3.293l-7 7l1.414 1.414l7-7L21 11V3z" fill="currentColor" />
+&lt;path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"
+fill="currentColor">
+&lt;/svg>&lt;/span>
+&lt;/a> 进行转换，伪静态规则建议等上传并安装完程序后再写入到配置中&lt;/p>
+&lt;/blockquote>
+&lt;p>配置完成后使用 &lt;code>caddy adapt&lt;/code> 命令进行检查：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">caddy adapt --config /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>确认无报错后，重载 Caddyfile ：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">caddy reload --config /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启 Caddy 并添加自启动&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart caddy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl &lt;span class="nb">enable&lt;/span> caddy
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="写在最后">写在最后&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>Caddy 作为 Golang 编写的程序，简单易用，但是性能方面是稍落后于 Nginx 的，但是对于小站来说，这一点点的差距是可以忽略不计的。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>PHP 和 MySQL 可以根据自己的喜好来安装，或者选择 Mariadb、SQLite 等等都是可以的。&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>VPS 的一些基本配置及优化</title><link>/archives/setvps/</link><pubDate>Fri, 18 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/setvps/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>由于最近在使用 VPS 时，发现 SSH 一直在被人暴力扫描，虽然说没有被破解，但是老是被人盯着总感觉不太舒服。其实要保证安全登录，最简单的方法就是修改默认的 22 端口；最彻底的方法，是禁用密码登录，改用密钥登录，只要保证密钥安全，服务器也没有人能进入了。而且现在手中的 VPS 越来越多，每次都要进行一些基本配置。所以对这些配置进行一下记录，方便以后查看。&lt;/p>
 &lt;h2 id="配置">配置&lt;/h2>
 &lt;h3 id="修改登录密码">修改登录密码&lt;/h3>

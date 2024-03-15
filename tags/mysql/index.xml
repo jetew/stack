@@ -464,72 +464,7 @@ fill="currentColor">
 &lt;/svg>&lt;/span>
 &lt;/a>&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>使用 Caddy+MySQL+PHP 架设 LCMP</title><link>/archives/lcmp/</link><pubDate>Sat, 05 Mar 2022 17:14:41 +0800</pubDate><guid>/archives/lcmp/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>以前一直使用的是 Hugo+Github+Netlify；即上传本地网站项目到 Github 然后通过 Netlify 进行自动部署以及发布网站。一开始还好，但是到后面就感觉比较麻烦了；每次更新文章或者后期文章有修改的话就需要重新上传部署；所以后面就改成了 LNMP+Typecho 。而最近又开始折腾起了 Caddy，虽然说 Caddy 配置简单，开箱即用，但现在一般都是 CaddyV2 ；而网上的教程与配置大多都是 CaddyV1 所以在这里进行一个记录，避免以后踩坑。&lt;/p>
-&lt;hr>
-&lt;h2 id="安装及配置">安装及配置&lt;/h2>
-&lt;h3 id="安装caddy">安装Caddy&lt;/h3>
-&lt;p>我使用的是 Debian 10 系统&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt install -y debian-keyring debian-archive-keyring apt-transport-https
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -1sLf &lt;span class="s1">&amp;#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -1sLf &lt;span class="s1">&amp;#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> tee /etc/apt/sources.list.d/caddy-stable.list
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt update
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install caddy
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
-&lt;h3 id="安装-phpmysql">安装 PHP+MySQL&lt;/h3>
-&lt;p>这里我使用的是 Oneinstack 自动安装，参考：&lt;a class="link" href="/archives/oneinstack" >一键安装 LNMP 及开设站点
-&lt;/a>&lt;/p>
-&lt;blockquote>
-&lt;p>安装方式不限，以自己为准，我只是习惯用 Oneinstack 自动安装&lt;/p>
-&lt;/blockquote>
-&lt;p>&lt;code>apt&lt;/code> 软件包安装：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt update
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install -y php php-fpm mysql&lt;span class="o">(&lt;/span>mariadb-server&lt;span class="o">)&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>&lt;strong>MySQL&lt;/strong> 或者 &lt;strong>MariaDB&lt;/strong> 都行，看个人选择进行安装，两个差别不大 (2022-10-27更新 &lt;code>apt&lt;/code> 软件包安装)&lt;/p>
-&lt;/blockquote>
-&lt;hr>
-&lt;h3 id="caddy-配置">Caddy 配置&lt;/h3>
-&lt;p>修改 Caddyfile 配置，拿不准的可以下载下来进行编辑，然后再上传，文件路径为 &lt;strong>/etc/caddy/Caddyfile&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/caddy/Caddyfile
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我的配置如下：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-caddyfile" data-lang="caddyfile">&lt;span class="line">&lt;span class="cl">&lt;span class="gh">example.com&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">root&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/var/www/xx&lt;/span>&lt;span class="c1"> # 网站根目录
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nd">@key1&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">not&lt;/span> &lt;span class="k">file&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">path_regexp&lt;/span> &lt;span class="s">key1&lt;/span> &lt;span class="s">&amp;#39;(.*)&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">rewrite&lt;/span> &lt;span class="nd">@key1&lt;/span> &lt;span class="s">/index.php&lt;/span>&lt;span class="se">{re.key1.1}&lt;/span>&lt;span class="c1"> # Typecho 伪静态，建议安装完程序后写入
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">encode&lt;/span> &lt;span class="s">gzip&lt;/span>&lt;span class="c1"> # 开启 gzip
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">handle_errors&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">rewrite&lt;/span> &lt;span class="nd">*&lt;/span> &lt;span class="s">/&lt;/span>&lt;span class="se">{err.status_code}&lt;/span>&lt;span class="s">.html&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">file_server&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="c1"> # 错误页面
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">php_fastcgi&lt;/span> &lt;span class="s">unix//dev/shm/php-cgi.sock&lt;/span>&lt;span class="c1"> # 使用 unix socket 通信
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">file_server&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">tls&lt;/span> &lt;span class="s">mail@example.com&lt;/span>&lt;span class="c1"> # 设置 TLS
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>这里的 unix socket 路径为 Oneinstack 自动安装方式的路径，若使用 &lt;code>apt&lt;/code> 安装方式的话位于 &lt;code>/run/phpx.x/php-fpm.sock&lt;/code>
-伪静态可以在网上查找对应程序的伪静态规则，然后通过 &lt;a href="https://www.toolnb.com/tools/rewriteTools.html" target="_blank">伪静态转换工具&lt;/a> 进行转换，伪静态规则建议等上传并安装完程序后再写入到配置中&lt;/p>
-&lt;/blockquote>
-&lt;p>配置完成后使用 &lt;code>caddy adapt&lt;/code> 命令进行检查：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">caddy adapt --config /etc/caddy/Caddyfile
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>确认无报错后，重载 Caddyfile ：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">caddy reload --config /etc/caddy/Caddyfile
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启 Caddy 并添加自启动&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart caddy
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl &lt;span class="nb">enable&lt;/span> caddy
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
-&lt;h2 id="写在最后">写在最后&lt;/h2>
-&lt;ul>
-&lt;li>
-&lt;p>Caddy 作为 Golang 编写的程序，简单易用，但是性能方面是稍落后于 Nginx 的，但是对于小站来说，这一点点的差距是可以忽略不计的。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>PHP 和 MySQL 可以根据自己的喜好来安装，或者选择 Mariadb、SQLite 等等都是可以的。&lt;/p>
-&lt;/li>
-&lt;/ul></description></item><item><title>LNMP 一键安装包开设网站</title><link>/archives/lnmporg/</link><pubDate>Fri, 25 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/lnmporg/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;/ol></description></item><item><title>LNMP 一键安装包开设网站</title><link>/archives/lnmporg/</link><pubDate>Fri, 25 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/lnmporg/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;ul>
 &lt;li>LNMP一键安装包是什么&lt;/li>
 &lt;/ul>
