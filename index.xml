@@ -4219,10 +4219,10 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mysqli.default_socket &lt;span class="o">=&lt;/span> /run/mysqld/mysqld.sock
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pdo_mysql.default_socket &lt;span class="o">=&lt;/span> /run/mysqld/mysqld.sock
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置下权限&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="chown-caddycaddy-varlibphpopcache">chown caddy:caddy /var/lib/php/session
-chown caddy:caddy /var/lib/php/wsdlcache
-chown caddy:caddy /var/lib/php/opcache&lt;/h2>
-&lt;h3 id="caddy-配置">Caddy 配置&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">chown caddy:caddy /var/lib/php/session
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown caddy:caddy /var/lib/php/wsdlcache
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown caddy:caddy /var/lib/php/opcache
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="caddy-配置">Caddy 配置&lt;/h3>
 &lt;p>修改 Caddyfile 配置，拿不准的可以下载下来进行编辑，然后再上传，文件路径为 &lt;strong>/etc/caddy/Caddyfile&lt;/strong>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /etc/caddy/Caddyfile
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我的配置如下：&lt;/p>
