@@ -164,12 +164,10 @@ pdo_mysql.default_socket = /run/mysqld/mysqld.sock
 设置下权限
 
 ```bash
-
-```
 chown caddy:caddy /var/lib/php/session
 chown caddy:caddy /var/lib/php/wsdlcache
 chown caddy:caddy /var/lib/php/opcache
----
+```
 
 ### Caddy 配置
 
