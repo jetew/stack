@@ -49,6 +49,8 @@
 &lt;/li>
 &lt;li>
 &lt;p>友好的界面交互&lt;/p>
+&lt;/li>
+&lt;/ol>
 &lt;ul>
 &lt;li>
 &lt;p>任务排序 (按文件名, 文件大小, 进度, 剩余时间, 下载速度等.), 文件排序, Bittorrent 连接节点排序&lt;/p>
@@ -78,7 +80,7 @@
 &lt;p>完整支持 Aria2 设置选项&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;/li>
+&lt;ol start="4">
 &lt;li>
 &lt;p>深色主题&lt;/p>
 &lt;/li>

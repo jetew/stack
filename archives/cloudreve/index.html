@@ -12,7 +12,9 @@
 <span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span></a></li></ul><p>你可以在 <a class=link href=https://github.com/cloudreve/Cloudreve/releases target=_blank rel=noopener>GitHub Release
 <span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span>
 </a>页面获取已经构建打包完成的主程序。其中每个版本都提供了常见系统架构下可用的主程序，命名规则为cloudreve_版本号_操作系统_CPU架构.tar.gz 。比如，普通 64 位 Linux 系统上部署 3.0.0 版本，则应该下载cloudreve_3.0.0_linux_amd64.tar.gz。</p><h3 id=安装启动>安装启动</h3><p>通过上一步获取 Cloudreve 下载地址后，即可下载至本地并启动(我这里最新版本是3.6.2)：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1>#创建文件夹</span>
-</span></span><span class=line><span class=cl>mkdir -p /opt/cloudreve
+</span></span><span class=line><span class=cl>mkdir -p /usr/local/cloudreve
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> /usr/local/cloudreve
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1>#下载程序</span>
 </span></span><span class=line><span class=cl>wget https://github.com/cloudreve/Cloudreve/releases/download/3.6.2/cloudreve_3.6.2_linux_amd64.tar.gz
@@ -61,8 +63,8 @@
 </span></span><span class=line><span class=cl><span class=na>Wants</span><span class=o>=</span><span class=s>network.target</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=k>[Service]</span>
-</span></span><span class=line><span class=cl><span class=na>WorkingDirectory</span><span class=o>=</span><span class=s>/PATH_TO_CLOUDREVE</span>
-</span></span><span class=line><span class=cl><span class=na>ExecStart</span><span class=o>=</span><span class=s>/PATH_TO_CLOUDREVE/cloudreve</span>
+</span></span><span class=line><span class=cl><span class=na>WorkingDirectory</span><span class=o>=</span><span class=s>/path/to/cloudreve</span>
+</span></span><span class=line><span class=cl><span class=na>ExecStart</span><span class=o>=</span><span class=s>/path/to/cloudreve/cloudreve</span>
 </span></span><span class=line><span class=cl><span class=na>Restart</span><span class=o>=</span><span class=s>on-abnormal</span>
 </span></span><span class=line><span class=cl><span class=na>RestartSec</span><span class=o>=</span><span class=s>5s</span>
 </span></span><span class=line><span class=cl><span class=na>KillMode</span><span class=o>=</span><span class=s>mixed</span>
@@ -89,8 +91,7 @@
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># 查看状态</span>
 </span></span><span class=line><span class=cl>systemctl status cloudreve
-</span></span></code></pre></div><h2 id=扩展配置>扩展配置</h2><p>默认情况下，Cloudreve 会使用内置的 SQLite 数据库，并在同级目录创建数据库文件cloudreve.db，如果您想要使用 MySQL，可以按照以下步骤配置，并重启 Cloudreve。注意，Cloudreve 只支持大于或等于 5.7 版本的 MySQL 。</p><h3 id=创建配置文件>创建配置文件</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> /opt/cloudreve
-</span></span><span class=line><span class=cl>vim conf.ini
+</span></span></code></pre></div><h2 id=扩展配置>扩展配置</h2><p>默认情况下，Cloudreve 会使用内置的 SQLite 数据库，并在同级目录创建数据库文件cloudreve.db，如果您想要使用 MySQL，可以按照以下步骤配置，并重启 Cloudreve。注意，Cloudreve 只支持大于或等于 5.7 版本的 MySQL 。</p><h3 id=创建配置文件>创建配置文件</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>vim /usr/local/cloudreve/conf.ini
 </span></span></code></pre></div><p>加入如下配置，并进行修改：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=k>[System]</span>
 </span></span><span class=line><span class=cl><span class=c1># 运行模式</span>
 </span></span><span class=line><span class=cl><span class=na>Mode</span> <span class=o>=</span> <span class=s>master</span>
@@ -130,8 +131,8 @@
 </span></span><span class=line><span class=cl><span class=na>Wants</span><span class=o>=</span><span class=s>network.target</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=k>[Service]</span>
-</span></span><span class=line><span class=cl><span class=na>WorkingDirectory</span><span class=o>=</span><span class=s>/PATH_TO_CLOUDREVE</span>
-</span></span><span class=line><span class=cl><span class=na>ExecStart</span><span class=o>=</span><span class=s>/PATH_TO_CLOUDREVE/cloudreve -c /path/to/conf.ini</span>
+</span></span><span class=line><span class=cl><span class=na>WorkingDirectory</span><span class=o>=</span><span class=s>/path/to/cloudreve</span>
+</span></span><span class=line><span class=cl><span class=na>ExecStart</span><span class=o>=</span><span class=s>/path/to/cloudreve/cloudreve -c /path/to/conf.ini</span>
 </span></span><span class=line><span class=cl><span class=na>Restart</span><span class=o>=</span><span class=s>on-abnormal</span>
 </span></span><span class=line><span class=cl><span class=na>RestartSec</span><span class=o>=</span><span class=s>5s</span>
 </span></span><span class=line><span class=cl><span class=na>KillMode</span><span class=o>=</span><span class=s>mixed</span>
@@ -141,7 +142,7 @@
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=k>[Install]</span>
 </span></span><span class=line><span class=cl><span class=na>WantedBy</span><span class=o>=</span><span class=s>multi-user.target</span>
-</span></span></code></pre></div><p>其中 <code>/path/to/conf.ini</code> 为配置文件所在位置，我这里是 <code>/opt/cloudreve/conf.ini</code></p><p>然后更新配置并启动服务：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>systemctl daemon-reload
+</span></span></code></pre></div><p>其中 <code>/path/to/conf.ini</code> 为配置文件所在位置，<code>path/to/cloudreve</code> 为 Cloudreve 程序所在目录</p><p>我这里是 <code>/usr/local/cloudreve/conf.ini</code> 和 <code>usr/local/cloudreve</code></p><p>然后更新配置并启动服务：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>systemctl daemon-reload
 </span></span><span class=line><span class=cl>systemctl start cloudreve
 </span></span></code></pre></div></section><footer class=article-footer><section class=article-tags><a href=/tags/linux/>Linux</a>
 <a href=/tags/filebrowser/>FileBrowser</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>

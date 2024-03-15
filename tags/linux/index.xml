@@ -1247,7 +1247,14 @@ data-flex-basis="411px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;extension=imagick.so&amp;#39;&lt;/span> &amp;gt; /usr/local/php/etc/php.d/imagick.ini
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
-&lt;p>至此 Caddy2 + MariaDB + PHP 安装完成&lt;/p></description></item><item><title>使用 Cloudreve 搭建文件管理</title><link>/archives/cloudreve/</link><pubDate>Mon, 02 Jan 2023 13:21:30 +0800</pubDate><guid>/archives/cloudreve/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>至此 Caddy2 + MariaDB + PHP 安装完成&lt;/p>
+&lt;p>另外需要注意网站根目录权限，网站根目录权限应遵循：
+文件 644 文件夹 755 权限用户和用户组 caddy ，其余文档 777 权限是不正常的
+如出现文件权限问题时，请执行下面 3 条命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">chown -R caddy:caddy /data/www/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /data/www/ -type d -exec chmod &lt;span class="m">755&lt;/span> &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /data/www/ -type f -exec chmod &lt;span class="m">644&lt;/span> &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>使用 Cloudreve 搭建文件管理</title><link>/archives/cloudreve/</link><pubDate>Mon, 02 Jan 2023 13:21:30 +0800</pubDate><guid>/archives/cloudreve/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>Cloudreve 可以让您快速搭建起公私兼备的网盘系统。Cloudreve 在底层支持不同的云存储平台，用户在实际使用时无须关心物理存储方式。你可以使用 Cloudreve 搭建个人用网盘、文件分享系统，亦或是针对大小团体的公有云系统。&lt;/p>
 &lt;h2 id="安装配置">安装配置&lt;/h2>
 &lt;h3 id="获取-cloudreve">获取 Cloudreve&lt;/h3>
@@ -1274,7 +1281,9 @@ fill="currentColor">
 &lt;h3 id="安装启动">安装启动&lt;/h3>
 &lt;p>通过上一步获取 Cloudreve 下载地址后，即可下载至本地并启动(我这里最新版本是3.6.2)：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#创建文件夹&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /opt/cloudreve
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /usr/local/cloudreve
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/cloudreve
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#下载程序&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://github.com/cloudreve/Cloudreve/releases/download/3.6.2/cloudreve_3.6.2_linux_amd64.tar.gz
@@ -1339,8 +1348,8 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Wants&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">network.target&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Service]&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WorkingDirectory&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/PATH_TO_CLOUDREVE&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/PATH_TO_CLOUDREVE/cloudreve&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WorkingDirectory&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/path/to/cloudreve&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/path/to/cloudreve/cloudreve&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Restart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">on-abnormal&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">RestartSec&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">5s&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">KillMode&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">mixed&lt;/span>
@@ -1371,8 +1380,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="扩展配置">扩展配置&lt;/h2>
 &lt;p>默认情况下，Cloudreve 会使用内置的 SQLite 数据库，并在同级目录创建数据库文件cloudreve.db，如果您想要使用 MySQL，可以按照以下步骤配置，并重启 Cloudreve。注意，Cloudreve 只支持大于或等于 5.7 版本的 MySQL 。&lt;/p>
 &lt;h3 id="创建配置文件">创建配置文件&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /opt/cloudreve
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim conf.ini
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vim /usr/local/cloudreve/conf.ini
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>加入如下配置，并进行修改：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-ini" data-lang="ini">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[System]&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 运行模式&lt;/span>
@@ -1414,8 +1422,8 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Wants&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">network.target&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Service]&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WorkingDirectory&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/PATH_TO_CLOUDREVE&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/PATH_TO_CLOUDREVE/cloudreve -c /path/to/conf.ini&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WorkingDirectory&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/path/to/cloudreve&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/path/to/cloudreve/cloudreve -c /path/to/conf.ini&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Restart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">on-abnormal&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">RestartSec&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">5s&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">KillMode&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">mixed&lt;/span>
@@ -1425,7 +1433,8 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Install]&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">multi-user.target&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中 &lt;code>/path/to/conf.ini&lt;/code> 为配置文件所在位置，我这里是 &lt;code>/opt/cloudreve/conf.ini&lt;/code>&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中 &lt;code>/path/to/conf.ini&lt;/code> 为配置文件所在位置，&lt;code>path/to/cloudreve&lt;/code> 为 Cloudreve 程序所在目录&lt;/p>
+&lt;p>我这里是 &lt;code>/usr/local/cloudreve/conf.ini&lt;/code> 和 &lt;code>usr/local/cloudreve&lt;/code>&lt;/p>
 &lt;p>然后更新配置并启动服务：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl daemon-reload
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl start cloudreve
@@ -1480,6 +1489,8 @@ fill="currentColor">
 &lt;/li>
 &lt;li>
 &lt;p>友好的界面交互&lt;/p>
+&lt;/li>
+&lt;/ol>
 &lt;ul>
 &lt;li>
 &lt;p>任务排序 (按文件名, 文件大小, 进度, 剩余时间, 下载速度等.), 文件排序, Bittorrent 连接节点排序&lt;/p>
@@ -1509,7 +1520,7 @@ fill="currentColor">
 &lt;p>完整支持 Aria2 设置选项&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;/li>
+&lt;ol start="4">
 &lt;li>
 &lt;p>深色主题&lt;/p>
 &lt;/li>
@@ -2495,15 +2506,13 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart caddy
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl &lt;span class="nb">enable&lt;/span> caddy
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
-&lt;h2 id="写在最后">写在最后&lt;/h2>
-&lt;ul>
-&lt;li>
-&lt;p>Caddy 作为 Golang 编写的程序，简单易用，但是性能方面是稍落后于 Nginx 的，但是对于小站来说，这一点点的差距是可以忽略不计的。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>PHP 和 MySQL 可以根据自己的喜好来安装，或者选择 Mariadb、SQLite 等等都是可以的。&lt;/p>
-&lt;/li>
-&lt;/ul></description></item><item><title>VPS 的一些基本配置及优化</title><link>/archives/setvps/</link><pubDate>Fri, 18 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/setvps/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>注意！网站根目录权限应遵循：&lt;/p>
+&lt;p>文件 644 文件夹 755 权限用户和用户组 caddy ，其余文档 777 权限是不正常的
+如出现文件权限问题时，请执行下面 3 条命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">chown -R caddy:caddy /data/www/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /data/www/ -type d -exec chmod &lt;span class="m">755&lt;/span> &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /data/www/ -type f -exec chmod &lt;span class="m">644&lt;/span> &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>VPS 的一些基本配置及优化</title><link>/archives/setvps/</link><pubDate>Fri, 18 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/setvps/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>由于最近在使用 VPS 时，发现 SSH 一直在被人暴力扫描，虽然说没有被破解，但是老是被人盯着总感觉不太舒服。其实要保证安全登录，最简单的方法就是修改默认的 22 端口；最彻底的方法，是禁用密码登录，改用密钥登录，只要保证密钥安全，服务器也没有人能进入了。而且现在手中的 VPS 越来越多，每次都要进行一些基本配置。所以对这些配置进行一下记录，方便以后查看。&lt;/p>
 &lt;h2 id="配置">配置&lt;/h2>
 &lt;h3 id="修改登录密码">修改登录密码&lt;/h3>

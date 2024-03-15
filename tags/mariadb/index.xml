@@ -722,7 +722,14 @@ data-flex-basis="411px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;extension=imagick.so&amp;#39;&lt;/span> &amp;gt; /usr/local/php/etc/php.d/imagick.ini
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
-&lt;p>至此 Caddy2 + MariaDB + PHP 安装完成&lt;/p></description></item><item><title>CentOS7 下 MariaDB 安装失败解决方法</title><link>/archives/centos_sql_error/</link><pubDate>Sat, 05 Nov 2022 17:18:10 +0800</pubDate><guid>/archives/centos_sql_error/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>至此 Caddy2 + MariaDB + PHP 安装完成&lt;/p>
+&lt;p>另外需要注意网站根目录权限，网站根目录权限应遵循：
+文件 644 文件夹 755 权限用户和用户组 caddy ，其余文档 777 权限是不正常的
+如出现文件权限问题时，请执行下面 3 条命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">chown -R caddy:caddy /data/www/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /data/www/ -type d -exec chmod &lt;span class="m">755&lt;/span> &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /data/www/ -type f -exec chmod &lt;span class="m">644&lt;/span> &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>CentOS7 下 MariaDB 安装失败解决方法</title><link>/archives/centos_sql_error/</link><pubDate>Sat, 05 Nov 2022 17:18:10 +0800</pubDate><guid>/archives/centos_sql_error/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>由于最近腾讯云双11优惠活动，自己购买了一台腾讯云的轻量应用服务器 (老实说还是挺实惠的-。-) 加上自己按捺不住折腾的心，这次一改以前一直使用的 Debian 而选择了 CentOS ；这次的服务器系统我选择的是 CentOS7 ，LNMP 安装方式则是 Oneinstack 和 LNMP 一键安装包都进行了尝试。Debian 下，它们都是完美安装。但是 Centos7 下，在安装过程中 Oneinstack 和 LNMP 一键安装包都碰到了 MariaDB/MySQL 无法安装的情况，由于我是一个 Linux 小白，平常只靠从网上学习，知识量不足；所以在此记录下这次解决过程，以便日后进行查阅。&lt;/p>
 &lt;hr>
 &lt;h2 id="解决过程">解决过程&lt;/h2>
@@ -1351,12 +1358,10 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart caddy
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl &lt;span class="nb">enable&lt;/span> caddy
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
-&lt;h2 id="写在最后">写在最后&lt;/h2>
-&lt;ul>
-&lt;li>
-&lt;p>Caddy 作为 Golang 编写的程序，简单易用，但是性能方面是稍落后于 Nginx 的，但是对于小站来说，这一点点的差距是可以忽略不计的。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>PHP 和 MySQL 可以根据自己的喜好来安装，或者选择 Mariadb、SQLite 等等都是可以的。&lt;/p>
-&lt;/li>
-&lt;/ul></description></item></channel></rss>
+&lt;p>注意！网站根目录权限应遵循：&lt;/p>
+&lt;p>文件 644 文件夹 755 权限用户和用户组 caddy ，其余文档 777 权限是不正常的
+如出现文件权限问题时，请执行下面 3 条命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">chown -R caddy:caddy /data/www/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /data/www/ -type d -exec chmod &lt;span class="m">755&lt;/span> &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /data/www/ -type f -exec chmod &lt;span class="m">644&lt;/span> &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>

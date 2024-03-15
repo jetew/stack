@@ -722,7 +722,14 @@ data-flex-basis="411px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;extension=imagick.so&amp;#39;&lt;/span> &amp;gt; /usr/local/php/etc/php.d/imagick.ini
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
-&lt;p>至此 Caddy2 + MariaDB + PHP 安装完成&lt;/p></description></item><item><title>使用 Caddy + MariaDB + PHP 架设 LCMP</title><link>/archives/lcmp/</link><pubDate>Sat, 05 Mar 2022 17:14:41 +0800</pubDate><guid>/archives/lcmp/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>至此 Caddy2 + MariaDB + PHP 安装完成&lt;/p>
+&lt;p>另外需要注意网站根目录权限，网站根目录权限应遵循：
+文件 644 文件夹 755 权限用户和用户组 caddy ，其余文档 777 权限是不正常的
+如出现文件权限问题时，请执行下面 3 条命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">chown -R caddy:caddy /data/www/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /data/www/ -type d -exec chmod &lt;span class="m">755&lt;/span> &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /data/www/ -type f -exec chmod &lt;span class="m">644&lt;/span> &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>使用 Caddy + MariaDB + PHP 架设 LCMP</title><link>/archives/lcmp/</link><pubDate>Sat, 05 Mar 2022 17:14:41 +0800</pubDate><guid>/archives/lcmp/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>以前一直使用的是 Hugo + Github + Vercel；即上传本地网站项目到 Github 然后通过 Vercel 进行自动部署以及发布网站。一开始还好，但是到后面就感觉比较麻烦了；每次更新文章或者后期文章有修改的话就需要重新上传部署；所以后面就改成了 Typecho。而最近又开始折腾起了 Caddy，需要搭建 LCMP 环境，所以在这里进行一个记录，避免以后踩坑。&lt;/p>
 &lt;hr>
 &lt;h2 id="安装及配置">安装及配置&lt;/h2>
@@ -885,15 +892,13 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl restart caddy
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl &lt;span class="nb">enable&lt;/span> caddy
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
-&lt;h2 id="写在最后">写在最后&lt;/h2>
-&lt;ul>
-&lt;li>
-&lt;p>Caddy 作为 Golang 编写的程序，简单易用，但是性能方面是稍落后于 Nginx 的，但是对于小站来说，这一点点的差距是可以忽略不计的。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>PHP 和 MySQL 可以根据自己的喜好来安装，或者选择 Mariadb、SQLite 等等都是可以的。&lt;/p>
-&lt;/li>
-&lt;/ul></description></item><item><title>LNMP 一键安装包开设网站</title><link>/archives/lnmporg/</link><pubDate>Fri, 25 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/lnmporg/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>注意！网站根目录权限应遵循：&lt;/p>
+&lt;p>文件 644 文件夹 755 权限用户和用户组 caddy ，其余文档 777 权限是不正常的
+如出现文件权限问题时，请执行下面 3 条命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">chown -R caddy:caddy /data/www/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /data/www/ -type d -exec chmod &lt;span class="m">755&lt;/span> &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /data/www/ -type f -exec chmod &lt;span class="m">644&lt;/span> &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>LNMP 一键安装包开设网站</title><link>/archives/lnmporg/</link><pubDate>Fri, 25 Feb 2022 17:14:41 +0800</pubDate><guid>/archives/lnmporg/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;ul>
 &lt;li>LNMP一键安装包是什么&lt;/li>
 &lt;/ul>
