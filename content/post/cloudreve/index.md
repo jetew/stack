@@ -29,7 +29,9 @@ Cloudreve 可以让您快速搭建起公私兼备的网盘系统。Cloudreve 在
 
 ```bash
 #创建文件夹
-mkdir -p /opt/cloudreve
+mkdir -p /usr/local/cloudreve
+
+cd /usr/local/cloudreve
 
 #下载程序
 wget https://github.com/cloudreve/Cloudreve/releases/download/3.6.2/cloudreve_3.6.2_linux_amd64.tar.gz
@@ -124,8 +126,8 @@ After=mysqld.service
 Wants=network.target
 
 [Service]
-WorkingDirectory=/PATH_TO_CLOUDREVE
-ExecStart=/PATH_TO_CLOUDREVE/cloudreve
+WorkingDirectory=/path/to/cloudreve
+ExecStart=/path/to/cloudreve/cloudreve
 Restart=on-abnormal
 RestartSec=5s
 KillMode=mixed
@@ -166,8 +168,7 @@ systemctl status cloudreve
 ### 创建配置文件
 
 ```bash
-cd /opt/cloudreve
-vim conf.ini
+vim /usr/local/cloudreve/conf.ini
 ```
 
 加入如下配置，并进行修改：
@@ -217,8 +218,8 @@ After=mysqld.service
 Wants=network.target
 
 [Service]
-WorkingDirectory=/PATH_TO_CLOUDREVE
-ExecStart=/PATH_TO_CLOUDREVE/cloudreve -c /path/to/conf.ini
+WorkingDirectory=/path/to/cloudreve
+ExecStart=/path/to/cloudreve/cloudreve -c /path/to/conf.ini
 Restart=on-abnormal
 RestartSec=5s
 KillMode=mixed
@@ -230,7 +231,9 @@ StandardError=syslog
 WantedBy=multi-user.target
 ```
 
-其中 `/path/to/conf.ini` 为配置文件所在位置，我这里是 `/opt/cloudreve/conf.ini`
+其中 `/path/to/conf.ini` 为配置文件所在位置，`path/to/cloudreve` 为 Cloudreve 程序所在目录
+
+我这里是 `/usr/local/cloudreve/conf.ini` 和 `usr/local/cloudreve`
 
 然后更新配置并启动服务：
 
