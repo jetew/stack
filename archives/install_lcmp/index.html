@@ -542,23 +542,23 @@
 </span></span></span><span class=line><span class=cl><span class=s>--- ./clients/memflush.cc.old	2017-02-12 10:12:59.615209225 +0100
 </span></span></span><span class=line><span class=cl><span class=s>+++ ./clients/memflush.cc	2017-02-12 10:13:39.998382783 +0100
 </span></span></span><span class=line><span class=cl><span class=s>@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
-</span></span></span><span class=line><span class=cl><span class=s>{
-</span></span></span><span class=line><span class=cl><span class=s>	options_parse(argc, argv);
+</span></span></span><span class=line><span class=cl><span class=s> {
+</span></span></span><span class=line><span class=cl><span class=s>   options_parse(argc, argv);
 </span></span></span><span class=line><span class=cl><span class=s> 
-</span></span></span><span class=line><span class=cl><span class=s>- if (opt_servers == false)
-</span></span></span><span class=line><span class=cl><span class=s>+ if (!opt_servers)
-</span></span></span><span class=line><span class=cl><span class=s>	{
-</span></span></span><span class=line><span class=cl><span class=s>		char *temp;
+</span></span></span><span class=line><span class=cl><span class=s>-  if (opt_servers == false)
+</span></span></span><span class=line><span class=cl><span class=s>+  if (!opt_servers)
+</span></span></span><span class=line><span class=cl><span class=s>   {
+</span></span></span><span class=line><span class=cl><span class=s>     char *temp;
 </span></span></span><span class=line><span class=cl><span class=s> 
 </span></span></span><span class=line><span class=cl><span class=s>@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
-</span></span></span><span class=line><span class=cl><span class=s>			opt_servers= strdup(temp);
-</span></span></span><span class=line><span class=cl><span class=s>		}
+</span></span></span><span class=line><span class=cl><span class=s>       opt_servers= strdup(temp);
+</span></span></span><span class=line><span class=cl><span class=s>     }
 </span></span></span><span class=line><span class=cl><span class=s> 
-</span></span></span><span class=line><span class=cl><span class=s>-		if (opt_servers == false)
-</span></span></span><span class=line><span class=cl><span class=s>+		if (!opt_servers)
-</span></span></span><span class=line><span class=cl><span class=s>		{
-</span></span></span><span class=line><span class=cl><span class=s>			std::cerr &lt;&lt; &#34;No Servers provided&#34; &lt;&lt; std::endl;
-</span></span></span><span class=line><span class=cl><span class=s>			exit(EXIT_FAILURE);
+</span></span></span><span class=line><span class=cl><span class=s>-    if (opt_servers == false)
+</span></span></span><span class=line><span class=cl><span class=s>+    if (!opt_servers)
+</span></span></span><span class=line><span class=cl><span class=s>     {
+</span></span></span><span class=line><span class=cl><span class=s>       std::cerr &lt;&lt; &#34;No Servers provided&#34; &lt;&lt; std::endl;
+</span></span></span><span class=line><span class=cl><span class=s>       exit(EXIT_FAILURE);
 </span></span></span><span class=line><span class=cl><span class=s>EOF</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>patch -d libmemcached-1.0.18 -p0 &lt; libmemcached-build.patch
