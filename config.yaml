@@ -202,11 +202,11 @@ markup:
     highlight:
         noClasses: false
         codeFences: true
-        guessSyntax: true
+        guessSyntax: false
         lineNoStart: 1
         lineNos: false
         lineNumbersInTable: true
-        tabWidth: 4
+        style: dracula
 
 frontmatter:
   lastmod: ["lastmod", ":defalut"]
