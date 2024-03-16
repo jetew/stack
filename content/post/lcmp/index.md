@@ -77,6 +77,8 @@ systemctl start mariadb
 mysql_secure_installation
 ```
 
+过程如下：
+
 ```bash
 # 输入初始密码，回车即可
 Enter current password for root (enter for none): 
