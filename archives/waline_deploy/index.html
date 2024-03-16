@@ -120,9 +120,9 @@
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=k>[Install]</span>
 </span></span><span class=line><span class=cl><span class=na>WantedBy</span><span class=o>=</span><span class=s>multi-user.target</span>
-</span></span></code></pre></div><p>其中，占位符内容如下：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[/path/to/node]：node 可执行文件绝对路径
-</span></span><span class=line><span class=cl>[path/to/node_modules]：通过 npm 安装模块位置
-</span></span></code></pre></div><p>我的配置如下：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-systemd data-lang=systemd><span class=line><span class=cl><span class=k>[Unit]</span>
+</span></span></code></pre></div><p>其中，占位符内容如下：</p><pre tabindex=0><code>[/path/to/node]：node 可执行文件绝对路径
+[path/to/node_modules]：通过 npm 安装模块位置
+</code></pre><p>我的配置如下：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-systemd data-lang=systemd><span class=line><span class=cl><span class=k>[Unit]</span>
 </span></span><span class=line><span class=cl><span class=na>Description</span><span class=o>=</span><span class=s>Waline</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=k>[Service]</span>
