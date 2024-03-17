@@ -206,7 +206,6 @@ markup:
         lineNoStart: 1
         lineNos: false
         lineNumbersInTable: true
-        style: dracula
 
 frontmatter:
   lastmod: ["lastmod", ":defalut"]
