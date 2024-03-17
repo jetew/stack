@@ -186,7 +186,6 @@ related:
     indices:
         - name: tags
           weight: 100
-
         - name: categories
           weight: 200
 
@@ -206,6 +205,6 @@ markup:
         lineNoStart: 1
         lineNos: false
         lineNumbersInTable: true
-
+        tabWidth: 4
 frontmatter:
   lastmod: ["lastmod", ":defalut"]
