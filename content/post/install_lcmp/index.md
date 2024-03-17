@@ -143,8 +143,8 @@ wget https://archive.mariadb.org/mariadb-10.11.7/bintar-linux-systemd-x86_64/mar
 
 国内主机可以使用清华源地址：
 
-```
-https://mirrors.tuna.tsinghua.edu.cn/mariadb/mariadb-10.11.7/bintar-linux-systemd-x86_64/mariadb-10.11.7-linux-systemd-x86_64.tar.gz
+```bash
+wget https://mirrors.tuna.tsinghua.edu.cn/mariadb/mariadb-10.11.7/bintar-linux-systemd-x86_64/mariadb-10.11.7-linux-systemd-x86_64.tar.gz
 ```
 
 只需要将下载好的预编译二进制文件解压到安装位置，然后更改相关文件的配置即可

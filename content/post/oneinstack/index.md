@@ -185,7 +185,8 @@ Usage: ./install.sh  command ...[parameters]....
   --reboot                    Restart the server after installation
 ```
 
-> 如之前没有安装 `php redis` 以及 `imagick` 扩展，补充安装命令： `./install.sh --php_extensions redis,imagick`
+> 如之前没有安装 `php redis` 以及 `imagick` 扩展，补充安装命令：
+>  `./install.sh --php_extensions redis,imagick`
 
 ---
 
