@@ -2530,7 +2530,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
 &lt;p>这里我使用 vim 编辑，拿不准可以直接下载到本地编辑&lt;/p>
 &lt;/blockquote>
-&lt;p>找到默认 &lt;strong>22&lt;/strong> 端口，将光标移动到该位置，输入 &lt;code>i &lt;/code> 进行编辑；去掉前面的注释，并且添加一个端口：&lt;/p>
+&lt;p>找到默认 &lt;strong>22&lt;/strong> 端口，将光标移动到该位置，输入 &lt;code>i&lt;/code> 进行编辑；去掉前面的注释，并且添加一个端口：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Port &lt;span class="m">22&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Port &lt;span class="m">1234&lt;/span> &lt;span class="c1"># 以 1234 端口为例&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑完成后按下 &lt;code>ESC&lt;/code> 然后输入 &lt;code>:wq&lt;/code> 保存退出，并重启 &lt;code>ssh&lt;/code> 服务进程：&lt;/p>
