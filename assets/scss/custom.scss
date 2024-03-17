@@ -15,6 +15,14 @@
 }
 
 //------------------------------------------------------
+// 全局字体
+:root {
+    --zh-font-family: "Noto Serif SC","PingFang SC", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei";
+    --base-font-family: "Noto Serif SC", var(--sys-font-family), var(--zh-font-family);
+    --code-font-family: Monaco, Menlo, Consolas, "Courier New", var(--zh-font-family), monospace;
+}
+
+//------------------------------------------------------
 // 修复引用块内容窄页面显示问题
 a {
   word-break: break-all;
