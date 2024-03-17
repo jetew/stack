@@ -207,7 +207,7 @@
 </span></span><span class=line><span class=cl>chmod <span class=m>664</span> /tmp/mysql.sock /data/mariadb/*
 </span></span><span class=line><span class=cl>chown -R mysql:mysql /usr/local/mariadb
 </span></span></code></pre></div><p>添加环境变量</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>echo</span> <span class=s1>&#39;export PATH=/usr/local/mariadb/bin:$PATH&#39;</span> &gt; /etc/profile.d/mysql.sh
-</span></span><span class=line><span class=cl><span class=nb>source</span> /etc/profile.d/mysql.sh
+</span></span><span class=line><span class=cl><span class=nb>source</span> /etc/profile
 </span></span></code></pre></div><p>接下来使用自带的脚本进行数据导入及初始化</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>/usr/local/mariadb/scripts/mysql_install_db --user<span class=o>=</span>mysql --basedir<span class=o>=</span>/usr/local/mariadb/ --datadir<span class=o>=</span>/data/mariadb
 </span></span></code></pre></div><p><img src=/archives/install_lcmp/1.png width=805 height=470 srcset="/archives/install_lcmp/1_hu5e0c1d4a3bced10ccd0956b80e01422d_73048_480x0_resize_box_3.png 480w, /archives/install_lcmp/1_hu5e0c1d4a3bced10ccd0956b80e01422d_73048_1024x0_resize_box_3.png 1024w" loading=lazy alt=初始化数据 class=gallery-image data-flex-grow=171 data-flex-basis=411px></p><p>完成之后，赋予 my.cnf 对应的权限并启动 MariaDB</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>chmod <span class=m>600</span> /etc/my.cnf
 </span></span><span class=line><span class=cl>systemctl daemon-reload
@@ -277,7 +277,7 @@
 </span></span><span class=line><span class=cl>make <span class=nv>ZEND_EXTRA_LIBS</span><span class=o>=</span><span class=s1>&#39;-liconv&#39;</span> -j <span class=k>$(</span>nproc<span class=k>)</span>
 </span></span><span class=line><span class=cl>make install
 </span></span></code></pre></div><p>为 PHP 添加环境变量</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;export PATH=/usr/local/php/bin:\$PATH&#34;</span> &gt; /etc/profile.d/php.sh
-</span></span><span class=line><span class=cl><span class=nb>source</span> /etc/profile.d/php.sh
+</span></span><span class=line><span class=cl><span class=nb>source</span> /etc/profile
 </span></span></code></pre></div><p>复制 php.ini 配置并进行修改</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cp /usr/local/src/php-8.2.16/php.ini-production /usr/local/php/etc/php.ini
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># 修改以下部分</span>
@@ -347,6 +347,7 @@
 </span></span></span><span class=line><span class=cl><span class=s>WantedBy=multi-user.target
 </span></span></span><span class=line><span class=cl><span class=s>EOF</span>
 </span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>systemctl daemon-reload
 </span></span><span class=line><span class=cl>systemctl <span class=nb>enable</span> php-fpm
 </span></span></code></pre></div><p>接着还需要添加 php-fpm 配置文件，并进行配置</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /usr/local/php/etc/php-fpm.conf <span class=s>&lt;&lt; EOF
 </span></span></span><span class=line><span class=cl><span class=s>;;;;;;;;;;;;;;;;;;;;;
@@ -482,6 +483,7 @@
 </span></span></span><span class=line><span class=cl><span class=s>WantedBy=multi-user.target
 </span></span></span><span class=line><span class=cl><span class=s>EOF</span>
 </span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>systemctl daemon-reload
 </span></span><span class=line><span class=cl>systemctl <span class=nb>enable</span> redis-server
 </span></span><span class=line><span class=cl>systemctl start redis-server
 </span></span></code></pre></div><p>接着安装 PECL Redis 并为 PHP 开启 PECL Redis 扩展</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> /usr/local/src
@@ -532,6 +534,7 @@
 </span></span></span><span class=line><span class=cl><span class=s>WantedBy=multi-user.target
 </span></span></span><span class=line><span class=cl><span class=s>EOF</span>
 </span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>systemctl daemon-reload
 </span></span><span class=line><span class=cl>systemctl <span class=nb>enable</span> memcached
 </span></span><span class=line><span class=cl>systemctl start memcached
 </span></span></code></pre></div><p>在编译安装之前先给 libMencached 打个补丁</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> /usr/local/src
