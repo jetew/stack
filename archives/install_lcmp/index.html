@@ -29,15 +29,15 @@
 </span></span><span class=line><span class=cl>rm -r /usr/share/caddy
 </span></span></code></pre></div><p>编辑 Caddyfile 配置文件，并进行重写，位于 <strong>/etc/caddy/Caddyfile</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /etc/caddy/Caddyfile <span class=s>&lt;&lt; EOF
 </span></span></span><span class=line><span class=cl><span class=s>:80 {
-</span></span></span><span class=line><span class=cl><span class=s>  root * /data/www/default
-</span></span></span><span class=line><span class=cl><span class=s>  header {
-</span></span></span><span class=line><span class=cl><span class=s>    Strict-Transport-Security max-age=31536000;preload
-</span></span></span><span class=line><span class=cl><span class=s>    X-Content-Type-Options nosniff
-</span></span></span><span class=line><span class=cl><span class=s>    X-Frame-Options SAMEORIGIN
-</span></span></span><span class=line><span class=cl><span class=s>  }
-</span></span></span><span class=line><span class=cl><span class=s>  encode gzip
-</span></span></span><span class=line><span class=cl><span class=s>  php_fastcgi unix//dev/shm/php-cgi.sock
-</span></span></span><span class=line><span class=cl><span class=s>  file_server
+</span></span></span><span class=line><span class=cl><span class=s>    root * /data/www/default
+</span></span></span><span class=line><span class=cl><span class=s>    header {
+</span></span></span><span class=line><span class=cl><span class=s>        Strict-Transport-Security max-age=31536000;preload
+</span></span></span><span class=line><span class=cl><span class=s>        X-Content-Type-Options nosniff
+</span></span></span><span class=line><span class=cl><span class=s>        X-Frame-Options SAMEORIGIN
+</span></span></span><span class=line><span class=cl><span class=s>    }
+</span></span></span><span class=line><span class=cl><span class=s>    encode gzip
+</span></span></span><span class=line><span class=cl><span class=s>    php_fastcgi unix//dev/shm/php-cgi.sock
+</span></span></span><span class=line><span class=cl><span class=s>    file_server
 </span></span></span><span class=line><span class=cl><span class=s>}
 </span></span></span><span class=line><span class=cl><span class=s>EOF</span>
 </span></span><span class=line><span class=cl>
