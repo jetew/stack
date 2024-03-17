@@ -79,15 +79,15 @@ rm -r /usr/share/caddy
 ```bash
 cat > /etc/caddy/Caddyfile << EOF
 :80 {
-	root * /data/www/default
-	header {
-		Strict-Transport-Security max-age=31536000;preload
-		X-Content-Type-Options nosniff
-		X-Frame-Options SAMEORIGIN
-	}
-	encode gzip
-	php_fastcgi unix//dev/shm/php-cgi.sock
-	file_server
+    root * /data/www/default
+    header {
+        Strict-Transport-Security max-age=31536000;preload
+        X-Content-Type-Options nosniff
+        X-Frame-Options SAMEORIGIN
+    }
+    encode gzip
+    php_fastcgi unix//dev/shm/php-cgi.sock
+    file_server
 }
 EOF
 

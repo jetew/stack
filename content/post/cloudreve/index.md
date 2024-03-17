@@ -64,15 +64,16 @@ Cloudreve 默认会监听 5212 端口。你可以在浏览器中访问 http://IP
 
 ```nginx
 location / {
-	proxy_pass http://127.0.0.1:5212;
-	proxy_set_header Host $http_host;
-	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	proxy_set_header X-Real-IP $remote_addr;
-	proxy_set_header X-Forwarded-Proto $scheme;
-	proxy_set_header X-NginX-Proxy true;
-	proxy_redirect off;
-	# 如果您要使用本地存储策略，请将下一行注释符删除，并更改大小为理论最大文件尺寸
-	# client_max_body_size 20000m;
+  proxy_pass http://127.0.0.1:5212;
+  proxy_set_header Host $http_host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Proto $scheme;
+  proxy_set_header X-NginX-Proxy true;
+  proxy_redirect off;
+  
+  # 如果您要使用本地存储策略，请将下一行注释符删除，并更改大小为理论最大文件尺寸
+  # client_max_body_size 20000m;
 }
 ```
 
@@ -82,13 +83,13 @@ location / {
 
 ```apache
 <VirtualHost *:80>
-	ServerName myapp.example.com
-	ServerAdmin webmaster@example.com
-	DocumentRoot /www/myapp/public
-	
-	# 以下为关键部分
-	AllowEncodedSlashes NoDecode
-	ProxyPass "/" "http://127.0.0.1:5212/" nocanon
+  ServerName myapp.example.com
+  ServerAdmin webmaster@example.com
+  DocumentRoot /www/myapp/public
+  
+  # 以下为关键部分
+  AllowEncodedSlashes NoDecode
+  ProxyPass "/" "http://127.0.0.1:5212/" nocanon
 </VirtualHost>
 ```
 #### Caddy 配置
@@ -97,12 +98,12 @@ location / {
 
 ```caddyfile
 domain.com {
-	reverse_proxy 127.0.0.1:5212 {
-		header_up Host {host}
-		header_up X-Real-IP {remote}
-		header_up X-Forwarded-For {remote}
-		header_up X-Forwarded-Proto https
-	}
+    reverse_proxy 127.0.0.1:5212 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto https
+    }
 }
 ```
 
@@ -118,7 +119,7 @@ vim /usr/lib/systemd/system/cloudreve.service
 
 将下面的 `PATH_TO_CLOUDREVE` 换成程序所在目录：
 
-```service
+```systemd
 [Unit]
 Description=Cloudreve
 After=network.target

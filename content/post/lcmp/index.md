@@ -184,31 +184,31 @@ vim /etc/caddy/Caddyfile
 ```caddy
 example.com {
 
-	# 网站根目录
-	root * /var/www/xx
+    # 网站根目录
+    root * /var/www/xx
 
-	# Typecho 伪静态，建议安装完程序后写入
-	@key1 {
-		not file
-		path_regexp key1 '(.*)'
-	}
-	rewrite @key1 /index.php{re.key1.1}
+    # Typecho 伪静态，建议安装完程序后写入
+    @key1 {
+        not file
+        path_regexp key1 '(.*)'
+    }
+    rewrite @key1 /index.php{re.key1.1}
 
-	# 开启 gzip
-	encode gzip
+    # 开启 gzip
+    encode gzip
 
-	# 错误页面
-	handle_errors {
-		rewrite * /{err.status_code}.html
-		file_server
-	}
+    # 错误页面
+    handle_errors {
+        rewrite * /{err.status_code}.html
+        file_server
+    }
 
-	# 使用 unix socket 通信
-	php_fastcgi /run/php/php7.3-fpm.sock
-	file_server
+    # 使用 unix socket 通信
+    php_fastcgi /run/php/php7.3-fpm.sock
+    file_server
 
-	# 设置 TLS
-	tls mail@example.com
+    # 设置 TLS
+    tls mail@example.com
 }
 ```
 

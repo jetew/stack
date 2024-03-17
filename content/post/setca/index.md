@@ -60,7 +60,7 @@ domain.com {
 
 ```caddyfile
 domain.com {
-	tls your@email.com
+    tls your@email.com
 }
 ```
 
@@ -68,8 +68,8 @@ domain.com {
 
 ```caddyfile
 {
-	acme_ca https://acme.zerossl.com/v2/DV90
-	email your@email.com
+    acme_ca https://acme.zerossl.com/v2/DV90
+    email your@email.com
 }
 
 domain.com {
@@ -81,9 +81,9 @@ domain.com {
 
 ```caddyfile
 domain.com {
-	tls your@email.com {
-		ca https://acme.zerossl.com/v2/DV90
-	}
+    tls your@email.com {
+        ca https://acme.zerossl.com/v2/DV90
+    }
 }
 ```
 

@@ -145,14 +145,14 @@ systemctl status filebrowser
 
 ```nginx
 location ^~ / {
-	proxy_pass http://127.0.0.1:8080;
-	proxy_set_header Host $http_host;
-	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	proxy_set_header X-Real-IP $remote_addr;
-	proxy_set_header X-Forwarded-Proto $scheme;
-	proxy_set_header X-NginX-Proxy true;
-	proxy_redirect off;
-	client_max_body_size 10240m;
+  proxy_pass http://127.0.0.1:8080;
+  proxy_set_header Host $http_host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Proto $scheme;
+  proxy_set_header X-NginX-Proxy true;
+  proxy_redirect off;
+  client_max_body_size 10240m;
 }
 ```
 
@@ -160,25 +160,25 @@ location ^~ / {
 
 ```caddyfile
 domain.com {
-	log {
-		output file /var/log/caddy/filebrowser.log
-		level error
-	}
-	root * /var/filebrowser
-	header {
-		Strict-Transport-Security max-age=31536000;preload
-		X-Content-Type-Options nosniff
-		X-Frame-Options SAMEORIGIN
-	}
-	encode gzip
-	reverse_proxy 127.0.0.1:8080 {
-		header_up Host {host}
-		header_up X-Real-IP {remote}
-		header_up X-Forwarded-For {remote}
-		header_up X-Forwarded-Proto https
-	}
-	file_server
-	tls user@email.com
+    log {
+        output file /var/log/caddy/filebrowser.log
+        level error
+    }
+    root * /var/filebrowser
+    header {
+        Strict-Transport-Security max-age=31536000;preload
+        X-Content-Type-Options nosniff
+        X-Frame-Options SAMEORIGIN
+    }
+    encode gzip
+    reverse_proxy 127.0.0.1:8080 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto https
+    }
+    file_server
+    tls user@email.com
 }
 ```
 
@@ -198,14 +198,14 @@ filebrowser -d /usr/local/lib/filebrowser/filebrowser.db config set -b /pan
 
 ```nginx
 location ~* /pan {
-	proxy_pass http://127.0.0.1:8080;
-	proxy_set_header Host $http_host;
-	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	proxy_set_header X-Real-IP $remote_addr;
-	proxy_set_header X-Forwarded-Proto $scheme;
-	proxy_set_header X-NginX-Proxy true;
-	proxy_redirect off;
-	client_max_body_size 10240m;
+  proxy_pass http://127.0.0.1:8080;
+  proxy_set_header Host $http_host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Proto $scheme;
+  proxy_set_header X-NginX-Proxy true;
+  proxy_redirect off;
+  client_max_body_size 10240m;
 }
 ```
 
@@ -213,12 +213,12 @@ location ~* /pan {
 
 ```caddyfile
 domain.com {
-	reverse_proxy /pan/* 127.0.0.1:8080 {
-		header_up Host {host}
-		header_up X-Real-IP {remote}
-		header_up X-Forwarded-For {remote}
-		header_up X-Forwarded-Proto https
-	}
+    reverse_proxy /pan/* 127.0.0.1:8080 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto https
+    }
 }
 ```
 

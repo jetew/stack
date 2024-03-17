@@ -68,7 +68,7 @@ xx.com
 
 ```caddyfile
 xx.com {
-	root * /var/www/xx
+    root * /var/www/xx
 }
 ```
 
@@ -76,10 +76,10 @@ xx.com {
 
 ```caddyfile
 xx.com {
-	root * /var/www/xx
-	encode gzip
-	file_server
-	tls XX@email.com
+    root * /var/www/xx
+    encode gzip
+    file_server
+    tls XX@email.com
 }
 ```
 
@@ -87,14 +87,14 @@ xx.com {
 
 ```caddyfile
 xx.com {
-	root * /var/www/xx
-	encode gzip
-	file_server
-	tls XX@email.com
+    root * /var/www/xx
+    encode gzip
+    file_server
+    tls XX@email.com
 }
 www.xx.com {
-	root * /var/www/yy
-	tls xx@email.com
+    root * /var/www/yy
+    tls xx@email.com
 }
 ```
 
@@ -102,13 +102,13 @@ www.xx.com {
 
 ```caddyfile
 xx.com {
-	root * /var/www/xx
-	encode gzip
-	file_server
-	tls XX@email.com
+    root * /var/www/xx
+    encode gzip
+    file_server
+    tls XX@email.com
 }
 www.xx.com {
-	redir https://xx.com
+    redir https://xx.com
 }
 ```
 
@@ -118,32 +118,32 @@ www.xx.com {
 # 域名
 domain.com {
 
-	# 设置日志文件位置，等级为 error
-	log {
-		output file /var/log/caddy/xx.log
-		level error
-	}
+# 设置日志文件位置，等级为 error
+    log {
+        output file /var/log/caddy/xx.log
+        level error
+    }
 
-	# 网站根目录
-	root * /var/www/xx
+    # 网站根目录
+    root * /var/www/xx
 
-	# 开启 gzip
-	encode gzip
+    # 开启 gzip
+    encode gzip
 
-	# 错误页面
-	handle_errors {
-		rewrite * /{err.status_code}.html
-		file_server
-	}
+    # 错误页面
+    handle_errors {
+        rewrite * /{err.status_code}.html
+        file_server
+    }
 
-	# PHP
-	php_fastcgi unix//run/php/php7-fpm.sock
+    # PHP
+    php_fastcgi unix//run/php/php7-fpm.sock
 
-	# 静态文件服务
-	file_server
-	
-	# TLS设置
-	tls xx@email.com
+    # 静态文件服务
+    file_server
+    
+    # TLS设置
+    tls xx@email.com
 }
 ```
 
