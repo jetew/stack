@@ -323,7 +323,7 @@ chown -R mysql:mysql /usr/local/mariadb
 
 ```bash
 echo 'export PATH=/usr/local/mariadb/bin:$PATH' > /etc/profile.d/mysql.sh
-source /etc/profile.d/mysql.sh
+source /etc/profile
 ```
 
 接下来使用自带的脚本进行数据导入及初始化
@@ -440,7 +440,7 @@ make install
 
 ```bash
 echo "export PATH=/usr/local/php/bin:\$PATH" > /etc/profile.d/php.sh
-source /etc/profile.d/php.sh
+source /etc/profile
 ```
 
 复制 php.ini 配置并进行修改
@@ -534,6 +534,7 @@ LimitCORE=1000000
 WantedBy=multi-user.target
 EOF
 
+systemctl daemon-reload
 systemctl enable php-fpm
 ```
 
@@ -709,6 +710,7 @@ LimitCORE=1000000
 WantedBy=multi-user.target
 EOF
 
+systemctl daemon-reload
 systemctl enable redis-server
 systemctl start redis-server
 ```
@@ -781,6 +783,7 @@ RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
 WantedBy=multi-user.target
 EOF
 
+systemctl daemon-reload
 systemctl enable memcached
 systemctl start memcached
 ```
