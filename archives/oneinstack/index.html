@@ -76,7 +76,8 @@ PHP 是一种在服务器端执行的嵌入 HTML 文档的脚本语言。
 </span></span><span class=line><span class=cl>  --ssh_port <span class=o>[</span>No.<span class=o>]</span>            SSH port
 </span></span><span class=line><span class=cl>  --iptables                  Enable iptables
 </span></span><span class=line><span class=cl>  --reboot                    Restart the server after installation
-</span></span></code></pre></div><blockquote><p>如之前没有安装 <code>php redis</code> 以及 <code>imagick</code> 扩展，补充安装命令： <code>./install.sh --php_extensions redis,imagick</code></p></blockquote><hr><h3 id=删除虚拟主机>删除虚拟主机</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> /root/oneinstack
+</span></span></code></pre></div><blockquote><p>如之前没有安装 <code>php redis</code> 以及 <code>imagick</code> 扩展，补充安装命令：
+<code>./install.sh --php_extensions redis,imagick</code></p></blockquote><hr><h3 id=删除虚拟主机>删除虚拟主机</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> /root/oneinstack
 </span></span><span class=line><span class=cl>./vhost.sh --del
 </span></span></code></pre></div><p><img src=/archives/oneinstack/instack7.png width=1608 height=1345 srcset="/archives/oneinstack/instack7_hu62aa251923d55e408fa479b2b147caf2_180032_480x0_resize_box_3.png 480w, /archives/oneinstack/instack7_hu62aa251923d55e408fa479b2b147caf2_180032_1024x0_resize_box_3.png 1024w" loading=lazy alt="◎ 删除网站" class=gallery-image data-flex-grow=119 data-flex-basis=286px></p><hr><h3 id=管理-ftp-账号>管理 FTP 账号</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> /root/oneinstack
 </span></span><span class=line><span class=cl>./pureftpd_vhost.sh

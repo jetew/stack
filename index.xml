@@ -651,8 +651,8 @@ fill="currentColor">
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://archive.mariadb.org/mariadb-10.11.7/bintar-linux-systemd-x86_64/mariadb-10.11.7-linux-systemd-x86_64.tar.gz
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>国内主机可以使用清华源地址：&lt;/p>
-&lt;pre tabindex="0">&lt;code>https://mirrors.tuna.tsinghua.edu.cn/mariadb/mariadb-10.11.7/bintar-linux-systemd-x86_64/mariadb-10.11.7-linux-systemd-x86_64.tar.gz
-&lt;/code>&lt;/pre>&lt;p>只需要将下载好的预编译二进制文件解压到安装位置，然后更改相关文件的配置即可&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget https://mirrors.tuna.tsinghua.edu.cn/mariadb/mariadb-10.11.7/bintar-linux-systemd-x86_64/mariadb-10.11.7-linux-systemd-x86_64.tar.gz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>只需要将下载好的预编译二进制文件解压到安装位置，然后更改相关文件的配置即可&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /usr/local/src
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar zxf mariadb-10.11.7-linux-systemd-x86_64.tar.gz
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv /usr/local/src/mariadb-10.11.7-linux-systemd-x86_64/* /usr/local/mariadb
@@ -4738,7 +4738,8 @@ data-flex-basis="274px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --iptables Enable iptables
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --reboot Restart the server after installation
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>如之前没有安装 &lt;code>php redis&lt;/code> 以及 &lt;code>imagick&lt;/code> 扩展，补充安装命令： &lt;code>./install.sh --php_extensions redis,imagick&lt;/code>&lt;/p>
+&lt;p>如之前没有安装 &lt;code>php redis&lt;/code> 以及 &lt;code>imagick&lt;/code> 扩展，补充安装命令：
+&lt;code>./install.sh --php_extensions redis,imagick&lt;/code>&lt;/p>
 &lt;/blockquote>
 &lt;hr>
 &lt;h3 id="删除虚拟主机">删除虚拟主机&lt;/h3>

@@ -648,7 +648,8 @@ data-flex-basis="274px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --iptables Enable iptables
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --reboot Restart the server after installation
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>如之前没有安装 &lt;code>php redis&lt;/code> 以及 &lt;code>imagick&lt;/code> 扩展，补充安装命令： &lt;code>./install.sh --php_extensions redis,imagick&lt;/code>&lt;/p>
+&lt;p>如之前没有安装 &lt;code>php redis&lt;/code> 以及 &lt;code>imagick&lt;/code> 扩展，补充安装命令：
+&lt;code>./install.sh --php_extensions redis,imagick&lt;/code>&lt;/p>
 &lt;/blockquote>
 &lt;hr>
 &lt;h3 id="删除虚拟主机">删除虚拟主机&lt;/h3>
