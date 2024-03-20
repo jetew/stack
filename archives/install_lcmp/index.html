@@ -8,7 +8,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
 <span>暗色模式</span></li></div></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#前言>前言</a><ol><li><a href=#脚本推荐>脚本推荐</a><ol><li><a href=#lamp-一键包>LAMP 一键包</a></li><li><a href=#lcmp-一键包>LCMP 一键包</a></li></ol></li></ol></li><li><a href=#安装与配置>安装与配置</a><ol><li><a href=#安装必要软件和依赖>安装必要软件和依赖</a></li><li><a href=#安装-caddy>安装 Caddy</a><ol><li><a href=#配置-caddy>配置 Caddy</a></li></ol></li><li><a href=#安装-mariadb>安装 MariaDB</a><ol><li><a href=#安装前的准备>安装前的准备</a></li><li><a href=#二进制安装>二进制安装</a></li><li><a href=#配置-mariadb>配置 MariaDB</a></li></ol></li><li><a href=#安装-php>安装 PHP</a><ol><li><a href=#准备工作>准备工作</a></li><li><a href=#源码编译安装>源码编译安装</a></li></ol></li><li><a href=#安装php-扩展>安装PHP 扩展</a><ol><li><a href=#redis-扩展>Redis 扩展</a></li><li><a href=#memcached-扩展>Memcached 扩展</a></li><li><a href=#imagick-扩展>Imagick 扩展</a></li></ol></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/archives/install_lcmp/>Debian 下手动安装 LCMP 环境</a></h2><h3 class=article-subtitle>放弃 LNMP 一键包和 Oneinstack 手动安装及配置 LCMP 环境</h3></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
 <time class=article-time--published>Oct 20, 2023</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>阅读时长: 6 分钟</time></div></footer></div></header><section class=article-content><h2 id=前言>前言</h2><p>继 <a class=link href=https://mp.weixin.qq.com/s/OT7C1l5rjBNCawFXRIUJOQ target=_blank rel=noopener>LNMP 供应链投毒事件
+<time class=article-time--reading>阅读时长: 7 分钟</time></div></footer></div></header><section class=article-content><h2 id=前言>前言</h2><p>继 <a class=link href=https://mp.weixin.qq.com/s/OT7C1l5rjBNCawFXRIUJOQ target=_blank rel=noopener>LNMP 供应链投毒事件
 <span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span>
 </a>后，知名 LNMP 部署工具 Oneinstack 也被发现挂码，参考 Oneinstack 项目 <a class=link href=https://github.com/oneinstack/oneinstack/issues/487 target=_blank rel=noopener>Issues #487
 <span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span>
@@ -18,16 +18,44 @@
 <span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span></a></li></ul><h4 id=lcmp-一键包>LCMP 一键包</h4><p>LCMP 一键包 (Linux + Caddy2 + MySQL/MariaDB + PHP) 是一个强大的 Bash 脚本，用于安装 Caddy2 + MariaDB + PHP；可以通过 <code>yum</code> 或 <code>apt-get</code> 命令在内存较小的 VPS 中安装 Caddy2 + MariaDB + PHP，只需在安装前输入数字选择要安装的内容即可；同为秋水逸冰大佬制作</p><ul><li><a class=link href=https://github.com/teddysun/lamp target=_blank rel=noopener>Github 项目地址
 <span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span></a></li></ul><p>接下来看下如何手动安装及配置。</p><hr><h2 id=安装与配置>安装与配置</h2><h3 id=安装必要软件和依赖>安装必要软件和依赖</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt update
 </span></span><span class=line><span class=cl>apt install -y debian-keyring debian-archive-keyring build-essential gcc g++ make cmake autoconf libjpeg62-turbo-dev libjpeg-dev libpng-dev libwebp7 libwebp-dev libfreetype6 libfreetype6-dev libssh2-1-dev libmhash2 libpcre3 libpcre3-dev gzip libbz2-1.0 libbz2-dev libgd-dev libxml2 libxml2-dev libsodium-dev argon2 libargon2-1 libargon2-dev libiconv-hook-dev zlib1g zlib1g-dev libc6 libc6-dev libc-client2007e-dev libglib2.0-0 libglib2.0-dev bzip2 libzip-dev libbz2-1.0 libncurses5 libncurses5-dev libaio1 libaio-dev numactl libreadline-dev curl libcurl3-gnutls libcurl4-openssl-dev e2fsprogs libkrb5-3 libkrb5-dev libltdl-dev libidn11-dev openssl net-tools libssl-dev libtool libevent-dev bison re2c libsasl2-dev libxslt1-dev libicu-dev locales patch vim zip unzip tmux htop bc dc expect libexpat1-dev libonig-dev libtirpc-dev rsync git lsof lrzsz rsyslog cron logrotate chrony libsqlite3-dev psmisc wget sysv-rc apt-transport-https ca-certificates software-properties-common gnupg screen
-</span></span></code></pre></div><h3 id=安装-caddy>安装 Caddy</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
-</span></span><span class=line><span class=cl>curl -1sLf <span class=s1>&#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&#39;</span> <span class=p>|</span> gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-</span></span><span class=line><span class=cl>curl -1sLf <span class=s1>&#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&#39;</span> <span class=p>|</span> tee /etc/apt/sources.list.d/caddy-stable.list
-</span></span><span class=line><span class=cl>apt update
-</span></span><span class=line><span class=cl>apt install caddy
-</span></span></code></pre></div><h4 id=配置-caddy>配置 Caddy</h4><p>首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 <strong>/data/www</strong>，自有证书存放目录在 Caddy 默认位置中创建一个文件夹，位置可以自己更改</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir -p /data/www/default
-</span></span><span class=line><span class=cl>mkdir -p /var/lib/caddy/ssl
-</span></span></code></pre></div><p>将 Caddy 默认网站文件移到创建的默认网站文件夹中</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mv /usr/share/caddy/index.html /data/www/default
-</span></span><span class=line><span class=cl>rm -r /usr/share/caddy
-</span></span></code></pre></div><p>编辑 Caddyfile 配置文件，并进行重写，位于 <strong>/etc/caddy/Caddyfile</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /etc/caddy/Caddyfile <span class=s>&lt;&lt; EOF
+</span></span></code></pre></div><h3 id=安装-caddy>安装 Caddy</h3><p>创建必要文件夹、用户与组</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir -p /usr/local/caddy/<span class=o>{</span>bin,conf<span class=o>}</span>
+</span></span><span class=line><span class=cl>groupadd caddy
+</span></span><span class=line><span class=cl>useradd <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--gid caddy <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--home-dir /usr/local/caddy <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--shell /usr/sbin/nologin <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>caddy
+</span></span></code></pre></div><p>下载二进制文件、解压、移动至安装文件夹并赋予可执行权限</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> /usr/local/src
+</span></span><span class=line><span class=cl>wget https://github.com/caddyserver/caddy/releases/download/v2.7.6/caddy_2.7.6_linux_amd64.tar.gz
+</span></span><span class=line><span class=cl>tar zxf caddy_2.7.6_linux_amd64.tar.gz
+</span></span><span class=line><span class=cl>mv caddy /usr/local/caddy/bin/
+</span></span><span class=line><span class=cl>chmod +x /usr/local/caddy/bin/caddy
+</span></span></code></pre></div><h4 id=配置-caddy>配置 Caddy</h4><p>首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 <strong>/data/www</strong>，自有证书存放目录在 <strong>/usr/local/caddy/ssl</strong>，位置可以自己更改</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir -p /data/www/default
+</span></span><span class=line><span class=cl>mkdir -p /usr/local/caddy/ssl
+</span></span></code></pre></div><p>添加 <code>Systemd</code> 脚本，并设置开机启动</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /usr/local/caddy/conf/Caddyfile <span class=s>&lt;&lt; EOF
+</span></span></span><span class=line><span class=cl><span class=s>[Unit]
+</span></span></span><span class=line><span class=cl><span class=s>Description=Caddy
+</span></span></span><span class=line><span class=cl><span class=s>After=network.target network-online.target
+</span></span></span><span class=line><span class=cl><span class=s>Requires=network-online.target
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>[Service]
+</span></span></span><span class=line><span class=cl><span class=s>Type=notify
+</span></span></span><span class=line><span class=cl><span class=s>User=caddy
+</span></span></span><span class=line><span class=cl><span class=s>Group=caddy
+</span></span></span><span class=line><span class=cl><span class=s>ExecStart=/usr/local/caddy/bin/caddy run --environ --config /usr/local/caddy/conf/Caddyfile
+</span></span></span><span class=line><span class=cl><span class=s>ExecReload=/usr/local/caddy/bin/caddy reload --config /usr/local/caddy/conf/Caddyfile --force
+</span></span></span><span class=line><span class=cl><span class=s>TimeoutStopSec=5s
+</span></span></span><span class=line><span class=cl><span class=s>LimitNOFILE=1048576
+</span></span></span><span class=line><span class=cl><span class=s>PrivateTmp=true
+</span></span></span><span class=line><span class=cl><span class=s>ProtectSystem=full
+</span></span></span><span class=line><span class=cl><span class=s>AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>[Install]
+</span></span></span><span class=line><span class=cl><span class=s>WantedBy=multi-user.target
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>systemctl <span class=nb>enable</span> caddy
+</span></span></code></pre></div><p>编辑 Caddyfile 配置文件，并进行重写，我放在 <strong>/usr/local/caddy/conf/Caddyfile</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /usr/local/caddy/conf/Caddyfile <span class=s>&lt;&lt; EOF
 </span></span></span><span class=line><span class=cl><span class=s>:80 {
 </span></span></span><span class=line><span class=cl><span class=s>    root * /data/www/default
 </span></span></span><span class=line><span class=cl><span class=s>    header {
@@ -42,7 +70,10 @@
 </span></span></span><span class=line><span class=cl><span class=s>EOF</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>caddy fmt --overwrite /etc/caddy/Caddyfile
-</span></span></code></pre></div><hr><h3 id=安装-mariadb>安装 MariaDB</h3><p>可以使用预编译的二进制包安装或者源码编译进行安装，自行选择即可；我推荐使用二进制包进行安装。</p><h4 id=安装前的准备>安装前的准备</h4><p>为 MariaDB 创建用户组，创建安装目录并设置权限</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>useradd -M -s /sbin/nologin mysql
+</span></span></code></pre></div><p>为相应文件夹赋予权限</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>chown -R caddy:caddy /usr/local/caddy
+</span></span><span class=line><span class=cl>chown -R caddy:caddy /data/www
+</span></span></code></pre></div><hr><h3 id=安装-mariadb>安装 MariaDB</h3><p>可以使用预编译的二进制包安装或者源码编译进行安装，自行选择即可；我推荐使用二进制包进行安装。</p><h4 id=安装前的准备>安装前的准备</h4><p>为 MariaDB 创建用户组，创建安装目录并设置权限</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>groupadd mysql
+</span></span><span class=line><span class=cl>useradd -g mysql -M -s /usr/sbin/nologin mysql
 </span></span><span class=line><span class=cl>mkdir -p /usr/local/mariadb
 </span></span><span class=line><span class=cl>mkdir -p /data/mariadb
 </span></span><span class=line><span class=cl>chown -R mysql:mysql /usr/local/mariadb
@@ -455,7 +486,8 @@
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1># maxmemory 计算方法：内存（单位：M）/8*1000000</span>
 </span></span><span class=line><span class=cl>maxmemory <span class=m>512000000</span>
-</span></span></code></pre></div><p>添加用户 并设置文件夹权限</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>useradd -M -s /sbin/nologin redis
+</span></span></code></pre></div><p>添加用户、组 并设置文件夹权限</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>groupadd redis
+</span></span><span class=line><span class=cl>useradd -g redis -M -s /usr/sbin/nologin redis
 </span></span><span class=line><span class=cl>chown -R redis:redis /usr/local/redis/<span class=o>{</span>var,etc<span class=o>}</span>
 </span></span></code></pre></div><p>添加 Redis Server 启动脚本，并设置开机自启</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /usr/lib/systemd/system/redis-server.service <span class=s>&lt;&lt; &#39;EOF&#39;
 </span></span></span><span class=line><span class=cl><span class=s>[Unit]
@@ -499,8 +531,9 @@
 </span></span><span class=line><span class=cl>wget https://memcached.org/files/memcached-1.6.24.tar.gz
 </span></span><span class=line><span class=cl>wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
 </span></span><span class=line><span class=cl>wget https://pecl.php.net/get/memcached-3.2.0.tgz
-</span></span></code></pre></div><p>开始编译安装 Memcached</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 添加用户</span>
-</span></span><span class=line><span class=cl>useradd -M -s /sbin/nologin memcached
+</span></span></code></pre></div><p>开始编译安装 Memcached</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 添加用户、组</span>
+</span></span><span class=line><span class=cl>groupadd memcached
+</span></span><span class=line><span class=cl>useradd -g memcached -M -s /usr/sbin/nologin memcached
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=nb>cd</span> /usr/local/src
 </span></span><span class=line><span class=cl>tar zxf memcached-1.6.24.tar.gz
