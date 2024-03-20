@@ -59,6 +59,12 @@ filebrowser -d /usr/local/lib/filebrowser/filebrowser.db config set -p 8080
 filebrowser -d /usr/local/lib/filebrowser/filebrowser.db config set -r /var/filebrowser
 ```
 
+设置日志位置：
+
+```bash
+filebrowser -d /usr/local/lib/filebrowser/filebrowser.db config set --log /var/log/filebrowser.log
+```
+
 设置语言环境：
 
 ```bash
@@ -72,6 +78,12 @@ filebrowser -d /usr/local/lib/filebrowser/filebrowser.db users add user password
 ```
 
 其中的 `user` 与 `password` 为用户名和密码
+
+或者直接一步到位：
+
+```bash
+filebrowser -d /usr/local/lib/filebrowser/filebrowser.db config set -a 0.0.0.0 -p 8080 -r /var/filebrowser --log /var/log/filebrowser.log --locale zh-cn
+```
 
 试运行：
 
