@@ -50,34 +50,69 @@ apt install -y debian-keyring debian-archive-keyring build-essential gcc g++ mak
 
 ### 安装 Caddy
 
+创建必要文件夹、用户与组
+
 ```bash
-apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
-curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
-apt update
-apt install caddy
+mkdir -p /usr/local/caddy/{bin,conf}
+groupadd caddy
+useradd \
+--gid caddy \
+--home-dir /usr/local/caddy \
+--shell /usr/sbin/nologin \
+caddy
+```
+
+下载二进制文件、解压、移动至安装文件夹并赋予可执行权限
+
+```bash
+cd /usr/local/src
+wget https://github.com/caddyserver/caddy/releases/download/v2.7.6/caddy_2.7.6_linux_amd64.tar.gz
+tar zxf caddy_2.7.6_linux_amd64.tar.gz
+mv caddy /usr/local/caddy/bin/
+chmod +x /usr/local/caddy/bin/caddy
 ```
 
 #### 配置 Caddy
 
-首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 **/data/www**，自有证书存放目录在 Caddy 默认位置中创建一个文件夹，位置可以自己更改
+首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 **/data/www**，自有证书存放目录在 **/usr/local/caddy/ssl**，位置可以自己更改
 
 ```bash
 mkdir -p /data/www/default
-mkdir -p /var/lib/caddy/ssl
+mkdir -p /usr/local/caddy/ssl
 ```
 
-将 Caddy 默认网站文件移到创建的默认网站文件夹中
+添加 `Systemd` 脚本，并设置开机启动
 
 ```bash
-mv /usr/share/caddy/index.html /data/www/default
-rm -r /usr/share/caddy
+cat > /usr/local/caddy/conf/Caddyfile << EOF
+[Unit]
+Description=Caddy
+After=network.target network-online.target
+Requires=network-online.target
+
+[Service]
+Type=notify
+User=caddy
+Group=caddy
+ExecStart=/usr/local/caddy/bin/caddy run --environ --config /usr/local/caddy/conf/Caddyfile
+ExecReload=/usr/local/caddy/bin/caddy reload --config /usr/local/caddy/conf/Caddyfile --force
+TimeoutStopSec=5s
+LimitNOFILE=1048576
+PrivateTmp=true
+ProtectSystem=full
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl enable caddy
 ```
 
-编辑 Caddyfile 配置文件，并进行重写，位于 **/etc/caddy/Caddyfile**
+编辑 Caddyfile 配置文件，并进行重写，我放在 **/usr/local/caddy/conf/Caddyfile**
 
 ```bash
-cat > /etc/caddy/Caddyfile << EOF
+cat > /usr/local/caddy/conf/Caddyfile << EOF
 :80 {
     root * /data/www/default
     header {
@@ -94,6 +129,13 @@ EOF
 caddy fmt --overwrite /etc/caddy/Caddyfile
 ```
 
+为相应文件夹赋予权限
+
+```bash
+chown -R caddy:caddy /usr/local/caddy
+chown -R caddy:caddy /data/www
+```
+
 ---
 
 ### 安装 MariaDB
@@ -105,7 +147,8 @@ caddy fmt --overwrite /etc/caddy/Caddyfile
 为 MariaDB 创建用户组，创建安装目录并设置权限
 
 ```bash
-useradd -M -s /sbin/nologin mysql
+groupadd mysql
+useradd -g mysql -M -s /usr/sbin/nologin mysql
 mkdir -p /usr/local/mariadb
 mkdir -p /data/mariadb
 chown -R mysql:mysql /usr/local/mariadb
@@ -674,10 +717,11 @@ bind 127.0.0.1 ::1
 maxmemory 512000000
 ```
 
-添加用户 并设置文件夹权限
+添加用户、组 并设置文件夹权限
 
 ```bash
-useradd -M -s /sbin/nologin redis
+groupadd redis
+useradd -g redis -M -s /usr/sbin/nologin redis
 chown -R redis:redis /usr/local/redis/{var,etc}
 ```
 
@@ -743,8 +787,9 @@ wget https://pecl.php.net/get/memcached-3.2.0.tgz
 开始编译安装 Memcached
 
 ```bash
-# 添加用户
-useradd -M -s /sbin/nologin memcached
+# 添加用户、组
+groupadd memcached
+useradd -g memcached -M -s /usr/sbin/nologin memcached
 
 cd /usr/local/src
 tar zxf memcached-1.6.24.tar.gz
