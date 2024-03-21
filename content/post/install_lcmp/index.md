@@ -118,7 +118,7 @@ cat > /etc/caddy/Caddyfile << EOF
         output file /var/log/caddy/access.log {
             roll_size 100mb
             roll_keep_for 15d
-		}
+        }
     }
     email jettwan@outlook.com
     acme_ca https://acme.zerossl.com/v2/DV90
