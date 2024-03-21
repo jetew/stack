@@ -48,6 +48,9 @@ apt update
 apt install -y debian-keyring debian-archive-keyring build-essential gcc g++ make cmake autoconf libjpeg62-turbo-dev libjpeg-dev libpng-dev libwebp7 libwebp-dev libfreetype6 libfreetype6-dev libssh2-1-dev libmhash2 libpcre3 libpcre3-dev gzip libbz2-1.0 libbz2-dev libgd-dev libxml2 libxml2-dev libsodium-dev argon2 libargon2-1 libargon2-dev libiconv-hook-dev zlib1g zlib1g-dev libc6 libc6-dev libc-client2007e-dev libglib2.0-0 libglib2.0-dev bzip2 libzip-dev libbz2-1.0 libncurses5 libncurses5-dev libaio1 libaio-dev numactl libreadline-dev curl libcurl3-gnutls libcurl4-openssl-dev e2fsprogs libkrb5-3 libkrb5-dev libltdl-dev libidn11-dev openssl net-tools libssl-dev libtool libevent-dev bison re2c libsasl2-dev libxslt1-dev libicu-dev locales patch vim zip unzip tmux htop bc dc expect libexpat1-dev libonig-dev libtirpc-dev rsync git lsof lrzsz rsyslog cron logrotate chrony libsqlite3-dev psmisc wget sysv-rc apt-transport-https ca-certificates software-properties-common gnupg screen
 ```
 
+编译和安装软件之前可以通过执行 `screen -S lcmp` 创建窗口，防止网络不稳定等不确定因素断连导致安装或编译中断
+若要恢复窗口，执行 `screen -r lcmp` 即可
+
 ### 安装 Caddy
 
 可以使用 `apt` 命令通过 Caddy 官方存储库进行安装，参考 [这一篇](/archives/lcmp) 我这里主要讲手动安装
