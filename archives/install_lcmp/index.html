@@ -69,7 +69,7 @@
 </span></span></span><span class=line><span class=cl><span class=s>}
 </span></span></span><span class=line><span class=cl><span class=s>EOF</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>caddy fmt --overwrite /etc/caddy/Caddyfile
+</span></span><span class=line><span class=cl>caddy fmt --overwrite /usr/local/caddy/conf/Caddyfile
 </span></span></code></pre></div><p>为相应文件夹赋予权限</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>chown -R caddy:caddy /usr/local/caddy
 </span></span><span class=line><span class=cl>chown -R caddy:caddy /data/www
 </span></span></code></pre></div><hr><h3 id=安装-mariadb>安装 MariaDB</h3><p>可以使用预编译的二进制包安装或者源码编译进行安装，自行选择即可；我推荐使用二进制包进行安装。</p><h4 id=安装前的准备>安装前的准备</h4><p>为 MariaDB 创建用户组，创建安装目录并设置权限</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>groupadd mysql

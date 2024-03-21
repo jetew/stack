@@ -127,7 +127,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">}
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s">EOF&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">caddy fmt --overwrite /etc/caddy/Caddyfile
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">caddy fmt --overwrite /usr/local/caddy/conf/Caddyfile
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>为相应文件夹赋予权限&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">chown -R caddy:caddy /usr/local/caddy
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown -R caddy:caddy /data/www
