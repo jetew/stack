@@ -50,7 +50,7 @@ apt install -y debian-keyring debian-archive-keyring build-essential gcc g++ mak
 
 ### 安装 Caddy
 
-可以使用 `apt` 命令通过 Caddy 官方存储库进行安装，参考 [这一篇](/archives/caddy) 我这里主要讲手动安装
+可以使用 `apt` 命令通过 Caddy 官方存储库进行安装，参考 [这一篇](/archives/lcmp) 我这里主要讲手动安装
 
 创建必要文件夹、用户与组
 
