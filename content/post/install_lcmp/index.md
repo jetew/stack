@@ -126,7 +126,7 @@ cat > /usr/local/caddy/conf/Caddyfile << EOF
 }
 EOF
 
-caddy fmt --overwrite /etc/caddy/Caddyfile
+caddy fmt --overwrite /usr/local/caddy/conf/Caddyfile
 ```
 
 为相应文件夹赋予权限
