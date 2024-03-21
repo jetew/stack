@@ -50,16 +50,15 @@ apt install -y debian-keyring debian-archive-keyring build-essential gcc g++ mak
 
 ### 安装 Caddy
 
+可以使用 `apt` 命令通过 Caddy 官方存储库进行安装，参考 [这一篇](/archives/caddy) 我这里主要讲手动安装
+
 创建必要文件夹、用户与组
 
 ```bash
-mkdir -p /usr/local/caddy/{bin,conf}
+mkdir -p /etc/caddy
+mkdir -p /var/log/caddy
 groupadd caddy
-useradd \
---gid caddy \
---home-dir /usr/local/caddy \
---shell /usr/sbin/nologin \
-caddy
+useradd -g caddy -m -d /var/lib/caddy -s /usr/sbin/nologin caddy
 ```
 
 下载二进制文件、解压、移动至安装文件夹并赋予可执行权限
@@ -68,23 +67,23 @@ caddy
 cd /usr/local/src
 wget https://github.com/caddyserver/caddy/releases/download/v2.7.6/caddy_2.7.6_linux_amd64.tar.gz
 tar zxf caddy_2.7.6_linux_amd64.tar.gz
-mv caddy /usr/local/caddy/bin/
-chmod +x /usr/local/caddy/bin/caddy
+mv caddy /usr/bin/
+chmod +x /usr/bin/caddy
 ```
 
 #### 配置 Caddy
 
-首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 **/data/www**，自有证书存放目录在 **/usr/local/caddy/ssl**，位置可以自己更改
+首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 **/data/www**，自有证书存放目录在 **/var/lib/caddy/ssl**
 
 ```bash
 mkdir -p /data/www/default
-mkdir -p /usr/local/caddy/ssl
+mkdir -p /var/lib/caddy/ssl
 ```
 
 添加 `Systemd` 脚本，并设置开机启动
 
 ```bash
-cat > /usr/local/caddy/conf/Caddyfile << EOF
+cat > /usr/lib/systemd/system/caddy.service << EOF
 [Unit]
 Description=Caddy
 After=network.target network-online.target
@@ -94,8 +93,8 @@ Requires=network-online.target
 Type=notify
 User=caddy
 Group=caddy
-ExecStart=/usr/local/caddy/bin/caddy run --environ --config /usr/local/caddy/conf/Caddyfile
-ExecReload=/usr/local/caddy/bin/caddy reload --config /usr/local/caddy/conf/Caddyfile --force
+ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/Caddyfile
+ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile --force
 TimeoutStopSec=5s
 LimitNOFILE=1048576
 PrivateTmp=true
@@ -109,30 +108,44 @@ EOF
 systemctl enable caddy
 ```
 
-编辑 Caddyfile 配置文件，并进行重写，我放在 **/usr/local/caddy/conf/Caddyfile**
+编辑 Caddyfile 配置文件，并进行重写，位于 **/etc/caddy/Caddyfile**
 
 ```bash
-cat > /usr/local/caddy/conf/Caddyfile << EOF
+cat > /etc/caddy/Caddyfile << EOF
+{
+    admin off
+    log {
+        output file /var/log/caddy/access.log {
+            roll_size 100mb
+            roll_keep_for 15d
+		}
+    }
+    email jettwan@outlook.com
+    acme_ca https://acme.zerossl.com/v2/DV90
+}
+
 :80 {
     root * /data/www/default
     header {
-        Strict-Transport-Security max-age=31536000;preload
+        Strict-Transport-Security "max-age=31536000; preload"
         X-Content-Type-Options nosniff
         X-Frame-Options SAMEORIGIN
     }
     encode gzip
-    php_fastcgi unix//dev/shm/php-cgi.sock
-    file_server
+    # php_fastcgi unix//dev/shm/php-cgi.sock
+    file_server browse
 }
 EOF
 
-caddy fmt --overwrite /usr/local/caddy/conf/Caddyfile
+caddy fmt --overwrite /etc/caddy/Caddyfile
 ```
 
 为相应文件夹赋予权限
 
 ```bash
-chown -R caddy:caddy /usr/local/caddy
+chown -R caddy:caddy /etc/caddy
+chown -R caddy:caddy /var/lib/caddy
+chown -R caddy:caddy /var/log/caddy
 chown -R caddy:caddy /data/www
 ```
 
