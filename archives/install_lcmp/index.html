@@ -18,21 +18,19 @@
 <span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span></a></li></ul><h4 id=lcmp-一键包>LCMP 一键包</h4><p>LCMP 一键包 (Linux + Caddy2 + MySQL/MariaDB + PHP) 是一个强大的 Bash 脚本，用于安装 Caddy2 + MariaDB + PHP；可以通过 <code>yum</code> 或 <code>apt-get</code> 命令在内存较小的 VPS 中安装 Caddy2 + MariaDB + PHP，只需在安装前输入数字选择要安装的内容即可；同为秋水逸冰大佬制作</p><ul><li><a class=link href=https://github.com/teddysun/lamp target=_blank rel=noopener>Github 项目地址
 <span style=white-space:nowrap><svg width=".7em" height=".7em" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z" fill="currentcolor"/><path d="M19 19H5V5h7l-2-2H5c-1.103.0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103.0 2-.897 2-2v-5l-2-2v7z" fill="currentcolor"/></span></a></li></ul><p>接下来看下如何手动安装及配置。</p><hr><h2 id=安装与配置>安装与配置</h2><h3 id=安装必要软件和依赖>安装必要软件和依赖</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>apt update
 </span></span><span class=line><span class=cl>apt install -y debian-keyring debian-archive-keyring build-essential gcc g++ make cmake autoconf libjpeg62-turbo-dev libjpeg-dev libpng-dev libwebp7 libwebp-dev libfreetype6 libfreetype6-dev libssh2-1-dev libmhash2 libpcre3 libpcre3-dev gzip libbz2-1.0 libbz2-dev libgd-dev libxml2 libxml2-dev libsodium-dev argon2 libargon2-1 libargon2-dev libiconv-hook-dev zlib1g zlib1g-dev libc6 libc6-dev libc-client2007e-dev libglib2.0-0 libglib2.0-dev bzip2 libzip-dev libbz2-1.0 libncurses5 libncurses5-dev libaio1 libaio-dev numactl libreadline-dev curl libcurl3-gnutls libcurl4-openssl-dev e2fsprogs libkrb5-3 libkrb5-dev libltdl-dev libidn11-dev openssl net-tools libssl-dev libtool libevent-dev bison re2c libsasl2-dev libxslt1-dev libicu-dev locales patch vim zip unzip tmux htop bc dc expect libexpat1-dev libonig-dev libtirpc-dev rsync git lsof lrzsz rsyslog cron logrotate chrony libsqlite3-dev psmisc wget sysv-rc apt-transport-https ca-certificates software-properties-common gnupg screen
-</span></span></code></pre></div><h3 id=安装-caddy>安装 Caddy</h3><p>创建必要文件夹、用户与组</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir -p /usr/local/caddy/<span class=o>{</span>bin,conf<span class=o>}</span>
+</span></span></code></pre></div><h3 id=安装-caddy>安装 Caddy</h3><p>可以使用 <code>apt</code> 命令通过 Caddy 官方存储库进行安装，参考 <a class=link href=/archives/caddy>这一篇
+</a>我这里主要讲手动安装</p><p>创建必要文件夹、用户与组</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir -p /etc/caddy
+</span></span><span class=line><span class=cl>mkdir -p /var/log/caddy
 </span></span><span class=line><span class=cl>groupadd caddy
-</span></span><span class=line><span class=cl>useradd <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>--gid caddy <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>--home-dir /usr/local/caddy <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>--shell /usr/sbin/nologin <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>caddy
+</span></span><span class=line><span class=cl>useradd -g caddy -m -d /var/lib/caddy -s /usr/sbin/nologin caddy
 </span></span></code></pre></div><p>下载二进制文件、解压、移动至安装文件夹并赋予可执行权限</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> /usr/local/src
 </span></span><span class=line><span class=cl>wget https://github.com/caddyserver/caddy/releases/download/v2.7.6/caddy_2.7.6_linux_amd64.tar.gz
 </span></span><span class=line><span class=cl>tar zxf caddy_2.7.6_linux_amd64.tar.gz
-</span></span><span class=line><span class=cl>mv caddy /usr/local/caddy/bin/
-</span></span><span class=line><span class=cl>chmod +x /usr/local/caddy/bin/caddy
-</span></span></code></pre></div><h4 id=配置-caddy>配置 Caddy</h4><p>首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 <strong>/data/www</strong>，自有证书存放目录在 <strong>/usr/local/caddy/ssl</strong>，位置可以自己更改</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir -p /data/www/default
-</span></span><span class=line><span class=cl>mkdir -p /usr/local/caddy/ssl
-</span></span></code></pre></div><p>添加 <code>Systemd</code> 脚本，并设置开机启动</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /usr/local/caddy/conf/Caddyfile <span class=s>&lt;&lt; EOF
+</span></span><span class=line><span class=cl>mv caddy /usr/bin/
+</span></span><span class=line><span class=cl>chmod +x /usr/bin/caddy
+</span></span></code></pre></div><h4 id=配置-caddy>配置 Caddy</h4><p>首先为 Caddy 创建网站目录和 SSL 存放目录，网站目录我设置为 <strong>/data/www</strong>，自有证书存放目录在 <strong>/var/lib/caddy/ssl</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir -p /data/www/default
+</span></span><span class=line><span class=cl>mkdir -p /var/lib/caddy/ssl
+</span></span></code></pre></div><p>添加 <code>Systemd</code> 脚本，并设置开机启动</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /usr/lib/systemd/system/caddy.service <span class=s>&lt;&lt; EOF
 </span></span></span><span class=line><span class=cl><span class=s>[Unit]
 </span></span></span><span class=line><span class=cl><span class=s>Description=Caddy
 </span></span></span><span class=line><span class=cl><span class=s>After=network.target network-online.target
@@ -42,8 +40,8 @@
 </span></span></span><span class=line><span class=cl><span class=s>Type=notify
 </span></span></span><span class=line><span class=cl><span class=s>User=caddy
 </span></span></span><span class=line><span class=cl><span class=s>Group=caddy
-</span></span></span><span class=line><span class=cl><span class=s>ExecStart=/usr/local/caddy/bin/caddy run --environ --config /usr/local/caddy/conf/Caddyfile
-</span></span></span><span class=line><span class=cl><span class=s>ExecReload=/usr/local/caddy/bin/caddy reload --config /usr/local/caddy/conf/Caddyfile --force
+</span></span></span><span class=line><span class=cl><span class=s>ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/Caddyfile
+</span></span></span><span class=line><span class=cl><span class=s>ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile --force
 </span></span></span><span class=line><span class=cl><span class=s>TimeoutStopSec=5s
 </span></span></span><span class=line><span class=cl><span class=s>LimitNOFILE=1048576
 </span></span></span><span class=line><span class=cl><span class=s>PrivateTmp=true
@@ -55,22 +53,36 @@
 </span></span></span><span class=line><span class=cl><span class=s>EOF</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>systemctl <span class=nb>enable</span> caddy
-</span></span></code></pre></div><p>编辑 Caddyfile 配置文件，并进行重写，我放在 <strong>/usr/local/caddy/conf/Caddyfile</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /usr/local/caddy/conf/Caddyfile <span class=s>&lt;&lt; EOF
+</span></span></code></pre></div><p>编辑 Caddyfile 配置文件，并进行重写，位于 <strong>/etc/caddy/Caddyfile</strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat &gt; /etc/caddy/Caddyfile <span class=s>&lt;&lt; EOF
+</span></span></span><span class=line><span class=cl><span class=s>{
+</span></span></span><span class=line><span class=cl><span class=s>    admin off
+</span></span></span><span class=line><span class=cl><span class=s>    log {
+</span></span></span><span class=line><span class=cl><span class=s>        output file /var/log/caddy/access.log {
+</span></span></span><span class=line><span class=cl><span class=s>            roll_size 100mb
+</span></span></span><span class=line><span class=cl><span class=s>            roll_keep_for 15d
+</span></span></span><span class=line><span class=cl><span class=s>		}
+</span></span></span><span class=line><span class=cl><span class=s>    }
+</span></span></span><span class=line><span class=cl><span class=s>    email jettwan@outlook.com
+</span></span></span><span class=line><span class=cl><span class=s>    acme_ca https://acme.zerossl.com/v2/DV90
+</span></span></span><span class=line><span class=cl><span class=s>}
+</span></span></span><span class=line><span class=cl><span class=s>
 </span></span></span><span class=line><span class=cl><span class=s>:80 {
 </span></span></span><span class=line><span class=cl><span class=s>    root * /data/www/default
 </span></span></span><span class=line><span class=cl><span class=s>    header {
-</span></span></span><span class=line><span class=cl><span class=s>        Strict-Transport-Security max-age=31536000;preload
+</span></span></span><span class=line><span class=cl><span class=s>        Strict-Transport-Security &#34;max-age=31536000; preload&#34;
 </span></span></span><span class=line><span class=cl><span class=s>        X-Content-Type-Options nosniff
 </span></span></span><span class=line><span class=cl><span class=s>        X-Frame-Options SAMEORIGIN
 </span></span></span><span class=line><span class=cl><span class=s>    }
 </span></span></span><span class=line><span class=cl><span class=s>    encode gzip
-</span></span></span><span class=line><span class=cl><span class=s>    php_fastcgi unix//dev/shm/php-cgi.sock
-</span></span></span><span class=line><span class=cl><span class=s>    file_server
+</span></span></span><span class=line><span class=cl><span class=s>    # php_fastcgi unix//dev/shm/php-cgi.sock
+</span></span></span><span class=line><span class=cl><span class=s>    file_server browse
 </span></span></span><span class=line><span class=cl><span class=s>}
 </span></span></span><span class=line><span class=cl><span class=s>EOF</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>caddy fmt --overwrite /usr/local/caddy/conf/Caddyfile
-</span></span></code></pre></div><p>为相应文件夹赋予权限</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>chown -R caddy:caddy /usr/local/caddy
+</span></span><span class=line><span class=cl>caddy fmt --overwrite /etc/caddy/Caddyfile
+</span></span></code></pre></div><p>为相应文件夹赋予权限</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>chown -R caddy:caddy /etc/caddy
+</span></span><span class=line><span class=cl>chown -R caddy:caddy /var/lib/caddy
+</span></span><span class=line><span class=cl>chown -R caddy:caddy /var/log/caddy
 </span></span><span class=line><span class=cl>chown -R caddy:caddy /data/www
 </span></span></code></pre></div><hr><h3 id=安装-mariadb>安装 MariaDB</h3><p>可以使用预编译的二进制包安装或者源码编译进行安装，自行选择即可；我推荐使用二进制包进行安装。</p><h4 id=安装前的准备>安装前的准备</h4><p>为 MariaDB 创建用户组，创建安装目录并设置权限</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>groupadd mysql
 </span></span><span class=line><span class=cl>useradd -g mysql -M -s /usr/sbin/nologin mysql
