@@ -64,7 +64,7 @@ fill="currentColor">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt install -y gnupg
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="检测-cpu-支持版本">检测 CPU 支持版本&lt;/h4>
 &lt;p>XanMod 有各种版本，需依据 CPU ISA（指令集架构）而选择合适的版本，我们可以通过官方提供的脚本来确认：&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">awk -f &amp;lt;&lt;span class="o">(&lt;/span>wget -O - https://dl.xanmod.org/check_x86-64_psabi.sh&lt;span class="o">)&lt;/span>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">awk -f &amp;lt;&lt;span class="o">(&lt;/span>wget -qO- https://dl.xanmod.org/check_x86-64_psabi.sh&lt;span class="o">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>输出结果：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">CPU supports x86-64-v4
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里可以看到我的 CPU 是支持 v4 版本的，安装时可以按照此结果进行选择。&lt;/p>
