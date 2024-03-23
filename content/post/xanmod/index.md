@@ -83,7 +83,7 @@ apt install -y gnupg
 XanMod 有各种版本，需依据 CPU ISA（指令集架构）而选择合适的版本，我们可以通过官方提供的脚本来确认：
 
 ```bash
-awk -f <(wget -O - https://dl.xanmod.org/check_x86-64_psabi.sh)
+awk -f <(wget -qO- https://dl.xanmod.org/check_x86-64_psabi.sh)
 ```
 
 输出结果：
