@@ -39,62 +39,62 @@ fill="currentColor">
 &lt;/ol>
 &lt;p>&lt;code>-debian&lt;/code>&lt;/p>
 &lt;blockquote>
-&lt;p>可选 7-12 如安装 Debian 12 则参数为 &lt;code>-debian 12&lt;/code>&lt;/p>
+&lt;p>7-12 如安装 Debian 12 则参数为 &lt;code>-debian 12&lt;/code>&lt;/p>
 &lt;/blockquote>
 &lt;ol start="2">
 &lt;li>CentOS&lt;/li>
 &lt;/ol>
 &lt;p>&lt;code>-centos&lt;/code>&lt;/p>
 &lt;blockquote>
-&lt;p>可选 7、8/9-stream 如安装 CentOS7 则参数为 &lt;code>-centos 7&lt;/code> CentOS 9 为&lt;code>-centos 9-stream&lt;/code>&lt;/p>
+&lt;p>7、8/9-stream 如安装 CentOS7 则参数为 &lt;code>-centos 7&lt;/code> CentOS 9 为&lt;code>-centos 9-stream&lt;/code>&lt;/p>
 &lt;/blockquote>
 &lt;ol start="3">
 &lt;li>Ubuntu&lt;/li>
 &lt;/ol>
 &lt;p>&lt;code>-ubuntu&lt;/code>&lt;/p>
 &lt;blockquote>
-&lt;p>可选 20.04/22.04/24.04 ， 如 &lt;code>-ubuntu 24.04&lt;/code>&lt;/p>
+&lt;p>18.04/20.04/22.04 ， 如 &lt;code>-ubuntu 22.04&lt;/code>&lt;/p>
 &lt;/blockquote>
 &lt;ol start="4">
 &lt;li>Kali&lt;/li>
 &lt;/ol>
 &lt;p>&lt;code>-kali&lt;/code>&lt;/p>
 &lt;blockquote>
-&lt;p>可选 rolling/dev/experimental 分别对应 Kali Rolling, Development 和 Experimental ， 如 &lt;code>-kali rolling&lt;/code>&lt;/p>
+&lt;p>rolling/dev/experimental 分别对应 Kali Rolling, Development 和 Experimental ， 如 &lt;code>-kali rolling&lt;/code>&lt;/p>
 &lt;/blockquote>
 &lt;ol start="5">
 &lt;li>Alpine&lt;/li>
 &lt;/ol>
 &lt;p>&lt;code>-alpine&lt;/code>&lt;/p>
 &lt;blockquote>
-&lt;p>可选 3.16-3.18/edge ， 如 &lt;code>-alpine dege&lt;/code>&lt;/p>
+&lt;p>3.16-3.18/edge ， 如 &lt;code>-alpine dege&lt;/code>&lt;/p>
 &lt;/blockquote>
 &lt;ol start="6">
 &lt;li>AlmaLinux&lt;/li>
 &lt;/ol>
 &lt;p>&lt;code>almalinux&lt;/code> 或 &lt;code>alma&lt;/code>&lt;/p>
 &lt;blockquote>
-&lt;p>可选 8/9 ， 如 &lt;code>-alma 9&lt;/code>&lt;/p>
+&lt;p>8/9 ， 如 &lt;code>-alma 9&lt;/code>&lt;/p>
 &lt;/blockquote>
 &lt;ol start="7">
 &lt;li>RockyLinux&lt;/li>
 &lt;/ol>
 &lt;p>&lt;code>-rockylinux&lt;/code> 或 &lt;code>-rocky&lt;/code>&lt;/p>
 &lt;blockquote>
-&lt;p>可选 8/9 ， 如 &lt;code>-rocky 9&lt;/code>&lt;/p>
+&lt;p>8/9 ， 如 &lt;code>-rocky 9&lt;/code>&lt;/p>
 &lt;/blockquote>
 &lt;ol start="8">
 &lt;li>Fedora&lt;/li>
 &lt;/ol>
 &lt;p>&lt;code>-fedora&lt;/code>&lt;/p>
 &lt;blockquote>
-&lt;p>可选 38/39 ， 如 &lt;code>-fedora 39&lt;/code>&lt;/p>
+&lt;p>38/39 ， 如 &lt;code>-fedora 39&lt;/code>&lt;/p>
 &lt;/blockquote>
 &lt;ol start="9">
 &lt;li>Windows&lt;/li>
 &lt;/ol>
 &lt;blockquote>
-&lt;p>可选 10/11/2012/2016/2019/2022 ， 如 &lt;code>-windows 2022&lt;/code>&lt;/p>
+&lt;p>10/11/2012/2016/2019/2022 ， 如 &lt;code>-windows 2022&lt;/code>&lt;/p>
 &lt;/blockquote>
 &lt;p>可选发行版列表：&lt;/p>
 &lt;ul>
