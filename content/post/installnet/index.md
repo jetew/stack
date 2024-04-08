@@ -78,53 +78,53 @@ bash InstallNET.sh
 
 `-debian`
 
-  > 可选 7-12 如安装 Debian 12 则参数为 `-debian 12`
+  > 7-12 如安装 Debian 12 则参数为 `-debian 12`
 
 2. CentOS
 
 `-centos`
 
-  > 可选 7、8/9-stream 如安装 CentOS7 则参数为 `-centos 7` CentOS 9 为`-centos 9-stream`
+  > 7、8/9-stream 如安装 CentOS7 则参数为 `-centos 7` CentOS 9 为`-centos 9-stream`
 
 3. Ubuntu
 
 `-ubuntu`
 
-> 可选 20.04/22.04/24.04 ， 如 `-ubuntu 24.04`
+> 18.04/20.04/22.04 ， 如 `-ubuntu 22.04`
 
 4. Kali
 
 `-kali`
 
-  > 可选 rolling/dev/experimental 分别对应 Kali Rolling, Development 和 Experimental ， 如 `-kali rolling`
+  > rolling/dev/experimental 分别对应 Kali Rolling, Development 和 Experimental ， 如 `-kali rolling`
 
 5. Alpine
 
 `-alpine`
 
-  > 可选 3.16-3.18/edge ， 如 `-alpine dege`
+  > 3.16-3.18/edge ， 如 `-alpine dege`
 
 6. AlmaLinux
 
 `almalinux` 或 `alma`
 
-  > 可选 8/9 ， 如 `-alma 9`
+  > 8/9 ， 如 `-alma 9`
 
 7. RockyLinux
 
 `-rockylinux` 或 `-rocky`
 
-  > 可选 8/9 ， 如 `-rocky 9`
+  > 8/9 ， 如 `-rocky 9`
 
 8. Fedora
 
 `-fedora`
 
-  > 可选 38/39 ， 如 `-fedora 39`
+  > 38/39 ， 如 `-fedora 39`
 
 9. Windows
 
-  > 可选 10/11/2012/2016/2019/2022 ， 如 `-windows 2022`
+  > 10/11/2012/2016/2019/2022 ， 如 `-windows 2022`
 
 可选发行版列表：
 
